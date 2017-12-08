@@ -1,0 +1,11 @@
+@media (orientation:landscape) {
+  .hide-on-landscape {
+    display: none;
+  }
+}
+
+@media (orientation:portrait) {
+  .hide-on-portrait {
+    display: none;
+  }
+}

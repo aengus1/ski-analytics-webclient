@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-body">
+
+    <!-- mobile layout -->
+    <div class="d-block d-md-none">
+      <!-- menu for mobile display -->
+      <div class="hide-on-landscape">
+      <ul class="nav nav-pills nav-justified" role="tablist">
+        <li class="nav-item">
+          <a (click)="summaryDisplay = !summaryDisplay;" class="nav-link" [ngClass]="{'active' : summaryDisplay}" href="#">Summary</a>
+        </li>
+        <li class="nav-item">
+          <a (click)="summaryDisplay = !summaryDisplay" class="nav-link" [ngClass] = "{'active' : !summaryDisplay}"  href="#" >Map</a>
+        </li>
+      </ul>
+      </div>
+
+  <div class="hide-on-landscape">
+    <div [hidden] = "summaryDisplay==false">
+      <app-summary-panel-container></app-summary-panel-container>
+    </div>
+
+    <div [hidden] = "summaryDisplay==true">
+      <app-map-container></app-map-container>
+    </div>
+
+    </div>
+
+    <div class="hide-on-portrait">
+      <app-activity-graph-container></app-activity-graph-container>
+    </div>
+
+</div> <!--end of mobile layout -->
+
+    <!-- desktop layout -->
+    <div class="d-none d-md-block">
+      <app-summary-panel-container></app-summary-panel-container>
+      <app-activity-graph-container></app-activity-graph-container>
+      <app-map-container></app-map-container>
+    </div>
+
+</div>
+</div>
+
+
