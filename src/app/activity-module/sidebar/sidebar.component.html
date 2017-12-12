@@ -1,0 +1,22 @@
+<nav id="sidebar" [ngClass]="{active: panelOpen}" >
+  <div class="row">
+    <div class="col-md-9"></div>
+    <div class="col-md-3">
+      <button type="button"
+              class="btn btn-default grow"
+              (click)="close();"
+      >
+        <i class="fa fa-close grow"></i>
+      </button>
+    </div>
+  </div>
+
+    <div *ngIf="filterOpen">
+    <app-filter-container></app-filter-container>
+    </div>
+    <div *ngIf="attributeOpen">
+      <app-attribute-container></app-attribute-container>
+    </div>
+
+  </nav>
+

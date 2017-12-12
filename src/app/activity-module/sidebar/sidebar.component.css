@@ -1,0 +1,48 @@
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 100vh;
+  /*width: 25%;*/
+  /*float: right;*/
+  position: fixed;
+  right: 0;
+  width: 0;
+  height: 100%;
+  margin-left: -250px;
+  overflow-y: auto;
+  margin-right: -250px;
+
+
+  background: #7386D5;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+  padding: 20px;
+  background: #6d7fcc;
+}
+
+#sidebar.active {
+  margin-right: 0;
+}
+
+.btn{
+  background-color: transparent;
+}
+
+/deep/ .title-icon{
+  margin-left: 20px;
+}
+a[data-toggle="collapse"] {
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    margin-right: -250px;
+  }
+  #sidebar.active {
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,15 @@
+.affix-top,.affix{
+  position: static;
+}
+
+@media (min-width: 992px) {
+
+  #sidebar.affix-top {
+    position: static;
+  }
+
+  #sidebar.affix {
+    position: fixed;
+    top: 100px;
+  }
+}

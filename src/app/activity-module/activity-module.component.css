@@ -9,3 +9,37 @@
     display: none;
   }
 }
+
+.wrapper {
+  display: flex;
+  align-items: stretch;
+}
+
+.main-content {
+  /*width: 75%;*/
+  /*float: left;*/
+  width: 100%;
+  padding: 15px;
+
+}
+
+/deep/ button:hover i.fa {
+  color:#9b0722;
+}
+
+/deep/ .btn.btn-default.active,
+/deep/ .btn.btn-default:active {
+  color: #fff;
+  background-color: grey;
+  border-color: darkgrey;
+  outline: none;
+}
+/deep/ .btn:hover{
+  cursor: pointer;
+}
+
+/deep/ .grow { transition: all .2s ease-in-out; }
+/deep/ .grow:hover { transform: scale(1.1); }
+
+
+
