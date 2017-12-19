@@ -23,14 +23,14 @@
                   class="btn btn-default" [ngClass]="{'active':  filterOpen}"
                   aria-label="Left Align" (click)="toggleMobileFilter();"
           >
-            <i class="fa fa-filter grow" [ngClass]="{'active': panelOpen}"></i>
+            <i class="fa fa-filter grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
           </button>
           <!-- attribute toggle -->
           <button type="button"
                   class="btn btn-default" [ngClass]="{'active': attributeOpen}"
                   aria-label="Left Align" (click)="toggleMobileAttribute();"
           >
-            <i class="fa fa-edit grow" [ngClass]="{'active': panelOpen}"></i>
+            <i class="fa fa-edit grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
           </button>
             </div>
           </div>
@@ -77,7 +77,7 @@
                   class="btn btn-default" [ngClass]="{'active': sidebarOpen && filterOpen}"
                   aria-label="Left Align" (click)="toggleSidebarFilter();"
           >
-            <i class="fa fa-filter grow" [ngClass]="{'active': panelOpen}"></i>
+            <i class="fa fa-filter grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
           </button>
           <!-- attribute toggle -->
           <button type="button"
@@ -85,7 +85,7 @@
                   class="btn btn-default" [ngClass]="{'active': sidebarOpen && attributeOpen}"
                   aria-label="Left Align" (click)="toggleSidebarAttribute();"
           >
-            <i class="fa fa-edit grow" [ngClass]="{'active': panelOpen}"></i>
+            <i class="fa fa-edit grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
           </button>
               </div>
             </div>
