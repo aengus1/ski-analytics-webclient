@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { ActivityModuleComponent } from './activity-module/activity-module.component';
@@ -11,6 +10,8 @@ import { MapContainerComponent } from './activity-module/map-container/map-conta
 import { FilterContainerComponent } from './activity-module/sidebar/filter-container/filter-container.component';
 import { AttributeContainerComponent } from './activity-module/sidebar/attribute-container/attribute-container.component';
 import { SidebarComponent } from './activity-module/sidebar/sidebar.component';
+import {HttpClientModule} from '@angular/common/http';
+import {FetchActivityService} from './activity-module/services/fetch-activity.service';
 
 @NgModule({
   declarations: [
@@ -26,9 +27,9 @@ import { SidebarComponent } from './activity-module/sidebar/sidebar.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpClientModule
   ],
-  providers: [],
+  providers: [FetchActivityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
