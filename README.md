@@ -25,3 +25,11 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Problems
+### calling http.get resulted in this.handler.handle is not a function.  
+debugged this by:
+
+1. created test case in new project
+2. found that the server was responding with an error due to cors. configured server to respond
+3. googled typescript return blob

@@ -12,6 +12,8 @@ import { AttributeContainerComponent } from './activity-module/sidebar/attribute
 import { SidebarComponent } from './activity-module/sidebar/sidebar.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FetchActivityService} from './activity-module/services/fetch-activity.service';
+import { SummaryMetadataComponent } from './activity-module/summary-panel-container/summary-metadata/summary-metadata.component';
+import {TitleCasePipe} from './pipes/titlecase.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import {FetchActivityService} from './activity-module/services/fetch-activity.se
     MapContainerComponent,
     FilterContainerComponent,
     AttributeContainerComponent,
-    SidebarComponent
+    SidebarComponent,
+    SummaryMetadataComponent,
+    TitleCasePipe
   ],
   imports: [
     BrowserModule,

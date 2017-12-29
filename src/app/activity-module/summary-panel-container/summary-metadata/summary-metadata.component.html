@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-md-3">
+  <span>
+      <!--<label class="activityLabel">Activity: </label>-->
+      <span>{{ActivitySport[activity?.getMeta().getSport()] | titleCase}}</span>
+  </span>
+  </div>
+<div class="col-md-2">
+<span>{{activity?.getMeta().getCreatedts()}}</span>
+</div>
+  <div class="col-md-2">
+    <span>{{activity.getValues().getTemperatureList().entries().next().value}} + "°C"</span>
+  </div>
+  <div class="col-md-3">
+<span>{{activity?.getSummary().getTotaldistance()}}+ "Km"</span>
+  </div>
+  <div class="col-md-2">
+    <span>{{activity?.getSummary().getTotalelapsed()}}</span>
+  </div>
+</div>
+<!-- row 2 -->
+<div class="row">
+  <div class="col-md-3">
+    <span>{{ActivitySubSport[activity?.getMeta().getSubsport()] | titleCase}}</span>
+  </div>
+  <div class="col-md-2">
+
+  </div>
+  <div class="col-md-2">
+
+  </div>
+  <div class="col-md-3">
+
+  </div>
+  <div class="col-md-2">
+
+  </div>
+</div>
+
