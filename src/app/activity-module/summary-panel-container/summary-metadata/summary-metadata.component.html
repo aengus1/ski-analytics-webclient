@@ -1,39 +1,45 @@
+<div id="metadata-panel">
 <div class="row">
   <div class="col-md-3">
   <span>
       <!--<label class="activityLabel">Activity: </label>-->
-      <span>{{ActivitySport[activity?.getMeta().getSport()] | titleCase}}</span>
+      <span>{{((ActivitySport[activity?.getMeta().getSport()]) | titleCase) | removeUnderscore}}</span>
   </span>
   </div>
 <div class="col-md-2">
-<span>{{activity?.getMeta().getCreatedts()}}</span>
+<span>{{activity?.getMeta().getCreatedts() | date: 'dd MMM yyyy'}}</span>
 </div>
   <div class="col-md-2">
-    <span>{{activity.getValues().getTemperatureList().entries().next().value}} + "°C"</span>
+    <span>{{ activity?.getValues().getTemperatureList()[0]!=-999 ? ((activity?.getValues().getTemperatureList()[0])+ " °C" ) : ""}}</span>
   </div>
   <div class="col-md-3">
-<span>{{activity?.getSummary().getTotaldistance()}}+ "Km"</span>
+ <span> {{ activity?.getMeta().getLocation().split(',')[0]}}</span>
   </div>
   <div class="col-md-2">
-    <span>{{activity?.getSummary().getTotalelapsed()}}</span>
+    <span>{{activity?.getSummary().getTotaldistance() > 0 ?
+      ((activity?.getSummary().getTotaldistance()/1000)+" Km") : ""}}</span>
   </div>
 </div>
 <!-- row 2 -->
 <div class="row">
   <div class="col-md-3">
-    <span>{{ActivitySubSport[activity?.getMeta().getSubsport()] | titleCase}}</span>
+    <span>{{(ActivitySubSport[activity?.getMeta().getSubsport()] | titleCase) | removeUnderscore}}</span>
   </div>
   <div class="col-md-2">
-
+    {{activity?.getMeta().getCreatedts() | date: 'HH:mm:ss' }}
   </div>
   <div class="col-md-2">
-
+<!-- empty slot -->
   </div>
+
   <div class="col-md-3">
-
+<!-- location part 2 -->
+    {{activity?.getMeta().getLocation().substr(
+  activity?.getMeta().getLocation().split(',')[0].length+1,activity?.getMeta().getLocation().length) }}
   </div>
   <div class="col-md-2">
-
+    <span>{{activity?.getSummary().getTotaltimer() | interval }}</span><span> (hh:mm:ss)</span>
   </div>
 </div>
 
+</div>

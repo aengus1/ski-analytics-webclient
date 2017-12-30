@@ -11,8 +11,9 @@ export class SummaryPanelContainerComponent implements OnInit {
 
   constructor(private activityService: FetchActivityService) { }
 
-  loadActivity(){
-    this.activityService.getActivity().subscribe(data => {console.log(data.getMeta().getCreatedts()); },
+  loadActivity() {
+    this.activityService.getActivity().subscribe(
+      data => {console.log(data.getMeta().getCreatedts()); },
     err => {console.log(err); });
   }
   ngOnInit() {

@@ -14,6 +14,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {FetchActivityService} from './activity-module/services/fetch-activity.service';
 import { SummaryMetadataComponent } from './activity-module/summary-panel-container/summary-metadata/summary-metadata.component';
 import {TitleCasePipe} from './pipes/titlecase.pipe';
+import { IntervalPipe } from './pipes/interval.pipe';
+import { RemoveUnderscorePipe } from './pipes/remove-underscore.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import {TitleCasePipe} from './pipes/titlecase.pipe';
     AttributeContainerComponent,
     SidebarComponent,
     SummaryMetadataComponent,
-    TitleCasePipe
+    TitleCasePipe,
+    IntervalPipe,
+    RemoveUnderscorePipe
   ],
   imports: [
     BrowserModule,

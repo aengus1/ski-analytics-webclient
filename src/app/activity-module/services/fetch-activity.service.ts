@@ -10,7 +10,8 @@ export class FetchActivityService {
   constructor (private http: HttpClient) { }
 
   getActivity() {
-    return this.http.get( 'https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/run280317_0.pb', {responseType: 'arraybuffer'})
+    // return this.http.get( 'https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/run280317_0.pb', {responseType: 'arraybuffer'})
+    return this.http.get( 'https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/suunto_10.pb', {responseType: 'arraybuffer'})
       .map(res => Activity.deserializeBinary(new Uint8Array(res)));
   }
 }
