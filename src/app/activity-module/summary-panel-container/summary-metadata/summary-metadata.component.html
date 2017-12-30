@@ -1,45 +1,85 @@
 <div id="metadata-panel">
-<div class="row">
-  <div class="col-md-3">
-  <span>
-      <!--<label class="activityLabel">Activity: </label>-->
-      <span>{{((ActivitySport[activity?.getMeta().getSport()]) | titleCase) | removeUnderscore}}</span>
-  </span>
+  <!-- desktop layout -->
+<div class="row d-none d-md-flex">
+  <div class="col-md-3 hidden-md-down">
+      <span  class="activity-type activity-stat bold">{{((ActivitySport[activity?.getMeta().getSport()]) | titleCase) | removeUnderscore}}</span>
   </div>
 <div class="col-md-2">
-<span>{{activity?.getMeta().getCreatedts() | date: 'dd MMM yyyy'}}</span>
+<span  id="activity-created-date" class="activity-created-date activity-stat bold">{{activity?.getMeta().getCreatedts() | date: 'dd MMM yyyy'}}</span>
 </div>
   <div class="col-md-2">
-    <span>{{ activity?.getValues().getTemperatureList()[0]!=-999 ? ((activity?.getValues().getTemperatureList()[0])+ " °C" ) : ""}}</span>
+    <span class="activity-temp activity-stat">{{ activity?.getValues().getTemperatureList()[0]!=-999 ? ((activity?.getValues().getTemperatureList()[0])+ " °C" ) : ""}}</span>
   </div>
   <div class="col-md-3">
- <span> {{ activity?.getMeta().getLocation().split(',')[0]}}</span>
+ <span class="activity-location-1 activity-stat"> {{ activity?.getMeta().getLocation().split(',')[0]}}</span>
   </div>
   <div class="col-md-2">
-    <span>{{activity?.getSummary().getTotaldistance() > 0 ?
+    <span class="activity-distance activity-stat bold">{{activity?.getSummary().getTotaldistance() > 0 ?
       ((activity?.getSummary().getTotaldistance()/1000)+" Km") : ""}}</span>
   </div>
 </div>
 <!-- row 2 -->
-<div class="row">
+<div class="row d-none d-md-flex">
   <div class="col-md-3">
-    <span>{{(ActivitySubSport[activity?.getMeta().getSubsport()] | titleCase) | removeUnderscore}}</span>
+    <span  class="activity-subtype activity-sub-type">{{(ActivitySubSport[activity?.getMeta().getSubsport()] | titleCase) | removeUnderscore}}</span>
   </div>
   <div class="col-md-2">
-    {{activity?.getMeta().getCreatedts() | date: 'HH:mm:ss' }}
+    <span  class="activity-created-ts activity-stat">{{activity?.getMeta().getCreatedts() | date: 'HH:mm:ss' }} </span>
   </div>
   <div class="col-md-2">
 <!-- empty slot -->
   </div>
 
   <div class="col-md-3">
-<!-- location part 2 -->
+    <span  class="activity-location-2 activity-stat">
     {{activity?.getMeta().getLocation().substr(
   activity?.getMeta().getLocation().split(',')[0].length+1,activity?.getMeta().getLocation().length) }}
+      </span>
   </div>
   <div class="col-md-2">
-    <span>{{activity?.getSummary().getTotaltimer() | interval }}</span><span> (hh:mm:ss)</span>
+    <span class="activity-timer activity-stat bold">{{activity?.getSummary().getTotaltimer() | interval }}</span><span class="activity-stat-label"> hh:mm:ss</span>
   </div>
 </div>
+
+
+
+<!-- mobile layout -->
+  <div class="row d-flex d-md-none">
+    <div class="col-sm-6">
+      <span class="activity-type activity-stat bold">{{((ActivitySport[activity?.getMeta().getSport()]) | titleCase) | removeUnderscore}}</span>
+      <span class="activity-subtype activity-sub-type">{{(ActivitySubSport[activity?.getMeta().getSubsport()] | titleCase) | removeUnderscore}}</span>
+    </div>
+  </div>
+  <div class="row d-flex d-md-none">
+    <div class="col-sm-6">
+      <span  class="activity-created-date activity-stat bold">{{activity?.getMeta().getCreatedts() | date: 'dd MMM yyyy'}}</span>
+      <span class="activity-created-ts activity-stat">{{activity?.getMeta().getCreatedts() | date: 'HH:mm:ss' }} </span>
+    </div>
+  </div>
+  <div class="row d-flex d-md-none">
+    <div class="col-sm-6">
+      <span class="activity-temp activity-stat">{{ activity?.getValues().getTemperatureList()[0]!=-999 ? ((activity?.getValues().getTemperatureList()[0])+ " °C" ) : ""}}</span>
+    </div>
+  </div>
+  <div class="row d-flex d-md-none">
+    <div class="col-sm-12">
+      <span  class="activity-location-1 activity-stat"> {{ activity?.getMeta().getLocation().split(',')[0]}}</span>
+    </div>
+  </div>
+  <div class="row d-flex d-md-none">
+    <div class="col-sm-12">
+      <span  class="activity-location-2 activity-stat">
+    {{activity?.getMeta().getLocation().substr(
+  activity?.getMeta().getLocation().split(',')[0].length+1,activity?.getMeta().getLocation().length) }}
+      </span>
+    </div>
+  </div>
+  <div class="row d-flex d-md-none">
+    <div class="col-sm-6">
+    <span  class="activity-distance activity-stat bold">{{activity?.getSummary().getTotaldistance() > 0 ?
+      ((activity?.getSummary().getTotaldistance()/1000)+" Km") : ""}}</span>
+      <span class="activity-timer activity-stat bold">{{activity?.getSummary().getTotaltimer() | interval }}</span><span class="activity-stat-label"> hh:mm:ss</span>
+    </div>
+  </div>
 
 </div>

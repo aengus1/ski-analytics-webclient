@@ -1,52 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import {FetchActivityService} from '../../services/fetch-activity.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {ActivityService} from '../../../services/activity.service';
 import {Activity} from '../../../model/Activity_pb';
 import {TitleCasePipe} from '../../../pipes/titlecase.pipe';
 import {RemoveUnderscorePipe} from '../../../pipes/remove-underscore.pipe';
 import {IntervalPipe} from '../../../pipes/interval.pipe';
-
+import {MockActivityService} from '../../../services/mock.activity.service';
 
 
 @Component({
   selector: 'app-summary-metadata',
   templateUrl: './summary-metadata.component.html',
   styleUrls: ['./summary-metadata.component.css'],
-  providers: [TitleCasePipe, IntervalPipe, RemoveUnderscorePipe ]
+  providers: [TitleCasePipe, IntervalPipe, RemoveUnderscorePipe]
 })
 export class SummaryMetadataComponent implements OnInit {
 
-  // todo -> move activity up to activitymodule component
+
   public activity: Activity;
-  public  ActivitySport = [];
-  public  ActivitySubSport = [];
+  public ActivitySport: string[];
+  public ActivitySubSport: string[];
 
 
-  constructor(private activityService: FetchActivityService ) { }
+  constructor(private activityService: MockActivityService) {
+  }
 
   ngOnInit() {
+      this.activityService.getActivity('1').subscribe(data => {
+      this.activity = data;
+    });
 
-    // this mapping reversal needs to be done on all proto enum types
+    this.ActivitySport = this.activityService.getActivitySport();
+    this.ActivitySubSport = this.activityService.getActivitySubSport();
 
-    let i = 0;
-    for (const v in Activity.Sport) {
-      this.ActivitySport[i++] = v;
-    }
-    i = 0;
-    for (const v in Activity.SubSport) {
-      this.ActivitySubSport[i++] = v;
-    }
 
-    this.activityService.getActivity().subscribe(
-      data => {
-        this.activity = data;
-        // todo -> remove this from production code. just to test display as these values are not included in test data
-        this.activity.getMeta().setSubsport(Activity.SubSport.CARDIO_TRAINING);
-        this.activity.getMeta().setLocation('Goldbar, Edmonton');
-        this.activity.getValues().getTemperatureList()[0] = -4;
-
-      },
-      err => {console.log(err); }
-    );
   }
 
 

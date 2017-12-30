@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { FetchActivityService } from './fetch-activity.service';
+import { ActivityService } from './activity.service';
 
 describe('FetchActivityService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FetchActivityService]
+      providers: [ActivityService]
     });
   });
 
-  it('should be created', inject([FetchActivityService], (service: FetchActivityService) => {
+  it('should be created', inject([ActivityService], (service: ActivityService) => {
     expect(service).toBeTruthy();
   }));
 });

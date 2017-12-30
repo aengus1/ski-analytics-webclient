@@ -1,5 +1,8 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {SidebarComponent} from './sidebar/sidebar.component';
+import {ActivityService} from '../services/activity.service';
+import {Activity} from '../model/Activity_pb';
+
 
 @Component({
   selector: 'app-activity-module',
@@ -15,7 +18,7 @@ export class ActivityModuleComponent implements OnInit, AfterViewChecked {
   filterOpen = false;
   attributeOpen = false;
 
-  constructor(private cdRef: ChangeDetectorRef) { }
+  constructor(private cdRef: ChangeDetectorRef ) { }
 
 
   ngOnInit() {
