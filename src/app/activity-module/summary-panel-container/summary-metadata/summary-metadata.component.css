@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One');
+
+#metadata-panel {
+  background: lightblue;
+}
+
+.activity-stat {
+  font-family: 'Garamond', sans-serif;
+  font-size: 18px;
+  color: black;
+}
+
+.activity-stat-label {
+  font-family: 'Garamond', sans-serif;
+  font-size: 12px;
+  color: black;
+}
+
+.activity-stat.bold {
+  font-weight: 900;
+}
+.activity-sub-type {
+  font-style: italic;
+  color: #52A6D5;
+  font-size: 12px;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+

@@ -1,0 +1,39 @@
+import {Component, Input, OnInit} from '@angular/core';
+import {ActivityService} from '../../../services/activity.service';
+import {Activity} from '../../../model/Activity_pb';
+import {TitleCasePipe} from '../../../pipes/titlecase.pipe';
+import {RemoveUnderscorePipe} from '../../../pipes/remove-underscore.pipe';
+import {IntervalPipe} from '../../../pipes/interval.pipe';
+import {MockActivityService} from '../../../services/mock.activity.service';
+
+
+@Component({
+  selector: 'app-summary-metadata',
+  templateUrl: './summary-metadata.component.html',
+  styleUrls: ['./summary-metadata.component.css'],
+  providers: [TitleCasePipe, IntervalPipe, RemoveUnderscorePipe]
+})
+export class SummaryMetadataComponent implements OnInit {
+
+
+  public activity: Activity;
+  public ActivitySport: string[];
+  public ActivitySubSport: string[];
+
+
+  constructor(private activityService: MockActivityService) {
+  }
+
+  ngOnInit() {
+      this.activityService.getActivity('1').subscribe(data => {
+      this.activity = data;
+    });
+
+    this.ActivitySport = this.activityService.getActivitySport();
+    this.ActivitySubSport = this.activityService.getActivitySubSport();
+
+
+  }
+
+
+}

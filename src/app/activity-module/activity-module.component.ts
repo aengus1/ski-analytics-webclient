@@ -1,12 +1,15 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {SidebarComponent} from './sidebar/sidebar.component';
+import {ActivityService} from '../services/activity.service';
+import {Activity} from '../model/Activity_pb';
+
 
 @Component({
   selector: 'app-activity-module',
   templateUrl: './activity-module.component.html',
   styleUrls: ['./activity-module.component.css']
 })
-export class ActivityModuleComponent implements OnInit {
+export class ActivityModuleComponent implements OnInit, AfterViewChecked {
 
   @ViewChild(SidebarComponent) sidebar;
 
@@ -15,10 +18,14 @@ export class ActivityModuleComponent implements OnInit {
   filterOpen = false;
   attributeOpen = false;
 
-  constructor() { }
+  constructor(private cdRef: ChangeDetectorRef ) { }
 
 
   ngOnInit() {
+  }
+
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
   }
 
   toggleSidebarFilter() {

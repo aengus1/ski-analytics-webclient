@@ -11,7 +11,12 @@ import { FilterContainerComponent } from './activity-module/sidebar/filter-conta
 import { AttributeContainerComponent } from './activity-module/sidebar/attribute-container/attribute-container.component';
 import { SidebarComponent } from './activity-module/sidebar/sidebar.component';
 import {HttpClientModule} from '@angular/common/http';
-import {FetchActivityService} from './activity-module/services/fetch-activity.service';
+import {ActivityService} from './services/activity.service';
+import { SummaryMetadataComponent } from './activity-module/summary-panel-container/summary-metadata/summary-metadata.component';
+import {TitleCasePipe} from './pipes/titlecase.pipe';
+import { IntervalPipe } from './pipes/interval.pipe';
+import { RemoveUnderscorePipe } from './pipes/remove-underscore.pipe';
+import {MockActivityService} from './services/mock.activity.service';
 
 @NgModule({
   declarations: [
@@ -22,14 +27,18 @@ import {FetchActivityService} from './activity-module/services/fetch-activity.se
     MapContainerComponent,
     FilterContainerComponent,
     AttributeContainerComponent,
-    SidebarComponent
+    SidebarComponent,
+    SummaryMetadataComponent,
+    TitleCasePipe,
+    IntervalPipe,
+    RemoveUnderscorePipe
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule
   ],
-  providers: [FetchActivityService],
+  providers: [ActivityService, MockActivityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
