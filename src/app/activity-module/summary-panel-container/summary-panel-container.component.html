@@ -1,6 +1,40 @@
+<!-- metadata panel -->
 <div class="card">
   <app-summary-metadata></app-summary-metadata>
-  <div class="card-body">
-    <h1>Summary Panel Container</h1>
-  </div>
 </div>
+<div class="container">
+
+<div class="row">
+
+  <!-- speed box plot -->
+  <div class="col-md-2">
+    <div class="card " style="background-color: lightskyblue; border-color: #333;">
+      <div class="card-body">
+        <h6 class="card-title ">Speed</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Km/h</h6>
+        <div class="card-body">
+          <app-d3-boxplot [width]="60" [height]="80"  [data]="speedData"></app-d3-boxplot>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- speed box plot -->
+  <!--<div class="col-md-2">-->
+  <!--<div class="card " style="background-color: lightskyblue; border-color: #333;">-->
+    <!--<div class="card-body">-->
+      <!--<h6 class="card-title ">Speed</h6>-->
+      <!--<h6 class="card-subtitle mb-2 text-muted">Km/h</h6>-->
+      <!--<div class="card-body">-->
+        <!--<app-d3-boxplot [width]="60" [height]="80"  [data]=""></app-d3-boxplot>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+
+
+</div>
+
+</div>
+
+
