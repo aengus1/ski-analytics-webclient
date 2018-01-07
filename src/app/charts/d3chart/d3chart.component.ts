@@ -1,12 +1,15 @@
-import {Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {D3, D3Service, Selection} from 'd3-ng2-service';
 
 
+// this is an abstract component.  Compiler is complaining that abstract components are not allowed to be
+// registered in app.module.  This may be a bug in angular - once fixed, mark this class as abstract, as well as the
+// updateChart and createChart methods
 @Component({
   selector: 'app-d3chart',
   template: `<svg></svg>`
 })
-export abstract class D3chartComponent implements OnInit,OnChanges  {
+export  class D3chartComponent implements OnInit, OnChanges  {
 
   protected d3: D3;
   protected parentNativeElement: any;
@@ -22,7 +25,9 @@ export abstract class D3chartComponent implements OnInit,OnChanges  {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.chartCreated) {
+
+    // data input is subject to change from filters being applied or async loading from http.
+    if (this.chartCreated && changes['data']) {
       this.updateChart();
     }
   }
@@ -30,13 +35,14 @@ export abstract class D3chartComponent implements OnInit,OnChanges  {
   ngOnInit(): void {
     this.d3Svg =  this.d3.select(this.parentNativeElement).select<SVGSVGElement>('svg');
     this.createChart();
+
     this.chartCreated = true;
     if (this.data) {
       this.updateChart();
     }
   }
-  public abstract createChart();
+  public  createChart() {}
 
-  public abstract updateChart();
+  public  updateChart() {}
 
 }

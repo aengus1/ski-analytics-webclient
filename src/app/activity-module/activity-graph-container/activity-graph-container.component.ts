@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {D3BoxplotComponent} from "../../charts/d3-boxplot/d3-boxplot.component";
-import {ActivityService} from "../../services/activity.service";
-import {Activity} from "../../model/Activity_pb";
-import {Observable} from "rxjs/Observable";
+import {ActivityService} from '../../services/activity-service/activity.service';
+import {Activity} from '../../model/Activity_pb';
 
 @Component({
   selector: 'app-activity-graph-container',
@@ -21,10 +19,10 @@ export class ActivityGraphContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-     this.activityService.getActivity( "1" ).subscribe( v => {
+     this.activityService.getActivity( '1' ).subscribe( v => {
        this.activity = v;
        const res = [];
-       res[0] = this.activity.getValues().getSpeedList().filter(v => { return Math.floor(v);});
+       res[0] = this.activity.getValues().getSpeedList().filter(v => Math.floor(v));
        this.speedData = res;
      });
   }

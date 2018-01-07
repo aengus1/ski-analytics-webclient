@@ -19,7 +19,6 @@ export class BoxPlot {
   /**
    * Builds the box plot based on a D3 SVG selection using the provided d3 service
    * @param {Selection<any, SVGSVGElement, any, any>} g
-   * @param {D3} d3
    */
   public build(g: Selection<any, SVGSVGElement, any, any>): void {
     const value = Number;
@@ -132,12 +131,11 @@ export class BoxPlot {
         .data([quartileData]);
       box.enter().append('rect')
         .attr('class', 'box')
-        .style('fill', '#fff')
-        .style('stroke', '#000')
-        .style('stroke-width', '1.5 px')
+        // .style('fill', '#fff')
+        // .style('stroke', '#000')
+        // .style('stroke-width', '1.5 px')
         .attr('x', 0)
         .attr('y', function (dd) {
-          console.log('x0 = ' + x0);
           return x0(dd[2]);
         })
         .attr('width', widthV)
@@ -167,9 +165,9 @@ export class BoxPlot {
 
       medianLine.enter().append('line')
         .attr('class', 'median')
-        .style('fill', '#fff')
-        .style('stroke', '#000')
-        .style('stroke-width', '1.5 px')
+        // .style('fill', '#fff')
+        // .style('stroke', '#000')
+        // .style('stroke-width', '1.5 px')
         .attr('x1', 0)
         .attr('y1', x0)
         .attr('x2', widthV)
@@ -190,9 +188,9 @@ export class BoxPlot {
 
       whisker.enter().insert('line', 'circle, text')
         .attr('class', 'whisker')
-        .style('fill', '#fff')
-        .style('stroke', '#000')
-        .style('stroke-width', '1.5 px')
+        // .style('fill', '#fff')
+        // .style('stroke', '#000')
+        // .style('stroke-width', '1.5 px')
         .attr('x1', 0)
         .attr('y1', x0)
         .attr('x2', widthV)
@@ -219,14 +217,16 @@ export class BoxPlot {
 
       // Update outliers.
       const outlier = g.selectAll('circle.outlier')
-        .style('fill', 'none')
-        .style('stroke', '#ccc')
+        // .style('fill', 'none')
+        // .style('stroke', '#ccc')
         .data(outlierIndices);
       // .data(outlierIndices, Number);
 
       outlier.enter().insert('circle', 'text')
         .attr('class', 'outlier')
-        .attr('r', 5)
+        // .style('fill', 'none')
+        // .style('stroke', '#ccc')
+        .attr('r', 1)
         .attr('cx', widthV / 2)
         .attr('cy', function (ii: number) {
           return x0(d[ii]);
@@ -264,8 +264,8 @@ export class BoxPlot {
       boxTick.enter().append('text')
         .attr('class', 'box')
         .attr('dy', '.3em')
-        .style('font-size', '10px')
-        .style('font-style', 'sans-serif')
+        // .style('font-size', '10px')
+        // .style('font-style', 'sans-serif')
         .attr('dx', function (dd, ii) {
           return ii & 1 ? 6 : -6;
         })
@@ -299,8 +299,8 @@ export class BoxPlot {
         .attr('x', widthV)
         .attr('y', x0)
         .text(format)
-        .style('font-size', '10px')
-        .style('font-style', 'sans-serif')
+        // .style('font-size', '10px')
+        // .style('font-style', 'sans-serif')
         .style('opacity', 1e-6)
         .transition()
         .duration(duration)

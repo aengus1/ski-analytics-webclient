@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivityService} from './activity.service';
-import {Activity} from '../model/Activity_pb';
+import {Activity} from '../../model/Activity_pb';
 
 @Injectable()
 export class MockActivityService extends ActivityService {

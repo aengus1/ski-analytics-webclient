@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input} from '@angular/core';
+import {Component, ElementRef, ViewEncapsulation} from '@angular/core';
 import {D3chartComponent} from '../d3chart/d3chart.component';
 import {D3Service} from 'd3-ng2-service';
 import {BoxPlot} from './boxplot';
@@ -6,9 +6,9 @@ import {BoxPlot} from './boxplot';
 
 @Component({
   selector: 'app-d3-boxplot',
-  template: `
-    <svg></svg>`,
-  styleUrls: ['./d3-boxplot.component.css']
+  template: `<svg></svg>`,
+  styleUrls: ['./d3-boxplot.component.css'],
+  encapsulation: ViewEncapsulation.None      // this forces angular to respect css class names on d3 elements
 })
 export class D3BoxplotComponent extends D3chartComponent {
 
@@ -16,7 +16,6 @@ export class D3BoxplotComponent extends D3chartComponent {
   private max: any;
   private chart: BoxPlot;
   private margin: any;
-  @Input() data2: Array<any>;
 
   constructor(element: ElementRef, d3Service: D3Service) {
     super(element, d3Service);
@@ -28,6 +27,7 @@ export class D3BoxplotComponent extends D3chartComponent {
     this.min = Infinity;
     this.max = -Infinity;
 
+     // set up the svg element and the chart
     if (this.parentNativeElement !== null) {
       this.d3Svg.attr('width', this.width);
       this.d3Svg.attr('height', this.height);
@@ -37,12 +37,17 @@ export class D3BoxplotComponent extends D3chartComponent {
       this.chart.whiskers(this.iqr(1.5));
       this.chart.width(this.width - this.margin.left - this.margin.right);
       this.chart.height(this.height - this.margin.top - this.margin.bottom);
-
-      this.calcMinMax();
     }
   }
 
+
   public updateChart() {
+    // base
+    if (!this.data) {
+      return;
+    }
+    this.calcMinMax();
+
     const sel = this.d3Svg.selectAll('svg')
       .data(this.data)
       .enter()
@@ -50,12 +55,9 @@ export class D3BoxplotComponent extends D3chartComponent {
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
     this.chart.build(sel);
+
   }
 
-  public click() {
-    this.data = this.data2;
-    this.updateChart();
-  }
 
   /*
    * calculate interquartile range

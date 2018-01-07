@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map';
-import {Activity} from '../model/Activity_pb';
+import {Activity} from '../../model/Activity_pb';
 
 
 @Injectable()
@@ -17,12 +17,9 @@ export class ActivityService implements OnInit {
   }
 
   getActivity(id: string) {
-    // return this.http.get( 'https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/run280317_0.pb', {responseType: 'arraybuffer'})
-    return this.http.get('https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/suunto_10.pb', {responseType: 'arraybuffer'})
-      .map(res => {
-        const activity =  Activity.deserializeBinary(new Uint8Array(res));
-        return activity;
-      });
+     return this.http.get( 'https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/run280317_0.pb', {responseType: 'arraybuffer'})
+    // return this.http.get('https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/suunto_10.pb', {responseType: 'arraybuffer'})
+      .map(res => Activity.deserializeBinary(new Uint8Array(res)));
   }
 
   getActivitySport() {
