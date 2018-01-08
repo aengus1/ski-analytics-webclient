@@ -26,4 +26,16 @@
   font-family: 'Fjalla One', sans-serif;
 }
 
+.card-body{
+  padding: 0.4rem;
+}
+/*div.card::after{*/
+  /*box-sizing: unset;*/
+/*}*/
+
+
+
+
+
+
 
