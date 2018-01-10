@@ -5,7 +5,7 @@ export class BoxPlot {
   private width_v: number;
   private height_v: number;
   private whiskers_v: ((number) => number[]);
-  private domain_v: number[];
+  private domain_v;
   private d3: D3;
 
 
@@ -26,6 +26,7 @@ export class BoxPlot {
     const tickFormat = null;
     const widthV: number = this.width_v;
     const heightV: number = this.height_v;
+    const domainV = this.domain_v;
     const whiskers: any = this.whiskers_v;
     const d3 = this.d3;
     let chart: any;
@@ -82,10 +83,6 @@ export class BoxPlot {
         .data(whiskerData ? [whiskerData] : []);
       center.enter().insert('line', 'rect')
         .attr('class', 'center')
-        .style('fill', '#fff')
-        .style('stroke', '#000')
-        .style('stroke-width', '1.5 px')
-        .style('stroke-dasharray', '3,3')
         .attr('x1', widthV / 2)
         .attr('y1', function (dd) {
           return x0(dd[0]);
@@ -105,15 +102,15 @@ export class BoxPlot {
           return x1(dd[1]);
         });
 
-      center.transition()
-        .duration(duration)
-        .style('opacity', 1)
-        .attr('y1', function (dd) {
-          return x1(dd[0]);
-        })
-        .attr('y2', function (dd) {
-          return x1(dd[1]);
-        });
+      // center.transition()
+      //   .duration(duration)
+      //   .style('opacity', 1)
+      //   .attr('y1', function (dd) {
+      //     return x1(dd[0]);
+      //   })
+      //   .attr('y2', function (dd) {
+      //     return x1(dd[1]);
+      //   });
 
       center.exit().transition()
         .duration(duration)
@@ -131,9 +128,6 @@ export class BoxPlot {
         .data([quartileData]);
       box.enter().append('rect')
         .attr('class', 'box')
-        // .style('fill', '#fff')
-        // .style('stroke', '#000')
-        // .style('stroke-width', '1.5 px')
         .attr('x', 0)
         .attr('y', function (dd) {
           return x0(dd[2]);
@@ -141,14 +135,6 @@ export class BoxPlot {
         .attr('width', widthV)
         .attr('height', function (dd) {
           return x0(dd[0]) - x0(dd[2]);
-        })
-        .transition()
-        .duration(duration)
-        .attr('y', function (dd) {
-          return x1(dd[2]);
-        })
-        .attr('height', function (dd) {
-          return x1(dd[0]) - x1(d[2]);
         })
         .transition()
         .duration(duration)
@@ -165,19 +151,11 @@ export class BoxPlot {
 
       medianLine.enter().append('line')
         .attr('class', 'median')
-        // .style('fill', '#fff')
-        // .style('stroke', '#000')
-        // .style('stroke-width', '1.5 px')
         .attr('x1', 0)
         .attr('y1', x0)
         .attr('x2', widthV)
         .attr('y2', x0)
         .transition()
-        .duration(duration)
-        .attr('y1', x1)
-        .attr('y2', x1);
-
-      medianLine.transition()
         .duration(duration)
         .attr('y1', x1)
         .attr('y2', x1);
@@ -188,9 +166,6 @@ export class BoxPlot {
 
       whisker.enter().insert('line', 'circle, text')
         .attr('class', 'whisker')
-        // .style('fill', '#fff')
-        // .style('stroke', '#000')
-        // .style('stroke-width', '1.5 px')
         .attr('x1', 0)
         .attr('y1', x0)
         .attr('x2', widthV)
@@ -217,15 +192,10 @@ export class BoxPlot {
 
       // Update outliers.
       const outlier = g.selectAll('circle.outlier')
-        // .style('fill', 'none')
-        // .style('stroke', '#ccc')
         .data(outlierIndices);
-      // .data(outlierIndices, Number);
 
       outlier.enter().insert('circle', 'text')
         .attr('class', 'outlier')
-        // .style('fill', 'none')
-        // .style('stroke', '#ccc')
         .attr('r', 1)
         .attr('cx', widthV / 2)
         .attr('cy', function (ii: number) {
@@ -264,8 +234,6 @@ export class BoxPlot {
       boxTick.enter().append('text')
         .attr('class', 'box')
         .attr('dy', '.3em')
-        // .style('font-size', '10px')
-        // .style('font-style', 'sans-serif')
         .attr('dx', function (dd, ii) {
           return ii & 1 ? 6 : -6;
         })
@@ -299,8 +267,6 @@ export class BoxPlot {
         .attr('x', widthV)
         .attr('y', x0)
         .text(format)
-        // .style('font-size', '10px')
-        // .style('font-style', 'sans-serif')
         .style('opacity', 1e-6)
         .transition()
         .duration(duration)

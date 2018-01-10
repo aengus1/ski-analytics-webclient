@@ -9,7 +9,7 @@ import {D3, D3Service, Selection} from 'd3-ng2-service';
   selector: 'app-d3chart',
   template: `<svg></svg>`
 })
-export  class D3chartComponent implements OnInit, OnChanges  {
+export  class D3ChartComponent implements OnInit, OnChanges  {
 
   protected d3: D3;
   protected parentNativeElement: any;

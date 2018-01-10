@@ -1,5 +1,5 @@
 import {Component, ElementRef, ViewEncapsulation} from '@angular/core';
-import {D3chartComponent} from '../d3chart/d3chart.component';
+import {D3ChartComponent} from '../d3chart/d3chart.component';
 import {D3Service} from 'd3-ng2-service';
 import {BoxPlot} from './boxplot';
 
@@ -10,7 +10,7 @@ import {BoxPlot} from './boxplot';
   styleUrls: ['./d3-boxplot.component.css'],
   encapsulation: ViewEncapsulation.None      // this forces angular to respect css class names on d3 elements
 })
-export class D3BoxplotComponent extends D3chartComponent {
+export class D3BoxplotComponent extends D3ChartComponent {
 
   private min: any;
   private max: any;
@@ -47,7 +47,6 @@ export class D3BoxplotComponent extends D3chartComponent {
       return;
     }
     this.calcMinMax();
-
     const sel = this.d3Svg.selectAll('svg')
       .data(this.data)
       .enter()

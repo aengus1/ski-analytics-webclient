@@ -18,7 +18,7 @@ import { IntervalPipe } from './pipes/interval.pipe';
 import { RemoveUnderscorePipe } from './pipes/remove-underscore.pipe';
 import {MockActivityService} from './services/activity-service/mock.activity.service';
 import {D3BoxplotComponent} from './charts/d3-boxplot/d3-boxplot.component';
-import {D3chartComponent} from './charts/d3chart/d3chart.component';
+import {D3ChartComponent} from './charts/d3chart/d3chart.component';
 import {D3Service} from 'd3-ng2-service';
 
 
@@ -37,7 +37,7 @@ import {D3Service} from 'd3-ng2-service';
     IntervalPipe,
     RemoveUnderscorePipe,
     D3BoxplotComponent,
-    D3chartComponent
+    D3ChartComponent
   ],
   imports: [
     BrowserModule,
