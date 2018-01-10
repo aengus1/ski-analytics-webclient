@@ -11,12 +11,16 @@ import { FilterContainerComponent } from './activity-module/sidebar/filter-conta
 import { AttributeContainerComponent } from './activity-module/sidebar/attribute-container/attribute-container.component';
 import { SidebarComponent } from './activity-module/sidebar/sidebar.component';
 import {HttpClientModule} from '@angular/common/http';
-import {ActivityService} from './services/activity.service';
+import {ActivityService} from './services/activity-service/activity.service';
 import { SummaryMetadataComponent } from './activity-module/summary-panel-container/summary-metadata/summary-metadata.component';
 import {TitleCasePipe} from './pipes/titlecase.pipe';
 import { IntervalPipe } from './pipes/interval.pipe';
 import { RemoveUnderscorePipe } from './pipes/remove-underscore.pipe';
-import {MockActivityService} from './services/mock.activity.service';
+import {MockActivityService} from './services/activity-service/mock.activity.service';
+import {D3BoxplotComponent} from './charts/d3-boxplot/d3-boxplot.component';
+import {D3ChartComponent} from './charts/d3chart/d3chart.component';
+import {D3Service} from 'd3-ng2-service';
+
 
 @NgModule({
   declarations: [
@@ -31,14 +35,16 @@ import {MockActivityService} from './services/mock.activity.service';
     SummaryMetadataComponent,
     TitleCasePipe,
     IntervalPipe,
-    RemoveUnderscorePipe
+    RemoveUnderscorePipe,
+    D3BoxplotComponent,
+    D3ChartComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule
   ],
-  providers: [ActivityService, MockActivityService],
+  providers: [ActivityService, MockActivityService, D3Service],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

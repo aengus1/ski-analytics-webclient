@@ -1,7 +1,5 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {SidebarComponent} from './sidebar/sidebar.component';
-import {ActivityService} from '../services/activity.service';
-import {Activity} from '../model/Activity_pb';
 
 
 @Component({
