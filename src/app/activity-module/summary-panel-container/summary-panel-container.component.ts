@@ -13,6 +13,7 @@ export class SummaryPanelContainerComponent implements OnInit  {
   private activity: Activity;
   private activityService: ActivityService;
   public  speedData: number[][];
+  public  hrData: number[][];
 
   constructor(activityService: ActivityService) {
     this.activityService = activityService;
@@ -26,6 +27,13 @@ export class SummaryPanelContainerComponent implements OnInit  {
       res[0] = this.activity.getValues().getSpeedList(); // .filter(d => Math.floor(d));
       res[0] = res[0].filter(d => ( d !== -999 ));
       this.speedData = res;
+
+      const hrres = [];
+      hrres[0] = this.activity.getValues().getHrList(); // .filter(d => Math.floor(d));
+      hrres[0] = hrres[0].filter(d => ( d !== -999 ));
+      this.hrData = hrres;
+
+      console.log(this.activity.getSummary().getHasattributemapMap().getEntryList());
     });
   }
 }
