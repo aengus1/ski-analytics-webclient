@@ -2,6 +2,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ActivityModuleComponent } from './activity-module.component';
+import {FilterContainerComponent} from '../filter-container/filter-container.component';
+import {SharedModule} from '../../../shared/shared.module';
+
 
 describe('ActivityModuleComponent', () => {
   let component: ActivityModuleComponent;
@@ -9,7 +12,8 @@ describe('ActivityModuleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ActivityModuleComponent ]
+      declarations: [ ActivityModuleComponent ],
+      imports: [SharedModule]
     })
     .compileComponents();
   }));
