@@ -1,5 +1,6 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {SidebarComponent} from './sidebar/sidebar.component';
+import {SidebarComponent} from '../../../shared/components/sidebar/sidebar.component';
+
 
 
 @Component({

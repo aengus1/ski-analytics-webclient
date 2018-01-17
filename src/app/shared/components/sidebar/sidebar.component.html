@@ -10,13 +10,13 @@
       </button>
     </div>
   </div>
-
-    <div *ngIf="filterOpen">
-    <app-filter-container></app-filter-container>
-    </div>
-    <div *ngIf="attributeOpen">
-      <app-attribute-container></app-attribute-container>
-    </div>
+    <ng-content></ng-content>
+    <!--<div *ngIf="filterOpen">-->
+    <!--<app-filter-container></app-filter-container>-->
+    <!--</div>-->
+    <!--<div *ngIf="attributeOpen">-->
+      <!--<app-attribute-container></app-attribute-container>-->
+    <!--</div>-->
 
   </nav>
 
