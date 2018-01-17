@@ -1,9 +1,9 @@
 import {Component,  OnInit} from '@angular/core';
-import {Activity} from '../../../model/Activity_pb';
-import {TitleCasePipe} from '../../../pipes/titlecase.pipe';
-import {RemoveUnderscorePipe} from '../../../pipes/remove-underscore.pipe';
-import {IntervalPipe} from '../../../pipes/interval.pipe';
-import {MockActivityService} from '../../../services/activity-service/mock.activity.service';
+import {Activity} from '../../model/Activity_pb';
+import {TitleCasePipe} from '../../../shared/pipes/titlecase.pipe';
+import {RemoveUnderscorePipe} from '../../../shared/pipes/remove-underscore.pipe';
+import {IntervalPipe} from '../../../shared/pipes/interval.pipe';
+import {MockActivityService} from '../../services/activity-service/mock.activity.service';
 
 
 @Component({

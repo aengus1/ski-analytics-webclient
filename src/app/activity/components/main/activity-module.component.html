@@ -1,0 +1,116 @@
+<div class="card">
+  <div class="card-body">
+
+    <!-- mobile layout -->
+    <div class="d-block d-md-none">
+      <!-- menu for mobile display -->
+      <div class="hide-on-landscape">
+      <ul class="nav nav-pills nav-justified" role="tablist">
+        <li class="nav-item">
+          <a (click)="summaryDisplay = !summaryDisplay;" class="nav-link" [ngClass]="{'active' : summaryDisplay}" href="#">Summary</a>
+        </li>
+        <li class="nav-item">
+          <a (click)="summaryDisplay = !summaryDisplay" class="nav-link" [ngClass] = "{'active' : !summaryDisplay}"  href="#" >Map</a>
+        </li>
+      </ul>
+
+        <div class="row">
+          <div class="col-sm-8"></div>
+          <div class="col-sm-2">
+            <div class="row">
+          <!-- filter toggle -->
+              <!-- TODO -> re-enable these after sidebar status has been reduxified -->
+          <!--<button type="button"-->
+                  <!--class="btn btn-default" [ngClass]="{'active':  filterOpen}"-->
+                  <!--aria-label="Left Align" (click)="toggleMobileFilter();"-->
+          <!--&gt;-->
+            <!--<i class="fa fa-filter grow" [ngClass]="{'active': sidebar.panelOpen}"></i>-->
+          <!--</button>-->
+          <!--&lt;!&ndash; attribute toggle &ndash;&gt;-->
+          <!--<button type="button"-->
+                  <!--class="btn btn-default" [ngClass]="{'active': attributeOpen}"-->
+                  <!--aria-label="Left Align" (click)="toggleMobileAttribute();"-->
+          <!--&gt;-->
+            <!--<i class="fa fa-edit grow" [ngClass]="{'active': sidebar.panelOpen}"></i>-->
+          <!--</button>-->
+            </div>
+          </div>
+        </div>
+      </div>
+<div *ngIf="filterOpen" class="hide-on-landscape">
+  <app-filter-container></app-filter-container>
+</div>
+<div *ngIf="attributeOpen" class="hide-on-landscape">
+  <app-attribute-container></app-attribute-container>
+</div>
+<div *ngIf="!filterOpen && !attributeOpen">
+  <div class="hide-on-landscape">
+    <div [hidden] = "summaryDisplay==false">
+      <app-summary-panel-container></app-summary-panel-container>
+    </div>
+
+    <div [hidden] = "summaryDisplay==true">
+      <app-map-container></app-map-container>
+    </div>
+
+    </div>
+</div>
+    <div class="hide-on-portrait">
+      <app-activity-graph-container></app-activity-graph-container>
+    </div>
+
+
+</div> <!--end of mobile layout -->
+
+    <!-- desktop layout -->
+    <div class="d-none d-md-block">
+      <div class="wrapper">
+
+        <div class="main-content">
+          <div class="row">
+            <div class="col-md-11"></div>
+            <div class="col-md-1">
+
+              <div class="row">
+                <!-- todo reenable buttons after sidebar state has been reduxified -->
+                <!--&lt;!&ndash; filter toggle &ndash;&gt;-->
+          <!--<button type="button"-->
+                  <!--id="filterToggle"-->
+                  <!--class="btn btn-default" [ngClass]="{'active': sidebarOpen && filterOpen}"-->
+                  <!--aria-label="Left Align" (click)="toggleSidebarFilter();"-->
+          <!--&gt;-->
+            <!--<i class="fa fa-filter grow" [ngClass]="{'active': sidebar.panelOpen}"></i>-->
+          <!--</button>-->
+          <!--&lt;!&ndash; attribute toggle &ndash;&gt;-->
+          <!--<button type="button"-->
+                  <!--id="attributeToggle"-->
+                  <!--class="btn btn-default" [ngClass]="{'active': sidebarOpen && attributeOpen}"-->
+                  <!--aria-label="Left Align" (click)="toggleSidebarAttribute();"-->
+          <!--&gt;-->
+            <!--<i class="fa fa-edit grow" [ngClass]="{'active': sidebar.panelOpen}"></i>-->
+          <!--</button>-->
+              </div>
+            </div>
+          </div>
+          <app-summary-panel-container></app-summary-panel-container>
+          <app-activity-graph-container></app-activity-graph-container>
+          <app-map-container></app-map-container>
+        </div>
+
+          <app-sidebar [panelOpen]="sidebarOpen" (messageEvent)="receiveMessage($event)">
+            <div *ngIf="filterOpen">
+              <app-filter-container></app-filter-container>
+            </div>
+            <div *ngIf="attributeOpen">
+              <app-attribute-container></app-attribute-container>
+            </div>
+          </app-sidebar>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+</div>
