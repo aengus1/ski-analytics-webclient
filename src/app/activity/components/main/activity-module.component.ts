@@ -1,5 +1,7 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {SidebarComponent} from '../../../shared/components/sidebar/sidebar.component';
+import {ActivatedRoute, Params} from '@angular/router';
+import {ActivityService} from '../../services/activity-service/activity.service';
 
 
 
@@ -16,11 +18,19 @@ export class ActivityModuleComponent implements OnInit, AfterViewChecked {
   sidebarOpen = false;
   filterOpen = false;
   attributeOpen = false;
+  activity$ = null;
 
-  constructor(private cdRef: ChangeDetectorRef ) { }
+  constructor(private cdRef: ChangeDetectorRef, private route: ActivatedRoute, private activityService: ActivityService ) { }
 
 
   ngOnInit() {
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          console.log('activity module id = ' + params['id']);
+          this.activity$ = this.activityService.getActivity(params['id']);
+        }
+      );
   }
 
   ngAfterViewChecked() {
