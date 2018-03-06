@@ -1,9 +1,10 @@
-import {Component,  OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Activity} from '../../model/Activity_pb';
 import {TitleCasePipe} from '../../../shared/pipes/titlecase.pipe';
 import {RemoveUnderscorePipe} from '../../../shared/pipes/remove-underscore.pipe';
 import {IntervalPipe} from '../../../shared/pipes/interval.pipe';
 import {MockActivityService} from '../../services/activity-service/mock.activity.service';
+import {Observable} from 'rxjs/Observable';
 
 
 @Component({
@@ -15,8 +16,11 @@ import {MockActivityService} from '../../services/activity-service/mock.activity
 export class SummaryMetadataComponent implements OnInit {
 
 
-  public activity: Activity;
+@Input()
+private activity: Activity;
+@Input()
   public ActivitySport: string[];
+@Input()
   public ActivitySubSport: string[];
 
 
@@ -24,14 +28,6 @@ export class SummaryMetadataComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.activityService.getActivity('1').subscribe(data => {
-      this.activity = data;
-    });
-
-    this.ActivitySport = this.activityService.getActivitySport();
-    this.ActivitySubSport = this.activityService.getActivitySubSport();
-
-
   }
 
 

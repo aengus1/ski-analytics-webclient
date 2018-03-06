@@ -12,12 +12,15 @@ import {D3Service} from 'd3-ng2-service';
 import {MockActivityService} from './services/activity-service/mock.activity.service';
 import {FilterContainerComponent} from './components/filter-container/filter-container.component';
 import {AttributeContainerComponent} from './components/attribute-container/attribute-container.component';
+import {ActivityRoutesModule} from './activity.routes';
+import { ActivityRootComponent } from './components/activity-root/activity-root.component';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    ChartModule
+    ChartModule,
+    ActivityRoutesModule
   ],
   declarations: [
     ActivityModuleComponent,
@@ -27,6 +30,7 @@ import {AttributeContainerComponent} from './components/attribute-container/attr
     FilterContainerComponent,
     AttributeContainerComponent,
     SummaryMetadataComponent,
+    ActivityRootComponent
   ],
   providers: [
     ActivityService, MockActivityService, D3Service

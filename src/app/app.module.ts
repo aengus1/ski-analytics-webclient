@@ -8,6 +8,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {SharedModule} from './shared/shared.module';
 import {ChartModule} from './chart/chart.module';
 import {ActivityModule} from './activity/activity.module';
+import * as appRoutes from './app.routes';
+import {RouterModule} from '@angular/router';
+import {AppRoutingModule} from './app.routes';
 
 
 @NgModule({
@@ -19,7 +22,8 @@ import {ActivityModule} from './activity/activity.module';
     FormsModule,
     HttpClientModule,
     ActivityModule,
-    SharedModule
+    SharedModule,
+    AppRoutingModule
   ],
   providers: [SharedModule,
     ActivityModule,
