@@ -3,8 +3,7 @@ import {Activity} from '../../model/Activity_pb';
 import {TitleCasePipe} from '../../../shared/pipes/titlecase.pipe';
 import {RemoveUnderscorePipe} from '../../../shared/pipes/remove-underscore.pipe';
 import {IntervalPipe} from '../../../shared/pipes/interval.pipe';
-import {MockActivityService} from '../../services/activity-service/mock.activity.service';
-import {Observable} from 'rxjs/Observable';
+
 
 
 @Component({
@@ -24,7 +23,7 @@ private activity: Activity;
   public ActivitySubSport: string[];
 
 
-  constructor(private activityService: MockActivityService) {
+  constructor() {
   }
 
   ngOnInit() {

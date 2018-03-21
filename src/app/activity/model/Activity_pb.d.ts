@@ -1,3 +1,4 @@
+// package:
 // file: Activity.proto
 
 import * as jspb from 'google-protobuf';
@@ -28,6 +29,9 @@ export class Activity extends jspb.Message {
   setEventsList(value: Array<Activity.FitEvent>): void;
   addEvents(value?: Activity.FitEvent, index?: number): Activity.FitEvent;
 
+  getId(): string;
+  setId(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Activity.AsObject;
   static toObject(includeInstance: boolean, msg: Activity): Activity.AsObject;
@@ -45,6 +49,7 @@ export namespace Activity {
     summary?: Activity.Summary.AsObject,
     values?: Activity.Values.AsObject,
     eventsList: Array<Activity.FitEvent.AsObject>,
+    id: string,
   }
 
   export class Meta extends jspb.Message {

@@ -7,6 +7,7 @@ UserData userData  = 2;
 Summary summary = 3;
 Values values = 4;
 repeated FitEvent events = 5;
+string id = 6;
 
 message Meta {
     string createdTs = 1;   /* timestamp the activity was created */

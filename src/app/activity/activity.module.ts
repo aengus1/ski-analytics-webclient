@@ -14,13 +14,27 @@ import {FilterContainerComponent} from './components/filter-container/filter-con
 import {AttributeContainerComponent} from './components/attribute-container/attribute-container.component';
 import {ActivityRoutesModule} from './activity.routes';
 import { ActivityRootComponent } from './components/activity-root/activity-root.component';
+import { StoreModule } from '@ngrx/store';
+import {reducers} from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../../environments/environment';
+import { ViewActivityPageComponent } from './containers/view-activity-page/view-activity-page.component';
+import { SelectedActivityPageComponent } from './containers/selected-activity-page/selected-activity-page.component';
+import {StoreRouterConnectingModule} from '@ngrx/router-store';
+import {ActivityExistsGuard} from './guards/activity-exists';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     ChartModule,
-    ActivityRoutesModule
+    ActivityRoutesModule,
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreModule.forFeature('activities', reducers),
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router' // name of reducer key
+    })
+
   ],
   declarations: [
     ActivityModuleComponent,
@@ -30,10 +44,12 @@ import { ActivityRootComponent } from './components/activity-root/activity-root.
     FilterContainerComponent,
     AttributeContainerComponent,
     SummaryMetadataComponent,
-    ActivityRootComponent
+    ActivityRootComponent,
+    ViewActivityPageComponent,
+    SelectedActivityPageComponent
   ],
   providers: [
-    ActivityService, MockActivityService, D3Service
+    ActivityService, MockActivityService, D3Service, ActivityExistsGuard
   ],
   exports: [ActivityModuleComponent, FilterContainerComponent, MapContainerComponent, AttributeContainerComponent,
   SummaryPanelContainerComponent]

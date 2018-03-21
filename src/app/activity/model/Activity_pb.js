@@ -81,7 +81,8 @@ proto.Activity.toObject = function(includeInstance, msg) {
     summary: (f = msg.getSummary()) && proto.Activity.Summary.toObject(includeInstance, f),
     values: (f = msg.getValues()) && proto.Activity.Values.toObject(includeInstance, f),
     eventsList: jspb.Message.toObjectList(msg.getEventsList(),
-    proto.Activity.FitEvent.toObject, includeInstance)
+    proto.Activity.FitEvent.toObject, includeInstance),
+    id: jspb.Message.getFieldWithDefault(msg, 6, "")
   };
 
   if (includeInstance) {
@@ -142,6 +143,10 @@ proto.Activity.deserializeBinaryFromReader = function(msg, reader) {
       var value = new proto.Activity.FitEvent;
       reader.readMessage(value,proto.Activity.FitEvent.deserializeBinaryFromReader);
       msg.addEvents(value);
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setId(value);
       break;
     default:
       reader.skipField();
@@ -210,6 +215,13 @@ proto.Activity.serializeBinaryToWriter = function(message, writer) {
       5,
       f,
       proto.Activity.FitEvent.serializeBinaryToWriter
+    );
+  }
+  f = message.getId();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
+      f
     );
   }
 };
@@ -3203,6 +3215,21 @@ proto.Activity.prototype.addEvents = function(opt_value, opt_index) {
 
 proto.Activity.prototype.clearEventsList = function() {
   this.setEventsList([]);
+};
+
+
+/**
+ * optional string id = 6;
+ * @return {string}
+ */
+proto.Activity.prototype.getId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/** @param {string} value */
+proto.Activity.prototype.setId = function(value) {
+  jspb.Message.setProto3StringField(this, 6, value);
 };
 
 
