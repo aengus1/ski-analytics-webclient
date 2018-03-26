@@ -1,21 +1,21 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AttributeContainerComponent } from './attribute-container.component';
+import { SummaryPanelComponent } from './summary-panel.component';
 
-describe('AttributeContainerComponent', () => {
-  let component: AttributeContainerComponent;
-  let fixture: ComponentFixture<AttributeContainerComponent>;
+describe('SummaryPanelContainerComponent', () => {
+  let component: SummaryPanelComponent;
+  let fixture: ComponentFixture<SummaryPanelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AttributeContainerComponent ]
+      declarations: [ SummaryPanelComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AttributeContainerComponent);
+    fixture = TestBed.createComponent(SummaryPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

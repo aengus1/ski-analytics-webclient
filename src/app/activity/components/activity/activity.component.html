@@ -20,23 +20,24 @@
             <div class="row">
           <!-- filter toggle -->
               <!-- TODO -> re-enable these after sidebar status has been reduxified -->
-          <!--<button type="button"-->
-                  <!--class="btn btn-default" [ngClass]="{'active':  filterOpen}"-->
-                  <!--aria-label="Left Align" (click)="toggleMobileFilter();"-->
-          <!--&gt;-->
-            <!--<i class="fa fa-filter grow" [ngClass]="{'active': sidebar.panelOpen}"></i>-->
-          <!--</button>-->
-          <!--&lt;!&ndash; attribute toggle &ndash;&gt;-->
-          <!--<button type="button"-->
-                  <!--class="btn btn-default" [ngClass]="{'active': attributeOpen}"-->
-                  <!--aria-label="Left Align" (click)="toggleMobileAttribute();"-->
-          <!--&gt;-->
-            <!--<i class="fa fa-edit grow" [ngClass]="{'active': sidebar.panelOpen}"></i>-->
-          <!--</button>-->
+          <button type="button"
+                  class="btn btn-default" [ngClass]="{'active':  filterOpen}"
+                  aria-label="Left Align" (click)="toggleMobileFilter();"
+          >
+            <i class="fa fa-filter grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
+          </button>
+          <!-- attribute toggle -->
+          <button type="button"
+                  class="btn btn-default" [ngClass]="{'active': attributeOpen}"
+                  aria-label="Left Align" (click)="toggleMobileAttribute();"
+          >
+            <i class="fa fa-edit grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
+          </button>
             </div>
           </div>
         </div>
-      </div>
+      </div> <!-- end of mobile display menu -->
+
 <div *ngIf="filterOpen" class="hide-on-landscape">
   <app-filter-container></app-filter-container>
 </div>
@@ -46,7 +47,11 @@
 <div *ngIf="!filterOpen && !attributeOpen">
   <div class="hide-on-landscape">
     <div [hidden] = "summaryDisplay==false">
-      <app-summary-panel-container></app-summary-panel-container>
+      <app-summary-panel
+        [ActivitySport]="ActivitySport"
+         [ActivitySubSport]="ActivitySubSport"
+          [activity]="activity">
+      </app-summary-panel>
     </div>
 
     <div [hidden] = "summaryDisplay==true">
@@ -73,35 +78,43 @@
 
               <div class="row">
                 <!-- todo reenable buttons after sidebar state has been reduxified -->
-                <!--&lt;!&ndash; filter toggle &ndash;&gt;-->
-          <!--<button type="button"-->
-                  <!--id="filterToggle"-->
-                  <!--class="btn btn-default" [ngClass]="{'active': sidebarOpen && filterOpen}"-->
-                  <!--aria-label="Left Align" (click)="toggleSidebarFilter();"-->
-          <!--&gt;-->
-            <!--<i class="fa fa-filter grow" [ngClass]="{'active': sidebar.panelOpen}"></i>-->
-          <!--</button>-->
-          <!--&lt;!&ndash; attribute toggle &ndash;&gt;-->
-          <!--<button type="button"-->
-                  <!--id="attributeToggle"-->
-                  <!--class="btn btn-default" [ngClass]="{'active': sidebarOpen && attributeOpen}"-->
-                  <!--aria-label="Left Align" (click)="toggleSidebarAttribute();"-->
-          <!--&gt;-->
-            <!--<i class="fa fa-edit grow" [ngClass]="{'active': sidebar.panelOpen}"></i>-->
-          <!--</button>-->
+                <!-- filter toggle -->
+          <button type="button"
+                  id="filterToggle"
+                  class="btn btn-default"
+                  [ngClass]="{'active': sidebarOpen && sidebarContent === activitySidebarTypes.Filter}"
+
+                  aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Filter)"
+          >
+            <i class="fa fa-filter grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
+          </button>
+          <!-- attribute toggle -->
+          <button type="button"
+                  id="attributeToggle"
+                  class="btn btn-default"
+                  [ngClass]="{'active': sidebarOpen && sidebarContent === activitySidebarTypes.Attribute}"
+
+                  aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Attribute)"
+          >
+            <i class="fa fa-edit grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
+          </button>
               </div>
             </div>
           </div>
-          <app-summary-panel-container activity="activity$"></app-summary-panel-container>
+          <app-summary-panel
+            [ActivitySport]="ActivitySport"
+            [ActivitySubSport]="ActivitySubSport"
+            [activity]="activity">
+          </app-summary-panel>
           <app-activity-graph-container></app-activity-graph-container>
           <app-map-container></app-map-container>
         </div>
 
           <app-sidebar [panelOpen]="sidebarOpen" (messageEvent)="receiveMessage($event)">
-            <div *ngIf="filterOpen">
+            <div *ngIf="sidebarContent === activitySidebarTypes.Filter">
               <app-filter-container></app-filter-container>
             </div>
-            <div *ngIf="attributeOpen">
+            <div *ngIf="sidebarContent === activitySidebarTypes.Attribute">
               <app-attribute-container></app-attribute-container>
             </div>
           </app-sidebar>

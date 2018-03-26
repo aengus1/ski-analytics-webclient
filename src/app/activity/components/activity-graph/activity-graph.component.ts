@@ -4,10 +4,10 @@ import {Activity} from '../../model/Activity_pb';
 
 @Component({
   selector: 'app-activity-graph-container',
-  templateUrl: './activity-graph-container.component.html',
-  styleUrls: ['./activity-graph-container.component.css']
+  templateUrl: './activity-graph.component.html',
+  styleUrls: ['./activity-graph.component.css']
 })
-export class ActivityGraphContainerComponent implements OnInit {
+export class ActivityGraphComponent implements OnInit {
 
 
   private activity: Activity;

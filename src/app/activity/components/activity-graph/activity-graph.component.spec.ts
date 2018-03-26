@@ -1,21 +1,21 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapContainerComponent } from './map-container.component';
+import { ActivityGraphComponent } from './activity-graph.component';
 
-describe('MapContainerComponent', () => {
-  let component: MapContainerComponent;
-  let fixture: ComponentFixture<MapContainerComponent>;
+describe('ActivityGraphComponent', () => {
+  let component: ActivityGraphComponent;
+  let fixture: ComponentFixture<ActivityGraphComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MapContainerComponent ]
+      declarations: [ ActivityGraphComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MapContainerComponent);
+    fixture = TestBed.createComponent(ActivityGraphComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

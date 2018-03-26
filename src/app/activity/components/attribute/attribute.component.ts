@@ -2,10 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-attribute-container',
-  templateUrl: './attribute-container.component.html',
-  styleUrls: ['./attribute-container.component.css']
+  templateUrl: './attribute.component.html',
+  styleUrls: ['./attribute.component.css']
 })
-export class AttributeContainerComponent implements OnInit {
+export class AttributeComponent implements OnInit {
 
   @Input() attributeOpen: boolean;
 

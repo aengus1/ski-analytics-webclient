@@ -33,3 +33,8 @@ export class CustomRouterStateSerializer
     return { url, params, queryParams };
   }
 }
+
+export class MessageEvent<T> {
+  constructor(public name: string, public payload: T = null) {}
+
+}

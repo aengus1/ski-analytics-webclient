@@ -1,21 +1,21 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FilterContainerComponent } from './filter-container.component';
+import { AttributeComponent } from './attribute.component';
 
-describe('FilterContainerComponent', () => {
-  let component: FilterContainerComponent;
-  let fixture: ComponentFixture<FilterContainerComponent>;
+describe('AttributeComponent', () => {
+  let component: AttributeComponent;
+  let fixture: ComponentFixture<AttributeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FilterContainerComponent ]
+      declarations: [ AttributeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FilterContainerComponent);
+    fixture = TestBed.createComponent(AttributeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

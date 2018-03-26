@@ -2,10 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-filter-container',
-  templateUrl: './filter-container.component.html',
-  styleUrls: ['./filter-container.component.css']
+  templateUrl: './filter.component.html',
+  styleUrls: ['./filter.component.css']
 })
-export class FilterContainerComponent implements OnInit {
+export class FilterComponent implements OnInit {
 
   @Input() filterOpen: boolean;
 

@@ -1,0 +1,58 @@
+<!-- metadata panel -->
+<div class="card" *ngIf="activity">
+  <app-summary-metadata [activity]="activity" [ActivitySubSport]="ActivitySubSport" [ActivitySport]="ActivitySport"></app-summary-metadata>
+</div>
+<div class="container">
+
+  <!-- desktop layout -->
+<div class="row d-none d-md-flex">
+  <!-- heart rate box plot -->
+  <!--<div class="col-md-2">-->
+    <!--<div class="card " style="background-color: lightskyblue; border-color: #333;">-->
+        <!--<h6 class="card-title ">Heart Rate</h6>-->
+        <!--<h6 class="card-subtitle mb-2 text-muted">bpm</h6>-->
+        <!--<div class="card-body">-->
+          <!--<app-d3-boxplot [width]="80" [height]="100"  [data]="activity.getValues().getHrList()"></app-d3-boxplot>-->
+        <!--</div>-->
+      <!--</div>-->
+  <!--</div>-->
+  <!-- speed box plot -->
+  <div class="col-md-2">
+    <div class="card " style="background-color: lightskyblue; border-color: #333;">
+      <h6 class="card-title ">Speed</h6>
+      <h6 class="card-subtitle mb-2 text-muted">Km/h</h6>
+      <div class="card-body">
+        <app-d3-boxplot [width]="80" [height]="100"  [data]="activity.getValues().getSpeedList()"></app-d3-boxplot>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!--&lt;!&ndash; mobile layout &ndash;&gt;-->
+  <!--<div class="row d-flex d-sm-none">-->
+    <!--&lt;!&ndash; heart rate box plot &ndash;&gt;-->
+    <!--&lt;!&ndash; TODO -> ADD LOGIC TO ONLY SHOW THESE COMPONENTS IF THEY HAVE DATA IN THE hasAttributeMap-->
+     <!--(currently this is not populated &ndash;&gt;-->
+    <!--&lt;!&ndash;<div *ngIf="{{ activity.getSummary().getHasattributemapMap().get('hr')==true; }}"></div>&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="col-sm-3">&ndash;&gt;-->
+      <!--&lt;!&ndash;<div class="card " style="background-color: lightskyblue; border-color: #333;">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="card-body">&ndash;&gt;-->
+          <!--&lt;!&ndash;<h6>Heart Rate </h6><h6 class="text-muted">bpm</h6>&ndash;&gt;-->
+          <!--&lt;!&ndash;<app-d3-boxplot [width]="60" [height]="60"  [data]="hrData"></app-d3-boxplot>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash; speed box plot &ndash;&gt;-->
+    <!--<div class="col-sm-3">-->
+      <!--<div class="card " style="background-color: lightskyblue; border-color: #333;">-->
+          <!--<div class="card-body">-->
+            <!--<h6>Speed </h6><h6 class="text-muted">Km/h</h6>-->
+            <!--<app-d3-boxplot [width]="60" [height]="60"  [data]="speedData"></app-d3-boxplot>-->
+          <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+</div>
+
+

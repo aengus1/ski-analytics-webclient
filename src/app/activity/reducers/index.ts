@@ -6,6 +6,8 @@ import {
 
 import * as fromActivities from './activities.reducer';
 import * as fromRoot from '../../reducers';
+import * as fromLayout from '../../shared/layout/reducers/layout.reducer';
+
 
 export interface ActivitiesState {
   activities: fromActivities.State;
@@ -26,6 +28,10 @@ export const reducers: ActionReducerMap<ActivitiesState> = {
  */
 export const getActivitiesState = createFeatureSelector<ActivitiesState>('activities');
 
+export const getLayoutState = createFeatureSelector<fromLayout.State>('layout');
+
+
+
 /**
  * Every reducer module exports selector functions, however child reducers
  * have no knowledge of the overall state tree. To make them usable, we
@@ -35,15 +41,29 @@ export const getActivitiesState = createFeatureSelector<ActivitiesState>('activi
  * only recompute when arguments change. The created selectors can also be composed
  * together to select different pieces of state.
  */
-export const getActivtiesEntitiesState = createSelector(
+export const getActivitiesEntitiesState = createSelector(
   getActivitiesState,
-  state => state.activities)
+  state => state.activities);
 
 export const getSelectedActivityId = createSelector(
-  getActivtiesEntitiesState,
+  getActivitiesEntitiesState,
   fromActivities.getSelectedActivityId
-)
+);
 
+export const getActivitySport = createSelector(
+  getActivitiesEntitiesState,
+  fromActivities.getActivitySport
+);
+
+export const getActivitySubSport = createSelector(
+  getActivitiesEntitiesState,
+  fromActivities.getActivitySubSport
+);
+
+export const getSidebarContent = createSelector(
+  getActivitiesEntitiesState,
+  fromActivities.getSidebarContents
+);
 
 
 /**
@@ -59,7 +79,7 @@ export const {
   selectEntities: getActivityEntities,
   selectAll: getAllActivities,
   selectTotal: getTotalActivities,
-} = fromActivities.adapter.getSelectors(getActivtiesEntitiesState);
+} = fromActivities.adapter.getSelectors(getActivitiesEntitiesState);
 
 export const getSelectedActivity = createSelector(
   getActivityEntities,
@@ -68,3 +88,11 @@ export const getSelectedActivity = createSelector(
     return selectedId && entities[selectedId];
   }
 );
+
+export const getShowSidebar = createSelector(
+  getLayoutState,
+  fromLayout.getShowSidebar
+);
+
+
+
