@@ -34,6 +34,9 @@ export class ActivityComponent implements OnInit, AfterViewChecked {
   // declare activitySidebarType so it can be used in the template
   public activitySidebarTypes = ActivitySidebarType;
 
+  // local variable for storing display page view in mobile
+  public summaryDisplay = true;
+
   @ViewChild(SidebarComponent) sidebar;
 
 

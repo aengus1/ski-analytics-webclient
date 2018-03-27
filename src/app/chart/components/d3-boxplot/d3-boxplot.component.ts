@@ -22,8 +22,9 @@ export class D3BoxplotComponent extends D3ChartComponent {
   }
 
   public createChart() {
-
-    this.margin = {top: 5, right: 20, bottom: 5, left: 20};
+    if (this.width > 0) {
+      this.margin = {top: this.height / 20, right: this.width / 4, bottom: this.height / 20, left: this.width / 4};
+    }
     this.min = Infinity;
     this.max = -Infinity;
 
