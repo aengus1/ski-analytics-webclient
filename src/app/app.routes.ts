@@ -2,7 +2,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {NotFoundComponent} from './shared/components/not-found/not-found.component';
 import {NgModule} from '@angular/core';
 import {environment} from '../environments/environment';
-import {ActivityModuleComponent} from './activity/components/main/activity-module.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'activity', pathMatch: 'full'},
