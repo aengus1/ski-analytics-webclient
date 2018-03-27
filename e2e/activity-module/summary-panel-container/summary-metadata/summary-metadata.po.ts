@@ -3,7 +3,7 @@ import { browser, by, element } from 'protractor';
 export class SummaryMetaDataPage {
   navigateTo() {
     // TODO -> change this to /activity/1 to get the test activity once routing has been implemented
-    return browser.get('/');
+    return browser.get('/activity/1');
   }
 
   getActivityType() {
