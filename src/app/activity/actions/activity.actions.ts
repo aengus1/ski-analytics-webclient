@@ -5,7 +5,8 @@ import {Activity} from '../model/Activity_pb';
 export enum ActivityActionTypes {
   Select= '[Activity] Select Activity',
   Load= '[Activity] Load Activity',
-  SetSidebarContent = '[Activity] Set Sidebar Content'
+  SetSidebarContent = '[Activity] Set Sidebar Content',
+  FilterSelectedActivity = '[Activity] Filter Selected Activity'
 
 }
 
@@ -26,7 +27,11 @@ export class SetSidebarContent implements Action {
   constructor(public payload: ActivitySidebarType) {}
 }
 
+export class FilterSelectedActivity implements Action {
+  readonly type = ActivityActionTypes.FilterSelectedActivity;
+}
+
 
 
 export enum ActivitySidebarType  { NoContent, Filter, Attribute }
-export type ActivityActions = SelectActivity | LoadActivity | SetSidebarContent;
+export type ActivityActions = SelectActivity | LoadActivity | SetSidebarContent | FilterSelectedActivity;

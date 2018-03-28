@@ -5,20 +5,29 @@ import {
 } from '@ngrx/store';
 
 import * as fromActivities from './activities.reducer';
+import * as fromFilters from './activity-filter.reducer';
 import * as fromRoot from '../../reducers';
 import * as fromLayout from '../../shared/layout/reducers/layout.reducer';
+import {ActivityFiltersState} from './activity-filter.reducer';
 
 
 export interface ActivitiesState {
   activities: fromActivities.State;
 }
 
+
+
 export interface State extends fromRoot.State {
   activities: ActivitiesState;
+  filters: ActivityFiltersState;
 }
 
 export const reducers: ActionReducerMap<ActivitiesState> = {
   activities: fromActivities.reducer
+};
+
+export const filterReducers: ActionReducerMap<ActivityFiltersState> = {
+  filters: fromFilters.reducer
 };
 
 
@@ -27,6 +36,8 @@ export const reducers: ActionReducerMap<ActivitiesState> = {
  * This is used for selecting feature states that are loaded eagerly or lazily.
  */
 export const getActivitiesState = createFeatureSelector<ActivitiesState>('activities');
+
+export const getActivityFiltersState = createFeatureSelector<ActivityFiltersState>('filters');
 
 export const getLayoutState = createFeatureSelector<fromLayout.State>('layout');
 
@@ -44,6 +55,9 @@ export const getLayoutState = createFeatureSelector<fromLayout.State>('layout');
 export const getActivitiesEntitiesState = createSelector(
   getActivitiesState,
   state => state.activities);
+
+
+
 
 export const getSelectedActivityId = createSelector(
   getActivitiesEntitiesState,
@@ -81,6 +95,9 @@ export const {
   selectTotal: getTotalActivities,
 } = fromActivities.adapter.getSelectors(getActivitiesEntitiesState);
 
+
+
+
 export const getSelectedActivity = createSelector(
   getActivityEntities,
   getSelectedActivityId,
@@ -88,6 +105,8 @@ export const getSelectedActivity = createSelector(
     return selectedId && entities[selectedId];
   }
 );
+
+
 
 export const getShowSidebar = createSelector(
   getLayoutState,

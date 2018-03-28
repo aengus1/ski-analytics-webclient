@@ -22,6 +22,8 @@ import { ViewActivityPageComponent } from './containers/view-activity-page/view-
 import { SelectedActivityPageComponent } from './containers/selected-activity-page/selected-activity-page.component';
 import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {ActivityExistsGuard} from './guards/activity-exists';
+import {EffectsModule} from '@ngrx/effects';
+import {ActivityFilterEffects} from './effects/activity-filter.effects';
 
 @NgModule({
   imports: [
@@ -30,10 +32,20 @@ import {ActivityExistsGuard} from './guards/activity-exists';
     ChartModule,
     ActivityRoutesModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreModule.forFeature('filters', reducers),
     StoreModule.forFeature('activities', reducers),
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router' // name of reducer key
-    })
+    }),
+    /**
+     * Effects.forFeature is used to register effects
+     * from feature modules. Effects can be loaded
+     * eagerly or lazily and will be started immediately.
+     *
+     * All Effects will only be instantiated once regardless of
+     * whether they are registered once or multiple times.
+     */
+    EffectsModule.forFeature([ActivityFilterEffects]),
 
   ],
   declarations: [
