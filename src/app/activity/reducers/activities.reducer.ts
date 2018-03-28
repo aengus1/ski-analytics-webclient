@@ -96,6 +96,8 @@ export function reducer(state = initialState, action: ActivityActions | Activity
       entityReference[state.selectedActivityId] = state.unfilteredActivity;
       // re apply all filters
       // TODO ->  implement this in a more efficient manner (see notes)
+      // TODO -> mutate the passed in activity or create a new one? If new one then this needs to be refactored
+      // possibly using recursion and an accumulator
       filters.forEach(f => f.applyFilter(entityReference[state.selectedActivityId]));
       return {
         ...state,
