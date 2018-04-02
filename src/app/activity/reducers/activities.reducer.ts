@@ -117,6 +117,7 @@ export function reducer(state = initialState, action: ActivityActions | Activity
   }
 }
 
+
 export const getSelectedActivityId = (state: State) => state.selectedActivityId;
 export const getActivitySport = (state: State) => state.activitySport;
 export const getActivitySubSport = (state: State) => state.activitySubSport;

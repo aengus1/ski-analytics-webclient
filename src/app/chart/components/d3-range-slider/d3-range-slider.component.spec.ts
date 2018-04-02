@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FilterComponent } from './filter.component';
+import { D3RangeSliderComponent } from './d3-range-slider.component';
 
-describe('FilterComponent', () => {
-  let component: FilterComponent;
-  let fixture: ComponentFixture<FilterComponent>;
+describe('D3RangeSliderComponent', () => {
+  let component: D3RangeSliderComponent;
+  let fixture: ComponentFixture<D3RangeSliderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FilterComponent ]
+      declarations: [ D3RangeSliderComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FilterComponent);
+    fixture = TestBed.createComponent(D3RangeSliderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

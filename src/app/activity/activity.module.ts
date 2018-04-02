@@ -10,7 +10,7 @@ import {MapComponent} from './components/map/map.component';
 import {ActivityService} from './services/activity-service/activity.service';
 import {D3Service} from 'd3-ng2-service';
 import {MockActivityService} from './services/activity-service/mock.activity.service';
-import {FilterComponent} from './components/filter/filter.component';
+import {FilterListComponent} from './components/filter-list/filter-list.component';
 import {AttributeComponent} from './components/attribute/attribute.component';
 import {ActivityRoutesModule} from './activity.routes';
 import { ActivityRootComponent } from './containers/activity-root/activity-root.component';
@@ -22,7 +22,8 @@ import { ViewActivityPageComponent } from './containers/view-activity-page/view-
 import { SelectedActivityPageComponent } from './containers/selected-activity-page/selected-activity-page.component';
 import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {ActivityExistsGuard} from './guards/activity-exists';
-import {EffectsModule} from '@ngrx/effects';
+import { FilterComponent } from './components/filter/filter.component';
+import { FilterSpeedComponent } from './components/filter-speed/filter-speed.component';
 
 @NgModule({
   imports: [
@@ -53,16 +54,18 @@ import {EffectsModule} from '@ngrx/effects';
     ActivityGraphComponent,
     MapComponent,
     FilterComponent,
+    FilterListComponent,
     AttributeComponent,
     SummaryMetadataComponent,
     ActivityRootComponent,
     ViewActivityPageComponent,
-    SelectedActivityPageComponent
+    SelectedActivityPageComponent,
+    FilterSpeedComponent
   ],
   providers: [
     ActivityService, MockActivityService, D3Service, ActivityExistsGuard
   ],
-  exports: [ActivityComponent, FilterComponent, MapComponent, AttributeComponent,
+  exports: [ActivityComponent, FilterListComponent, MapComponent, AttributeComponent,
   SummaryPanelComponent]
 })
 export class ActivityModule { }

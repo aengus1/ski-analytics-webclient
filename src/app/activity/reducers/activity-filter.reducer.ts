@@ -1,8 +1,8 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { ActivityFilter } from '../model/activity-filter.model';
 import { ActivityFilterActions, ActivityFilterActionTypes } from '../actions/activity-filter.actions';
-import {createSelector} from '@ngrx/store';
-import {getActivityFiltersState} from './index';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
+
 
 export interface State extends EntityState<ActivityFilter> {
   // additional entities state properties
@@ -35,6 +35,12 @@ export function reducer(
       return adapter.removeAll(state);
     }
 
+    case ActivityFilterActionTypes.ClearActivityFilter: {
+      return adapter.removeOne(adapter.getSelectors().selectAll()
+        .filter( f => f.type === action.payload.type)
+        [0].id, state);
+    }
+
     default: {
       return state;
     }
@@ -51,6 +57,8 @@ export const {
 export interface ActivityFiltersState {
   filters: State;
 }
+
+export const getActivityFiltersState = createFeatureSelector<ActivityFiltersState>('filters');
 
 export const getActivityFiltersEntitiesState = createSelector(
   getActivityFiltersState,

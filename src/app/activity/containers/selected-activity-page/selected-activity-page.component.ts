@@ -6,6 +6,13 @@ import {Store, select} from '@ngrx/store';
 import * as fromActivity from '../../reducers/';
 import {ActivitySidebarType, SetSidebarContent} from '../../actions/activity.actions';
 import {CloseSidebar, OpenSidebar} from '../../../shared/layout/actions/layout.actions';
+import {ActivityFilter} from '../../model/activity-filter.model';
+import {
+  AddActivityFilter,
+  ClearActivityFilters,
+  DeleteActivityFilter,
+  UpdateActivityFilter
+} from '../../actions/activity-filter.actions';
 
 
 @Component({
@@ -57,6 +64,22 @@ export class SelectedActivityPageComponent {
 
   setSidebarContent(type: ActivitySidebarType) {
     this.store.dispatch(new SetSidebarContent(type));
+  }
+
+  addActivityFilter(filter: ActivityFilter) {
+    this.store.dispatch(new AddActivityFilter({activityFilter: filter}));
+  }
+
+ deleteActivityFilter(filter: ActivityFilter) {
+    this.store.dispatch(new DeleteActivityFilter({id: filter.id}));
+  }
+
+  clearActivityFilters() {
+    this.store.dispatch(new ClearActivityFilters());
+  }
+
+  updateActivityFilter(filter: ActivityFilter) {
+    this.store.dispatch(new UpdateActivityFilter({activityFilter: {id: filter.id, changes: filter}}));
   }
 
 

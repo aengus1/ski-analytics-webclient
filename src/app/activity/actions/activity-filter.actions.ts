@@ -1,12 +1,13 @@
 import { Action } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-import { ActivityFilter } from '../model/activity-filter.model';
+import {ActivityFilter, ActivityFilterType} from '../model/activity-filter.model';
 
 export enum ActivityFilterActionTypes {
   AddActivityFilter = '[ActivityFilter] Add ActivityFilter',
   UpdateActivityFilter = '[ActivityFilter] Update ActivityFilter',
   DeleteActivityFilter = '[ActivityFilter] Delete ActivityFilter',
-  ClearActivityFilters = '[ActivityFilter] Clear ActivityFilters'
+  ClearActivityFilters = '[ActivityFilter] Clear ActivityFilters',
+  ClearActivityFilter = '[ActivityFilter] Clear ActivityFilter'
 }
 
 
@@ -32,8 +33,17 @@ export class ClearActivityFilters implements Action {
   readonly type = ActivityFilterActionTypes.ClearActivityFilters;
 }
 
+export class ClearActivityFilter implements Action {
+  readonly type = ActivityFilterActionTypes.ClearActivityFilter;
+  constructor(public payload: { type: ActivityFilterType }) {}
+}
+
 export type ActivityFilterActions =
   AddActivityFilter
  | UpdateActivityFilter
  | DeleteActivityFilter
- | ClearActivityFilters;
+ | ClearActivityFilters
+ | ClearActivityFilter;
+
+
+

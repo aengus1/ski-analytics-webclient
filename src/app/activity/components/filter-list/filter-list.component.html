@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-md-2">
+    <i class="fa fa-filter fa-2x title-icon active"></i>
+  </div>
+</div>
+<p> Filter container works</p>
+<app-filter title="Speed">
+  <app-d3-dual-range-slider #speedSlider [minimum]="0" [maximum]="40" [width]="150" [unitLabel]="'Km/h'" [reset]="false"></app-d3-dual-range-slider>
+</app-filter>
+<app-filter title="Other">
+  <app-d3-dual-range-slider #speedSlider [minimum]="0" [maximum]="40" [width]="150" [unitLabel]="'Km/h'"></app-d3-dual-range-slider>
+</app-filter>
+

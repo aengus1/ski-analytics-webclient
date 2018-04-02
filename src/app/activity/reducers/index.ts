@@ -37,7 +37,7 @@ export const filterReducers: ActionReducerMap<ActivityFiltersState> = {
  */
 export const getActivitiesState = createFeatureSelector<ActivitiesState>('activities');
 
-export const getActivityFiltersState = createFeatureSelector<ActivityFiltersState>('filters');
+
 
 export const getLayoutState = createFeatureSelector<fromLayout.State>('layout');
 
