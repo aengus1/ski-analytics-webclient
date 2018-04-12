@@ -1,25 +1,39 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { ActivityFilter } from '../model/activity-filter.model';
 import { ActivityFilterActions, ActivityFilterActionTypes } from '../actions/activity-filter.actions';
-import {createFeatureSelector, createSelector} from '@ngrx/store';
-
+import {combineReducers, createFeatureSelector, createSelector} from '@ngrx/store';
+import {filterReducers, getSelectedActivity} from './index';
+import {routerReducer} from '@ngrx/router-store';
+import * as  fromActivity from './activities.reducer';
+import {Dictionary} from '@ngrx/entity/src/models';
+import {forEach} from '@angular/router/src/utils/collection';
+import {ActivityActions, ActivityActionTypes} from '../actions/activity.actions';
+import {Activity} from '../model/Activity_pb';
 
 export interface State extends EntityState<ActivityFilter> {
+  error: any;
   // additional entities state properties
 }
 
-export const adapter: EntityAdapter<ActivityFilter> = createEntityAdapter<ActivityFilter>();
+export const adapter: EntityAdapter<ActivityFilter> = createEntityAdapter<ActivityFilter>({
+  selectId: (filter: ActivityFilter) => filter.id
+});
 
 export const initialState: State = adapter.getInitialState({
+  error: null
   // additional entity state properties
 });
 
+
+
 export function reducer(
   state = initialState,
-  action: ActivityFilterActions
+  action: ActivityFilterActions | ActivityActions
 ): State {
+  console.log('hit act filter reducer');
   switch (action.type) {
     case ActivityFilterActionTypes.AddActivityFilter: {
+      console.log('add activityfilter with ' + JSON.stringify(action.payload.activityFilter));
       return adapter.addOne(action.payload.activityFilter, state);
     }
 
@@ -34,12 +48,24 @@ export function reducer(
     case ActivityFilterActionTypes.ClearActivityFilters: {
       return adapter.removeAll(state);
     }
-
-    case ActivityFilterActionTypes.ClearActivityFilter: {
-      return adapter.removeOne(adapter.getSelectors().selectAll()
-        .filter( f => f.type === action.payload.type)
-        [0].id, state);
-    }
+    // // TODO -> confirm that activity filter actions will be handled first, this code relies on the filter collection
+    // // being updated first
+    // case ActivityActionTypes.FilterSelectedActivity:
+    // case ActivityFilterActionTypes.AddActivityFilter:
+    // case ActivityFilterActionTypes.DeleteActivityFilter:
+    // case ActivityFilterActionTypes.UpdateActivityFilter:
+    // {
+    //   let activity: Activity = action.payload.activity;
+    //   const filters: ActivityFilter[] = new Array<ActivityFilter>();
+    //     for( let key in state.entities) {
+    //       activity = state.entities[key].applyFilter(activity)[0];
+    //     }
+    // }
+    // case ActivityFilterActionTypes.ClearActivityFilter: {
+    //   return adapter.removeOne(adapter.getSelectors().selectAll(state)
+    //     .filter( f => f.type === action.payload.type)
+    //     [0].id, state);
+    // }
 
     default: {
       return state;
@@ -47,26 +73,7 @@ export function reducer(
   }
 }
 
-export const {
-  selectIds,
-  selectEntities,
-  selectAll,
-  selectTotal,
-} = adapter.getSelectors();
+export const getAllActivityFilters = (state: State) => state.entities;
 
-export interface ActivityFiltersState {
-  filters: State;
-}
 
-export const getActivityFiltersState = createFeatureSelector<ActivityFiltersState>('filters');
 
-export const getActivityFiltersEntitiesState = createSelector(
-  getActivityFiltersState,
-  state => state.filters
-);
-
-export const {
-  selectIds: getActivityFilterIds,
-  selectEntities: getActivityFilterEntities,
-  selectAll: getAllActivityFilters
-} = adapter.getSelectors(getActivityFiltersEntitiesState);

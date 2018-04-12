@@ -15,7 +15,7 @@ import {AttributeComponent} from './components/attribute/attribute.component';
 import {ActivityRoutesModule} from './activity.routes';
 import { ActivityRootComponent } from './containers/activity-root/activity-root.component';
 import { StoreModule } from '@ngrx/store';
-import {reducers} from './reducers';
+import {filterReducers, reducers} from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../../environments/environment';
 import { ViewActivityPageComponent } from './containers/view-activity-page/view-activity-page.component';
@@ -25,6 +25,8 @@ import {ActivityExistsGuard} from './guards/activity-exists';
 import { FilterComponent } from './components/filter/filter.component';
 import { FilterSpeedComponent } from './components/filter-speed/filter-speed.component';
 
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -32,7 +34,7 @@ import { FilterSpeedComponent } from './components/filter-speed/filter-speed.com
     ChartModule,
     ActivityRoutesModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreModule.forFeature('filters', reducers),
+    StoreModule.forFeature('filters', filterReducers),
     StoreModule.forFeature('activities', reducers),
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router' // name of reducer key

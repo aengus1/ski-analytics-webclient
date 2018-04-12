@@ -1,9 +1,18 @@
-import {ActivityActions, ActivityActionTypes, ActivitySidebarType} from '../actions/activity.actions';
+import {
+  ActivityActions,
+  ActivityActionTypes,
+  ActivitySidebarType, FilterSelectedActivity,
+  LoadActivity,
+  SelectActivity, SetSidebarContent
+} from '../actions/activity.actions';
 import {Activity} from '../model/Activity_pb';
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import {createEntityAdapter, EntityAdapter, EntityState, Update} from '@ngrx/entity';
 import {ActivityFilterActions, ActivityFilterActionTypes} from '../actions/activity-filter.actions';
-import * as fromFilters from './activity-filter.reducer';
 import {ActivityFilter} from '../model/activity-filter.model';
+import * as fromFilters from './activity-filter.reducer';
+import {getSelectedActivity} from './index';
+import {AbstractActivityFilter} from '../components/filter/AbstractActivityFilter';
+import {Dictionary} from '@ngrx/entity/src/models';
 
 
 export interface State extends EntityState<Activity> {
@@ -56,19 +65,20 @@ export function reducer(state = initialState, action: ActivityActions | Activity
   switch (action.type) {
 
     case ActivityActionTypes.Load: {
-      return adapter.addOne(action.payload, {
+      const act: LoadActivity = <LoadActivity>action;
+      return adapter.addOne(act.payload, {
         ...state,
         selectedActivityId: state.selectedActivityId,
-        unfilteredActivity: action.payload
+        unfilteredActivity: act.payload
       });
     }
 
     case ActivityActionTypes.Select: {
-
+      const act: SelectActivity = <SelectActivity>action;
       const newState = {
         ...state,
-        selectedActivityId: action.payload,
-        unfilteredActivity: state.entities[action.payload],
+        selectedActivityId: act.payload,
+        unfilteredActivity: state.entities[act.payload],
       };
 
       if (state.selectedActivityId !== null) {
@@ -82,38 +92,43 @@ export function reducer(state = initialState, action: ActivityActions | Activity
         return newState;
       }
     }
-    // TODO -> confirm that activity filter actions will be handled first, this code relies on the filter collection
-    // being updated first
-    case ActivityActionTypes.FilterSelectedActivity:
-    case ActivityFilterActionTypes.AddActivityFilter:
-    case ActivityFilterActionTypes.DeleteActivityFilter:
-    case ActivityFilterActionTypes.UpdateActivityFilter:
-    case ActivityFilterActionTypes.ClearActivityFilters:
-    {
-      const filters: ActivityFilter[] = fromFilters.getAllActivityFilters(fromFilters.getActivityFiltersEntitiesState);
-      // reset selected activity to unfiltered state
+    case ActivityActionTypes.SetSidebarContent: {
+      const act: SetSidebarContent = <SetSidebarContent>action;
+      return {
+        ...state,
+        sidebarContent: act.payload
+
+      };
+    }
+     case ActivityActionTypes.FilterSelectedActivity:
+    // case ActivityFilterActionTypes.AddActivityFilter:
+    // case ActivityFilterActionTypes.DeleteActivityFilter:
+    case ActivityFilterActionTypes.UpdateActivityFilter: {
+      const act: FilterSelectedActivity = <FilterSelectedActivity>action;
+      const filters: Dictionary<ActivityFilter> = act.payload[1];
+      let activity: Activity = state.entities[state.selectedActivityId];
+
+
+      for (const key in filters) {
+        const f: ActivityFilter = filters[key];
+        activity = f[key].applyFilter(activity)[0];
+      }
       const entityReference = state.entities;
-      entityReference[state.selectedActivityId] = state.unfilteredActivity;
-      // re apply all filters
-      // TODO ->  implement this in a more efficient manner (see notes)
-      // TODO -> mutate the passed in activity or create a new one? If new one then this needs to be refactored
-      // possibly using recursion and an accumulator
-      filters.forEach(f => f.applyFilter(entityReference[state.selectedActivityId]));
+      entityReference[state.selectedActivityId] = activity;
       return {
         ...state,
         entities: entityReference
       };
     }
+    // case ActivityFilterActionTypes.ClearActivityFilter: {
+    //   return adapter.removeOne(adapter.getSelectors().selectAll(state)
+    //     .filter( f => f.type === action.payload.type)
+    //     [0].id, state);
+    // }
 
-    case ActivityActionTypes.SetSidebarContent: {
-      return {
-        ...state,
-        sidebarContent: action.payload
-
-      };
-    }
-    default:
+    default: {
       return state;
+    }
   }
 }
 

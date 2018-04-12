@@ -43,7 +43,7 @@
 
 <!-- mobile content -->
       <div *ngIf="sidebarOpen && sidebarContent === activitySidebarTypes.Filter" class="hide-on-landscape">
-        <app-filter-list></app-filter-list>
+        <app-filter-list [activity]="activity"></app-filter-list>
       </div>
       <div *ngIf="sidebarOpen &&  sidebarContent === activitySidebarTypes.Attribute" class="hide-on-landscape">
         <app-attribute-container></app-attribute-container>
@@ -112,7 +112,7 @@
 
         <app-sidebar [panelOpen]="sidebarOpen" (messageEvent)="receiveMessage($event)">
           <div *ngIf="sidebarContent === activitySidebarTypes.Filter">
-            <app-filter-list></app-filter-list>
+            <app-filter-list [activity]="activity" (changeEvent)="receiveMessage($event)"></app-filter-list>
           </div>
           <div *ngIf="sidebarContent === activitySidebarTypes.Attribute">
             <app-attribute-container></app-attribute-container>

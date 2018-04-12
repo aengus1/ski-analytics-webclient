@@ -21,11 +21,11 @@ import {MessageEvent} from '../../../shared/utils';
   encapsulation: ViewEncapsulation.None,      // this forces angular to respect css class names on d3 elements
   styleUrls: ['./d3-dual-range-slider.component.css']
 })
-export class D3DualRangeSliderComponent implements OnInit, OnChanges {
+export class D3DualRangeSliderComponent implements OnInit {
   protected d3: D3;
   protected parentNativeElement: any;
   svg: Selection<BaseType, {}, SVGSVGElement, any>;
-  created: Boolean = false;
+  initialized = false;
   height = 50;
   margin_left = 10;
   margin_right = 10;
@@ -129,14 +129,14 @@ export class D3DualRangeSliderComponent implements OnInit, OnChanges {
       .attr('class', 'handle')
       .attr('r', 7)
       .attr('cx', c.xScale(c.maximum));
-    this.created = true;
+    this.initialized = true;
   }
 
-  ngOnChanges() {
-    if (this.reset) {
-      this.clear();
-    }
-  }
+  // ngOnChanges() {
+  //   if (this.reset && this.initialized) {
+  //     this.clear();
+  //   }
+  // }
 
   /**
    * reset sliders to initial values
@@ -145,6 +145,8 @@ export class D3DualRangeSliderComponent implements OnInit, OnChanges {
     this.minHandle.attr('cx', this.minimum);
     this.minValue = this.xScale.invert(this.minimum);
     console.log('min value = ' + this.minValue);
+
+    // TODO -> change this to emit clear instead of update
     this.changeEvent.emit( new MessageEvent<number>('minValue', this.xScale.invert(this.minimum)));
 
     this.maxHandle.attr('cx', this.xScale(this.width - this.margin_left - this.margin_right) + 1);
@@ -155,4 +157,5 @@ export class D3DualRangeSliderComponent implements OnInit, OnChanges {
     this.cd.detectChanges();
     this.reset = false;
   }
+
 }

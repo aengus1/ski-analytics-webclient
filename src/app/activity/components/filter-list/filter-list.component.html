@@ -4,10 +4,7 @@
   </div>
 </div>
 <p> Filter container works</p>
-<app-filter title="Speed">
-  <app-d3-dual-range-slider #speedSlider [minimum]="0" [maximum]="40" [width]="150" [unitLabel]="'Km/h'" [reset]="false"></app-d3-dual-range-slider>
-</app-filter>
-<app-filter title="Other">
-  <app-d3-dual-range-slider #speedSlider [minimum]="0" [maximum]="40" [width]="150" [unitLabel]="'Km/h'"></app-d3-dual-range-slider>
+<app-filter #filt [title]="Speed" (changeEvent)="receiveMessage($event)">
+  <app-filter-speed [activity]="activity" (changeEvent)="receiveMessage($event)"></app-filter-speed>
 </app-filter>
 

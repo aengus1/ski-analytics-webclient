@@ -1,5 +1,6 @@
 /* tslint:disable:no-bitwise */
 import {D3, Selection} from 'd3-ng2-service';
+import {BaseType} from 'd3-selection';
 
 export class BoxPlot {
   private width_v: number;
@@ -39,7 +40,7 @@ export class BoxPlot {
     };
 
     g.each(function (d: any, i) {
-      d = d.map(value).sort(d3.ascending);
+      d = d.sort(d3.ascending);
       const n = d.length,
         min = d[0],
         max = d[n - 1];

@@ -7,6 +7,7 @@ export interface ActivityFilter {
   id: string;
   type: ActivityFilterType;
   filteredIds: number[];
+  active: boolean;
 
   /**
    * Apply the filter to the activity. Returns the filtered activity and a list of ids that were removed
@@ -14,4 +15,5 @@ export interface ActivityFilter {
    * @returns {[Activity , number[]]}
    */
   applyFilter(activity: Activity): [Activity, number[]];
+  clear(): void;
 }

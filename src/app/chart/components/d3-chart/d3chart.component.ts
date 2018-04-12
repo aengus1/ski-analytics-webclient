@@ -16,7 +16,7 @@ export  class D3ChartComponent implements OnInit, OnChanges  {
   protected d3Svg: Selection<SVGSVGElement, any, null, undefined>;
   @Input() width = 120;
   @Input() height = 200;
-  @Input() data: Array<any>;
+  @Input() data: Array<Number>;
   private chartCreated: Boolean = false;
 
   constructor(element: ElementRef, d3Service: D3Service) { // <-- pass the D3 Service into the constructor

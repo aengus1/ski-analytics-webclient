@@ -8,27 +8,33 @@ import * as fromActivities from './activities.reducer';
 import * as fromFilters from './activity-filter.reducer';
 import * as fromRoot from '../../reducers';
 import * as fromLayout from '../../shared/layout/reducers/layout.reducer';
-import {ActivityFiltersState} from './activity-filter.reducer';
+import {adapter} from './activity-filter.reducer';
 
 
 export interface ActivitiesState {
   activities: fromActivities.State;
+  error: any;
 }
+export const reducers: ActionReducerMap<ActivitiesState> = {
+  activities: fromActivities.reducer,
+  error: null
+};
 
+
+export interface ActivityFiltersState {
+  filters: fromFilters.State;
+  error: any;
+}
+export const filterReducers: ActionReducerMap<ActivityFiltersState> = {
+  filters: fromFilters.reducer,
+  error: null
+};
 
 
 export interface State extends fromRoot.State {
   activities: ActivitiesState;
   filters: ActivityFiltersState;
 }
-
-export const reducers: ActionReducerMap<ActivitiesState> = {
-  activities: fromActivities.reducer
-};
-
-export const filterReducers: ActionReducerMap<ActivityFiltersState> = {
-  filters: fromFilters.reducer
-};
 
 
 /**
@@ -37,7 +43,7 @@ export const filterReducers: ActionReducerMap<ActivityFiltersState> = {
  */
 export const getActivitiesState = createFeatureSelector<ActivitiesState>('activities');
 
-
+export const getActivityFiltersState = createFeatureSelector<ActivityFiltersState>('filters');
 
 export const getLayoutState = createFeatureSelector<fromLayout.State>('layout');
 
@@ -56,8 +62,9 @@ export const getActivitiesEntitiesState = createSelector(
   getActivitiesState,
   state => state.activities);
 
-
-
+export const getActivityFilterEntitiesState = createSelector(
+  getActivityFiltersState,
+  state => state.filters);
 
 export const getSelectedActivityId = createSelector(
   getActivitiesEntitiesState,
@@ -95,9 +102,6 @@ export const {
   selectTotal: getTotalActivities,
 } = fromActivities.adapter.getSelectors(getActivitiesEntitiesState);
 
-
-
-
 export const getSelectedActivity = createSelector(
   getActivityEntities,
   getSelectedActivityId,
@@ -106,12 +110,22 @@ export const getSelectedActivity = createSelector(
   }
 );
 
-
-
 export const getShowSidebar = createSelector(
   getLayoutState,
   fromLayout.getShowSidebar
 );
+
+
+export const {
+  selectIds: getActivityFilterIds,
+  selectEntities: getActivityFilterEntities,
+  selectAll: getAllActivityFilters,
+  selectTotal: getTotalFilters
+} = fromFilters.adapter.getSelectors(getActivityFilterEntitiesState);
+
+
+export const selectActivityFilters = (state: ActivityFiltersState) => state.filters;
+
 
 
 
