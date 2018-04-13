@@ -13,9 +13,10 @@ import {
   DeleteActivityFilter,
   UpdateActivityFilter
 } from '../../actions/activity-filter.actions';
-import {SpeedFilter} from '../../components/filter-speed/SpeedFilter';
+import {SpeedFilter} from '../../components/filter-speed/speed-filter';
 import {getActivityFilterEntitiesState} from '../../reducers';
 import {Dictionary} from '@ngrx/entity/src/models';
+import 'rxjs/add/operator/take';
 
 
 
@@ -60,11 +61,12 @@ export class SelectedActivityPageComponent {
       case 'filterMax':
       case 'filterMin': {
         console.log('payload 0'  + '' + JSON.stringify($event.payload));
-        this.store.pipe(select(fromActivity.getActivityFilterEntities)).subscribe( (v: Dictionary<ActivityFilter>) => {
+        this.store.pipe(select(fromActivity.getActivityFilterEntities)).take(1).subscribe( (v: Dictionary<ActivityFilter>) => {
          const filter: SpeedFilter = <SpeedFilter>v[$event.payload[0]];
          const min: number = $event.payload[1];
           filter.min = min;
-          console.log('filter = ' + JSON.stringify(v[$event.payload[0]]));
+          console.log('FILTER = ' + JSON.stringify(v[$event.payload[0]]));
+          console.log('V = ' + JSON.stringify(v));
           this.updateActivityFilter(filter, v);
         });
         // this.store.pipe(select(fromActivity.getActivityFilterIds)).subscribe( v => console.log(' v = ' + v));

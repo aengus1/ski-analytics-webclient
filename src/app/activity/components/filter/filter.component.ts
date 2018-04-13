@@ -13,6 +13,8 @@ import {
 import {MessageEvent} from '../../../shared/utils';
 import {FilterBase} from './filter-base';
 import {FilterSpeedComponent} from '../filter-speed/filter-speed.component';
+import {ActivityFilter} from '../../model/activity-filter.model';
+import {Subject} from 'rxjs/Subject';
 
 
 @Component({
@@ -55,6 +57,7 @@ export class FilterComponent implements OnInit, AfterContentInit {
 
   ngOnInit() {
   }
+
 
   ngAfterContentInit() {
     console.log('content ' + this.content);

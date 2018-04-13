@@ -1,12 +1,13 @@
 import {Component, EventEmitter, forwardRef, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {D3DualRangeSliderComponent} from '../../../chart/components/d3-dual-range-slider/d3-dual-range-slider.component';
 import {MessageEvent} from '../../../shared/utils';
-import {Subscription} from 'rxjs/Subscription';
-import {SpeedFilter} from './SpeedFilter';
+import {SpeedFilter} from './speed-filter';
 import {Activity} from '../../model/Activity_pb';
 import {ActivityFilter} from '../../model/activity-filter.model';
 import {FilterBase} from '../filter/filter-base';
-
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-filter-speed',
@@ -29,6 +30,7 @@ export class FilterSpeedComponent extends FilterBase implements  OnInit {
   @Input()
   private activity: Activity;
   private filterId: string;
+  private debouncer: Subject<MessageEvent<any[]| ActivityFilter>> = new Subject<MessageEvent<any[]| ActivityFilter>>();
 
   constructor() {
     super();
@@ -38,6 +40,10 @@ export class FilterSpeedComponent extends FilterBase implements  OnInit {
     const speedFilter = new SpeedFilter(0, this.activity.getSummary().getMaxspeed());
     this.changeEvent.emit(new MessageEvent('addActivityFilter', speedFilter));
     this.filterId = speedFilter.id;
+    this.debouncer.debounceTime(200).subscribe(v => {
+      console.log(' received...');
+      this.changeEvent.emit(v);
+    });
 
   }
 
@@ -51,15 +57,14 @@ export class FilterSpeedComponent extends FilterBase implements  OnInit {
   }
 
   receiveMessage($event) {
-    // TODO -> NEED to debounce this, or figure out if there is a circular call to update
     switch ($event.name) {
       case 'minValue': {
-        this.changeEvent.emit(new MessageEvent('filterMin', [this.filterId, $event.payload]));
+        this.debouncer.next(new MessageEvent('filterMin', [this.filterId, $event.payload]));
         return;
       }
       case 'maxValue': {
         console.log('emitting: ' + [this.filterId, $event.payload]);
-        this.changeEvent.emit(new MessageEvent('filterMax', [this.filterId, $event.payload]));
+        this.debouncer.next(new MessageEvent('filterMax', [this.filterId, $event.payload]));
         return;
       }
     }

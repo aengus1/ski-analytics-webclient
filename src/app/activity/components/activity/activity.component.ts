@@ -72,6 +72,12 @@ export class ActivityComponent implements OnInit, AfterViewChecked {
         this.messageEvent.emit(new MessageEvent<ActivitySidebarType>('setSidebarContent', ActivitySidebarType.NoContent));
         return;
       }
+      case 'minValue':
+      case 'maxValue': {
+        console.log('min / max filter emitted');
+        // this.messageEvent.emit($event);
+        return;
+      }
       default: {
         this.messageEvent.emit($event);
       }

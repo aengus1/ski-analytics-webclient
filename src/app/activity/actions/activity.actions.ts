@@ -31,7 +31,7 @@ export class SetSidebarContent implements Action {
 
 export class FilterSelectedActivity implements Action {
   readonly type = ActivityActionTypes.FilterSelectedActivity;
-  constructor(public payload: [Update<ActivityFilter>, Dictionary<ActivityFilter>]){}
+  constructor(public payload: {activityFilter: Update<ActivityFilter>, allFilters: Dictionary<ActivityFilter>}) {}
 }
 
 

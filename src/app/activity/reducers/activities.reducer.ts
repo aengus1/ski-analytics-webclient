@@ -62,6 +62,7 @@ return activitySubSport;
 
 
 export function reducer(state = initialState, action: ActivityActions | ActivityFilterActions): State {
+  console.log('hit activity reducer');
   switch (action.type) {
 
     case ActivityActionTypes.Load: {
@@ -105,17 +106,22 @@ export function reducer(state = initialState, action: ActivityActions | Activity
     // case ActivityFilterActionTypes.DeleteActivityFilter:
     case ActivityFilterActionTypes.UpdateActivityFilter: {
       const act: FilterSelectedActivity = <FilterSelectedActivity>action;
-      const filters: Dictionary<ActivityFilter> = act.payload[1];
+      const filters: Dictionary<ActivityFilter> = act.payload.allFilters;
       let activity: Activity = state.entities[state.selectedActivityId];
 
-
+      console.log('filters = ' + filters);
       for (const key in filters) {
         const f: ActivityFilter = filters[key];
-        activity = f[key].applyFilter(activity)[0];
+        console.log('f = ' + JSON.stringify(f));
+        activity = f.applyFilter(activity)[0];
       }
+      console.log('min = ' + Math.min.apply(null, activity.getValues().getSpeedList()));
+      console.log('max = ' + Math.max.apply(null, activity.getValues().getSpeedList()));
       const entityReference = state.entities;
       entityReference[state.selectedActivityId] = activity;
-      return {
+      // console.log('min = ' + Math.min.apply(null, entityReference[state.selectedActivityId].getValues().getSpeedList()));
+      // console.log('max = ' + Math.max.apply(null, entityReference[state.selectedActivityId].getValues().getSpeedList()));
+       return {
         ...state,
         entities: entityReference
       };

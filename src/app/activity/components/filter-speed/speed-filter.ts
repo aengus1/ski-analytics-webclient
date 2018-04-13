@@ -33,6 +33,7 @@ export class SpeedFilter extends AbstractActivityFilter {
    * @returns {[Activity , number[]]}
    */
   applyFilter(activity: Activity): [Activity, number[]] {
+    console.log('hit apply filter method ');
     this.active = true;
     const filteredValues = activity.getValues().getSpeedList();
     const res = new Array<Array<number>>();
