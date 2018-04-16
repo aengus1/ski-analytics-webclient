@@ -1,69 +1,45 @@
-import {AfterContentInit, Component} from '@angular/core';
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Activity} from '../../model/Activity_pb';
-import {Store, select} from '@ngrx/store';
-import * as fromActivity from '../../reducers/';
-import {ActivitySidebarType, FilterSelectedActivity, SetSidebarContent} from '../../actions/activity.actions';
-import {CloseSidebar, OpenSidebar} from '../../../shared/layout/actions/layout.actions';
-import {ActivityFilter} from '../../model/activity-filter.model';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {select, Store} from '@ngrx/store';
+import * as fromActivity from '../../../reducers';
+import {FilterService} from '../../../services/filter-service/filter.service';
+import {ActivityFilter} from '../../../model/activity-filter.model';
+import {Dictionary} from '@ngrx/entity/src/models';
+import {MinMaxActivityFilter} from '../../../components/filter/MinMaxActivityFilter';
 import {
   AddActivityFilter,
   ClearActivityFilters,
   DeleteActivityFilter,
   UpdateActivityFilter
-} from '../../actions/activity-filter.actions';
-import {SpeedFilter} from '../../components/filter-speed/speed-filter';
-import {getActivityFilterEntitiesState} from '../../reducers';
-import {Dictionary} from '@ngrx/entity/src/models';
-import 'rxjs/add/operator/take';
-import {FilterService} from '../../services/filter-service/filter.service';
-import {MinMaxActivityFilter} from '../../components/filter/MinMaxActivityFilter';
-
-
+} from '../../../actions/activity-filter.actions';
+import {Observable} from 'rxjs/Observable';
+import {Activity} from '../../../model/Activity_pb';
 
 @Component({
-  selector: 'app-selected-activity-page',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<app-activity-module
-  [activity] = "activity$ | async"
-  [ActivitySport]="activitySport$ | async"
-  [ActivitySubSport]="activitySubSport$ | async"
-  [sidebarOpen]="sidebarOpen$ | async"
-  [sidebarContent]="sidebarContent$ | async"
-  (messageEvent)="receiveMessage($event)"
-  ></app-activity-module>`
-
+  selector: 'app-filter-container',
+  template: `<app-filter-list
+    [activity] = "activity$ | async"
+  (changeEvent)="receiveMessage($event)">
+    <ng-content></ng-content>
+  </app-filter-list>`,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectedActivityPageComponent {
- activity$: Observable<Activity>;
- activitySport$: Observable<string[]>;
-  activitySubSport$: Observable<string[]>;
-  sidebarOpen$: Observable<boolean>;
-  sidebarContent$: Observable<ActivitySidebarType>;
+export class FilterContainerComponent implements OnInit {
+  activity$: Observable<Activity>;
 
   constructor(private store: Store<fromActivity.State>, private filterService: FilterService) {
     this.activity$ = store.pipe(select(fromActivity.getSelectedActivity));
-    this.activitySport$ = store.pipe(select(fromActivity.getActivitySport));
-    this.activitySubSport$ = store.pipe(select(fromActivity.getActivitySubSport));
-    this.sidebarOpen$ = store.pipe(select(fromActivity.getShowSidebar));
-    this.sidebarContent$ = store.pipe(select(fromActivity.getSidebarContent));
   }
 
+  ngOnInit() {
+  }
 
   receiveMessage($event) {
     console.log('RECEIVED EVENT: ' + $event.name + ' ' + $event.payload);
     switch ($event.name) {
-      case 'closeSidebar':
-        return this.closeSidebar();
-      case 'openSidebar':
-        return  this.openSidebar();
-      case 'setSidebarContent':
-        return this.setSidebarContent($event.payload);
       case 'filterMin': {
         this.store.pipe(select(fromActivity.getActivityFilterEntities)).take(1).subscribe( (v: Dictionary<ActivityFilter>) => {
           if (v[$event.payload[0]] === undefined ) {
-           return;
+            return;
           }
           this.reHydrateFilters(v);
           const hFilter = <MinMaxActivityFilter>this.reHydrateFilter(v[$event.payload[0]]);
@@ -112,23 +88,12 @@ export class SelectedActivityPageComponent {
       }
     }
   }
-  openSidebar() {
-    this.store.dispatch(new OpenSidebar());
-  }
-
-  closeSidebar() {
-    this.store.dispatch(new CloseSidebar());
-  }
-
-  setSidebarContent(type: ActivitySidebarType) {
-    this.store.dispatch(new SetSidebarContent(type));
-  }
 
   addActivityFilter(filter: ActivityFilter, filters: Dictionary<ActivityFilter>) {
     this.store.dispatch(new AddActivityFilter({activityFilter: filter, allFilters: filters}));
   }
 
- deleteActivityFilter(filterId: string) {
+  deleteActivityFilter(filterId: string) {
     this.store.dispatch(new DeleteActivityFilter({id: filterId}));
   }
 
@@ -139,7 +104,6 @@ export class SelectedActivityPageComponent {
   updateActivityFilter(filter: ActivityFilter, filters: Dictionary<ActivityFilter>) {
     this.store.dispatch(new UpdateActivityFilter({activityFilter: {id: filter.id, changes: filter}, allFilters: filters}));
   }
-
 
   /**
    * redux store strips the filter object of methods, so need to create a new one using store values using rehydrate
@@ -157,9 +121,6 @@ export class SelectedActivityPageComponent {
    * @returns {ActivityFilter} new filter class containing methods
    */
   private reHydrateFilter(filter: ActivityFilter): ActivityFilter {
-   return this.filterService.getFilter(filter.id).reHydrate(filter);
+    return this.filterService.getFilter(filter.id).reHydrate(filter);
   }
-
-
-
 }

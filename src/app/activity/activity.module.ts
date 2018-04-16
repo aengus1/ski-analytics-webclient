@@ -24,6 +24,8 @@ import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {ActivityExistsGuard} from './guards/activity-exists';
 import { FilterComponent } from './components/filter/filter.component';
 import { FilterSpeedComponent } from './components/filter-speed/filter-speed.component';
+import {FilterService} from './services/filter-service/filter.service';
+import { FilterContainerComponent } from './containers/filter-container/filter-container/filter-container.component';
 
 
 
@@ -62,10 +64,11 @@ import { FilterSpeedComponent } from './components/filter-speed/filter-speed.com
     ActivityRootComponent,
     ViewActivityPageComponent,
     SelectedActivityPageComponent,
-    FilterSpeedComponent
+    FilterSpeedComponent,
+    FilterContainerComponent
   ],
   providers: [
-    ActivityService, MockActivityService, D3Service, ActivityExistsGuard
+    ActivityService, FilterService, MockActivityService, D3Service, ActivityExistsGuard
   ],
   exports: [ActivityComponent, FilterListComponent, MapComponent, AttributeComponent,
   SummaryPanelComponent]

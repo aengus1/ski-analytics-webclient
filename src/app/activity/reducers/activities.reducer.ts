@@ -7,7 +7,7 @@ import {
 } from '../actions/activity.actions';
 import {Activity} from '../model/Activity_pb';
 import {createEntityAdapter, EntityAdapter, EntityState, Update} from '@ngrx/entity';
-import {ActivityFilterActions, ActivityFilterActionTypes} from '../actions/activity-filter.actions';
+import {ActivityFilterActions, ActivityFilterActionTypes, AddActivityFilter} from '../actions/activity-filter.actions';
 import {ActivityFilter} from '../model/activity-filter.model';
 import * as fromFilters from './activity-filter.reducer';
 import {getSelectedActivity} from './index';
@@ -102,18 +102,24 @@ export function reducer(state = initialState, action: ActivityActions | Activity
       };
     }
      case ActivityActionTypes.FilterSelectedActivity:
-    // case ActivityFilterActionTypes.AddActivityFilter:
-    // case ActivityFilterActionTypes.DeleteActivityFilter:
+    case ActivityFilterActionTypes.AddActivityFilter:
+    case ActivityFilterActionTypes.DeleteActivityFilter:
+    case ActivityFilterActionTypes.ClearActivityFilter:
     case ActivityFilterActionTypes.UpdateActivityFilter: {
       const act: FilterSelectedActivity = <FilterSelectedActivity>action;
       const filters: Dictionary<ActivityFilter> = act.payload.allFilters;
       let activity: Activity = state.entities[state.selectedActivityId];
 
-      console.log('filters = ' + filters);
+
       for (const key in filters) {
         const f: ActivityFilter = filters[key];
-        console.log('f = ' + JSON.stringify(f));
-        activity = f.applyFilter(activity)[0];
+        try {
+            activity = f.applyFilter(activity)[0];
+        }catch (e) {
+          console.log('error' + e);
+          // console.log('attempting to applyFilter on ' + JSON.stringify(f));
+          // console.log('activity' + JSON.stringify(activity));
+        }
       }
       console.log('min = ' + Math.min.apply(null, activity.getValues().getSpeedList()));
       console.log('max = ' + Math.max.apply(null, activity.getValues().getSpeedList()));

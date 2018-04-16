@@ -1,31 +1,25 @@
 import {ActivityFilter, ActivityFilterType} from '../../model/activity-filter.model';
 import {Activity} from '../../model/Activity_pb';
 import {AbstractActivityFilter} from '../filter/AbstractActivityFilter';
+import {MinMaxActivityFilter} from '../filter/MinMaxActivityFilter';
 
-export class SpeedFilter extends AbstractActivityFilter {
+export class SpeedFilter extends AbstractActivityFilter implements MinMaxActivityFilter {
   id: string;
   type: ActivityFilterType;
   filteredIds: number[];
   active: boolean;
    _min: number;
-  public max: number;
+  _max: number;
 
-  constructor(private initialMin: number, private initialMax: number) {
+  constructor(private initialMin: number, private initialMax: number, id: string = 'speed') {
     super();
-    this.id = 'speed';
     this.type = ActivityFilterType.Speed;
-    this.active = false;
+    this.active = true;
     this._min = this.initialMin;
-    this.max = this.initialMax;
+    this._max = this.initialMax;
+    this.id = id;
   }
 
-  set min(min: number) {
-    this._min = min;
-  }
-
-  get min() {
-    return this._min;
-  }
 
   /**
    * Apply the filter to the activity. Returns the filtered activity and a list of ids that were removed
@@ -41,7 +35,7 @@ export class SpeedFilter extends AbstractActivityFilter {
     for (let i = 0; i < filteredValues.length; i++) {
       res.push([filteredValues[i], i]);
     }
-      const result = res.filter(v => (v[0] >= this._min && v[0] <= this.max));
+      const result = res.filter(v => (v[0] >= this._min && v[0] <= this._max));
 
     console.log('filteredValues = ' + result.map(v => v[1]));
 
@@ -54,7 +48,15 @@ export class SpeedFilter extends AbstractActivityFilter {
 
   clear(): void {
     this._min = this.initialMin;
-    this.max = this.initialMax;
-    this.active = false;
+    this._max = this.initialMax;
+    // this.active = false;
+  }
+
+   reHydrate(obj: Object) {
+    const sf =  new SpeedFilter(obj['initialMin'], obj['initialMax']);
+    sf._min = obj['_min'];
+    sf._max = obj['_max'];
+    sf.active = obj['active'];
+      return sf;
   }
 }

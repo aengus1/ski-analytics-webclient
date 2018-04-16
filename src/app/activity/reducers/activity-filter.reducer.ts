@@ -30,21 +30,22 @@ export function reducer(
   state = initialState,
   action: ActivityFilterActions | ActivityActions
 ): State {
-  console.log('hit act filter reducer');
+  console.log('hit act filter reducer ' + action.type);
   switch (action.type) {
     case ActivityFilterActionTypes.AddActivityFilter: {
       console.log('add activityfilter with ' + JSON.stringify(action.payload.activityFilter));
       return adapter.addOne(action.payload.activityFilter, state);
     }
 
+    // case ActivityFilterActionTypes.ClearActivityFilter:
     case ActivityFilterActionTypes.UpdateActivityFilter: {
+      console.log('updating filter with ' + JSON.stringify(action.payload.activityFilter));
       return adapter.updateOne(action.payload.activityFilter, state);
     }
 
     case ActivityFilterActionTypes.DeleteActivityFilter: {
       return adapter.removeOne(action.payload.id, state);
     }
-
     case ActivityFilterActionTypes.ClearActivityFilters: {
       return adapter.removeAll(state);
     }

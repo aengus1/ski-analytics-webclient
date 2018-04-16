@@ -24,7 +24,7 @@ import {Subject} from 'rxjs/Subject';
     <div class="card">
       <div class="card-header" [ngClass]="{'bg-success': active}">
       <span class="switch">
-        <input type="checkbox" class="switch" id="switch-id" checked (change)="toggleActive()">
+        <input type="checkbox" class="switch" id="switch-id"  (change)="toggleActive()">
         <label for="switch-id">{{active ? 'On' : 'Off'}}</label>
       </span>
         <button type="button"
@@ -47,7 +47,7 @@ export class FilterComponent implements OnInit, AfterContentInit {
   @Input()
   title: string;
   filterId: string;
-  active = true;
+  active = false;
   @ContentChild(forwardRef(() => FilterBase))
   content: FilterBase;
 
@@ -72,9 +72,11 @@ export class FilterComponent implements OnInit, AfterContentInit {
   toggleActive() {
     this.active = !this.active;
     if (this.active) {
-      this.changeEvent.emit(new MessageEvent<string>('enableFilter', this.filterId));
+      // this.changeEvent.emit(new MessageEvent<string>('enableFilter', this.filterId));
+      this.content.enable();
     } else {
-      this.changeEvent.emit(new MessageEvent<string>('disableFilter', this.filterId));
+      // this.changeEvent.emit(new MessageEvent<string>('disableFilter', this.filterId));
+      this.content.disable();
     }
   }
 

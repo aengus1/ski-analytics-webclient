@@ -39,7 +39,7 @@ export class ActivityService implements OnInit {
            res[0] = res[0].filter(d => ( d !== -999 ));
            v.getValues().setSpeedList(res[0]);
            // v.getValues().setSpeedList(res);
-            v.getSummary().setMaxspeed(7.3);
+            v.getSummary().setMaxspeed(1.9);
             // console.log('total distance = ' + v.getSummary().getTotaldistance());
             //  console.log(v.getSummary().getHasattributemapMap().getEntryList());
              return v;

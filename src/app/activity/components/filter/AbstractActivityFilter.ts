@@ -21,4 +21,7 @@ export abstract class AbstractActivityFilter implements ActivityFilter {
       .filter(t =>  indices.includes(t[1]))
       .map((v, i) => v[0]));
   }
+
+  abstract reHydrate(obj: Object): ActivityFilter;
+
 }

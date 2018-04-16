@@ -15,5 +15,11 @@ export interface ActivityFilter {
    * @returns {[Activity , number[]]}
    */
   applyFilter(activity: Activity): [Activity, number[]];
+
+  /**
+   * Clear the filter from th
+   */
   clear(): void;
+
+   reHydrate(obj: Object): ActivityFilter;
 }

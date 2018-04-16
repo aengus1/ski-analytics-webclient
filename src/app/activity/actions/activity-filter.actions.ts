@@ -17,7 +17,7 @@ export enum ActivityFilterActionTypes {
 export class AddActivityFilter implements Action {
   readonly type = ActivityFilterActionTypes.AddActivityFilter;
 
-  constructor(public payload: { activityFilter: ActivityFilter}) {}
+  constructor(public payload: { activityFilter: ActivityFilter, allFilters: Dictionary<ActivityFilter>}) {}
 }
 
 export class UpdateActivityFilter implements Action {
