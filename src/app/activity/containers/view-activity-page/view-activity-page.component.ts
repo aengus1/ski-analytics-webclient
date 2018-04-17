@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Store} from '@ngrx/store';
-import * as fromActivity from '../../reducers/activities.reducer';
+import * as fromActivity from '../../reducers/activity.reducer';
 import * as activity from '../../actions/activity.actions';
 import {Subscription} from 'rxjs/Subscription';
 import { map } from 'rxjs/operators';

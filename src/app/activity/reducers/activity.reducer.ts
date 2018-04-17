@@ -5,13 +5,10 @@ import {
   LoadActivity,
   SelectActivity, SetSidebarContent
 } from '../actions/activity.actions';
-import {Activity} from '../model/Activity_pb';
-import {createEntityAdapter, EntityAdapter, EntityState, Update} from '@ngrx/entity';
-import {ActivityFilterActions, ActivityFilterActionTypes, AddActivityFilter} from '../actions/activity-filter.actions';
-import {ActivityFilter} from '../model/activity-filter.model';
-import * as fromFilters from './activity-filter.reducer';
-import {getSelectedActivity} from './index';
-import {AbstractActivityFilter} from '../components/filter/AbstractActivityFilter';
+import {Activity} from '../model/activity/Activity_pb';
+import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
+import {ActivityFilterActions, ActivityFilterActionTypes} from '../actions/activity-filter.actions';
+import {ActivityFilter} from '../model/activity-filter/activity-filter.model';
 import {Dictionary} from '@ngrx/entity/src/models';
 
 
@@ -108,8 +105,8 @@ export function reducer(state = initialState, action: ActivityActions | Activity
     case ActivityFilterActionTypes.UpdateActivityFilter: {
       const act: FilterSelectedActivity = <FilterSelectedActivity>action;
       const filters: Dictionary<ActivityFilter> = act.payload.allFilters;
+      // TODO -> for update / delete we actually need to deep copy unfilteredActivity here
       let activity: Activity = state.entities[state.selectedActivityId];
-
 
       for (const key in filters) {
         const f: ActivityFilter = filters[key];

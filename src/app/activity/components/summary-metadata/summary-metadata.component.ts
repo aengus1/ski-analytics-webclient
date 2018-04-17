@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Activity} from '../../model/Activity_pb';
+import {Activity} from '../../model/activity/Activity_pb';
 import {TitleCasePipe} from '../../../shared/pipes/titlecase.pipe';
 import {RemoveUnderscorePipe} from '../../../shared/pipes/remove-underscore.pipe';
 import {IntervalPipe} from '../../../shared/pipes/interval.pipe';

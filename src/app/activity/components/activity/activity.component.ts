@@ -3,7 +3,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {SidebarComponent} from '../../../shared/components/sidebar/sidebar.component';
-import {Activity} from '../../model/Activity_pb';
+import {Activity} from '../../model/activity/Activity_pb';
 import {ActivitySidebarType} from '../../actions/activity.actions';
 import {MessageEvent} from '../../../shared/utils';
 

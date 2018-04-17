@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivityService} from '../../services/activity-service/activity.service';
-import {Activity} from '../../model/Activity_pb';
+import {Activity} from '../../model/activity/Activity_pb';
 
 @Component({
   selector: 'app-activity-graph-container',
@@ -22,7 +22,7 @@ export class ActivityGraphComponent implements OnInit {
      this.activityService.getActivity( '1' ).subscribe( v => {
        this.activity = v;
        const res = [];
-       res[0] = this.activity.getValues().getSpeedList().filter(v => Math.floor(v));
+       res[0] = this.activity.getValues().getSpeedList().filter(x => Math.floor(x));
        this.speedData = res;
      });
   }

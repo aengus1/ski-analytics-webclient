@@ -1,20 +1,15 @@
 import {
   AfterContentInit,
-  AfterViewInit,
   Component,
   ContentChild,
   EventEmitter,
   forwardRef,
   Input,
   OnInit,
-  Output,
-  TemplateRef, ViewChild
+  Output
 } from '@angular/core';
 import {MessageEvent} from '../../../shared/utils';
-import {FilterBase} from './filter-base';
-import {FilterSpeedComponent} from '../filter-speed/filter-speed.component';
-import {ActivityFilter} from '../../model/activity-filter.model';
-import {Subject} from 'rxjs/Subject';
+import {FilterBase} from './filter-base.model';
 
 
 @Component({

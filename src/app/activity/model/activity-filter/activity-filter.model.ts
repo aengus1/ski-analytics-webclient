@@ -1,4 +1,4 @@
-import {Activity} from './Activity_pb';
+import {Activity} from '../activity/Activity_pb';
 
 export enum ActivityFilterType {
   Speed, TimeInZone

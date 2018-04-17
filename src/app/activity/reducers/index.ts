@@ -4,11 +4,10 @@ import {
   ActionReducerMap,
 } from '@ngrx/store';
 
-import * as fromActivities from './activities.reducer';
+import * as fromActivities from './activity.reducer';
 import * as fromFilters from './activity-filter.reducer';
 import * as fromRoot from '../../reducers';
 import * as fromLayout from '../../shared/layout/reducers/layout.reducer';
-import {adapter} from './activity-filter.reducer';
 
 
 export interface ActivitiesState {

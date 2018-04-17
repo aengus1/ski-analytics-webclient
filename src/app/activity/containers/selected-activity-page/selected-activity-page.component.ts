@@ -1,24 +1,22 @@
-import {AfterContentInit, Component} from '@angular/core';
+import { Component} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {Activity} from '../../model/Activity_pb';
+import {Activity} from '../../model/activity/Activity_pb';
 import {Store, select} from '@ngrx/store';
 import * as fromActivity from '../../reducers/';
-import {ActivitySidebarType, FilterSelectedActivity, SetSidebarContent} from '../../actions/activity.actions';
+import {ActivitySidebarType,  SetSidebarContent} from '../../actions/activity.actions';
 import {CloseSidebar, OpenSidebar} from '../../../shared/layout/actions/layout.actions';
-import {ActivityFilter} from '../../model/activity-filter.model';
+import {ActivityFilter} from '../../model/activity-filter/activity-filter.model';
 import {
   AddActivityFilter,
   ClearActivityFilters,
   DeleteActivityFilter,
   UpdateActivityFilter
 } from '../../actions/activity-filter.actions';
-import {SpeedFilter} from '../../components/filter-speed/speed-filter';
-import {getActivityFilterEntitiesState} from '../../reducers';
 import {Dictionary} from '@ngrx/entity/src/models';
 import 'rxjs/add/operator/take';
 import {FilterService} from '../../services/filter-service/filter.service';
-import {MinMaxActivityFilter} from '../../components/filter/MinMaxActivityFilter';
+import {MinMaxActivityFilter} from '../../model/activity-filter/min-max-activity-filter.model';
 
 
 
