@@ -49,12 +49,12 @@ export class D3BoxplotComponent extends D3ChartComponent {
     }
     this.calcMinMax();
     const sel = this.d3Svg.selectAll('svg')
-      .data(this.data)
+      .data([this.data])
       .enter()
       .append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
-    this.chart.build(sel);
+    this.chart.build(<any>sel);
 
   }
 
@@ -81,13 +81,13 @@ export class D3BoxplotComponent extends D3ChartComponent {
    * calculates range of chart domain based on first dimension of multidimensional dataset
    */
   private calcMinMax(): void {
-    for (let i = 0; i < this.data[0].length; i++) {
+    for (let i = 0; i < this.data.length; i++) {
 
-      if (this.data[0][i] < this.min) {
-        this.min = this.data[0][i];
+      if (this.data[i] < this.min) {
+        this.min = this.data[i];
       }
-      if (this.data[0][i] > this.max) {
-        this.max = this.data[0][i];
+      if (this.data[i] > this.max) {
+        this.max = this.data[i];
       }
     }
     this.chart.domain([this.min, this.max]);

@@ -65,10 +65,16 @@ export class ActivityComponent implements OnInit, AfterViewChecked {
   }
 
   receiveMessage($event) {
+    console.log('A RECEIVED EVENT: ' + $event.name + ' ' + $event.payload);
     switch ($event) {
-      case 'closeSidebar':
+      case 'closeSidebar': {
         this.messageEvent.emit(new MessageEvent('closeSidebar'));
         this.messageEvent.emit(new MessageEvent<ActivitySidebarType>('setSidebarContent', ActivitySidebarType.NoContent));
+        return;
+      }
+      default: {
+        this.messageEvent.emit($event);
+      }
     }
   }
 

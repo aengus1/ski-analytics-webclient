@@ -1,5 +1,6 @@
 /* tslint:disable:no-bitwise */
 import {D3, Selection} from 'd3-ng2-service';
+import {BaseType} from 'd3-selection';
 
 export class BoxPlot {
   private width_v: number;
@@ -16,11 +17,23 @@ export class BoxPlot {
     this.d3 = d3;
   }
 
+
+  public clear(g: Selection<any, SVGSVGElement, any, any>): Selection<any, SVGSVGElement, any, any> {
+    g.selectAll('rect.box').remove();
+    g.selectAll('line.center').remove();
+    g.selectAll('line.median').remove();
+    g.selectAll('line.whisker').remove();
+    g.selectAll('circle.outlier').remove();
+    g.selectAll('text.box').remove();
+    g.selectAll('text.whisker').remove();
+    return g;
+  }
   /**
    * Builds the box plot based on a D3 SVG selection using the provided d3 service
    * @param {Selection<any, SVGSVGElement, any, any>} g
    */
   public build(g: Selection<any, SVGSVGElement, any, any>): void {
+    g = this.clear(g);
     const value = Number;
     const duration = 0;
     const tickFormat = null;
@@ -39,7 +52,7 @@ export class BoxPlot {
     };
 
     g.each(function (d: any, i) {
-      d = d.map(value).sort(d3.ascending);
+      d = d.sort(d3.ascending);
       const n = d.length,
         min = d[0],
         max = d[n - 1];

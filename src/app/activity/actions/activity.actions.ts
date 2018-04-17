@@ -1,6 +1,8 @@
 import { Action } from '@ngrx/store';
 import {Activity} from '../model/Activity_pb';
-
+import {ActivityFilter} from '../model/activity-filter.model';
+import {Update} from '@ngrx/entity';
+import {Dictionary} from '@ngrx/entity/src/models';
 
 export enum ActivityActionTypes {
   Select= '[Activity] Select Activity',
@@ -29,6 +31,7 @@ export class SetSidebarContent implements Action {
 
 export class FilterSelectedActivity implements Action {
   readonly type = ActivityActionTypes.FilterSelectedActivity;
+  constructor(public payload: {activityFilter: Update<ActivityFilter>, allFilters: Dictionary<ActivityFilter>}) {}
 }
 
 

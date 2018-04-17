@@ -10,19 +10,24 @@ import {MapComponent} from './components/map/map.component';
 import {ActivityService} from './services/activity-service/activity.service';
 import {D3Service} from 'd3-ng2-service';
 import {MockActivityService} from './services/activity-service/mock.activity.service';
-import {FilterComponent} from './components/filter/filter.component';
+import {FilterListComponent} from './components/filter-list/filter-list.component';
 import {AttributeComponent} from './components/attribute/attribute.component';
 import {ActivityRoutesModule} from './activity.routes';
 import { ActivityRootComponent } from './containers/activity-root/activity-root.component';
 import { StoreModule } from '@ngrx/store';
-import {reducers} from './reducers';
+import {filterReducers, reducers} from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../../environments/environment';
 import { ViewActivityPageComponent } from './containers/view-activity-page/view-activity-page.component';
 import { SelectedActivityPageComponent } from './containers/selected-activity-page/selected-activity-page.component';
 import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {ActivityExistsGuard} from './guards/activity-exists';
-import {EffectsModule} from '@ngrx/effects';
+import { FilterComponent } from './components/filter/filter.component';
+import { FilterSpeedComponent } from './components/filter-speed/filter-speed.component';
+import {FilterService} from './services/filter-service/filter.service';
+import { FilterContainerComponent } from './containers/filter-container/filter-container/filter-container.component';
+
+
 
 @NgModule({
   imports: [
@@ -31,7 +36,7 @@ import {EffectsModule} from '@ngrx/effects';
     ChartModule,
     ActivityRoutesModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreModule.forFeature('filters', reducers),
+    StoreModule.forFeature('filters', filterReducers),
     StoreModule.forFeature('activities', reducers),
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router' // name of reducer key
@@ -53,16 +58,19 @@ import {EffectsModule} from '@ngrx/effects';
     ActivityGraphComponent,
     MapComponent,
     FilterComponent,
+    FilterListComponent,
     AttributeComponent,
     SummaryMetadataComponent,
     ActivityRootComponent,
     ViewActivityPageComponent,
-    SelectedActivityPageComponent
+    SelectedActivityPageComponent,
+    FilterSpeedComponent,
+    FilterContainerComponent
   ],
   providers: [
-    ActivityService, MockActivityService, D3Service, ActivityExistsGuard
+    ActivityService, FilterService, MockActivityService, D3Service, ActivityExistsGuard
   ],
-  exports: [ActivityComponent, FilterComponent, MapComponent, AttributeComponent,
+  exports: [ActivityComponent, FilterListComponent, MapComponent, AttributeComponent,
   SummaryPanelComponent]
 })
 export class ActivityModule { }

@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-md-2">
+    <i class="fa fa-filter fa-2x title-icon active">
+      <span class="badge badge-light">{{filterCount}}</span>
+    </i>
+  </div>
+</div>
+<p> Filter container works</p>
+<app-filter #filt [title]="Speed" (changeEvent)="receiveMessage($event)">
+  <app-filter-speed [activity]="activity" (changeEvent)="receiveMessage($event)"></app-filter-speed>
+</app-filter>
+
