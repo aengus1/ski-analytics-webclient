@@ -1,14 +1,8 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { ActivityFilter } from '../model/activity-filter.model';
+import { ActivityFilter } from '../model/activity-filter/activity-filter.model';
 import { ActivityFilterActions, ActivityFilterActionTypes } from '../actions/activity-filter.actions';
-import {combineReducers, createFeatureSelector, createSelector} from '@ngrx/store';
-import {filterReducers, getSelectedActivity} from './index';
-import {routerReducer} from '@ngrx/router-store';
-import * as  fromActivity from './activities.reducer';
-import {Dictionary} from '@ngrx/entity/src/models';
-import {forEach} from '@angular/router/src/utils/collection';
-import {ActivityActions, ActivityActionTypes} from '../actions/activity.actions';
-import {Activity} from '../model/Activity_pb';
+import {ActivityActions} from '../actions/activity.actions';
+
 
 export interface State extends EntityState<ActivityFilter> {
   error: any;

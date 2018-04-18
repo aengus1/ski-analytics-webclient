@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FilterComponent} from '../filter/filter.component';
-import {Activity} from '../../model/Activity_pb';
+import {Activity} from '../../model/activity/Activity_pb';
 
 import {MessageEvent} from '../../../shared/utils';
 

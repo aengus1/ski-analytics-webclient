@@ -1,5 +1,5 @@
-import {ActivityFilter, ActivityFilterType} from '../../model/activity-filter.model';
-import {Activity} from '../../model/Activity_pb';
+import {ActivityFilter, ActivityFilterType} from '../../model/activity-filter/activity-filter.model';
+import {Activity} from '../../model/activity/Activity_pb';
 
 export abstract class AbstractActivityFilter implements ActivityFilter {
 
@@ -19,7 +19,7 @@ export abstract class AbstractActivityFilter implements ActivityFilter {
   filterAllValuesByIndex(activity: Activity, indices: number[]) {
     activity.getValues().setSpeedList(activity.getValues().getSpeedList().map((v, i) => [v, i])
       .filter(t =>  indices.includes(t[1]))
-      .map((v, i) => v[0]));
+      .map((v) => v[0]));
   }
 
   abstract reHydrate(obj: Object): ActivityFilter;

@@ -1,6 +1,6 @@
 
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Activity} from '../../../activity/model/Activity_pb';
+import {Activity} from '../../../activity/model/activity/Activity_pb';
 
 
 @Component({

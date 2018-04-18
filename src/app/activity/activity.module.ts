@@ -10,7 +10,7 @@ import {MapComponent} from './components/map/map.component';
 import {ActivityService} from './services/activity-service/activity.service';
 import {D3Service} from 'd3-ng2-service';
 import {MockActivityService} from './services/activity-service/mock.activity.service';
-import {FilterListComponent} from './components/filter-list/filter-list.component';
+import {FilterListComponent} from './containers/filter-list/filter-list.component';
 import {AttributeComponent} from './components/attribute/attribute.component';
 import {ActivityRoutesModule} from './activity.routes';
 import { ActivityRootComponent } from './containers/activity-root/activity-root.component';
@@ -25,7 +25,6 @@ import {ActivityExistsGuard} from './guards/activity-exists';
 import { FilterComponent } from './components/filter/filter.component';
 import { FilterSpeedComponent } from './components/filter-speed/filter-speed.component';
 import {FilterService} from './services/filter-service/filter.service';
-import { FilterContainerComponent } from './containers/filter-container/filter-container/filter-container.component';
 
 
 
@@ -64,8 +63,7 @@ import { FilterContainerComponent } from './containers/filter-container/filter-c
     ActivityRootComponent,
     ViewActivityPageComponent,
     SelectedActivityPageComponent,
-    FilterSpeedComponent,
-    FilterContainerComponent
+    FilterSpeedComponent
   ],
   providers: [
     ActivityService, FilterService, MockActivityService, D3Service, ActivityExistsGuard

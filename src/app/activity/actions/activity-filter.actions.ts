@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-import {ActivityFilter, ActivityFilterType} from '../model/activity-filter.model';
-import {Activity} from '../model/Activity_pb';
+import {ActivityFilter, ActivityFilterType} from '../model/activity-filter/activity-filter.model';
+import {Activity} from '../model/activity/Activity_pb';
 import {Dictionary} from '@ngrx/entity/src/models';
 
 export enum ActivityFilterActionTypes {

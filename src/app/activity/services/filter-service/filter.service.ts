@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ActivityFilter, ActivityFilterType} from '../../model/activity-filter.model';
+import {ActivityFilter} from '../../model/activity-filter/activity-filter.model';
 
 
 /**

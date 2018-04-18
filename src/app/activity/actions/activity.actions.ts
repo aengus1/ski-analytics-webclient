@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import {Activity} from '../model/Activity_pb';
-import {ActivityFilter} from '../model/activity-filter.model';
+import {Activity} from '../model/activity/Activity_pb';
+import {ActivityFilter} from '../model/activity-filter/activity-filter.model';
 import {Update} from '@ngrx/entity';
 import {Dictionary} from '@ngrx/entity/src/models';
 

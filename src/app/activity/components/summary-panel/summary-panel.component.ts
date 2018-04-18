@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Activity} from '../../model/Activity_pb';
+import {Component, Input} from '@angular/core';
+import {Activity} from '../../model/activity/Activity_pb';
 
 @Component({
   selector: 'app-summary-panel',
