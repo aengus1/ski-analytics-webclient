@@ -7,9 +7,12 @@ import {
 } from '../actions/activity.actions';
 import {Activity} from '../model/activity/Activity_pb';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
-import {ActivityFilterActions, ActivityFilterActionTypes} from '../actions/activity-filter.actions';
+import {
+  ActivityFilterActions, ActivityFilterActionTypes
+} from '../actions/activity-filter.actions';
 import {ActivityFilter} from '../model/activity-filter/activity-filter.model';
 import {Dictionary} from '@ngrx/entity/src/models';
+import * as _ from 'lodash';
 
 
 export interface State extends EntityState<Activity> {
@@ -59,7 +62,7 @@ return activitySubSport;
 
 
 export function reducer(state = initialState, action: ActivityActions | ActivityFilterActions): State {
-  console.log('hit activity reducer');
+  console.log('hit activity reducer with ' + action.type);
   switch (action.type) {
 
     case ActivityActionTypes.Load: {
@@ -98,14 +101,35 @@ export function reducer(state = initialState, action: ActivityActions | Activity
 
       };
     }
-     case ActivityActionTypes.FilterSelectedActivity:
-    case ActivityFilterActionTypes.AddActivityFilter:
-    case ActivityFilterActionTypes.DeleteActivityFilter:
-    case ActivityFilterActionTypes.ClearActivityFilter:
-    case ActivityFilterActionTypes.UpdateActivityFilter: {
-      const act: FilterSelectedActivity = <FilterSelectedActivity>action;
-      const filters: Dictionary<ActivityFilter> = act.payload.allFilters;
-      // TODO -> for update / delete we actually need to deep copy unfilteredActivity here
+    // case ActivityFilterActionTypes.DeleteActivityFilter:
+    // case ActivityFilterActionTypes.ClearActivityFilter:
+    // case ActivityFilterActionTypes.UpdateActivityFilter: {
+    case ActivityFilterActionTypes.FilterActivity: {
+      console.log(' in filter activity.. ');
+      //todo -> NO NEED TO PASS IN SPECIFIC FILTER HERE
+      const filters: Dictionary<ActivityFilter> = action.payload.allFilters;
+      let activity: Activity = deepCopyActivity(state.unfilteredActivity);
+
+      for (const key in filters) {
+        const f: ActivityFilter = filters[key];
+        try {
+          activity = f.applyFilter(activity)[0];
+        }catch (e) {
+          console.log('error' + e);
+        }
+      }
+      console.log(state.unfilteredActivity.getValues().getSpeedList().length + ' vs ' + activity.getValues().getSpeedList().length);
+      const entityReference = state.entities;
+      entityReference[state.selectedActivityId] = activity;
+      return {
+        ...state,
+        entities: entityReference
+      };
+    }
+    // TODO -> go through effect as above.
+    // todo -> code duplication with above?
+    case ActivityFilterActionTypes.AddActivityFilter: {
+      const filters: Dictionary<ActivityFilter> = action.payload.allFilters;
       let activity: Activity = state.entities[state.selectedActivityId];
 
       for (const key in filters) {
@@ -114,31 +138,24 @@ export function reducer(state = initialState, action: ActivityActions | Activity
             activity = f.applyFilter(activity)[0];
         }catch (e) {
           console.log('error' + e);
-          // console.log('attempting to applyFilter on ' + JSON.stringify(f));
-          // console.log('activity' + JSON.stringify(activity));
         }
       }
-      console.log('min = ' + Math.min.apply(null, activity.getValues().getSpeedList()));
-      console.log('max = ' + Math.max.apply(null, activity.getValues().getSpeedList()));
       const entityReference = state.entities;
       entityReference[state.selectedActivityId] = activity;
-      // console.log('min = ' + Math.min.apply(null, entityReference[state.selectedActivityId].getValues().getSpeedList()));
-      // console.log('max = ' + Math.max.apply(null, entityReference[state.selectedActivityId].getValues().getSpeedList()));
        return {
         ...state,
         entities: entityReference
       };
     }
-    // case ActivityFilterActionTypes.ClearActivityFilter: {
-    //   return adapter.removeOne(adapter.getSelectors().selectAll(state)
-    //     .filter( f => f.type === action.payload.type)
-    //     [0].id, state);
-    // }
 
     default: {
       return state;
     }
   }
+}
+
+ function deepCopyActivity(activity: Activity) {
+  return _.cloneDeep(activity);
 }
 
 

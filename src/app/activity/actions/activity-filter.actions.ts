@@ -29,7 +29,7 @@ export class UpdateActivityFilter implements Action {
 export class DeleteActivityFilter implements Action {
   readonly type = ActivityFilterActionTypes.DeleteActivityFilter;
 
-  constructor(public payload: { id: string}) {}
+  constructor(public payload: { id: string, allFilters: Dictionary<ActivityFilter> }) {}
 }
 
 export class ClearActivityFilters implements Action {
@@ -38,12 +38,12 @@ export class ClearActivityFilters implements Action {
 
 export class ClearActivityFilter implements Action {
   readonly type = ActivityFilterActionTypes.ClearActivityFilter;
-  constructor(public payload: { type: ActivityFilterType}) {}
+  constructor(public payload: { activityFilter: Update<ActivityFilter>, allFilters: Dictionary<ActivityFilter> }) {}
 }
 
 export class FilterActivity implements Action {
   readonly type = ActivityFilterActionTypes.FilterActivity;
-  constructor(public payload: { type: ActivityFilterType, activity: Activity }) {}
+  constructor(public payload: { activityFilter: Update<ActivityFilter>, allFilters: Dictionary<ActivityFilter> }) {}
 }
 
 export type ActivityFilterActions =
