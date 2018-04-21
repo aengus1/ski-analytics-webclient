@@ -1,5 +1,5 @@
-import { Component} from '@angular/core';
-import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Activity} from '../../model/activity/Activity_pb';
 import {Store, select} from '@ngrx/store';
@@ -17,6 +17,10 @@ import {Dictionary} from '@ngrx/entity/src/models';
 import 'rxjs/add/operator/take';
 import {FilterService} from '../../services/filter-service/filter.service';
 import {MinMaxActivityFilter} from '../../model/activity-filter/min-max-activity-filter.model';
+import {FilterEffects} from '../../effects/filter.effects';
+import {ActivityComponent} from '../../components/activity/activity.component';
+import { AsyncPipe } from '@angular/common';
+import {async} from 'rxjs/scheduler/async';
 
 
 
@@ -39,8 +43,9 @@ export class SelectedActivityPageComponent {
   activitySubSport$: Observable<string[]>;
   sidebarOpen$: Observable<boolean>;
   sidebarContent$: Observable<ActivitySidebarType>;
+  @ViewChild(ActivityComponent) activityModuleComponent;
 
-  constructor(private store: Store<fromActivity.State>, private filterService: FilterService) {
+  constructor(private store: Store<fromActivity.State>, private filterService: FilterService, private filterEffects: FilterEffects) {
     this.activity$ = store.pipe(select(fromActivity.getSelectedActivity));
     this.activitySport$ = store.pipe(select(fromActivity.getActivitySport));
     this.activitySubSport$ = store.pipe(select(fromActivity.getActivitySubSport));
@@ -108,6 +113,7 @@ export class SelectedActivityPageComponent {
           this.reHydrateFilters(v);
         return this.deleteActivityFilter($event.payload, v);
         });
+        return;
       }
       case 'addActivityFilter': {
         this.filterService.registerFilter($event.payload.id, $event.payload);
@@ -164,6 +170,14 @@ export class SelectedActivityPageComponent {
   private reHydrateFilter(filter: ActivityFilter): ActivityFilter {
    return this.filterService.getFilter(filter.id).reHydrate(filter);
   }
+
+  // ngOnInit(): void {
+  //   this.filterEffects.reSubscribeContainer.subscribe(v => {
+  //     console.log('resubscribe triggered');
+  //     this.activity$ = this.store.pipe(select(fromActivity.getSelectedActivity));
+  //
+  //   });
+  // }
 
 
 

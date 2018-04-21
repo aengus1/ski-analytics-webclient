@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import {Action} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
-import {ActivityFilterActionTypes, FilterActivity} from '../actions/activity-filter.actions';
+import {ActivityFilterActionTypes, FilterActivity, FilterActivitySuccess} from '../actions/activity-filter.actions';
 import { switchMap, map } from 'rxjs/operators';
 import {FilterSelectedActivity} from '../actions/activity.actions';
 
@@ -19,5 +19,15 @@ export class FilterEffects {
       console.log(' in effect');
       return new FilterActivity({'activityFilter': p.activityFilter, 'allFilters': p.allFilters});
     }));
+
+  @Effect()
+  reSubscribeContainer  = this.actions$.pipe(
+    ofType<FilterActivity>(ActivityFilterActionTypes.FilterActivity),
+    map(p => {
+      console.log(' in effect');
+      return new FilterActivitySuccess();
+    }));
+
+
 
 }

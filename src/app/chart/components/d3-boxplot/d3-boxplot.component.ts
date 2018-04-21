@@ -43,6 +43,7 @@ export class D3BoxplotComponent extends D3ChartComponent {
 
 
   public updateChart() {
+    console.log('update chart triggered');
     // base
     if (!this.data) {
       return;

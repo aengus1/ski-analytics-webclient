@@ -108,8 +108,7 @@ export function reducer(state = initialState, action: ActivityActions | Activity
       console.log(' in filter activity.. ');
       //todo -> NO NEED TO PASS IN SPECIFIC FILTER HERE
       const filters: Dictionary<ActivityFilter> = action.payload.allFilters;
-      let activity: Activity = deepCopyActivity(state.unfilteredActivity);
-
+       let activity: Activity = deepCopyActivity(state.unfilteredActivity);
       for (const key in filters) {
         const f: ActivityFilter = filters[key];
         try {
@@ -120,7 +119,9 @@ export function reducer(state = initialState, action: ActivityActions | Activity
       }
       console.log(state.unfilteredActivity.getValues().getSpeedList().length + ' vs ' + activity.getValues().getSpeedList().length);
       const entityReference = state.entities;
-      entityReference[state.selectedActivityId] = activity;
+      // replacing the entire activity entity will break the subscription in the component chain
+      // instead just update the values
+      entityReference[state.selectedActivityId].setValues(activity.getValues());
       return {
         ...state,
         entities: entityReference
