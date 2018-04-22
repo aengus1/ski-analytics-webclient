@@ -19,13 +19,13 @@ export class BoxPlot {
 
 
   public clear(g: Selection<any, SVGSVGElement, any, any>): Selection<any, SVGSVGElement, any, any> {
-    g.selectAll('rect.box').remove();
-    g.selectAll('line.center').remove();
-    g.selectAll('line.median').remove();
-    g.selectAll('line.whisker').remove();
-    g.selectAll('circle.outlier').remove();
-    g.selectAll('text.box').remove();
-    g.selectAll('text.whisker').remove();
+    g.selectAll('rect.box').exit().remove();
+    g.selectAll('line.center').exit().remove();
+    g.selectAll('line.median').exit().remove();
+    g.selectAll('line.whisker').exit().remove();
+    g.selectAll('circle.outlier').exit().remove();
+    g.selectAll('text.box').exit().remove();
+    g.selectAll('text.whisker').exit().remove();
     return g;
   }
   /**

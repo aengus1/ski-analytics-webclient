@@ -31,7 +31,7 @@ export function reducer(
       return adapter.addOne(action.payload.activityFilter, state);
     }
 
-    // case ActivityFilterActionTypes.ClearActivityFilter:
+     case ActivityFilterActionTypes.ClearActivityFilter:
     case ActivityFilterActionTypes.UpdateActivityFilter: {
       console.log('updating filter with ' + JSON.stringify(action.payload.activityFilter));
       {

@@ -70,9 +70,11 @@ export class SelectedActivityPageComponent {
           }
           this.reHydrateFilters(v);
           const hFilter = <MinMaxActivityFilter>this.reHydrateFilter(v[$event.payload[0]]);
-          hFilter._min = $event.payload[1];
-
           v[$event.payload[0]] = hFilter;
+          hFilter._min = $event.payload[1];
+          console.log(' min at container: ' + $event.payload[1]);
+
+          // v[$event.payload[0]] = hFilter;
           this.updateActivityFilter(hFilter, v);
         });
         return;

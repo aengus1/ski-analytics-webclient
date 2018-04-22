@@ -79,7 +79,7 @@ export function reducer(state = initialState, action: ActivityActions | Activity
       const newState = {
         ...state,
         selectedActivityId: act.payload,
-        unfilteredActivity: state.entities[act.payload],
+        unfilteredActivity: deepCopyActivity(state.entities[act.payload]),
       };
 
       if (state.selectedActivityId !== null) {
@@ -109,6 +109,7 @@ export function reducer(state = initialState, action: ActivityActions | Activity
       //todo -> NO NEED TO PASS IN SPECIFIC FILTER HERE
       const filters: Dictionary<ActivityFilter> = action.payload.allFilters;
        let activity: Activity = deepCopyActivity(state.unfilteredActivity);
+      console.log('pre ' + state.unfilteredActivity.getValues().getSpeedList().length + ' vs ' + activity.getValues().getSpeedList().length);
       for (const key in filters) {
         const f: ActivityFilter = filters[key];
         try {
@@ -118,6 +119,8 @@ export function reducer(state = initialState, action: ActivityActions | Activity
         }
       }
       console.log(state.unfilteredActivity.getValues().getSpeedList().length + ' vs ' + activity.getValues().getSpeedList().length);
+      console.log(activity.getValues().getSpeedList());
+      console.log('reducer min: ' + Math.min.apply(null, activity.getValues().getSpeedList()) + ' max ' + Math.max.apply(null, activity.getValues().getSpeedList()));
       const entityReference = state.entities;
       // replacing the entire activity entity will break the subscription in the component chain
       // instead just update the values
@@ -155,8 +158,9 @@ export function reducer(state = initialState, action: ActivityActions | Activity
   }
 }
 
+
  function deepCopyActivity(activity: Activity) {
-  return _.cloneDeep(activity);
+   return _.cloneDeep(activity);
 }
 
 
