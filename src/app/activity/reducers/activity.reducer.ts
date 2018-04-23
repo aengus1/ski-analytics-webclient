@@ -112,6 +112,7 @@ export function reducer(state = initialState, action: ActivityActions | Activity
       console.log('pre ' + state.unfilteredActivity.getValues().getSpeedList().length + ' vs ' + activity.getValues().getSpeedList().length);
       for (const key in filters) {
         const f: ActivityFilter = filters[key];
+        console.log('f = ' + JSON.stringify(f));
         try {
           activity = f.applyFilter(activity)[0];
         }catch (e) {

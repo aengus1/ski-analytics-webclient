@@ -24,14 +24,14 @@ export class FilterListComponent implements OnInit {
   }
 
   receiveMessage($event) {
-    console.log($event.name);
+    console.log('filter list ' + $event.name + ' ' + $event.payload);
     switch ($event.name) {
-    case 'enableFilter' : {
+    case 'addActivityFilter' : {
       this.filterCount++;
       this.changeEvent.emit($event);
       return;
     }
-      case 'disableFilter': {
+      case 'removeActivityFilter': {
         if (this.filterCount > 0 ) {
           this.filterCount--;
         }

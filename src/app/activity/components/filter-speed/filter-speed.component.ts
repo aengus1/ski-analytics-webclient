@@ -54,6 +54,7 @@ export class FilterSpeedComponent extends FilterBase implements  OnInit {
   }
 
   enable() {
+    console.log('hit enable');
     const speedFilter = new SpeedFilter(0, this.activity.getSummary().getMaxspeed(), 'speed');
     speedFilter._min = this._min;
     speedFilter._max = this._max;

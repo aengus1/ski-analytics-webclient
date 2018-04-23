@@ -94,14 +94,16 @@ export class SelectedActivityPageComponent {
       }
       case 'clearFilter': {
         this.store.pipe(select(fromActivity.getActivityFilterEntities)).take(1).subscribe( (v: Dictionary<ActivityFilter>) => {
-          console.log('v=' + JSON.stringify(v ));
+          console.log('clear filter v=' + JSON.stringify(v));
+          console.log(JSON.stringify(v[$event.payload]));
           if (v[$event.payload] === undefined ) {
             return;
           }
           this.reHydrateFilters(v);
           const hFilter = this.reHydrateFilter(v[$event.payload]);
-
           hFilter.clear();
+          console.log(' post clean' + JSON.stringify(hFilter));
+          v[$event.payload] = hFilter;
           this.updateActivityFilter(hFilter, v);
         });
         return;
