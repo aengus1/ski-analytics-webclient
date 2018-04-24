@@ -6,6 +6,7 @@ import {SidebarComponent} from '../../../shared/components/sidebar/sidebar.compo
 import {Activity} from '../../model/activity/Activity_pb';
 import {ActivitySidebarType} from '../../actions/activity.actions';
 import {MessageEvent} from '../../../shared/utils';
+import {LoggerService} from '../../../shared/services/logger.service';
 
 
 
@@ -18,16 +19,23 @@ import {MessageEvent} from '../../../shared/utils';
 export class ActivityComponent implements OnInit, AfterViewChecked {
 
 
+  // the main activity instance
   @Input()
   private activity: Activity;
+  // static arrays of activity sport / subsport
   @Input()
   public ActivitySport: string[];
   @Input()
   public ActivitySubSport: string[];
+
+  // the sidebar status
   @Input()
   public sidebarOpen: boolean;
+
+  // the sidebar content type
   @Input()
   public sidebarContent: ActivitySidebarType;
+
   @Output()
   public messageEvent = new EventEmitter<MessageEvent<string | ActivitySidebarType>>();
 
@@ -37,11 +45,12 @@ export class ActivityComponent implements OnInit, AfterViewChecked {
   // local variable for storing display page view in mobile
   public summaryDisplay = true;
 
+  // sidebar component
   @ViewChild(SidebarComponent) sidebar;
 
 
 
-  constructor(private cdRef: ChangeDetectorRef ) { }
+  constructor(private cdRef: ChangeDetectorRef, private logger: LoggerService ) { }
 
 
   ngOnInit() {
@@ -65,7 +74,8 @@ export class ActivityComponent implements OnInit, AfterViewChecked {
   }
 
   receiveMessage($event) {
-    console.log('A RECEIVED EVENT: ' + $event.name + ' ' + $event.payload);
+    this.logger.info('ActivityComponent: received message event:[' + $event
+    + '] name:[' + $event.name + '] payload:[' + $event.payload + ']' );
     switch ($event) {
       case 'closeSidebar': {
         this.messageEvent.emit(new MessageEvent('closeSidebar'));
@@ -77,11 +87,4 @@ export class ActivityComponent implements OnInit, AfterViewChecked {
       }
     }
   }
-
-
-
-
-
-
-
 }

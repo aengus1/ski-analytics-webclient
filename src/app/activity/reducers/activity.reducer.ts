@@ -101,9 +101,8 @@ export function reducer(state = initialState, action: ActivityActions | Activity
 
       };
     }
-    // case ActivityFilterActionTypes.DeleteActivityFilter:
-    // case ActivityFilterActionTypes.ClearActivityFilter:
-    // case ActivityFilterActionTypes.UpdateActivityFilter: {
+
+     case ActivityFilterActionTypes.DeleteActivityFilter:
     case ActivityFilterActionTypes.FilterActivity: {
       console.log(' in filter activity.. ');
       //todo -> NO NEED TO PASS IN SPECIFIC FILTER HERE
