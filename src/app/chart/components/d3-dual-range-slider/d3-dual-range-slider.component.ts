@@ -147,12 +147,12 @@ export class D3DualRangeSliderComponent implements OnInit {
     console.log('min value = ' + this.minValue);
 
     // TODO -> change this to emit clear instead of update
-    this.changeEvent.emit( new MessageEvent<number>('minValue', this.xScale.invert(this.minimum)));
+    // this.changeEvent.emit( new MessageEvent<number>('minValue', this.xScale.invert(this.minimum)));
 
     this.maxHandle.attr('cx', this.xScale(this.width - this.margin_left - this.margin_right) + 1);
     this.maxValue =  this.xScale.invert(this.width - this.margin_left - this.margin_right);
     console.log('max value = ' + this.maxValue);
-    this.changeEvent.emit( new MessageEvent<number>('maxValue', this.xScale.invert(this.maximum)));
+    // this.changeEvent.emit( new MessageEvent<number>('maxValue', this.xScale.invert(this.maximum)));
 
     this.cd.detectChanges();
     this.reset = false;

@@ -1,5 +1,5 @@
-import { Component} from '@angular/core';
-import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Activity} from '../../model/activity/Activity_pb';
 import {Store, select} from '@ngrx/store';
@@ -17,6 +17,10 @@ import {Dictionary} from '@ngrx/entity/src/models';
 import 'rxjs/add/operator/take';
 import {FilterService} from '../../services/filter-service/filter.service';
 import {MinMaxActivityFilter} from '../../model/activity-filter/min-max-activity-filter.model';
+import {FilterEffects} from '../../effects/filter.effects';
+import {ActivityComponent} from '../../components/activity/activity.component';
+import { AsyncPipe } from '@angular/common';
+import {async} from 'rxjs/scheduler/async';
 
 
 
@@ -39,8 +43,9 @@ export class SelectedActivityPageComponent {
   activitySubSport$: Observable<string[]>;
   sidebarOpen$: Observable<boolean>;
   sidebarContent$: Observable<ActivitySidebarType>;
+  @ViewChild(ActivityComponent) activityModuleComponent;
 
-  constructor(private store: Store<fromActivity.State>, private filterService: FilterService) {
+  constructor(private store: Store<fromActivity.State>, private filterService: FilterService, private filterEffects: FilterEffects) {
     this.activity$ = store.pipe(select(fromActivity.getSelectedActivity));
     this.activitySport$ = store.pipe(select(fromActivity.getActivitySport));
     this.activitySubSport$ = store.pipe(select(fromActivity.getActivitySubSport));
@@ -65,8 +70,11 @@ export class SelectedActivityPageComponent {
           }
           this.reHydrateFilters(v);
           const hFilter = <MinMaxActivityFilter>this.reHydrateFilter(v[$event.payload[0]]);
-
+          v[$event.payload[0]] = hFilter;
           hFilter._min = $event.payload[1];
+          console.log(' min at container: ' + $event.payload[1]);
+
+          // v[$event.payload[0]] = hFilter;
           this.updateActivityFilter(hFilter, v);
         });
         return;
@@ -78,7 +86,7 @@ export class SelectedActivityPageComponent {
           }
           this.reHydrateFilters(v);
           const hFilter = <MinMaxActivityFilter>this.reHydrateFilter(v[$event.payload[0]]);
-
+          v[$event.payload[0]] = hFilter;
           hFilter._max = $event.payload[1];
           this.updateActivityFilter(hFilter, v);
         });
@@ -86,21 +94,30 @@ export class SelectedActivityPageComponent {
       }
       case 'clearFilter': {
         this.store.pipe(select(fromActivity.getActivityFilterEntities)).take(1).subscribe( (v: Dictionary<ActivityFilter>) => {
-          console.log('v=' + JSON.stringify(v ));
+          console.log('clear filter v=' + JSON.stringify(v));
+          console.log(JSON.stringify(v[$event.payload]));
           if (v[$event.payload] === undefined ) {
             return;
           }
           this.reHydrateFilters(v);
           const hFilter = this.reHydrateFilter(v[$event.payload]);
-
           hFilter.clear();
+          console.log(' post clean' + JSON.stringify(hFilter));
+          v[$event.payload] = hFilter;
           this.updateActivityFilter(hFilter, v);
         });
         return;
       }
       case 'removeActivityFilter': {
         this.filterService.removeFilter($event.payload);
-        return this.deleteActivityFilter($event.payload);
+        this.store.pipe(select(fromActivity.getActivityFilterEntities)).take(1).subscribe( (v: Dictionary<ActivityFilter>) => {
+          if (v[$event.payload] === undefined ) {
+            return;
+          }
+          this.reHydrateFilters(v);
+        return this.deleteActivityFilter($event.payload, v);
+        });
+        return;
       }
       case 'addActivityFilter': {
         this.filterService.registerFilter($event.payload.id, $event.payload);
@@ -126,8 +143,8 @@ export class SelectedActivityPageComponent {
     this.store.dispatch(new AddActivityFilter({activityFilter: filter, allFilters: filters}));
   }
 
- deleteActivityFilter(filterId: string) {
-    this.store.dispatch(new DeleteActivityFilter({id: filterId}));
+ deleteActivityFilter(filterId: string, filters: Dictionary<ActivityFilter>) {
+    this.store.dispatch(new DeleteActivityFilter({id: filterId, allFilters: filters}));
   }
 
   clearActivityFilters() {
@@ -157,6 +174,14 @@ export class SelectedActivityPageComponent {
   private reHydrateFilter(filter: ActivityFilter): ActivityFilter {
    return this.filterService.getFilter(filter.id).reHydrate(filter);
   }
+
+  // ngOnInit(): void {
+  //   this.filterEffects.reSubscribeContainer.subscribe(v => {
+  //     console.log('resubscribe triggered');
+  //     this.activity$ = this.store.pipe(select(fromActivity.getSelectedActivity));
+  //
+  //   });
+  // }
 
 
 

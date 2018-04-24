@@ -61,13 +61,14 @@ export class FilterComponent implements OnInit, AfterContentInit {
 
   clear() {
     this.content.reset();
-    this.changeEvent.emit(new MessageEvent('clearFilter', this.filterId));
+    this.changeEvent.emit(new MessageEvent('clearFilter', this.content.getFilterId()));
   }
 
   toggleActive() {
     this.active = !this.active;
     if (this.active) {
       // this.changeEvent.emit(new MessageEvent<string>('enableFilter', this.filterId));
+      console.log('enabling filter');
       this.content.enable();
     } else {
       // this.changeEvent.emit(new MessageEvent<string>('disableFilter', this.filterId));

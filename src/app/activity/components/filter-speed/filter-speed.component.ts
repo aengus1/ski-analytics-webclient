@@ -43,7 +43,9 @@ export class FilterSpeedComponent extends FilterBase implements  OnInit {
   }
 
   reset () {
-    console.log('reset called');
+    console.log('reset called ' + this.activity.getSummary().getMaxspeed());
+    this._min = 0;
+    this._max = this.activity.getSummary().getMaxspeed();
     this.speedSlider.clear();
   }
 
@@ -52,6 +54,7 @@ export class FilterSpeedComponent extends FilterBase implements  OnInit {
   }
 
   enable() {
+    console.log('hit enable');
     const speedFilter = new SpeedFilter(0, this.activity.getSummary().getMaxspeed(), 'speed');
     speedFilter._min = this._min;
     speedFilter._max = this._max;

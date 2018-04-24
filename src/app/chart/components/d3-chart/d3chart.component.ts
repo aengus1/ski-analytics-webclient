@@ -28,7 +28,15 @@ export  class D3ChartComponent implements OnInit, OnChanges  {
 
     // data input is subject to change from filters being applied or async loading from http.
     if (this.chartCreated && changes['data']) {
-      this.updateChart();
+      console.log('min' + Math.min.apply(null, this.data)  + ' max ' + Math.max.apply(null, this.data));
+      this.d3Svg.selectAll('*').remove();
+      if(this.data) {
+        if(this.data.length === 0 ) {
+          console.log('no data - not drawing');
+        }else {
+          this.updateChart();
+        }
+      }
     }
   }
 

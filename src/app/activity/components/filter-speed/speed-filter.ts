@@ -30,16 +30,18 @@ export class SpeedFilter extends AbstractActivityFilter implements MinMaxActivit
     console.log('hit apply filter method ');
     this.active = true;
     const filteredValues = activity.getValues().getSpeedList();
+
     const res = new Array<Array<number>>();
 
     for (let i = 0; i < filteredValues.length; i++) {
       res.push([filteredValues[i], i]);
     }
-      const result = res.filter(v => (v[0] >= this._min && v[0] <= this._max));
 
-    console.log('filteredValues = ' + result.map(v => v[1]));
-
+      const result = res.filter(v => {
+        return (v[0] >= +this._min && v[0] <= +this._max);
+      });
     this.filteredIds = result.map( v => v[1]);
+
     super.filterAllValuesByIndex(activity, this.filteredIds);
 
     return [activity,  result.map( v => v[0])];
@@ -54,8 +56,8 @@ export class SpeedFilter extends AbstractActivityFilter implements MinMaxActivit
 
    reHydrate(obj: Object) {
     const sf =  new SpeedFilter(obj['initialMin'], obj['initialMax']);
-    sf._min = obj['_min'];
-    sf._max = obj['_max'];
+    sf._min = +obj['_min'];
+    sf._max = +obj['_max'];
     sf.active = obj['active'];
       return sf;
   }

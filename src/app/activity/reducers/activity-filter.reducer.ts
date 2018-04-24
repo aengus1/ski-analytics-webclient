@@ -31,10 +31,14 @@ export function reducer(
       return adapter.addOne(action.payload.activityFilter, state);
     }
 
-    // case ActivityFilterActionTypes.ClearActivityFilter:
+     case ActivityFilterActionTypes.ClearActivityFilter:
     case ActivityFilterActionTypes.UpdateActivityFilter: {
       console.log('updating filter with ' + JSON.stringify(action.payload.activityFilter));
-      return adapter.updateOne(action.payload.activityFilter, state);
+      {
+        const res = adapter.updateOne(action.payload.activityFilter, state);
+        console.log('done updating');
+        return res;
+      }
     }
 
     case ActivityFilterActionTypes.DeleteActivityFilter: {

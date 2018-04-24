@@ -25,6 +25,8 @@ import {ActivityExistsGuard} from './guards/activity-exists';
 import { FilterComponent } from './components/filter/filter.component';
 import { FilterSpeedComponent } from './components/filter-speed/filter-speed.component';
 import {FilterService} from './services/filter-service/filter.service';
+import {FilterEffects} from './effects/filter.effects';
+import {EffectsModule} from '@ngrx/effects';
 
 
 
@@ -48,7 +50,7 @@ import {FilterService} from './services/filter-service/filter.service';
     //  * All Effects will only be instantiated once regardless of
     //  * whether they are registered once or multiple times.
     //  */
-    // EffectsModule.forFeature([ActivityFilterEffects]),
+    EffectsModule.forFeature([FilterEffects]),
 
   ],
   declarations: [
