@@ -47,25 +47,6 @@ export function reducer(
     case ActivityFilterActionTypes.ClearActivityFilters: {
       return adapter.removeAll(state);
     }
-    // // TODO -> confirm that activity filter actions will be handled first, this code relies on the filter collection
-    // // being updated first
-    // case ActivityActionTypes.FilterSelectedActivity:
-    // case ActivityFilterActionTypes.AddActivityFilter:
-    // case ActivityFilterActionTypes.DeleteActivityFilter:
-    // case ActivityFilterActionTypes.UpdateActivityFilter:
-    // {
-    //   let activity: Activity = action.payload.activity;
-    //   const filters: ActivityFilter[] = new Array<ActivityFilter>();
-    //     for( let key in state.entities) {
-    //       activity = state.entities[key].applyFilter(activity)[0];
-    //     }
-    // }
-    // case ActivityFilterActionTypes.ClearActivityFilter: {
-    //   return adapter.removeOne(adapter.getSelectors().selectAll(state)
-    //     .filter( f => f.type === action.payload.type)
-    //     [0].id, state);
-    // }
-
     default: {
       return state;
     }

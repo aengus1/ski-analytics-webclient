@@ -16,6 +16,8 @@ import { environment } from '../environments/environment';
 import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {EffectsModule} from '@ngrx/effects';
 import {CustomRouterStateSerializer} from './shared/utils';
+import {LoggerService} from './shared/services/logger.service';
+import {ConsoleLoggerService} from './shared/services/console-logger.service';
 
 
 
@@ -58,7 +60,8 @@ import {CustomRouterStateSerializer} from './shared/utils';
     SharedModule,
     ActivityModule,
     ChartModule,
-    { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer }
+    { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
+    { provide: LoggerService, useClass: ConsoleLoggerService }
     ],
 
   bootstrap: [AppComponent]
