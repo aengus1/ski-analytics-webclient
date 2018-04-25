@@ -2,6 +2,7 @@ import {Component, ElementRef, ViewEncapsulation} from '@angular/core';
 import {D3ChartComponent} from '../d3-chart/d3chart.component';
 import {D3Service} from 'd3-ng2-service';
 import {BoxPlot} from './boxplot';
+import { LoggerService} from '../../../shared/services/logger.service';
 
 
 @Component({
@@ -16,9 +17,11 @@ export class D3BoxplotComponent extends D3ChartComponent {
   private max: any;
   private chart: BoxPlot;
   private margin: any;
+  protected logger: LoggerService;
 
-  constructor(element: ElementRef, d3Service: D3Service) {
-    super(element, d3Service);
+  constructor(element: ElementRef, d3Service: D3Service, logger: LoggerService) {
+    super(element, d3Service, logger);
+    this.logger = logger;
   }
 
   public createChart() {
@@ -43,7 +46,7 @@ export class D3BoxplotComponent extends D3ChartComponent {
 
 
   public updateChart() {
-    console.log('update chart triggered');
+    this.logger.info('[D3BoxPlotComponent] update chart triggered');
     // base
     if (!this.data) {
       return;

@@ -18,22 +18,22 @@ export class BoxPlot {
   }
 
 
-  public clear(g: Selection<any, SVGSVGElement, any, any>): Selection<any, SVGSVGElement, any, any> {
-    g.selectAll('rect.box').exit().remove();
-    g.selectAll('line.center').exit().remove();
-    g.selectAll('line.median').exit().remove();
-    g.selectAll('line.whisker').exit().remove();
-    g.selectAll('circle.outlier').exit().remove();
-    g.selectAll('text.box').exit().remove();
-    g.selectAll('text.whisker').exit().remove();
-    return g;
-  }
+  // public clear(g: Selection<any, SVGSVGElement, any, any>): Selection<any, SVGSVGElement, any, any> {
+  //   g.selectAll('rect.box').exit().remove();
+  //   g.selectAll('line.center').exit().remove();
+  //   g.selectAll('line.median').exit().remove();
+  //   g.selectAll('line.whisker').exit().remove();
+  //   g.selectAll('circle.outlier').exit().remove();
+  //   g.selectAll('text.box').exit().remove();
+  //   g.selectAll('text.whisker').exit().remove();
+  //   return g;
+  // }
   /**
    * Builds the box plot based on a D3 SVG selection using the provided d3 service
    * @param {Selection<any, SVGSVGElement, any, any>} g
    */
   public build(g: Selection<any, SVGSVGElement, any, any>): void {
-    g = this.clear(g);
+    // g = this.clear(g);
     const value = Number;
     const duration = 0;
     const tickFormat = null;
