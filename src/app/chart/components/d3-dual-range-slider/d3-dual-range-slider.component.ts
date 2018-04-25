@@ -17,7 +17,7 @@ import {MessageEvent} from '../../../shared/utils';
   selector: 'app-d3-dual-range-slider',
   template: `<span class="badge badge-light pull-right">{{minValue | number: '1.1-1' }} -
      {{maxValue | number: '1.1-1'}} {{unitLabel}}</span>
-  <svg></svg>`,
+  <svg width="100" height="60"></svg>`,
   encapsulation: ViewEncapsulation.None,      // this forces angular to respect css class names on d3 elements
   styleUrls: ['./d3-dual-range-slider.component.css']
 })
@@ -63,6 +63,7 @@ export class D3DualRangeSliderComponent implements OnInit {
       .clamp(true);
 
     this.maxValue = this.maximum;
+
     this.slider = this.svg.append('g').attr('class', 'slider')
       .attr('transform', 'translate(' + this.margin_left + ',' + this.height / 2 + ')')
       .attr('id', 'slider');
@@ -112,7 +113,7 @@ export class D3DualRangeSliderComponent implements OnInit {
       .attr('class', 'ticks')
       .attr('transform', 'translate(0,' + 18 + ')')
       .selectAll('text')
-      .data(this.xScale.ticks(5))
+      .data(this.xScale.ticks(5).concat(this.xScale.domain()))
       .enter().append('text')
       .attr('x', this.xScale)
       .attr('text-anchor', 'middle')
@@ -122,6 +123,7 @@ export class D3DualRangeSliderComponent implements OnInit {
 
     this.minHandle = this.slider.insert('circle', '.track-overlay')
       .attr('class', 'handle')
+      .attr('id', 'minHandle')
       .attr('r', 7)
       .attr('cx', 0);
 
@@ -132,28 +134,14 @@ export class D3DualRangeSliderComponent implements OnInit {
     this.initialized = true;
   }
 
-  // ngOnChanges() {
-  //   if (this.reset && this.initialized) {
-  //     this.clear();
-  //   }
-  // }
-
   /**
    * reset sliders to initial values
    */
   clear() {
     this.minHandle.attr('cx', this.minimum);
     this.minValue = this.xScale.invert(this.minimum);
-    console.log('min value = ' + this.minValue);
-
-    // TODO -> change this to emit clear instead of update
-    // this.changeEvent.emit( new MessageEvent<number>('minValue', this.xScale.invert(this.minimum)));
-
     this.maxHandle.attr('cx', this.xScale(this.width - this.margin_left - this.margin_right) + 1);
     this.maxValue =  this.xScale.invert(this.width - this.margin_left - this.margin_right);
-    console.log('max value = ' + this.maxValue);
-    // this.changeEvent.emit( new MessageEvent<number>('maxValue', this.xScale.invert(this.maximum)));
-
     this.cd.detectChanges();
     this.reset = false;
   }

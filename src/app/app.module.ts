@@ -20,7 +20,6 @@ import {LoggerService} from './shared/services/logger.service';
 import {ConsoleLoggerService} from './shared/services/console-logger.service';
 
 
-
 @NgModule({
   declarations: [
     AppComponent
@@ -63,6 +62,7 @@ import {ConsoleLoggerService} from './shared/services/console-logger.service';
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
     { provide: LoggerService, useClass: ConsoleLoggerService }
     ],
+  exports: [AppRoutingModule],
 
   bootstrap: [AppComponent]
 })

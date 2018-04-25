@@ -1,5 +1,7 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {D3, D3Service, Selection} from 'd3-ng2-service';
+import {LoggerService} from '../../../shared/services/logger.service';
+import {ChangeDetectionStrategy} from '@angular/core';
 
 
 // this is an abstract component.  Compiler is complaining that abstract components are not allowed to be
@@ -7,7 +9,8 @@ import {D3, D3Service, Selection} from 'd3-ng2-service';
 // updateChart and createChart methods
 @Component({
   selector: 'app-d3chart',
-  template: `<svg></svg>`
+  template: `<svg></svg>`,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export  class D3ChartComponent implements OnInit, OnChanges  {
 
@@ -18,24 +21,22 @@ export  class D3ChartComponent implements OnInit, OnChanges  {
   @Input() height = 200;
   @Input() data: Array<Number>;
   private chartCreated: Boolean = false;
+  protected logger: LoggerService;
 
-  constructor(element: ElementRef, d3Service: D3Service) { // <-- pass the D3 Service into the constructor
+  constructor(element: ElementRef, d3Service: D3Service, logger: LoggerService) { // <-- pass the D3 Service into the constructor
     this.d3 = d3Service.getD3(); // <-- obtain the d3 object from the D3 Service
     this.parentNativeElement = element.nativeElement;
+    this.logger = logger;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
     // data input is subject to change from filters being applied or async loading from http.
     if (this.chartCreated && changes['data']) {
-      console.log('min' + Math.min.apply(null, this.data)  + ' max ' + Math.max.apply(null, this.data));
-      this.d3Svg.selectAll('*').remove();
-      if(this.data) {
-        if(this.data.length === 0 ) {
-          console.log('no data - not drawing');
-        }else {
-          this.updateChart();
-        }
+      this.d3Svg.selectAll('*').remove();  // TODO -> use animation to update chart rather than redraw
+      if (this.data && this.data.length > 0) {
+        this.updateChart();
+      } else {
+        this.logger.warn('[D3ChartComponent] no data - not drawing');
       }
     }
   }

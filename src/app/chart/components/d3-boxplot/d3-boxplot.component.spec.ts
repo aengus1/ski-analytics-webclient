@@ -1,7 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {Component, ViewEncapsulation} from '@angular/core';
-import {D3Service} from 'd3-ng2-service';
 import { D3BoxplotComponent } from './d3-boxplot.component';
+import {D3Service} from 'd3-ng2-service';
+import {D3ChartComponent} from '../d3-chart/d3chart.component';
+import {ChartModule} from '../../chart.module';
+import {forEach} from '@angular/router/src/utils/collection';
+import {LoggerService} from '../../../shared/services/logger.service';
+import {ConsoleLoggerService} from '../../../shared/services/console-logger.service';
 
 
 
@@ -23,7 +28,7 @@ import { D3BoxplotComponent } from './d3-boxplot.component';
     public layout = {
       width: 400,
       height: 400,
-      data: [[1, 2, 3, 4, 5, 5, 5, 6, 7, 8, 9, 10]],
+      data: [1, 2, 3, 4, 5, 5, 5, 6, 7, 8, 9, 10],
     };
 
 
@@ -37,8 +42,10 @@ describe('D3BoxplotComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ D3BoxplotComponent, AppMockComponent ],
-      providers: [D3Service]
+      imports: [ChartModule],
+      declarations: [AppMockComponent ],
+      providers: [D3Service, { provide: LoggerService, useClass: ConsoleLoggerService }]
+
     });
     fixture = TestBed.createComponent(AppMockComponent);
     component = fixture.componentInstance;
@@ -52,6 +59,7 @@ describe('D3BoxplotComponent', () => {
     fixture = TestBed.createComponent(AppMockComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    // compiled = fixture.debugElement.nativeElement;
   });
 
   it('should create', () => {
@@ -74,20 +82,20 @@ describe('D3BoxplotComponent', () => {
     let nativeElss: NodeListOf<Element> | undefined[];
     nativeElss = compiled ? compiled.querySelectorAll('line.whisker') : [];
     expect(nativeElss.length).toBe(2, 'Incorrect number of whisker elements found');
-    expect(nativeElss[0].attributes.getNamedItem('y1').value).toBe('390', 'whisker displayed at incorrect y position');
-    expect(nativeElss[0].attributes.getNamedItem('y2').value).toBe('390', 'whisker is not a horizontal line');
+    expect(nativeElss[0].attributes.getNamedItem('y1').value).toBe('360', 'whisker displayed at incorrect y position');
+    expect(nativeElss[0].attributes.getNamedItem('y2').value).toBe('360', 'whisker is not a horizontal line');
 
     expect(nativeElss[1].attributes.getNamedItem('y1').value).toBe('0', 'whisker displayed at incorrect y position');
     expect(nativeElss[1].attributes.getNamedItem('y2').value).toBe('0', 'whisker is not a horizontal line');
       });
-
+  //
   it('should have a box from 4 to 7', () => {
     let nativeElss: NodeListOf<Element> | undefined[];
     nativeElss = compiled ? compiled.querySelectorAll('rect.box') : [];
     expect(nativeElss.length).toBe(1, 'Incorrect number of box elements found');
     expect(Math.floor(parseInt(nativeElss[0].attributes.getNamedItem('y').value, 10 )))
-      .toBe(119, 'whisker displayed at incorrect y position');
+      .toBe(110, 'whisker displayed at incorrect y position');
     expect(Math.floor(parseInt(nativeElss[0].attributes.getNamedItem('height').value, 10 )))
-      .toBe(151, 'whisker is not a horizontal line');
+      .toBe(140, 'whisker is not a horizontal line');
   });
 });
