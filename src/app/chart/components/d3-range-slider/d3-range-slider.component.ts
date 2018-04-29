@@ -1,3 +1,4 @@
+// Caution -> this component isn't tested, or currently used in the application
 import {
   ChangeDetectorRef,
   Component,

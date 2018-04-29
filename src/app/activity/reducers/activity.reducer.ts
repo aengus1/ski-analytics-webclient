@@ -16,7 +16,7 @@ import * as _ from 'lodash';
 
 
 export interface State extends EntityState<Activity> {
- selectedActivityId: number | null;
+ selectedActivityId: string | null;
   activitySport: Array<string>;
   activitySubSport: Array<string>;
   sidebarContent: ActivitySidebarType;
@@ -37,10 +37,12 @@ export const initialState: State = adapter.getInitialState({
 });
 
 
+
+
 /**
 * initializers to reverse activity sport enum (protobuf doesn't provide this out of the box
  */
-function buildActivitySport(): Array<string>  {
+export function buildActivitySport(): Array<string>  {
   const activitySport = new Array<string>();
   let i = 0;
   for (const v in Activity.Sport) {
@@ -50,7 +52,7 @@ return activitySport;
 
 }
 
-function buildActivitySubSport(): Array<string>  {
+export function buildActivitySubSport(): Array<string>  {
   const activitySubSport = new Array<string>();
 let i = 0;
 for (const v in Activity.SubSport) {
@@ -62,24 +64,24 @@ return activitySubSport;
 
 
 export function reducer(state = initialState, action: ActivityActions | ActivityFilterActions): State {
-  console.log('hit activity reducer with ' + action.type);
+
   switch (action.type) {
 
     case ActivityActionTypes.Load: {
       const act: LoadActivity = <LoadActivity>action;
       return adapter.addOne(act.payload, {
         ...state,
-        selectedActivityId: state.selectedActivityId,
         unfilteredActivity: act.payload
       });
     }
 
     case ActivityActionTypes.Select: {
       const act: SelectActivity = <SelectActivity>action;
+      // update the selectedActivityId, and copy the payload into unfilteredActivity
       const newState = {
         ...state,
         selectedActivityId: act.payload,
-        unfilteredActivity: deepCopyActivity(state.entities[act.payload]),
+        unfilteredActivity: act.payload != null ? deepCopyActivity(state.entities[act.payload]) : null,
       };
 
       if (state.selectedActivityId !== null) {
@@ -102,48 +104,31 @@ export function reducer(state = initialState, action: ActivityActions | Activity
       };
     }
 
-     case ActivityFilterActionTypes.DeleteActivityFilter:
+    // filterActivity is called by an effect after the updateActivityFilter has completed
+    // case ActivityFilterActionTypes.DeleteActivityFilter:
     case ActivityFilterActionTypes.FilterActivity: {
-      console.log(' in filter activity.. ');
-      //todo -> NO NEED TO PASS IN SPECIFIC FILTER HERE
+      // todo -> In this implementation there is no need to pass in the specific filter as all filters are re-applied
       const filters: Dictionary<ActivityFilter> = action.payload.allFilters;
-       let activity: Activity = deepCopyActivity(state.unfilteredActivity);
-      console.log('pre ' + state.unfilteredActivity.getValues().getSpeedList().length + ' vs ' + activity.getValues().getSpeedList().length);
-      for (const key in filters) {
-        const f: ActivityFilter = filters[key];
-        console.log('f = ' + JSON.stringify(f));
-        try {
-          activity = f.applyFilter(activity)[0];
-        }catch (e) {
-          console.log('error' + e);
-        }
-      }
-      console.log(state.unfilteredActivity.getValues().getSpeedList().length + ' vs ' + activity.getValues().getSpeedList().length);
-      console.log(activity.getValues().getSpeedList());
-      console.log('reducer min: ' + Math.min.apply(null, activity.getValues().getSpeedList()) + ' max ' + Math.max.apply(null, activity.getValues().getSpeedList()));
+      const activity: Activity = deepCopyActivity(state.unfilteredActivity);
+
+       applyFilters(activity, filters);
+
+      // replacing the entire activity entity will break the subscription in the component chain so just update values instead
       const entityReference = state.entities;
-      // replacing the entire activity entity will break the subscription in the component chain
-      // instead just update the values
       entityReference[state.selectedActivityId].setValues(activity.getValues());
+
       return {
         ...state,
         entities: entityReference
       };
     }
-    // TODO -> go through effect as above.
-    // todo -> code duplication with above?
+    // this is dependant on the same function in the activity-filter reducer being called first, which is guaranteed by order
+    // of reducers being added to the Store in activity.module
     case ActivityFilterActionTypes.AddActivityFilter: {
       const filters: Dictionary<ActivityFilter> = action.payload.allFilters;
-      let activity: Activity = state.entities[state.selectedActivityId];
+      const activity: Activity = state.entities[state.selectedActivityId];
 
-      for (const key in filters) {
-        const f: ActivityFilter = filters[key];
-        try {
-            activity = f.applyFilter(activity)[0];
-        }catch (e) {
-          console.log('error' + e);
-        }
-      }
+      applyFilters(activity, filters);
       const entityReference = state.entities;
       entityReference[state.selectedActivityId] = activity;
        return {
@@ -158,7 +143,26 @@ export function reducer(state = initialState, action: ActivityActions | Activity
   }
 }
 
+/**
+ * applies filter set to an activity
+ * @param {Activity} activity
+ * @param {Dictionary<ActivityFilter>} filters
+ */
+function applyFilters(activity: Activity, filters: Dictionary<ActivityFilter>) {
+  _.forEach(filters, f => {
+    try {
+      f.applyFilter(activity);
+    }catch (e) {
+      console.error('[ActivityReducer] unable to apply filter ' + JSON.stringify(f) + ' to activity:' + activity.getId());
+    }
+  });
+}
 
+/**
+ * deep copies an activity
+ * @param {Activity} activity
+ * @returns {Activity}
+ */
  function deepCopyActivity(activity: Activity) {
    return _.cloneDeep(activity);
 }

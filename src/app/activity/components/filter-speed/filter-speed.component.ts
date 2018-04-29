@@ -8,6 +8,7 @@ import {FilterBase} from '../filter/filter-base.model';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
+import {LoggerService} from '../../../shared/services/logger.service';
 
 @Component({
   selector: 'app-filter-speed',
@@ -33,7 +34,8 @@ export class FilterSpeedComponent extends FilterBase implements  OnInit {
   private debouncer: Subject<MessageEvent<any[]| ActivityFilter>> = new Subject<MessageEvent<any[]| ActivityFilter>>();
    private _min: number;
    private _max: number;
-  constructor() {
+
+  constructor(private logger: LoggerService) {
     super();
   }
 
@@ -43,7 +45,7 @@ export class FilterSpeedComponent extends FilterBase implements  OnInit {
   }
 
   reset () {
-    console.log('reset called ' + this.activity.getSummary().getMaxspeed());
+    this.logger.info('[FilterSpeedComponent] reset called ' + this.activity.getSummary().getMaxspeed());
     this._min = 0;
     this._max = this.activity.getSummary().getMaxspeed();
     this.speedSlider.clear();
@@ -54,12 +56,11 @@ export class FilterSpeedComponent extends FilterBase implements  OnInit {
   }
 
   enable() {
-    console.log('hit enable');
     const speedFilter = new SpeedFilter(0, this.activity.getSummary().getMaxspeed(), 'speed');
     speedFilter._min = this.speedSlider.initialized ? this.speedSlider.minValue : this._min;
     speedFilter._max = this.speedSlider.initialized ? this.speedSlider.maxValue : this._max;
 
-    console.log('enabling activity filter with  ' + this._min + ' ' + this._max);
+    this.logger.info('[FilterSpeedComponent] enabling activity filter ' + speedFilter.id);
     this.changeEvent.emit(new MessageEvent('addActivityFilter', speedFilter));
     this.filterId = speedFilter.id;
     this.debouncer.debounceTime(200).subscribe(v => {
@@ -68,7 +69,6 @@ export class FilterSpeedComponent extends FilterBase implements  OnInit {
   }
 
   disable() {
-    //this.reset();
     this._min = 0;
     this._max = this.activity.getSummary().getMaxspeed();
     this.changeEvent.emit(new MessageEvent('removeActivityFilter', this.filterId));

@@ -38,6 +38,9 @@ export class FilterListComponent implements OnInit {
   ngOnInit() {
   }
 
+  hasFilters() {
+    return this.filterCount > 0;
+  }
   receiveMessage($event) {
     console.log('filter list ' + $event.name + ' ' + $event.payload);
     switch ($event.name) {
@@ -91,6 +94,8 @@ export class FilterListComponent implements OnInit {
         this.store.pipe(select(fromActivity.getActivityFilterEntities)).take(1).subscribe( (v: Dictionary<ActivityFilter>) => {
           if (v[$event.payload] === undefined ) {
             return;
+          } else {
+            delete v[$event.payload];
           }
           this.reHydrateFilters(v);
           return this.deleteActivityFilter($event.payload, v);
@@ -144,6 +149,7 @@ export class FilterListComponent implements OnInit {
    */
   private reHydrateFilters(filterValues: Dictionary<ActivityFilter>): void {
     const filterKeys = this.filterService.getAllKeys();
+
     filterKeys.forEach(key => {
       filterValues[key] = this.filterService.getFilter(key).reHydrate(filterValues[key]);
     });

@@ -15,7 +15,7 @@ export enum ActivityActionTypes {
 export class SelectActivity implements Action {
 
   readonly type = ActivityActionTypes.Select;
-  constructor(public payload: number) {}
+  constructor(public payload: string) {}
 }
 
 export class LoadActivity implements Action {
