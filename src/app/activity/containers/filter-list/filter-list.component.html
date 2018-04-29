@@ -1,8 +1,10 @@
 <div class="row">
   <div class="col-md-2">
-    <i class="fa fa-filter fa-2x title-icon active">
-      <span class="badge badge-light">{{filterCount}}</span>
-    </i>
+    <!-- TODO disable badge when filtercount is zero -->
+    <span class="fa-2x has-badge fa-stack" attr.data-count="{{filterCount}}">
+    <i class="fa fa-filter fa-stack-1x"></i>
+    </span>
+
   </div>
 </div>
 <p> Filter container works</p>

@@ -24,7 +24,8 @@ import {FilterBase} from './filter-base.model';
       </span>
         <button type="button"
                 (click)="clear()"
-                class="btn btn-sm btn-outline-danger float-right">
+                class="btn btn-sm btn-outline-danger float-right"
+                [disabled]="!active">
           clear
         </button>
         {{title}}

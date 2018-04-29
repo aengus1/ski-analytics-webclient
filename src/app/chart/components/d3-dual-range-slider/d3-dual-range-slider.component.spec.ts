@@ -1,11 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {Component, ViewEncapsulation} from '@angular/core';
-import { D3BoxplotComponent } from './d3-boxplot.component';
 import {D3Service} from 'd3-ng2-service';
-import {D3ChartComponent} from '../d3-chart/d3chart.component';
 import {ChartModule} from '../../chart.module';
-import {forEach} from '@angular/router/src/utils/collection';
-import {By} from '@angular/platform-browser';
 
 
 
@@ -67,7 +63,7 @@ describe('D3DualRangeSliderComponent', () => {
   });
 
   it(`should display a slider track of the correct width`, () => {
-    let sliderTrack: NodeOf<Element> | undefined;
+    let sliderTrack: NodeOf<Element> | undefined[];
     sliderTrack = compiled ? compiled.querySelector('#slider').querySelector('line.track') : undefined;
     expect(sliderTrack.attributes.getNamedItem('x1').value).toEqual('0',
       'slider track displayed in correct x position');
@@ -99,14 +95,27 @@ describe('D3DualRangeSliderComponent', () => {
       'label is incorrectly formatted');
   });
 
+  // TODO -> this should be tested from the parent that is calling clear through viewchild
   // it('should reset the slider to initial values when clear is called', () => {
+  //
   // });
+
+
   //
   // it(' should emit events when slider is dragged', () => {
-  //   let minSlider: NodeOf<Element> | undefined;
-  //   minSlider = compiled ? compiled.querySelector('#minHandle') : undefined;
   //   spyOn(component.layout, 'receiveMessage');
-  //   minSlider.triggerEventHandler('dragstart', { x: component.layout.minimum + 1});
+  //   const minSlider = compiled ? compiled.querySelector('svg') : undefined;
+  //   const minSliderDebugElement = <DebugElement>getDebugNode(minSlider);
+  //   minSliderDebugElement.query(By.css('#minHandle'));
+  //   //TODO -> can't get a handle on the slider from the debug element.  Need the debugelement to triggerEventHandler
+  //   // this is related to the D3 view encapsulation.none.
+  //   // fixture.detectChanges();
+  //   // const minHandle = fixture.debugElement.query(By.css('.handle')); // queryAllNodes(By.css('#minHandle'));
+  //   expect(minSliderDebugElement == null).toBeFalsy();
+  //   // minHandle.d
+  //   minHandletriggerEventHandler('ondragstart', { x: 10});
+  // //minSlider.dispatchEvent(new DragEvent('dragstart'));
+  //   // minSlider.triggerEventHandler('dragstart', { x: component.layout.minimum + 1});
   //   fixture.detectChanges();
   //
   //

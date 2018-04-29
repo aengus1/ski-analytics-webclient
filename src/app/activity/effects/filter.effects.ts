@@ -13,20 +13,20 @@ export class FilterEffects {
 
   @Effect()
   updateFilter$  = this.actions$.pipe(
-    ofType<FilterActivity>(ActivityFilterActionTypes.UpdateActivityFilter),
+    ofType<FilterActivity>(ActivityFilterActionTypes.UpdateActivityFilter , ActivityFilterActionTypes.DeleteActivityFilter),
     map(action => action.payload),
     map(p => {
-      console.log(' in effect');
       return new FilterActivity({'activityFilter': p.activityFilter, 'allFilters': p.allFilters});
     }));
 
-  @Effect()
-  reSubscribeContainer  = this.actions$.pipe(
-    ofType<FilterActivity>(ActivityFilterActionTypes.FilterActivity),
-    map(p => {
-      console.log(' in effect');
-      return new FilterActivitySuccess();
-    }));
+
+  // @Effect()
+  // reSubscribeContainer  = this.actions$.pipe(
+  //   ofType<FilterActivity>(ActivityFilterActionTypes.FilterActivity),
+  //   map(p => {
+  //     console.log(' in effect');
+  //     return new FilterActivitySuccess();
+  //   }));
 
 
 

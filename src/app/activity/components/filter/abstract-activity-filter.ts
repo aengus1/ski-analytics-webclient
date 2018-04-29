@@ -6,14 +6,13 @@ export abstract class AbstractActivityFilter implements ActivityFilter {
   id: string;
   type: ActivityFilterType;
   filteredIds: number[];
-  active: boolean;
 
   /**
    * Apply the filter to the activity
    * @param {Activity} the activity to filter
    * @returns {[Activity , number[]]} the filtered activity and a list of ids that were removed
    */
-  abstract applyFilter(activity: Activity): [Activity, number[]];
+  abstract applyFilter(activity: Activity): number[];
 
   /**
    * reset the filter to it's initial values (i.e. inactivate the filter without removing it
