@@ -1,7 +1,7 @@
 
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Activity} from '../../../activity/model/activity/Activity_pb';
-
+import {MessageEvent} from '../../../shared/utils';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +11,7 @@ import {Activity} from '../../../activity/model/activity/Activity_pb';
 export class SidebarComponent implements OnInit {
 
   @Input() panelOpen: boolean;
-  @Output() messageEvent = new EventEmitter<string>();
+  @Output() messageEvent = new EventEmitter<MessageEvent<string>>();
 
 
   constructor() { }
@@ -22,7 +22,7 @@ export class SidebarComponent implements OnInit {
 
   close() {
     this.panelOpen = false;
-    this.messageEvent.emit('closeSidebar');
+    this.messageEvent.emit(new MessageEvent('closeSidebar', '' ));
   }
 
 }

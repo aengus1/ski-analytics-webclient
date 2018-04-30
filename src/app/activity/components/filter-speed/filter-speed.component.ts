@@ -30,7 +30,7 @@ export class FilterSpeedComponent extends FilterBase implements  OnInit {
   changeEvent = new EventEmitter<MessageEvent<any[]| ActivityFilter | string>>();
   @Input()
   private activity: Activity;
-  private filterId: string;
+  private filterId = 'speed';
   private debouncer: Subject<MessageEvent<any[]| ActivityFilter>> = new Subject<MessageEvent<any[]| ActivityFilter>>();
    private _min: number;
    private _max: number;
@@ -51,12 +51,22 @@ export class FilterSpeedComponent extends FilterBase implements  OnInit {
     this.speedSlider.clear();
   }
 
+  set (filter: ActivityFilter) {
+    const sf = <SpeedFilter>filter;
+    this._min = sf._min;
+    this._max = sf._max;
+    this.debouncer.debounceTime(200).subscribe(v => {
+      this.changeEvent.emit(v);
+    });
+    this.speedSlider.set(this._min, this._max);
+  }
+
   getFilterId() {
     return this.filterId;
   }
 
   enable() {
-    const speedFilter = new SpeedFilter(0, this.activity.getSummary().getMaxspeed(), 'speed');
+    const speedFilter = new SpeedFilter(0, this.activity.getSummary().getMaxspeed(), this.filterId);
     speedFilter._min = this.speedSlider.initialized ? this.speedSlider.minValue : this._min;
     speedFilter._max = this.speedSlider.initialized ? this.speedSlider.maxValue : this._max;
 

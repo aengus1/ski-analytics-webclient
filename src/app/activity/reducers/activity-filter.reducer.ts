@@ -26,16 +26,12 @@ export function reducer(state = initialState, action: ActivityFilterActions | Ac
       return adapter.addOne(action.payload.activityFilter, state);
     }
 
-     case ActivityFilterActionTypes.ClearActivityFilter:
     case ActivityFilterActionTypes.UpdateActivityFilter: {
         return adapter.updateOne(action.payload.activityFilter, state);
     }
 
     case ActivityFilterActionTypes.DeleteActivityFilter: {
       return adapter.removeOne(action.payload.id, state);
-    }
-    case ActivityFilterActionTypes.ClearActivityFilters: {
-      return adapter.removeAll(state);
     }
     default: {
       return state;

@@ -8,8 +8,6 @@ export enum ActivityFilterActionTypes {
   AddActivityFilter = '[ActivityFilter] Add ActivityFilter',
   UpdateActivityFilter = '[ActivityFilter] Update ActivityFilter',
   DeleteActivityFilter = '[ActivityFilter] Delete ActivityFilter',
-  ClearActivityFilters = '[ActivityFilter] Clear ActivityFilters',
-  ClearActivityFilter = '[ActivityFilter] Clear ActivityFilter',
   FilterActivity = '[ActivityFilter] Filter Activity',
   FilterActivitySuccess = '[ActivityFilter] Filter Activity Success'
 }
@@ -33,14 +31,6 @@ export class DeleteActivityFilter implements Action {
   constructor(public payload: { id: string, allFilters: Dictionary<ActivityFilter> }) {}
 }
 
-export class ClearActivityFilters implements Action {
-  readonly type = ActivityFilterActionTypes.ClearActivityFilters;
-}
-
-export class ClearActivityFilter implements Action {
-  readonly type = ActivityFilterActionTypes.ClearActivityFilter;
-  constructor(public payload: { activityFilter: Update<ActivityFilter>, allFilters: Dictionary<ActivityFilter> }) {}
-}
 
 export class FilterActivity implements Action {
   readonly type = ActivityFilterActionTypes.FilterActivity;
@@ -56,8 +46,6 @@ export type ActivityFilterActions =
   AddActivityFilter
  | UpdateActivityFilter
  | DeleteActivityFilter
- | ClearActivityFilters
- | ClearActivityFilter
  | FilterActivity
 | FilterActivitySuccess;
 

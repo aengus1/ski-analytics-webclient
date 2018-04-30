@@ -48,6 +48,8 @@ export class ActivityComponent implements OnInit, AfterViewChecked {
   // sidebar component
   @ViewChild(SidebarComponent) sidebar;
 
+  private filterCount = 0;
+
 
 
   constructor(private cdRef: ChangeDetectorRef, private logger: LoggerService ) { }
@@ -76,10 +78,20 @@ export class ActivityComponent implements OnInit, AfterViewChecked {
   receiveMessage($event) {
     this.logger.info('ActivityComponent: received message event:[' + $event
     + '] name:[' + $event.name + '] payload:[' + $event.payload + ']' );
-    switch ($event) {
+    switch ($event.name) {
       case 'closeSidebar': {
         this.messageEvent.emit(new MessageEvent('closeSidebar'));
         this.messageEvent.emit(new MessageEvent<ActivitySidebarType>('setSidebarContent', ActivitySidebarType.NoContent));
+        return;
+      }
+      case 'incFilterCount': {
+       this.filterCount++;
+       console.log('this.f ilter count = ' + this.filterCount);
+       this.cdRef.detectChanges();
+       return;
+      }
+      case 'decFilterCount': {
+        this.filterCount--;
         return;
       }
       default: {

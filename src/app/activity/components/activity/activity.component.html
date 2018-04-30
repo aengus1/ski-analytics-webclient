@@ -81,14 +81,15 @@
 
               <div class="row">
                 <!-- filter toggle -->
+                <span class="fa-2x has-badge fa-stack" attr.data-count="{{filterCount}}">
                 <button type="button"
                         id="filterToggle"
                         class="btn btn-default"
                         [ngClass]="{'active': sidebarOpen && sidebarContent === activitySidebarTypes.Filter}"
-
                         aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Filter)">
                   <i class="fa fa-filter grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
                 </button>
+                  </span>
                 <!-- attribute toggle -->
                 <button type="button"
                         id="attributeToggle"

@@ -1,5 +1,5 @@
 import {
-  AfterContentInit,
+  AfterContentInit, AfterViewInit,
   Component,
   ContentChild,
   EventEmitter,
@@ -10,7 +10,8 @@ import {
 } from '@angular/core';
 import {MessageEvent} from '../../../shared/utils';
 import {FilterBase} from './filter-base.model';
-
+import {ActivityFilter} from '../../model/activity-filter/activity-filter.model';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-filter',
@@ -19,7 +20,7 @@ import {FilterBase} from './filter-base.model';
     <div class="card">
       <div class="card-header" [ngClass]="{'bg-success': active}">
       <span class="switch">
-        <input type="checkbox" class="switch" id="switch-id"  (change)="toggleActive()">
+        <input type="checkbox" class="switch" id="switch-id"  (change)="toggleActive()" [checked]="active">
         <label for="switch-id">{{active ? 'On' : 'Off'}}</label>
       </span>
         <button type="button"
@@ -28,20 +29,22 @@ import {FilterBase} from './filter-base.model';
                 [disabled]="!active">
           clear
         </button>
-        {{title}}
+        <span class="font-weight-bold"> {{title}}&nbsp;&nbsp; </span>
       </div>
       <div class="card-body">
         <ng-content></ng-content>
       </div>
     </div>`
 })
-export class FilterComponent implements OnInit, AfterContentInit {
+export class FilterComponent implements AfterViewInit {
 
   constructor() {
   }
 
   @Input()
   title: string;
+  @Input()
+  filters: ActivityFilter[];
   filterId: string;
   active = false;
   @ContentChild(forwardRef(() => FilterBase))
@@ -51,13 +54,12 @@ export class FilterComponent implements OnInit, AfterContentInit {
   @Output()
   changeEvent = new EventEmitter<MessageEvent<number | string>>();
 
-  ngOnInit() {
-  }
-
-
-  ngAfterContentInit() {
-    console.log('content ' + this.content);
+  ngAfterViewInit() {
     this.filterId = this.content.getFilterId();
+    if ( _.map(this.filters, f => f.id).includes(this.filterId)) {
+      this.active = true;
+       this.content.set(_.find(this.filters, f => f.id === this.filterId));
+    }
   }
 
   clear() {

@@ -1,14 +1,18 @@
 <div class="row">
   <div class="col-md-2">
     <!-- TODO disable badge when filtercount is zero -->
-    <span class="fa-2x has-badge fa-stack" attr.data-count="{{filterCount}}">
+    <span class="fa-2x has-badge fa-stack" attr.data-count="{{(filters$ | async).length}}">
     <i class="fa fa-filter fa-stack-1x"></i>
     </span>
 
   </div>
 </div>
-<p> Filter container works</p>
-<app-filter #filt [title]="Speed" (changeEvent)="receiveMessage($event)">
+<div class="row">
+  <div class="col-md-12">
+    <h3 class="text-center">Activity Filters</h3>
+  </div>
+</div>
+<app-filter #filt [title]="'Speed'" [filters]="filters$ | async" (changeEvent)="receiveMessage($event)">
   <app-filter-speed [activity]="activity" (changeEvent)="receiveMessage($event)"></app-filter-speed>
 </app-filter>
 
