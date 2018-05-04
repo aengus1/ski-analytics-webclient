@@ -1,0 +1,7 @@
+.card {
+  background-color: lightskyblue;
+  border-color: #333;
+}
+.no-gutter-card > .card {
+  margin: 0;
+}

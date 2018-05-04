@@ -18,13 +18,9 @@
   <!--</div>-->
   <!-- speed box plot -->
   <div class="col-md-2">
-    <div class="card " style="background-color: lightskyblue; border-color: #333;">
-      <h6 class="card-title ">Speed</h6>
-      <h6 class="card-subtitle mb-2 text-muted">Km/h</h6>
-      <div class="card-body">
-        <app-d3-boxplot [width]="80" [height]="100"  [data]="activity.getValues().getSpeedList()"></app-d3-boxplot>
-      </div>
-    </div>
+    <app-infographic [title]="'Speed'" [icon]="'fa-tachometer'" [uom]="'Km/h'">
+      <app-d3-boxplot [width]="80" [height]="100"  [data]="activity.getValues().getSpeedList()"></app-d3-boxplot>
+    </app-infographic>
   </div>
 </div>
 
