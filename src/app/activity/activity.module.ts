@@ -27,7 +27,8 @@ import { FilterSpeedComponent } from './components/filter-speed/filter-speed.com
 import {FilterService} from './services/filter-service/filter.service';
 import {FilterEffects} from './effects/filter.effects';
 import {EffectsModule} from '@ngrx/effects';
-
+import { InfographicComponent } from './components/summary-panel/infographic/infographic.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -51,7 +52,7 @@ import {EffectsModule} from '@ngrx/effects';
     //  * whether they are registered once or multiple times.
     //  */
     EffectsModule.forFeature([FilterEffects]),
-
+    NgbModule.forRoot()
   ],
   declarations: [
     ActivityComponent,
@@ -65,7 +66,8 @@ import {EffectsModule} from '@ngrx/effects';
     ActivityRootComponent,
     ViewActivityPageComponent,
     SelectedActivityPageComponent,
-    FilterSpeedComponent
+    FilterSpeedComponent,
+    InfographicComponent
   ],
   providers: [
     ActivityService, FilterService, MockActivityService, D3Service, ActivityExistsGuard
