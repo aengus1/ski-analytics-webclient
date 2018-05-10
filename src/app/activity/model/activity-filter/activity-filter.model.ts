@@ -11,7 +11,7 @@ export interface ActivityFilter {
   /**
    * Apply the filter to the activity. Returns the filtered activity and a list of ids that were removed
    * @param {Activity} activity
-   * @returns {[Activity , number[]]}
+   * @returns number[] the list of remaining value ids
    */
   applyFilter(activity: Activity): number[];
 

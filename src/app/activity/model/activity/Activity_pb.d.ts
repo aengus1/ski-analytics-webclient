@@ -1,7 +1,7 @@
-// package:
+// package: 
 // file: Activity.proto
 
-import * as jspb from 'google-protobuf';
+import * as jspb from "google-protobuf";
 
 export class Activity extends jspb.Message {
   hasMeta(): boolean;
@@ -243,6 +243,18 @@ export namespace Activity {
 
     getHrvsMap(): jspb.Map<string, number>;
     clearHrvsMap(): void;
+    getTotalasctime(): number;
+    setTotalasctime(value: number): void;
+
+    getTotaldesctime(): number;
+    setTotaldesctime(value: number): void;
+
+    getTotalascdist(): number;
+    setTotalascdist(value: number): void;
+
+    getTotaldescdist(): number;
+    setTotaldescdist(value: number): void;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Summary.AsObject;
     static toObject(includeInstance: boolean, msg: Summary): Summary.AsObject;
@@ -283,6 +295,10 @@ export namespace Activity {
       avggradient: number,
       nlaps: number,
       hrvsMap: Array<[string, number]>,
+      totalasctime: number,
+      totaldesctime: number,
+      totalascdist: number,
+      totaldescdist: number,
     }
   }
 

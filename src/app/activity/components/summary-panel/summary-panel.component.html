@@ -22,6 +22,12 @@
       <app-d3-boxplot [width]="80" [height]="100"  [data]="activity.getValues().getSpeedList()"></app-d3-boxplot>
     </app-infographic>
   </div>
+  <!-- ascent / descent -->
+  <div class="col-md-2">
+    <app-infographic [title]="'Ascent/Descent'" [icon]="'fa-arrows-v'" [uom]="''">
+      <app-ascent-descent [uom]="'m'" [uomRate]="'m/min'" [activity]="activity"></app-ascent-descent>
+    </app-infographic>
+  </div>
 </div>
 
  <!-- mobile layout -->
@@ -40,13 +46,16 @@
     <!--</div>-->
     <!-- speed box plot -->
     <div class="col-sm-3">
-      <div class="card " style="background-color: lightskyblue; border-color: #333;">
-          <div class="card-body">
-            <app-d3-boxplot [width]="80" [height]="100"  [data]="activity.getValues().getSpeedList()"></app-d3-boxplot>
-          </div>
-        <h6>Speed <span class="text-muted">Km/h</span></h6>
-    </div>
+      <app-infographic [title]="'Speed'" [icon]="'fa-tachometer'" [uom]="'Km/h'">
+        <app-d3-boxplot [width]="80" [height]="100"  [data]="activity.getValues().getSpeedList()"></app-d3-boxplot>
+      </app-infographic>
   </div>
+    <!-- ascent / descent -->
+    <div class="col-sm-3">
+      <app-infographic [title]="'Ascent/Descent'" [icon]="'fa-arrows-v'" [uom]="''">
+        <app-ascent-descent [uom]="'m'" [uomRate]="'m/min'" [activity]="activity"></app-ascent-descent>
+      </app-infographic>
+    </div>
 
 </div>
 </div>

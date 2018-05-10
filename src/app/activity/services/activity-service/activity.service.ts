@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {Activity} from '../../model/activity/Activity_pb';
 import {Observable} from 'rxjs/Observable';
+import {ActivitySummaryService} from '../activity-summary-service/activity-summary.service';
 
 
 @Injectable()
@@ -18,28 +19,33 @@ export class ActivityService implements OnInit {
   }
 
   getActivity(id: string): Observable<Activity> {
-     // return this.http.get( 'https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/run280317_0.pb', {responseType: 'arraybuffer'})
-     return this.http.get('https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/suunto_10.pb', {responseType: 'arraybuffer'})
+    return this.http.get( 'https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/27031720.pb', {responseType: 'arraybuffer'})
+    // return this.http.get( 'https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/2612170.pb', {responseType: 'arraybuffer'})
+    // return this.http.get( 'https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/run280317_0.pb', {responseType: 'arraybuffer'})
+      // return this.http.get('https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/suunto_10.pb', {responseType: 'arraybuffer'})
       .map(res => Activity.deserializeBinary(new Uint8Array(res))).map(v => {
         // console.log('hr list = ' + v.getValues().getHrList());
         v.setId('1');
              const res = [];
 
-             res[0] = v.getValues().getSpeedList(); // .filter(d => Math.floor(d));
-             res[0] = res[0].filter(d => (d !== -999));
+             // res[0] = v.getValues().getSpeedList(); // .filter(d => Math.floor(d));
+             // res[0] = res[0].filter(d => (d !== -999));
              // this.speedData = res;
-             v.getMeta().setCreatedts('2017-01-23T15:07:00');
+             // v.getMeta().setCreatedts('2017-01-23T15:07:00');
              const hrres = [];
              hrres[0] = v.getValues().getHrList(); // .filter(d => Math.floor(d));
              hrres[0] = hrres[0].filter(d => (d !== -999));
              // console.log('hrres = ' + hrres[0]);
              v.getValues().setHrList(hrres);
 
-           res[0] = v.getValues().getSpeedList(); // .filter(d => Math.floor(d));
-           res[0] = res[0].filter(d => ( d !== -999 ));
-           v.getValues().setSpeedList(res[0]);
+           // res[0] = v.getValues().getSpeedList(); // .filter(d => Math.floor(d));
+           // // res[0] = res[0].filter(d => ( d !== -999 ));
+           // v.getValues().setSpeedList(res[0]);
+           // console.log('ts = ' + v.getValues().getAltitudeList());
            // v.getValues().setSpeedList(res);
-            v.getSummary().setMaxspeed(1.9);
+
+           //  v.getSummary().setMaxspeed(4.2);
+            ActivitySummaryService.summarizeActivity(v, null);
             // console.log('total distance = ' + v.getSummary().getTotaldistance());
             //  console.log(v.getSummary().getHasattributemapMap().getEntryList());
              return v;

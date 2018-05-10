@@ -42,6 +42,7 @@ export  class D3ChartComponent implements OnInit, OnChanges  {
   }
 
   ngOnInit(): void {
+    this.data = this.data.filter(d => (d !== -999));
     this.d3Svg =  this.d3.select(this.parentNativeElement).select<SVGSVGElement>('svg');
     this.createChart();
 

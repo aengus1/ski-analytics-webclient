@@ -134,11 +134,11 @@ export class D3DualRangeSliderComponent implements OnInit, AfterViewInit {
 
     const ticks = this.svg.select<SVGLineElement>('#ticks');
     ticks.selectAll('text')
-      .data(this.xScale.ticks(5).concat(this.xScale.domain()))
+      .data(this.xScale.ticks(4).concat(this.xScale.domain()))
       .enter().append('text')
       .attr('x', this.xScale)
       .attr('text-anchor', 'middle')
-      .text( (d) => d + '');
+      .text( (d) => d.toFixed(1) + '');
     this.initialized = true;
   }
 

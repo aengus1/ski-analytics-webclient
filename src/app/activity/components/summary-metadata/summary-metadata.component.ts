@@ -14,9 +14,8 @@ import {IntervalPipe} from '../../../shared/pipes/interval.pipe';
 })
 export class SummaryMetadataComponent implements OnInit {
 
-
 @Input()
-private activity: Activity;
+private activity: Activity;  // this is the UNFILTERED ACTIVITY!
 @Input()
   public ActivitySport: string[];
 @Input()

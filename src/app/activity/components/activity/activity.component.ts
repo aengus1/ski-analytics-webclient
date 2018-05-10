@@ -22,6 +22,11 @@ export class ActivityComponent implements OnInit, AfterViewChecked {
   // the main activity instance
   @Input()
   private activity: Activity;
+
+  // the unfiltered version of the  activity instance
+  @Input()
+  private unFilteredActivity: Activity;
+
   // static arrays of activity sport / subsport
   @Input()
   public ActivitySport: string[];

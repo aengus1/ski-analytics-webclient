@@ -13,7 +13,7 @@ import {
 import {ActivityFilter} from '../model/activity-filter/activity-filter.model';
 import {Dictionary} from '@ngrx/entity/src/models';
 import * as _ from 'lodash';
-
+import {ActivitySummaryService} from '../services/activity-summary-service/activity-summary.service';
 
 export interface State extends EntityState<Activity> {
  selectedActivityId: string | null;
@@ -69,6 +69,7 @@ export function reducer(state = initialState, action: ActivityActions | Activity
 
     case ActivityActionTypes.Load: {
       const act: LoadActivity = <LoadActivity>action;
+      ActivitySummaryService.summarizeActivity(act.payload, null);
       return adapter.addOne(act.payload, {
         ...state,
         unfilteredActivity: act.payload
@@ -83,6 +84,7 @@ export function reducer(state = initialState, action: ActivityActions | Activity
         selectedActivityId: act.payload,
         unfilteredActivity: act.payload != null ? deepCopyActivity(state.entities[act.payload]) : null,
       };
+      ActivitySummaryService.summarizeActivity(state.unfilteredActivity, null);
 
       if (state.selectedActivityId !== null) {
         const entityReference = state.entities;
@@ -111,11 +113,13 @@ export function reducer(state = initialState, action: ActivityActions | Activity
       const filters: Dictionary<ActivityFilter> = action.payload.allFilters;
       const activity: Activity = deepCopyActivity(state.unfilteredActivity);
 
-       applyFilters(activity, filters);
+       const filteredSet = applyFilters(activity, filters);
 
+      ActivitySummaryService.summarizeActivity(activity, Object.keys(filters).length > 0 ? filteredSet : null);
       // replacing the entire activity entity will break the subscription in the component chain so just update values instead
       const entityReference = state.entities;
       entityReference[state.selectedActivityId].setValues(activity.getValues());
+      entityReference[state.selectedActivityId].setSummary(activity.getSummary());
 
       return {
         ...state,
@@ -128,7 +132,8 @@ export function reducer(state = initialState, action: ActivityActions | Activity
       const filters: Dictionary<ActivityFilter> = action.payload.allFilters;
       const activity: Activity = state.entities[state.selectedActivityId];
 
-      applyFilters(activity, filters);
+      const filteredSet = applyFilters(activity, filters);
+      ActivitySummaryService.summarizeActivity(activity, Object.keys(filters).length > 0 ? filteredSet : null);
       const entityReference = state.entities;
       entityReference[state.selectedActivityId] = activity;
        return {
@@ -147,15 +152,22 @@ export function reducer(state = initialState, action: ActivityActions | Activity
  * applies filter set to an activity
  * @param {Activity} activity
  * @param {Dictionary<ActivityFilter>} filters
+ * @returns {number[]} value ids remaining
  */
-function applyFilters(activity: Activity, filters: Dictionary<ActivityFilter>) {
+function applyFilters(activity: Activity, filters: Dictionary<ActivityFilter>): number[] {
+
+  const idSet = new Set<number>();
+  let values;
   _.forEach(filters, f => {
     try {
-      f.applyFilter(activity);
+     values = new Set<number>(f.applyFilter(activity));
     }catch (e) {
       console.error('[ActivityReducer] unable to apply filter ' + JSON.stringify(f) + ' to activity:' + activity.getId());
     }
+    values.forEach(idSet.add, idSet);
   });
+  console.log('filtered set = ' + Array.from(idSet.values()));
+  return Array.from(idSet.values());
 }
 
 /**
@@ -168,6 +180,7 @@ function applyFilters(activity: Activity, filters: Dictionary<ActivityFilter>) {
 }
 
 
+export const getUnfilteredActivity = (state: State) => state.unfilteredActivity;
 export const getSelectedActivityId = (state: State) => state.selectedActivityId;
 export const getActivitySport = (state: State) => state.activitySport;
 export const getActivitySubSport = (state: State) => state.activitySubSport;

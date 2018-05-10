@@ -54,7 +54,8 @@
             <app-summary-panel
               [ActivitySport]="ActivitySport"
               [ActivitySubSport]="ActivitySubSport"
-              [activity]="activity">
+              [activity]="activity"
+              [unfilteredActivity]="unfilteredActivity">
             </app-summary-panel>
           </div>
 
@@ -75,6 +76,7 @@
       <div class="wrapper">
 
         <div class="main-content">
+          <!-- toolbar -->
           <div class="row">
             <div class="col-md-11"></div>
             <div class="col-md-1">
@@ -101,11 +103,12 @@
                 </button>
               </div>
             </div>
-          </div>
+          </div><!-- end toolbar -->
           <app-summary-panel
             [ActivitySport]="ActivitySport"
             [ActivitySubSport]="ActivitySubSport"
-            [activity]="activity">
+            [activity]="activity"
+            [unfilteredActivity]="unfilteredActivity">
           </app-summary-panel>
           <app-activity-graph-container></app-activity-graph-container>
           <app-map-container></app-map-container>

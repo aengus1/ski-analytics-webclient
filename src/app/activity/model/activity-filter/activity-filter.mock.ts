@@ -10,6 +10,11 @@ export class MockActivityFilter {
     return new SpeedFilter(0, 10, 'speed');
   }
 
+  public static generateMockSpeedFilter2(): SpeedFilter {
+
+    return new SpeedFilter(3, 6, 'speed');
+  }
+
 
 
   public static generateMockFilterDictionary(): Dictionary<ActivityFilter> {

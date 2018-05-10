@@ -1277,7 +1277,11 @@ proto.Activity.Summary.toObject = function(includeInstance, msg) {
     maxgradient: jspb.Message.getFieldWithDefault(msg, 25, 0),
     avggradient: jspb.Message.getFieldWithDefault(msg, 26, 0),
     nlaps: jspb.Message.getFieldWithDefault(msg, 27, 0),
-    hrvsMap: (f = msg.getHrvsMap()) ? f.toObject(includeInstance, undefined) : []
+    hrvsMap: (f = msg.getHrvsMap()) ? f.toObject(includeInstance, undefined) : [],
+    totalasctime: +jspb.Message.getFieldWithDefault(msg, 29, 0.0),
+    totaldesctime: +jspb.Message.getFieldWithDefault(msg, 30, 0.0),
+    totalascdist: +jspb.Message.getFieldWithDefault(msg, 31, 0.0),
+    totaldescdist: +jspb.Message.getFieldWithDefault(msg, 32, 0.0)
   };
 
   if (includeInstance) {
@@ -1429,6 +1433,22 @@ proto.Activity.Summary.deserializeBinaryFromReader = function(msg, reader) {
       reader.readMessage(value, function(message, reader) {
         jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readDouble);
          });
+      break;
+    case 29:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setTotalasctime(value);
+      break;
+    case 30:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setTotaldesctime(value);
+      break;
+    case 31:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setTotalascdist(value);
+      break;
+    case 32:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setTotaldescdist(value);
       break;
     default:
       reader.skipField();
@@ -1648,6 +1668,34 @@ proto.Activity.Summary.serializeBinaryToWriter = function(message, writer) {
   f = message.getHrvsMap(true);
   if (f && f.getLength() > 0) {
     f.serializeBinary(28, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeDouble);
+  }
+  f = message.getTotalasctime();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      29,
+      f
+    );
+  }
+  f = message.getTotaldesctime();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      30,
+      f
+    );
+  }
+  f = message.getTotalascdist();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      31,
+      f
+    );
+  }
+  f = message.getTotaldescdist();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      32,
+      f
+    );
   }
 };
 
@@ -2075,6 +2123,66 @@ proto.Activity.Summary.prototype.getHrvsMap = function(opt_noLazyCreate) {
 
 proto.Activity.Summary.prototype.clearHrvsMap = function() {
   this.getHrvsMap().clear();
+};
+
+
+/**
+ * optional double totalAscTime = 29;
+ * @return {number}
+ */
+proto.Activity.Summary.prototype.getTotalasctime = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 29, 0.0));
+};
+
+
+/** @param {number} value */
+proto.Activity.Summary.prototype.setTotalasctime = function(value) {
+  jspb.Message.setProto3FloatField(this, 29, value);
+};
+
+
+/**
+ * optional double totalDescTime = 30;
+ * @return {number}
+ */
+proto.Activity.Summary.prototype.getTotaldesctime = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 30, 0.0));
+};
+
+
+/** @param {number} value */
+proto.Activity.Summary.prototype.setTotaldesctime = function(value) {
+  jspb.Message.setProto3FloatField(this, 30, value);
+};
+
+
+/**
+ * optional double totalAscDist = 31;
+ * @return {number}
+ */
+proto.Activity.Summary.prototype.getTotalascdist = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 31, 0.0));
+};
+
+
+/** @param {number} value */
+proto.Activity.Summary.prototype.setTotalascdist = function(value) {
+  jspb.Message.setProto3FloatField(this, 31, value);
+};
+
+
+/**
+ * optional double totalDescDist = 32;
+ * @return {number}
+ */
+proto.Activity.Summary.prototype.getTotaldescdist = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 32, 0.0));
+};
+
+
+/** @param {number} value */
+proto.Activity.Summary.prototype.setTotaldescdist = function(value) {
+  jspb.Message.setProto3FloatField(this, 32, value);
 };
 
 
