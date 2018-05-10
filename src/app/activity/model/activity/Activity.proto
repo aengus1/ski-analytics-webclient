@@ -67,6 +67,11 @@ message Summary {
     int32 nLaps = 27;
 
     map<string, double> hrvs = 28;
+
+    double totalAscTime = 29;
+    double totalDescTime = 30;
+    double totalAscDist = 31;
+    double totalDescDist = 32;
 }
 
 message Values {

@@ -17,6 +17,7 @@ import {async} from 'rxjs/scheduler/async';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<app-activity-module
   [activity] = "activity$ | async"
+  [unFilteredActivity] = "unfilteredActivity$ | async"
   [ActivitySport]="activitySport$ | async"
   [ActivitySubSport]="activitySubSport$ | async"
   [sidebarOpen]="sidebarOpen$ | async"
@@ -27,6 +28,7 @@ import {async} from 'rxjs/scheduler/async';
 })
 export class SelectedActivityPageComponent {
  activity$: Observable<Activity>;
+  unfilteredActivity$: Observable<Activity>;
  activitySport$: Observable<string[]>;
   activitySubSport$: Observable<string[]>;
   sidebarOpen$: Observable<boolean>;
@@ -35,6 +37,7 @@ export class SelectedActivityPageComponent {
 
   constructor(private store: Store<fromActivity.State>) {
     this.activity$ = store.pipe(select(fromActivity.getSelectedActivity));
+    this.unfilteredActivity$ = store.pipe(select(fromActivity.getUnfilteredActivity));
     this.activitySport$ = store.pipe(select(fromActivity.getActivitySport));
     this.activitySubSport$ = store.pipe(select(fromActivity.getActivitySubSport));
     this.sidebarOpen$ = store.pipe(select(fromActivity.getShowSidebar));

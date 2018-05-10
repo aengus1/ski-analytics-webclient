@@ -51,6 +51,7 @@ export class D3BoxplotComponent extends D3ChartComponent {
     if (!this.data) {
       return;
     }
+    this.data = this.data.filter(d => (d !== -999));
     this.calcMinMax();
     const sel = this.d3Svg.selectAll('svg')
       .data([this.data])

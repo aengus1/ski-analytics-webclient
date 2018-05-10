@@ -109,6 +109,13 @@ export const getSelectedActivity = createSelector(
   }
 );
 
+
+export const getUnfilteredActivity = createSelector(
+  getActivitiesEntitiesState,
+  fromActivities.getUnfilteredActivity
+);
+
+
 export const getShowSidebar = createSelector(
   getLayoutState,
   fromLayout.getShowSidebar

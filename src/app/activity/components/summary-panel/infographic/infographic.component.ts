@@ -1,5 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Activity} from '../../../model/activity/Activity_pb';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-infographic',
@@ -10,7 +9,7 @@ import {Activity} from '../../../model/activity/Activity_pb';
     </div>
     <div class="card-body">
     <ng-content></ng-content>
-      <small class="card-subtitle mb-2 text-muted">{{uom}}</small>
+      <small class="card-subtitle mb-2 text-muted pull-right">{{uom}}</small>
     </div>
     </div>
   `,
@@ -25,7 +24,7 @@ export class InfographicComponent {
   private uom: string;
 
   @Input()
-  private icon: string
+  private icon: string;
 
   constructor() { }
 }

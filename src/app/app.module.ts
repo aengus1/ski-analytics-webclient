@@ -19,7 +19,6 @@ import {CustomRouterStateSerializer} from './shared/utils';
 import {LoggerService} from './shared/services/logger.service';
 import {ConsoleLoggerService} from './shared/services/console-logger.service';
 
-
 @NgModule({
   declarations: [
     AppComponent

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import {SharedModule} from '../shared/shared.module';
 import {ChartModule} from '../chart/chart.module';
 import {ActivityGraphComponent} from './components/activity-graph/activity-graph.component';
@@ -29,7 +29,7 @@ import {FilterEffects} from './effects/filter.effects';
 import {EffectsModule} from '@ngrx/effects';
 import { InfographicComponent } from './components/summary-panel/infographic/infographic.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { AscentDescentComponent } from './components/summary-panel/ascent-descent/ascent-descent.component';
 
 @NgModule({
   imports: [
@@ -52,7 +52,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     //  * whether they are registered once or multiple times.
     //  */
     EffectsModule.forFeature([FilterEffects]),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
   ],
   declarations: [
     ActivityComponent,
@@ -67,12 +67,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     ViewActivityPageComponent,
     SelectedActivityPageComponent,
     FilterSpeedComponent,
-    InfographicComponent
+    InfographicComponent,
+    AscentDescentComponent
   ],
   providers: [
     ActivityService, FilterService, MockActivityService, D3Service, ActivityExistsGuard
   ],
   exports: [ActivityComponent, FilterListComponent, MapComponent, AttributeComponent,
-  SummaryPanelComponent]
+  SummaryPanelComponent, AscentDescentComponent]
 })
 export class ActivityModule { }
