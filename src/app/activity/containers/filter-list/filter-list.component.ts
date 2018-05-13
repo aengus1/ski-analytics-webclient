@@ -1,12 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Activity} from '../../model/activity/Activity_pb';
 
 import {MessageEvent} from '../../../shared/utils';
-import {
-  AddActivityFilter,
-  DeleteActivityFilter,
-  UpdateActivityFilter
-} from '../../actions/activity-filter.actions';
+import {AddActivityFilter, DeleteActivityFilter, UpdateActivityFilter} from '../../actions/activity-filter.actions';
 import {CloseSidebar, OpenSidebar} from '../../../shared/layout/actions/layout.actions';
 import {ActivitySidebarType, SetSidebarContent} from '../../actions/activity.actions';
 import {ActivityFilter} from '../../model/activity-filter/activity-filter.model';
@@ -16,6 +12,7 @@ import {select, Store} from '@ngrx/store';
 import {MinMaxActivityFilter} from '../../model/activity-filter/min-max-activity-filter.model';
 import {FilterService} from '../../services/filter-service/filter.service';
 import {Observable} from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-filter-list',
@@ -32,17 +29,18 @@ export class FilterListComponent implements OnInit {
   @Output()
   changeEvent = new EventEmitter<MessageEvent<number | string>>();
   private filterCount = 0;
-  private filters$: Observable<ActivityFilter[]>;
+  private filters$: Observable<Dictionary<ActivityFilter>>;
+  private sub: Subscription;
+  constructor(private store: Store<fromActivity.State>, private filterService: FilterService, private cd: ChangeDetectorRef) {
 
-  constructor(private store: Store<fromActivity.State>, private filterService: FilterService) {
-    this.filters$ = store.pipe(select(fromActivity.getAllActivityFilters));
   }
 
   ngOnInit() {
+    this.filters$ = this.store.pipe(select(fromActivity.getActivityFilterEntities));
+    this.filterCount = this.filterService.getAllKeys().length;
   }
 
   receiveMessage($event) {
-    console.log('filter list ' + $event.name + ' ' + $event.payload);
     switch ($event.name) {
       case 'filterMin': {
         this.store.pipe(select(fromActivity.getActivityFilterEntities)).take(1).subscribe( (allFilters: Dictionary<ActivityFilter>) => {
@@ -72,7 +70,6 @@ export class FilterListComponent implements OnInit {
       }
       case 'clearFilter': {
         this.store.pipe(select(fromActivity.getActivityFilterEntities)).take(1).subscribe( (v: Dictionary<ActivityFilter>) => {
-          console.log('clear filter v=' + JSON.stringify(v));
           console.log(JSON.stringify(v[$event.payload]));
           if (v[$event.payload] === undefined ) {
             return;
@@ -80,7 +77,6 @@ export class FilterListComponent implements OnInit {
           this.reHydrateFilters(v);
           const hFilter = this.reHydrateFilter(v[$event.payload]);
           hFilter.clear();
-          console.log(' post clean' + JSON.stringify(hFilter));
           v[$event.payload] = hFilter;
           this.updateActivityFilter(hFilter, v);
         });

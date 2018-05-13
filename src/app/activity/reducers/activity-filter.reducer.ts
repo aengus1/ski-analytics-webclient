@@ -1,9 +1,7 @@
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { ActivityFilter } from '../model/activity-filter/activity-filter.model';
-import { ActivityFilterActions, ActivityFilterActionTypes } from '../actions/activity-filter.actions';
+import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
+import {ActivityFilter} from '../model/activity-filter/activity-filter.model';
+import {ActivityFilterActions, ActivityFilterActionTypes} from '../actions/activity-filter.actions';
 import {ActivityActions} from '../actions/activity.actions';
-import {LoggerService} from '../../shared/services/logger.service';
-
 
 export interface State extends EntityState<ActivityFilter> {
   error: any;
@@ -39,7 +37,9 @@ export function reducer(state = initialState, action: ActivityFilterActions | Ac
   }
 }
 
-export const getAllActivityFilters = (state: State) => state.entities;
+ export const getAllActivityFilters = (state: State) => {
+  return Object.values(state.entities);
+ };
 
 
 

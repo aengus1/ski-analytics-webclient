@@ -1,8 +1,4 @@
-import {
-  createSelector,
-  createFeatureSelector,
-  ActionReducerMap,
-} from '@ngrx/store';
+import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
 
 import * as fromActivities from './activity.reducer';
 import * as fromFilters from './activity-filter.reducer';
@@ -109,6 +105,10 @@ export const getSelectedActivity = createSelector(
   }
 );
 
+export const getFilters = createSelector(
+  getActivityFilterEntitiesState,
+  fromFilters.getAllActivityFilters
+);
 
 export const getUnfilteredActivity = createSelector(
   getActivitiesEntitiesState,
