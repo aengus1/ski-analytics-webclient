@@ -1,5 +1,11 @@
 import {
-  AfterViewChecked, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output,
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
   ViewChild
 } from '@angular/core';
 import {SidebarComponent} from '../../../shared/components/sidebar/sidebar.component';
@@ -7,8 +13,6 @@ import {Activity} from '../../model/activity/Activity_pb';
 import {ActivitySidebarType} from '../../actions/activity.actions';
 import {MessageEvent} from '../../../shared/utils';
 import {LoggerService} from '../../../shared/services/logger.service';
-
-
 
 
 @Component({
@@ -91,7 +95,6 @@ export class ActivityComponent implements OnInit, AfterViewChecked {
       }
       case 'incFilterCount': {
        this.filterCount++;
-       console.log('this.f ilter count = ' + this.filterCount);
        this.cdRef.detectChanges();
        return;
       }

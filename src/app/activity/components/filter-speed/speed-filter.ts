@@ -1,4 +1,4 @@
-import { ActivityFilterType} from '../../model/activity-filter/activity-filter.model';
+import {ActivityFilterType} from '../../model/activity-filter/activity-filter.model';
 import {Activity} from '../../model/activity/Activity_pb';
 import {AbstractActivityFilter} from '../filter/abstract-activity-filter';
 import {MinMaxActivityFilter} from '../../model/activity-filter/min-max-activity-filter.model';
@@ -46,7 +46,7 @@ export class SpeedFilter extends AbstractActivityFilter implements MinMaxActivit
    */
   applyFilter(activity: Activity): number[] {
 
-    console.log('applying filter' + JSON.stringify(this) + ' to ' + activity.getValues().getSpeedList());
+    // console.log('applying filter' + JSON.stringify(this) + ' to ' + activity.getValues().getSpeedList());
     const filteredValues = activity.getValues().getSpeedList();
     const res = new Array<Array<number>>();
 

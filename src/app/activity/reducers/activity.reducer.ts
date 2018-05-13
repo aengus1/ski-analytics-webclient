@@ -1,15 +1,14 @@
 import {
   ActivityActions,
   ActivityActionTypes,
-  ActivitySidebarType, FilterSelectedActivity,
+  ActivitySidebarType,
   LoadActivity,
-  SelectActivity, SetSidebarContent
+  SelectActivity,
+  SetSidebarContent
 } from '../actions/activity.actions';
 import {Activity} from '../model/activity/Activity_pb';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
-import {
-  ActivityFilterActions, ActivityFilterActionTypes
-} from '../actions/activity-filter.actions';
+import {ActivityFilterActions, ActivityFilterActionTypes} from '../actions/activity-filter.actions';
 import {ActivityFilter} from '../model/activity-filter/activity-filter.model';
 import {Dictionary} from '@ngrx/entity/src/models';
 import * as _ from 'lodash';
@@ -166,7 +165,6 @@ function applyFilters(activity: Activity, filters: Dictionary<ActivityFilter>): 
     }
     values.forEach(idSet.add, idSet);
   });
-  console.log('filtered set = ' + Array.from(idSet.values()));
   return Array.from(idSet.values());
 }
 
