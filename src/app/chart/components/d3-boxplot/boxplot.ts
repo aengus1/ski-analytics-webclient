@@ -1,6 +1,5 @@
 /* tslint:disable:no-bitwise */
 import {D3, Selection} from 'd3-ng2-service';
-import {BaseType} from 'd3-selection';
 
 export class BoxPlot {
   private width_v: number;
@@ -105,8 +104,8 @@ export class BoxPlot {
           return x0(dd[1]);
         })
         .style('opacity', 1e-6)
-        .transition()
-        .duration(duration)
+        // .transition()
+        // .duration(duration)
         .style('opacity', 1)
         .attr('y1', function (dd) {
           return x1(dd[0]);
@@ -125,8 +124,9 @@ export class BoxPlot {
       //     return x1(dd[1]);
       //   });
 
-      center.exit().transition()
-        .duration(duration)
+      center.exit()
+        // .transition()
+        // .duration(duration)
         .style('opacity', 1e-6)
         .attr('y1', function (dd) {
           return x1(dd[0]);
@@ -149,8 +149,8 @@ export class BoxPlot {
         .attr('height', function (dd) {
           return x0(dd[0]) - x0(dd[2]);
         })
-        .transition()
-        .duration(duration)
+        // .transition()
+        // .duration(duration)
         .attr('y', function (dd) {
           return x1(dd[2]);
         })
@@ -168,8 +168,8 @@ export class BoxPlot {
         .attr('y1', x0)
         .attr('x2', widthV)
         .attr('y2', x0)
-        .transition()
-        .duration(duration)
+        // .transition()
+        // .duration(duration)
         .attr('y1', x1)
         .attr('y2', x1);
 
@@ -184,20 +184,22 @@ export class BoxPlot {
         .attr('x2', widthV)
         .attr('y2', x0)
         .style('opacity', 1e-6)
-        .transition()
-        .duration(duration)
+        // .transition()
+        // .duration(duration)
         .attr('y1', x1)
         .attr('y2', x1)
         .style('opacity', 1);
 
-      whisker.transition()
-        .duration(duration)
+      whisker
+        // .transition()
+        // .duration(duration)
         .attr('y1', x1)
         .attr('y2', x1)
         .style('opacity', 1);
 
-      whisker.exit().transition()
-        .duration(duration)
+      whisker.exit()
+        // .transition()
+        // .duration(duration)
         .attr('y1', x1)
         .attr('y2', x1)
         .style('opacity', 1e-6)
@@ -215,22 +217,24 @@ export class BoxPlot {
           return x0(d[ii]);
         })
         .style('opacity', 1e-6)
-        .transition()
-        .duration(duration)
+        // .transition()
+        // .duration(duration)
         .attr('cy', function (ii: number) {
           return x1(d[ii]);
         })
         .style('opacity', 1);
 
-      outlier.transition()
-        .duration(duration)
+      outlier
+        // .transition()
+        // .duration(duration)
         .attr('cy', function (ii: number) {
           return x1(d[ii]);
         })
         .style('opacity', 1);
 
-      outlier.exit().transition()
-        .duration(duration)
+      outlier.exit()
+        // .transition()
+        // .duration(duration)
         .attr('cy', function (ii: number) {
           return x1(d[ii]);
         })
@@ -258,12 +262,13 @@ export class BoxPlot {
           return ii & 1 ? 'start' : 'end';
         })
         .text(format)
-        .transition()
-        .duration(duration)
+        // .transition()
+        // .duration(duration)
         .attr('y', x1);
 
-      boxTick.transition()
-        .duration(duration)
+      boxTick
+        // .transition()
+        // .duration(duration)
         .text(format)
         .attr('y', x1);
 
@@ -281,19 +286,21 @@ export class BoxPlot {
         .attr('y', x0)
         .text(format)
         .style('opacity', 1e-6)
-        .transition()
-        .duration(duration)
+        // .transition()
+        // .duration(duration)
         .attr('y', x1)
         .style('opacity', 1);
 
-      whiskerTick.transition()
-        .duration(duration)
+      // whiskerTick.transition()
+      //   .duration(duration)
+      whiskerTick
         .text(format)
         .attr('y', x1)
         .style('opacity', 1);
 
-      whiskerTick.exit().transition()
-        .duration(duration)
+      whiskerTick.exit()
+        // .transition()
+        // .duration(duration)
         .attr('y', x1)
         .style('opacity', 1e-6)
         .remove();

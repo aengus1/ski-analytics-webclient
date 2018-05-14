@@ -83,7 +83,7 @@
 
               <div class="row">
                 <!-- filter toggle -->
-                <span class="fa-2x has-badge fa-stack" attr.data-count="{{filterCount}}">
+                <span id="filterCount" class="fa-2x has-badge fa-stack" attr.data-count="{{filterCount}}">
                 <button type="button"
                         id="filterToggle"
                         class="btn btn-default"
@@ -117,7 +117,7 @@
         <app-sidebar [panelOpen]="sidebarOpen" (messageEvent)="receiveMessage($event)">
           <div *ngIf="sidebarContent === activitySidebarTypes.Filter">
             <!--<app-filter-container [activity]="activity" (changeEvent)="receiveMessage($event)">-->
-              <app-filter-list [activity]="activity" (changeEvent)="receiveMessage($event)"></app-filter-list>
+              <app-filter-list  id="filterList"[activity]="activity" (changeEvent)="receiveMessage($event)"></app-filter-list>
             <!--</app-filter-container>-->
           </div>
           <div *ngIf="sidebarContent === activitySidebarTypes.Attribute">

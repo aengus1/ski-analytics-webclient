@@ -1,4 +1,4 @@
-import { IntervalPipe } from './interval.pipe';
+import {IntervalPipe} from './interval.pipe';
 
 describe('IntervalPipe', () => {
   it('handles leading zeroes', () => {
@@ -9,11 +9,13 @@ describe('IntervalPipe', () => {
   it('performs correct calculation', () => {
     const pipe = new IntervalPipe();
     expect(pipe.transform('3721')).toEqual('01:02:01');
+    expect(pipe.transform('2219')).toEqual(('00:36:59'));
   });
   it('returns zero for negative number', () => {
     const pipe = new IntervalPipe();
     expect(pipe.transform('-36121')).toEqual('00:00:00');
   });
+
 
   it('displays both digits of hour minute and second correctly', () => {
     const pipe = new IntervalPipe();
