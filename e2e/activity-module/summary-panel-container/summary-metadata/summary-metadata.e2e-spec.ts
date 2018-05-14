@@ -1,7 +1,6 @@
 import {SummaryMetaDataPage} from './summary-metadata.po';
 
 
-
 describe('summary metadata panel', () => {
   let page: SummaryMetaDataPage;
 
@@ -14,7 +13,7 @@ describe('summary metadata panel', () => {
   it('should display date', () => {
     // browser.addMockModule('ActivityService', mockActivityService);  //dynamically write mock code here
     page.getActivityCreatedDate().then(res => {
-      expect(res.getAttribute('innerHTML')).toEqual('05 Dec 2017');
+      expect(res.getAttribute('innerHTML')).toEqual('28 Mar 2017');
     });
   });
 });

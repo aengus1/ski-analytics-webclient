@@ -4,7 +4,7 @@ Ski Analytics is a web application that enables athletes to interactively explor
 
 ## Getting started
 ---
- - Install [npm](https://www.npmjs.com/get-npm)
+ - Install [npm](https://www.npmjs.com/get-npm)  (don't use yarn - this is causing build errors with D3 currently)
  - Install angular-cli `npm install -g @angular/cli`
 
 

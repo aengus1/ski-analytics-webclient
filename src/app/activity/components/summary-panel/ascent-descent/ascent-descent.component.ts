@@ -48,6 +48,9 @@ export class AscentDescentComponent implements OnInit {
   @Input()
   private uomRate: string;
 
+  @Input()
+  private size: number;
+
   getAscent() {
     return this.activity.getSummary().getTotalascent();
   }
@@ -65,17 +68,17 @@ export class AscentDescentComponent implements OnInit {
   }
 
   calcUpArrowScale() {
-    if(this.getDescent() === 0) {
+    if (this.getDescent() === 0) {
       return '100%';
     }
-   if(this.getAscent() > this.getDescent()) {
+   if (this.getAscent() > this.getDescent()) {
       return '100%';
    }
    return ((this.getAscent() / this.getDescent()) * 100).toFixed(1) + '%';
   }
 
   calcDownArrowScale() {
-    if(this.getAscent() === 0) {
+    if (this.getAscent() === 0) {
       return '100%';
     }
     if (this.getDescent() > this.getAscent()) {

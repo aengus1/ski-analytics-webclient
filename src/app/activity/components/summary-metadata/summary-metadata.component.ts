@@ -5,7 +5,6 @@ import {RemoveUnderscorePipe} from '../../../shared/pipes/remove-underscore.pipe
 import {IntervalPipe} from '../../../shared/pipes/interval.pipe';
 
 
-
 @Component({
   selector: 'app-summary-metadata',
   templateUrl: './summary-metadata.component.html',
@@ -26,6 +25,7 @@ private activity: Activity;  // this is the UNFILTERED ACTIVITY!
   }
 
   ngOnInit() {
+    console.log('timer = ' + this.activity.getSummary().getTotaltimer());
   }
 
 

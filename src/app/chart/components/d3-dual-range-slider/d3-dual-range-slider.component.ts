@@ -6,7 +6,8 @@ import {
   EventEmitter,
   Input,
   OnInit,
-  Output, ViewChild
+  Output,
+  ViewChild
 } from '@angular/core';
 import {ScaleLinear} from 'd3-scale';
 import {D3, D3Service, Selection} from 'd3-ng2-service';
@@ -105,11 +106,11 @@ export class D3DualRangeSliderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     const c = this;
-    const sel = this.svg.select<SVGLineElement>('#trackoverlay');
+    const sel = this.svg.select<any>('#trackoverlay');
     const slider = this.svg.select<SVGCircleElement>('#slider');
 
     sel.call(this.d3.drag()
-      .on('start.interrupt', () => { slider.interrupt(); })
+       .on('start.interrupt', () => { slider.interrupt(); })
       .on('start drag', () => {
       // check that mouse event is within slider range
       if (c.d3.event.x < 0 || c.d3.event.x > c.xScale(c.width - c.margin_left - c.margin_right) + 1) {
