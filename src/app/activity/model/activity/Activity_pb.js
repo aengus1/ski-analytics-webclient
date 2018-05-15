@@ -1281,7 +1281,10 @@ proto.Activity.Summary.toObject = function(includeInstance, msg) {
     totalasctime: +jspb.Message.getFieldWithDefault(msg, 29, 0.0),
     totaldesctime: +jspb.Message.getFieldWithDefault(msg, 30, 0.0),
     totalascdist: +jspb.Message.getFieldWithDefault(msg, 31, 0.0),
-    totaldescdist: +jspb.Message.getFieldWithDefault(msg, 32, 0.0)
+    totaldescdist: +jspb.Message.getFieldWithDefault(msg, 32, 0.0),
+    pausedistance: +jspb.Message.getFieldWithDefault(msg, 33, 0.0),
+    stopcount: jspb.Message.getFieldWithDefault(msg, 34, 0),
+    pausecount: jspb.Message.getFieldWithDefault(msg, 35, 0)
   };
 
   if (includeInstance) {
@@ -1449,6 +1452,18 @@ proto.Activity.Summary.deserializeBinaryFromReader = function(msg, reader) {
     case 32:
       var value = /** @type {number} */ (reader.readDouble());
       msg.setTotaldescdist(value);
+      break;
+    case 33:
+      var value = /** @type {number} */ (reader.readDouble());
+      msg.setPausedistance(value);
+      break;
+    case 34:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setStopcount(value);
+      break;
+    case 35:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setPausecount(value);
       break;
     default:
       reader.skipField();
@@ -1694,6 +1709,27 @@ proto.Activity.Summary.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0.0) {
     writer.writeDouble(
       32,
+      f
+    );
+  }
+  f = message.getPausedistance();
+  if (f !== 0.0) {
+    writer.writeDouble(
+      33,
+      f
+    );
+  }
+  f = message.getStopcount();
+  if (f !== 0) {
+    writer.writeInt32(
+      34,
+      f
+    );
+  }
+  f = message.getPausecount();
+  if (f !== 0) {
+    writer.writeInt32(
+      35,
       f
     );
   }
@@ -2183,6 +2219,51 @@ proto.Activity.Summary.prototype.getTotaldescdist = function() {
 /** @param {number} value */
 proto.Activity.Summary.prototype.setTotaldescdist = function(value) {
   jspb.Message.setProto3FloatField(this, 32, value);
+};
+
+
+/**
+ * optional double pauseDistance = 33;
+ * @return {number}
+ */
+proto.Activity.Summary.prototype.getPausedistance = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 33, 0.0));
+};
+
+
+/** @param {number} value */
+proto.Activity.Summary.prototype.setPausedistance = function(value) {
+  jspb.Message.setProto3FloatField(this, 33, value);
+};
+
+
+/**
+ * optional int32 stopCount = 34;
+ * @return {number}
+ */
+proto.Activity.Summary.prototype.getStopcount = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 34, 0));
+};
+
+
+/** @param {number} value */
+proto.Activity.Summary.prototype.setStopcount = function(value) {
+  jspb.Message.setProto3IntField(this, 34, value);
+};
+
+
+/**
+ * optional int32 pauseCount = 35;
+ * @return {number}
+ */
+proto.Activity.Summary.prototype.getPausecount = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 35, 0));
+};
+
+
+/** @param {number} value */
+proto.Activity.Summary.prototype.setPausecount = function(value) {
+  jspb.Message.setProto3IntField(this, 35, value);
 };
 
 

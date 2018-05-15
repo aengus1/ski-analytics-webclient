@@ -6,6 +6,16 @@ Ski Analytics is a web application that enables athletes to interactively explor
 ---
  - Install [npm](https://www.npmjs.com/get-npm)  (don't use yarn - this is causing build errors with D3 currently)
  - Install angular-cli `npm install -g @angular/cli`
+ 
+ 
+## Compiling protobuf
+
+First npm install ts-protoc-gen
+then `npm install && npm run build`
+
+From src/app/proto/Activity folder (containing the .proto file)
+
+protoc --plugin=protoc-gen-ts=../../../../node_modules/.bin/protoc-gen-ts --js_out=import_style=commonjs,binary:. --ts_out=service=true:. Activity.proto
 
 
 

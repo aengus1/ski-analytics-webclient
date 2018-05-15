@@ -255,6 +255,15 @@ export namespace Activity {
     getTotaldescdist(): number;
     setTotaldescdist(value: number): void;
 
+    getPausedistance(): number;
+    setPausedistance(value: number): void;
+
+    getStopcount(): number;
+    setStopcount(value: number): void;
+
+    getPausecount(): number;
+    setPausecount(value: number): void;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Summary.AsObject;
     static toObject(includeInstance: boolean, msg: Summary): Summary.AsObject;
@@ -299,6 +308,9 @@ export namespace Activity {
       totaldesctime: number,
       totalascdist: number,
       totaldescdist: number,
+      pausedistance: number,
+      stopcount: number,
+      pausecount: number,
     }
   }
 
