@@ -6,6 +6,7 @@ export class MockActivity {
 
   public static generateMockActivity() {
 
+    const movingList: boolean[] = [false, false, true, true, true, false, true, false, false, true, true, true, true, true];
     const speedList: number[] = [0, 0, 1, 1.2, 1.7, 1.9, 3.4, 5.7, 7.5, 4.2, 0, 3.3, 9.0, 7.0];
     const altList: number[] = [400, 401, 405, 410, 407, 407, 406, 407, 409, 411, 414, 415, 417, 415];
     const distList: number[] = [0,  0,    10,  15,  35,  40,  45,  47,  53,  57,  72,  77,  81, 97];
@@ -33,6 +34,7 @@ export class MockActivity {
     activity.getValues().setSpeedList(speedList);
     activity.getValues().setAltitudeList(altList);
     activity.getValues().setDistanceList(distList);
+    activity.getValues().setMovingList(movingList);
     activity.getValues().setTsList(tsList);
 
     activity.setSummary(new Summary());
