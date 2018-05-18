@@ -58,7 +58,7 @@
     "jest-cli": "^22.4.3",
     "jest-preset-angular": "^3.0.1",
     "jquery": "^3.3.1",
-    "protractor": "~5.1.2",
+    "protractor": "^5.3.2",
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
     "typescript": "~2.4.2"

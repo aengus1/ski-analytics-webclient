@@ -1,12 +1,8 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
-import { ActivitySummaryService } from './activity-summary.service';
-import {MockActivityService} from '../activity-service/mock.activity.service';
+import {ActivitySummaryService} from './activity-summary.service';
 import {Activity} from '../../model/activity/Activity_pb';
 import {MockActivity} from '../../model/activity/activity.mock';
-import {MockActivityFilter} from '../../model/activity-filter/activity-filter.mock';
-import {SpeedFilter} from '../../components/filter-speed/speed-filter';
-
 
 
 describe('ActivitySummaryService', () => {
@@ -95,4 +91,50 @@ describe('ActivitySummaryService', () => {
     });
 
   });
+
+  describe(' Stop calculation', () => {
+    const activity: Activity = MockActivity.generateMockActivity();
+    ActivitySummaryService.summarizeActivity(activity, null);
+
+    it('should calculate stop time correctly when no filters are applied', () => {
+      expect(activity.getSummary().getTotalstopped()).toEqual(5);
+    });
+
+    it('should calculate stop time correctly when no filters are applied', () => {
+      ActivitySummaryService.summarizeActivity(activity, [6, 7, 9, 11]);
+      expect(activity.getSummary().getTotalstopped()).toEqual(1);
+    });
+
+    it('should calculate stop count correctly - with leading stop that is ignored', () => {
+      ActivitySummaryService.summarizeActivity(activity, null);
+      expect(activity.getSummary().getStopcount()).toEqual(2);
+    });
+
+    it('should calculate stop count correctly - with trailing stop that is counted', () => {
+      const movingList: boolean[] = [false, false, true, true, true, false, true, false, false, true, true, true, true, false];
+      activity.getValues().setMovingList(movingList);
+      ActivitySummaryService.summarizeActivity(activity, null);
+      expect(activity.getSummary().getStopcount()).toEqual(3);
+    });
+
+
+  });
+
+  describe(' Moving calculation', () => {
+    const activity: Activity = MockActivity.generateMockActivity();
+    ActivitySummaryService.summarizeActivity(activity, null);
+
+    it('should calculate moving time correctly when no filters are applied', () => {
+      expect(activity.getSummary().getTotalmoving()).toEqual(8);
+    });
+
+    it('should calculate moving time correctly when filters are applied', () => {
+      ActivitySummaryService.summarizeActivity(activity, [6, 7, 9, 11]);
+      expect(activity.getSummary().getTotalmoving()).toEqual(3);
+    });
+  });
+
+  // describe(' Pause calculation', () => {
+  //
+  // });
 });
