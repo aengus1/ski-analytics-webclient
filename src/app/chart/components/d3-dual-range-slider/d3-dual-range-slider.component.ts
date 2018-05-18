@@ -14,6 +14,7 @@ import {D3, D3Service, Selection} from 'd3-ng2-service';
 import {BaseType} from 'd3-selection';
 import {MessageEvent} from '../../../shared/utils';
 
+
 @Component({
   selector: 'app-d3-dual-range-slider',
   template: `<span class="badge badge-light pull-right">{{minValue | number: '1.1-1' }} -
@@ -28,7 +29,7 @@ import {MessageEvent} from '../../../shared/utils';
     <svg:line  #trackoverlay id="trackoverlay" class="track track-overlay" [attr.x1]="scale().range()[0]" [attr.x2]="scale().range()[1]" />
     </svg:g>
   </svg>`,
-  // encapsulation: ViewEncapsulation.None,      // this forces angular to respect css class names on d3 elements
+   // encapsulation: ViewEncapsulation.None,      // this forces angular to respect css class names on d3 elements
   styleUrls: ['./d3-dual-range-slider.component.css']
 })
 export class D3DualRangeSliderComponent implements OnInit, AfterViewInit {
