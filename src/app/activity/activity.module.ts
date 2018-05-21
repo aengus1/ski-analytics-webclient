@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {SharedModule} from '../shared/shared.module';
 import {ChartModule} from '../chart/chart.module';
 import {ActivityGraphComponent} from './components/activity-graph/activity-graph.component';
@@ -13,23 +13,24 @@ import {MockActivityService} from './services/activity-service/mock.activity.ser
 import {FilterListComponent} from './containers/filter-list/filter-list.component';
 import {AttributeComponent} from './components/attribute/attribute.component';
 import {ActivityRoutesModule} from './activity.routes';
-import { ActivityRootComponent } from './containers/activity-root/activity-root.component';
-import { StoreModule } from '@ngrx/store';
+import {ActivityRootComponent} from './containers/activity-root/activity-root.component';
+import {StoreModule} from '@ngrx/store';
 import {filterReducers, reducers} from './reducers';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../../environments/environment';
-import { ViewActivityPageComponent } from './containers/view-activity-page/view-activity-page.component';
-import { SelectedActivityPageComponent } from './containers/selected-activity-page/selected-activity-page.component';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {environment} from '../../environments/environment';
+import {ViewActivityPageComponent} from './containers/view-activity-page/view-activity-page.component';
+import {SelectedActivityPageComponent} from './containers/selected-activity-page/selected-activity-page.component';
 import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {ActivityExistsGuard} from './guards/activity-exists';
-import { FilterComponent } from './components/filter/filter.component';
-import { FilterSpeedComponent } from './components/filter-speed/filter-speed.component';
+import {FilterComponent} from './components/filter/filter.component';
+import {FilterSpeedComponent} from './components/filter-speed/filter-speed.component';
 import {FilterService} from './services/filter-service/filter.service';
 import {FilterEffects} from './effects/filter.effects';
 import {EffectsModule} from '@ngrx/effects';
-import { InfographicComponent } from './components/summary-panel/infographic/infographic.component';
+import {InfographicComponent} from './components/summary-panel/infographic/infographic.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { AscentDescentComponent } from './components/summary-panel/ascent-descent/ascent-descent.component';
+import {AscentDescentComponent} from './components/summary-panel/ascent-descent/ascent-descent.component';
+import {MovingStopComponent} from './components/summary-panel/moving-stop/moving-stop.component';
 
 @NgModule({
   imports: [
@@ -68,7 +69,8 @@ import { AscentDescentComponent } from './components/summary-panel/ascent-descen
     SelectedActivityPageComponent,
     FilterSpeedComponent,
     InfographicComponent,
-    AscentDescentComponent
+    AscentDescentComponent,
+    MovingStopComponent
   ],
   providers: [
     ActivityService, FilterService, MockActivityService, D3Service, ActivityExistsGuard
