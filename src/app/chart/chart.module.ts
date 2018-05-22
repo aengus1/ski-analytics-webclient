@@ -6,13 +6,14 @@ import {D3Service} from 'd3-ng2-service';
 import {D3RangeSliderComponent} from './components/d3-range-slider/d3-range-slider.component';
 import {D3DualRangeSliderComponent} from './components/d3-dual-range-slider/d3-dual-range-slider.component';
 import {D3BarComponent} from './d3-bar/d3-bar.component';
+import {LoggerService} from '../shared/services/logger.service';
 
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [D3BoxplotComponent, D3ChartComponent, D3RangeSliderComponent, D3DualRangeSliderComponent, D3BarComponent],
-  providers: [D3Service],
+  providers: [D3Service, LoggerService],
   exports: [D3BoxplotComponent, D3RangeSliderComponent, D3DualRangeSliderComponent, D3BarComponent]
 })
 export class ChartModule { }

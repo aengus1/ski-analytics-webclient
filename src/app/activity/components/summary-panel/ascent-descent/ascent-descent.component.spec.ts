@@ -1,15 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AscentDescentComponent } from './ascent-descent.component';
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {AscentDescentComponent} from './ascent-descent.component';
+import {Component, OnInit} from '@angular/core';
 import {MockActivity} from '../../../model/activity/activity.mock';
 import {ActivityModule} from '../../../activity.module';
 import {combineReducers, StoreModule} from '@ngrx/store';
-import {filterReducers, reducers} from '../../../reducers';
-import {RouterTestingModule} from '@angular/router/testing';
 import * as fromActivities from '../../../reducers';
+import {RouterTestingModule} from '@angular/router/testing';
 import {EffectsModule} from '@ngrx/effects';
 import {ActivitySummaryService} from '../../../services/activity-summary-service/activity-summary.service';
+
 let fixture: ComponentFixture<AppMockComponent>;
 let component: AppMockComponent;
 let compiled: HTMLElement | null;
@@ -19,7 +19,7 @@ let compiled: HTMLElement | null;
   template: `<app-ascent-descent [uom]="layout.uom" [uomRate]="layout.uomRate" [activity]="layout.activity">
   </app-ascent-descent>`
 })
-class AppMockComponent  implements OnInit{
+class AppMockComponent  implements OnInit {
 
   public layout = {
     activity: MockActivity.generateMockActivity(),

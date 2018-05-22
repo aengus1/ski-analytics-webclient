@@ -76,6 +76,6 @@ import {MovingStopComponent} from './components/summary-panel/moving-stop/moving
     ActivityService, FilterService, MockActivityService, D3Service, ActivityExistsGuard
   ],
   exports: [ActivityComponent, FilterListComponent, MapComponent, AttributeComponent,
-  SummaryPanelComponent, AscentDescentComponent]
+  SummaryPanelComponent, AscentDescentComponent, MovingStopComponent]
 })
 export class ActivityModule { }

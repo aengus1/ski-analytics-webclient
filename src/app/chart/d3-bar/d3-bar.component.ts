@@ -4,6 +4,7 @@ import {D3Service, Selection} from 'd3-ng2-service';
 import {LoggerService} from '../../shared/services/logger.service';
 import {ChartOptions, ChartOrientation} from './ChartOptions';
 
+
 @Component({
   selector: 'app-d3-bar',
   template: `
