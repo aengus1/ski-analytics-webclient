@@ -12,8 +12,6 @@ export class SummaryPanelComponent {
   @Input()
   private activity: Activity;
   @Input()
-  private unfilteredActivity: Activity;
-  @Input()
   public ActivitySport: string[];
   @Input()
   public ActivitySubSport: string[];

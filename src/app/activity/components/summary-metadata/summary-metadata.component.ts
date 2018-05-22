@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Activity} from '../../model/activity/Activity_pb';
 import {TitleCasePipe} from '../../../shared/pipes/titlecase.pipe';
 import {RemoveUnderscorePipe} from '../../../shared/pipes/remove-underscore.pipe';
@@ -14,7 +14,7 @@ import * as fromActivity from '../../reducers';
   styleUrls: ['./summary-metadata.component.css'],
   providers: [TitleCasePipe, IntervalPipe, RemoveUnderscorePipe]
 })
-export class SummaryMetadataComponent implements OnInit {
+export class SummaryMetadataComponent {
 
 @Input()
 private activity$: Observable<Activity>;  // this is the UNFILTERED ACTIVITY!
@@ -26,13 +26,6 @@ private activity$: Observable<Activity>;  // this is the UNFILTERED ACTIVITY!
 
   constructor( private store: Store<fromActivity.State>) {
     this.activity$ = store.pipe(select(fromActivity.getSelectedActivity));
-  }
-
-
-  ngOnInit() {
-    // console.log('activity' + this.activity.getId());
-    // console.log('timer = ' + this.activity.getSummary().getTotaltimer());
-    // console.log('this.activity' + this.activity.getId() + this.activity.getSummary().getStartts());
   }
 
 

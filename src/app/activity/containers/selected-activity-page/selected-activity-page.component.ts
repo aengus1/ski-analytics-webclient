@@ -15,7 +15,6 @@ import {async} from 'rxjs/scheduler/async';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<app-activity-module
   [activity] = "activity$ | async"
-  [unFilteredActivity] = "unfilteredActivity$ | async"
   [ActivitySport]="activitySport$ | async"
   [ActivitySubSport]="activitySubSport$ | async"
   [sidebarOpen]="sidebarOpen$ | async"
@@ -26,8 +25,6 @@ import {async} from 'rxjs/scheduler/async';
 })
 export class SelectedActivityPageComponent {
  activity$: Observable<Activity>;
-  unfilteredActivity$: Observable<Activity>;
-
  activitySport$: Observable<string[]>;
   activitySubSport$: Observable<string[]>;
   sidebarOpen$: Observable<boolean>;
@@ -35,14 +32,7 @@ export class SelectedActivityPageComponent {
   @ViewChild(ActivityComponent) activityModuleComponent;
 
   constructor(private store: Store<fromActivity.State>) {
-    this.unfilteredActivity$ = store.pipe(select(fromActivity.getUnfiltered));
     this.activity$ = store.pipe(select(fromActivity.getSelectedActivity));
-    // console.log('unfiltered = ' + store.select('activities', 'activities', 'unfilteredActivity').);
-
-    // this.unfilteredActivity$ = store.select('activities', 'activities', 'unfilteredActivity');
-    this.unfilteredActivity$.subscribe(x => {
-      console.log('got unfiltered: ' + x.getId() + x.getSummary().getStartts());
-    });
     this.activitySport$ = store.pipe(select(fromActivity.getActivitySport));
     this.activitySubSport$ = store.pipe(select(fromActivity.getActivitySubSport));
     this.sidebarOpen$ = store.pipe(select(fromActivity.getShowSidebar));
