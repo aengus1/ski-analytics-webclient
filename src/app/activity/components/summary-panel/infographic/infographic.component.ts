@@ -2,8 +2,8 @@ import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-infographic',
-  template: `
-    <div class="card" style="background-color: lightskyblue; border-color: #333;">
+  template:
+    `<div  class="card" style="background-color: lightskyblue; border-color: #333;">
     <div class="card-title text-center">
       <i class="fa" [ngClass]="icon" aria-hidden="true" ngbPopover="{{title}} {{uom}}" triggers="mouseenter:mouseleave"></i>
     </div>

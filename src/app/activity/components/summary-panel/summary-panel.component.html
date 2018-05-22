@@ -39,7 +39,7 @@
 </div>
 
  <!-- mobile layout -->
-  <div class="row d-flex d-sm-none">
+  <div class="row d-flex d-sm-none" *ngIf="activity">
     <!-- heart rate box plot -->
     <!-- TODO -> ADD LOGIC TO ONLY SHOW THESE COMPONENTS IF THEY HAVE DATA IN THE hasAttributeMap
      (currently this is not populated -->
@@ -61,7 +61,14 @@
     <!-- ascent / descent -->
     <div class="col-sm-3">
       <app-infographic [title]="'Ascent/Descent'" [icon]="'fa-arrows-v'" [uom]="''">
-        <app-ascent-descent [uom]="'m'" [uomRate]="'m/min'" [activity]="activity"></app-ascent-descent>
+        <app-ascent-descent [mobile]="true" [uom]="'m'" [uomRate]="'m/min'" [activity]="activity"></app-ascent-descent>
+      </app-infographic>
+    </div>
+    <!-- stop / moving-->
+    <div class="col-sm-3">
+      <app-infographic [title]="'Stop/Moving'" [icon]="'fa-stop-circle'" [uom]="'mins'">
+        <app-moving-stop [data]="[activity.getSummary().getTotalmoving(),activity.getSummary().getTotalstopped()]" [stopCount]="activity.getSummary().getStopcount()"></app-moving-stop>
+        <!--<app-d3-bar [width]="100" [height]="100" [data]="[30,6]" [yLabel]="'mins'" [xLabels]="['Moving',' Stop']"></app-d3-bar>-->
       </app-infographic>
     </div>
 
