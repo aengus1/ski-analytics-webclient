@@ -1,7 +1,7 @@
-import { reducer } from './activity.reducer';
+import * as fromActivities from './activity.reducer';
+import {reducer} from './activity.reducer';
 import {MockActivity} from '../model/activity/activity.mock';
 import {Activity} from '../model/activity/Activity_pb';
-import * as fromActivities from './activity.reducer';
 import {ActivitySidebarType, LoadActivity, SelectActivity} from '../actions/activity.actions';
 
 describe('Activity Reducer', () => {
@@ -14,7 +14,7 @@ describe('Activity Reducer', () => {
     activitySport: fromActivities.buildActivitySport(),
     activitySubSport: fromActivities.buildActivitySubSport(),
     sidebarContent: ActivitySidebarType.NoContent,
-    unfilteredActivity: null,
+    unfilteredActivity: new Activity(),
     ids: [],
     entities: null
   };

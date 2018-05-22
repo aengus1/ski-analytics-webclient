@@ -32,7 +32,7 @@ export const initialState: State = adapter.getInitialState({
   activitySport: buildActivitySport(),
   activitySubSport: buildActivitySubSport(),
   sidebarContent: ActivitySidebarType.NoContent,
-  unfilteredActivity: null
+  unfilteredActivity: new Activity()
 });
 
 
@@ -69,6 +69,10 @@ export function reducer(state = initialState, action: ActivityActions | Activity
     case ActivityActionTypes.Load: {
       const act: LoadActivity = <LoadActivity>action;
       ActivitySummaryService.summarizeActivity(act.payload, null);
+      // const unfilteredRef = state.unfilteredActivity;
+      // setActivityContents(act.payload, unfilteredRef);
+      // const newState = { ...state, unfilteredActivity: unfilteredRef };
+      // return adapter.addOne(act.payload, newState);
       return adapter.addOne(act.payload, {
         ...state,
         unfilteredActivity: act.payload
@@ -78,11 +82,18 @@ export function reducer(state = initialState, action: ActivityActions | Activity
     case ActivityActionTypes.Select: {
       const act: SelectActivity = <SelectActivity>action;
       // update the selectedActivityId, and copy the payload into unfilteredActivity
+      // const unfilteredRef = state.unfilteredActivity;
+      // if (act.payload !== null) {
+      //   setActivityContents(deepCopyActivity(state.entities[act.payload]), unfilteredRef);
+      // } else {
+      //   setActivityContents(new Activity(), unfilteredRef);
+      // }
       const newState = {
         ...state,
         selectedActivityId: act.payload,
-        unfilteredActivity: act.payload != null ? deepCopyActivity(state.entities[act.payload]) : null,
+        unfilteredActivity:  act.payload != null ? deepCopyActivity(state.entities[act.payload]) : null
       };
+      // unfilteredActivity: act.payload != null ? deepCopyActivity(state.entities[act.payload]) : null,
       ActivitySummaryService.summarizeActivity(state.unfilteredActivity, null);
 
       if (state.selectedActivityId !== null) {
@@ -117,8 +128,9 @@ export function reducer(state = initialState, action: ActivityActions | Activity
       ActivitySummaryService.summarizeActivity(activity, Object.keys(filters).length > 0 ? filteredSet : null);
       // replacing the entire activity entity will break the subscription in the component chain so just update values instead
       const entityReference = state.entities;
-      entityReference[state.selectedActivityId].setValues(activity.getValues());
-      entityReference[state.selectedActivityId].setSummary(activity.getSummary());
+      setActivityContents(activity, entityReference[state.selectedActivityId]);
+      // entityReference[state.selectedActivityId].setValues(activity.getValues());
+      // entityReference[state.selectedActivityId].setSummary(activity.getSummary());
 
       return {
         ...state,
@@ -177,6 +189,15 @@ function applyFilters(activity: Activity, filters: Dictionary<ActivityFilter>): 
    return _.cloneDeep(activity);
 }
 
+function setActivityContents(source: Activity, sink: Activity) {
+  if (sink == null) {
+    return;
+  }
+  sink.setValues(source != null ? source.getValues() : null);
+  sink.setSummary(source != null ? source.getSummary() : null);
+  sink.setMeta(source != null ? source.getMeta() : null);
+  sink.setId(source !=null ? source.getId() : null);
+}
 
 export const getUnfilteredActivity = (state: State) => state.unfilteredActivity;
 export const getSelectedActivityId = (state: State) => state.selectedActivityId;

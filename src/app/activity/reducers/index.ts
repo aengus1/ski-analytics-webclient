@@ -66,6 +66,7 @@ export const getSelectedActivityId = createSelector(
   fromActivities.getSelectedActivityId
 );
 
+
 export const getActivitySport = createSelector(
   getActivitiesEntitiesState,
   fromActivities.getActivitySport
@@ -105,14 +106,14 @@ export const getSelectedActivity = createSelector(
   }
 );
 
+export const getUnfiltered = createSelector(
+  getActivitiesEntitiesState,
+  state => state.unfilteredActivity
+);
+
 export const getFilters = createSelector(
   getActivityFilterEntitiesState,
   fromFilters.getAllActivityFilters
-);
-
-export const getUnfilteredActivity = createSelector(
-  getActivitiesEntitiesState,
-  fromActivities.getUnfilteredActivity
 );
 
 
@@ -131,6 +132,8 @@ export const {
 
 
 export const selectActivityFilters = (state: ActivityFiltersState) => state.filters;
+
+
 
 
 

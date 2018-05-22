@@ -1,15 +1,13 @@
-import {Component, ViewChild} from '@angular/core';
-import {ChangeDetectionStrategy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Activity} from '../../model/activity/Activity_pb';
-import {Store, select} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import * as fromActivity from '../../reducers/';
-import {ActivitySidebarType,  SetSidebarContent} from '../../actions/activity.actions';
+import {ActivitySidebarType, SetSidebarContent} from '../../actions/activity.actions';
 import {CloseSidebar, OpenSidebar} from '../../../shared/layout/actions/layout.actions';
 import 'rxjs/add/operator/take';
 import {ActivityComponent} from '../../components/activity/activity.component';
 import {async} from 'rxjs/scheduler/async';
-
 
 
 @Component({
@@ -17,7 +15,6 @@ import {async} from 'rxjs/scheduler/async';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<app-activity-module
   [activity] = "activity$ | async"
-  [unFilteredActivity] = "unfilteredActivity$ | async"
   [ActivitySport]="activitySport$ | async"
   [ActivitySubSport]="activitySubSport$ | async"
   [sidebarOpen]="sidebarOpen$ | async"
@@ -28,7 +25,6 @@ import {async} from 'rxjs/scheduler/async';
 })
 export class SelectedActivityPageComponent {
  activity$: Observable<Activity>;
-  unfilteredActivity$: Observable<Activity>;
  activitySport$: Observable<string[]>;
   activitySubSport$: Observable<string[]>;
   sidebarOpen$: Observable<boolean>;
@@ -37,7 +33,6 @@ export class SelectedActivityPageComponent {
 
   constructor(private store: Store<fromActivity.State>) {
     this.activity$ = store.pipe(select(fromActivity.getSelectedActivity));
-    this.unfilteredActivity$ = store.pipe(select(fromActivity.getUnfilteredActivity));
     this.activitySport$ = store.pipe(select(fromActivity.getActivitySport));
     this.activitySubSport$ = store.pipe(select(fromActivity.getActivitySubSport));
     this.sidebarOpen$ = store.pipe(select(fromActivity.getShowSidebar));
