@@ -1,15 +1,13 @@
-import {Component, ViewChild} from '@angular/core';
-import {ChangeDetectionStrategy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Activity} from '../../model/activity/Activity_pb';
-import {Store, select} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import * as fromActivity from '../../reducers/';
-import {ActivitySidebarType,  SetSidebarContent} from '../../actions/activity.actions';
+import {ActivitySidebarType, SetSidebarContent} from '../../actions/activity.actions';
 import {CloseSidebar, OpenSidebar} from '../../../shared/layout/actions/layout.actions';
 import 'rxjs/add/operator/take';
 import {ActivityComponent} from '../../components/activity/activity.component';
 import {async} from 'rxjs/scheduler/async';
-
 
 
 @Component({
@@ -29,6 +27,7 @@ import {async} from 'rxjs/scheduler/async';
 export class SelectedActivityPageComponent {
  activity$: Observable<Activity>;
   unfilteredActivity$: Observable<Activity>;
+
  activitySport$: Observable<string[]>;
   activitySubSport$: Observable<string[]>;
   sidebarOpen$: Observable<boolean>;
@@ -36,8 +35,14 @@ export class SelectedActivityPageComponent {
   @ViewChild(ActivityComponent) activityModuleComponent;
 
   constructor(private store: Store<fromActivity.State>) {
+    this.unfilteredActivity$ = store.pipe(select(fromActivity.getUnfiltered));
     this.activity$ = store.pipe(select(fromActivity.getSelectedActivity));
-    this.unfilteredActivity$ = store.pipe(select(fromActivity.getUnfilteredActivity));
+    // console.log('unfiltered = ' + store.select('activities', 'activities', 'unfilteredActivity').);
+
+    // this.unfilteredActivity$ = store.select('activities', 'activities', 'unfilteredActivity');
+    this.unfilteredActivity$.subscribe(x => {
+      console.log('got unfiltered: ' + x.getId() + x.getSummary().getStartts());
+    });
     this.activitySport$ = store.pipe(select(fromActivity.getActivitySport));
     this.activitySubSport$ = store.pipe(select(fromActivity.getActivitySubSport));
     this.sidebarOpen$ = store.pipe(select(fromActivity.getShowSidebar));

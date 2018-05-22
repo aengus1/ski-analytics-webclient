@@ -1,4 +1,4 @@
-<div id="metadata-panel" *ngIf="activity">
+<div id="metadata-panel" *ngIf="activity$ | async as activity">
   <!-- desktop layout -->
 <div class="row d-none d-md-flex">
   <div class="col-md-3 hidden-md-down">

@@ -62,6 +62,19 @@ Object {
   "ids": Array [],
   "selectedActivityId": null,
   "sidebarContent": 0,
-  "unfilteredActivity": null,
+  "unfilteredActivity": Object {
+    "array": Array [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      Array [],
+    ],
+    "arrayIndexOffset_": -1,
+    "convertedFloatingPointFields_": Object {},
+    "messageId_": undefined,
+    "pivot_": 1.7976931348623157e+308,
+    "wrappers_": null,
+  },
 }
 `;
