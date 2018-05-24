@@ -9,7 +9,7 @@ export abstract class AbstractActivityFilter implements ActivityFilter {
 
   /**
    * Apply the filter to the activity
-   * @param {Activity} the activity to filter
+   * @param {activity} the activity to filter
    * @returns {[Activity , number[]]} the filtered activity and a list of ids that were removed
    */
   abstract applyFilter(activity: Activity): number[];
@@ -27,6 +27,10 @@ export abstract class AbstractActivityFilter implements ActivityFilter {
   // TODO -> add all value types to this filter
   filterAllValuesByIndex(activity: Activity, indices: number[]) {
     activity.getValues().setSpeedList(activity.getValues().getSpeedList().map((v, i) => [v, i])
+      .filter(t =>  indices.includes(t[1]))
+      .map((v) => v[0]));
+
+    activity.getValues().setHrList(activity.getValues().getHrList().map((v, i) => [v, i])
       .filter(t =>  indices.includes(t[1]))
       .map((v) => v[0]));
   }

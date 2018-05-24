@@ -31,6 +31,8 @@ import {InfographicComponent} from './components/summary-panel/infographic/infog
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AscentDescentComponent} from './components/summary-panel/ascent-descent/ascent-descent.component';
 import {MovingStopComponent} from './components/summary-panel/moving-stop/moving-stop.component';
+import {HrZoneHistogramComponent} from './components/hr-zone-histogram/hr-zone-histogram.component';
+import {IntervalPipe} from '../shared/pipes/interval.pipe';
 
 @NgModule({
   imports: [
@@ -70,12 +72,13 @@ import {MovingStopComponent} from './components/summary-panel/moving-stop/moving
     FilterSpeedComponent,
     InfographicComponent,
     AscentDescentComponent,
-    MovingStopComponent
+    MovingStopComponent,
+    HrZoneHistogramComponent
   ],
   providers: [
-    ActivityService, FilterService, MockActivityService, D3Service, ActivityExistsGuard
+    ActivityService, FilterService, MockActivityService, D3Service, ActivityExistsGuard, IntervalPipe
   ],
   exports: [ActivityComponent, FilterListComponent, MapComponent, AttributeComponent,
-  SummaryPanelComponent, AscentDescentComponent, MovingStopComponent]
+  SummaryPanelComponent, AscentDescentComponent, MovingStopComponent, HrZoneHistogramComponent]
 })
 export class ActivityModule { }

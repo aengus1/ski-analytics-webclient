@@ -1,6 +1,9 @@
 .bar {
   fill: steelblue;
 }
+.bar .border {
+  border: 1px solid black;
+}
 
 .bar:hover {
   fill: brown;

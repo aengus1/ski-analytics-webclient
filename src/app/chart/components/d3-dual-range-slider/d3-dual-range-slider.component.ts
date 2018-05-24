@@ -140,7 +140,7 @@ export class D3DualRangeSliderComponent implements OnInit, AfterViewInit {
       .enter().append('text')
       .attr('x', this.xScale)
       .attr('text-anchor', 'middle')
-      .text( (d) => d.toFixed(1) + '');
+      .text( (d) => d.toFixed(0) + '');
     this.initialized = true;
   }
 
