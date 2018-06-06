@@ -1,7 +1,6 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {D3, D3Service, Selection} from 'd3-ng2-service';
 import {LoggerService} from '../../../shared/services/logger.service';
-import {ChangeDetectionStrategy} from '@angular/core';
 
 
 // this is an abstract component.  Compiler is complaining that abstract components are not allowed to be
@@ -19,7 +18,7 @@ export  class D3ChartComponent implements OnInit, OnChanges  {
   protected d3Svg: Selection<SVGSVGElement, any, null, undefined>;
   @Input() width = 120;
   @Input() height = 200;
-  @Input() data: Array<Number>;
+  @Input() data: number[];
   private chartCreated: Boolean = false;
   protected logger: LoggerService;
 

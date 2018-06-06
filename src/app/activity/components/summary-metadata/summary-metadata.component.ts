@@ -25,7 +25,7 @@ private activity$: Observable<Activity>;  // this is the UNFILTERED ACTIVITY!
 
 
   constructor( private store: Store<fromActivity.State>) {
-    this.activity$ = store.pipe(select(fromActivity.getSelectedActivity));
+    this.activity$ = store.pipe(select(fromActivity.getUnfiltered));
   }
 
 

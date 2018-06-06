@@ -3,6 +3,11 @@ export enum ChartOrientation {
   HORIZONTAL
 }
 
+export enum YLabelFormat {
+  NUMERIC,
+  INTERVAL
+}
+
 
 export class ChartOptions {
 
@@ -11,5 +16,7 @@ export class ChartOptions {
   public orientation: ChartOrientation = ChartOrientation.VERTICAL;
   public hasNumAxis = true;
   public hasNumLabel = false;
+  public barSpacing: number;
+  public yLabelFormat: YLabelFormat;
 
 }

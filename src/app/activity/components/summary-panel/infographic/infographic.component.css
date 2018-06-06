@@ -1,6 +1,9 @@
 .card {
   background-color: lightskyblue;
   border-color: #333;
+  width: 170px;
+  height: 200px;
+  margin-outside: 20px;
 }
 .no-gutter-card > .card {
   margin: 0;

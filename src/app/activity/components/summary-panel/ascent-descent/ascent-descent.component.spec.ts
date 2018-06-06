@@ -27,13 +27,11 @@ class AppMockComponent  implements OnInit {
     uomRate: 'm/min'
   };
 
-  constructor() {
 
-  }
 
   ngOnInit() {
     // run summarize activity manually as component expects activity to be summarized
-    ActivitySummaryService.summarizeActivity(this.layout.activity, null);
+    ActivitySummaryService.summarizeActivity(this.layout.activity, null, null);
   }
 }
 

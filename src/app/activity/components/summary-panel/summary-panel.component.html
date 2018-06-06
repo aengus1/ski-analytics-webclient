@@ -17,24 +17,31 @@
       <!--</div>-->
   <!--</div>-->
   <!-- speed box plot -->
-  <div class="col-md-2">
+  <div class="col-md-3">
     <app-infographic [title]="'Speed'" [icon]="'fa-tachometer'" [uom]="'Km/h'">
       <app-d3-boxplot [width]="80" [height]="100"  [data]="activity.getValues().getSpeedList()"></app-d3-boxplot>
     </app-infographic>
   </div>
   <!-- ascent / descent -->
-  <div class="col-md-2">
+  <div class="col-md-3">
     <app-infographic [title]="'Ascent/Descent'" [icon]="'fa-arrows-v'" [uom]="''">
       <app-ascent-descent [uom]="'m'" [uomRate]="'m/min'" [activity]="activity"></app-ascent-descent>
     </app-infographic>
   </div>
 
   <!-- stop / moving-->
-  <div class="col-md-2">
+  <div class="col-md-3">
     <app-infographic [title]="'Stop/Moving'" [icon]="'fa-stop-circle'" [uom]="'mins'">
       <app-moving-stop [data]="[activity.getSummary().getTotalmoving(),activity.getSummary().getTotalstopped()]" [stopCount]="activity.getSummary().getStopcount()"></app-moving-stop>
       <!--<app-d3-bar [width]="100" [height]="100" [data]="[30,6]" [yLabel]="'mins'" [xLabels]="['Moving',' Stop']"></app-d3-bar>-->
     </app-infographic>
+  </div>
+    <!-- time in zone -->
+    <div class="col-md-3">
+      <app-infographic [title]="'Heart Rate Zone'" [icon]="'fa-heart'" [uom]="'mins in zone'">
+        <app-hr-zone-histogram [thresholds]="[120,140,160,170]" [distTime]="0" [activity]="activity"
+                               [tsList]="activity.getValues().getTsList()"></app-hr-zone-histogram>
+      </app-infographic>
   </div>
 </div>
 

@@ -20,6 +20,7 @@ export interface State extends EntityState<Activity> {
   activitySubSport: Array<string>;
   sidebarContent: ActivitySidebarType;
   unfilteredActivity: Activity;
+  tsLookup: Map<string, number>;
 }
 
 export const adapter: EntityAdapter<Activity> = createEntityAdapter<Activity>({
@@ -32,7 +33,8 @@ export const initialState: State = adapter.getInitialState({
   activitySport: buildActivitySport(),
   activitySubSport: buildActivitySubSport(),
   sidebarContent: ActivitySidebarType.NoContent,
-  unfilteredActivity: new Activity()
+  unfilteredActivity: new Activity(),
+  tsLookup: null
 });
 
 
@@ -61,6 +63,12 @@ return activitySubSport;
 
 }
 
+export function buildTsLookupMap(activity: Activity): Map<string, number> {
+  const result: Map<string, number> = new Map<string, number>();
+  activity.getValues().getTsList().forEach( (v, i) => result.set(v, i));
+  return result;
+}
+
 
 export function reducer(state = initialState, action: ActivityActions | ActivityFilterActions): State {
 
@@ -68,14 +76,16 @@ export function reducer(state = initialState, action: ActivityActions | Activity
 
     case ActivityActionTypes.Load: {
       const act: LoadActivity = <LoadActivity>action;
-      ActivitySummaryService.summarizeActivity(act.payload, null);
+      const tsLookup: Map<string, number> = buildTsLookupMap(act.payload);
+      ActivitySummaryService.summarizeActivity(act.payload, null, act.payload, tsLookup );
       // const unfilteredRef = state.unfilteredActivity;
       // setActivityContents(act.payload, unfilteredRef);
       // const newState = { ...state, unfilteredActivity: unfilteredRef };
       // return adapter.addOne(act.payload, newState);
       return adapter.addOne(act.payload, {
         ...state,
-        unfilteredActivity: act.payload
+        unfilteredActivity: act.payload,
+        tsLookup: tsLookup
       });
     }
 
@@ -94,14 +104,16 @@ export function reducer(state = initialState, action: ActivityActions | Activity
         unfilteredActivity:  act.payload != null ? deepCopyActivity(state.entities[act.payload]) : null
       };
       // unfilteredActivity: act.payload != null ? deepCopyActivity(state.entities[act.payload]) : null,
-      ActivitySummaryService.summarizeActivity(state.unfilteredActivity, null);
+      ActivitySummaryService.summarizeActivity(state.unfilteredActivity, null, newState.unfilteredActivity,
+        newState.tsLookup);
 
       if (state.selectedActivityId !== null) {
         const entityReference = state.entities;
         entityReference[state.selectedActivityId] = state.unfilteredActivity;
         return {
           ...newState,
-          entities: entityReference
+          entities: entityReference,
+          tsLookup: buildTsLookupMap(state.entities[act.payload])
         };
       } else {
         return newState;
@@ -125,7 +137,8 @@ export function reducer(state = initialState, action: ActivityActions | Activity
 
        const filteredSet = applyFilters(activity, filters);
 
-      ActivitySummaryService.summarizeActivity(activity, Object.keys(filters).length > 0 ? filteredSet : null);
+      ActivitySummaryService.summarizeActivity(activity, Object.keys(filters).length > 0 ? filteredSet : null,
+        state.unfilteredActivity, state.tsLookup);
       // replacing the entire activity entity will break the subscription in the component chain so just update values instead
       const entityReference = state.entities;
       setActivityContents(activity, entityReference[state.selectedActivityId]);
@@ -144,7 +157,8 @@ export function reducer(state = initialState, action: ActivityActions | Activity
       const activity: Activity = state.entities[state.selectedActivityId];
 
       const filteredSet = applyFilters(activity, filters);
-      ActivitySummaryService.summarizeActivity(activity, Object.keys(filters).length > 0 ? filteredSet : null);
+      ActivitySummaryService.summarizeActivity(activity, Object.keys(filters).length > 0 ? filteredSet : null,
+        state.unfilteredActivity, state.tsLookup);
       const entityReference = state.entities;
       entityReference[state.selectedActivityId] = activity;
        return {
@@ -196,7 +210,7 @@ function setActivityContents(source: Activity, sink: Activity) {
   sink.setValues(source != null ? source.getValues() : null);
   sink.setSummary(source != null ? source.getSummary() : null);
   sink.setMeta(source != null ? source.getMeta() : null);
-  sink.setId(source !=null ? source.getId() : null);
+  sink.setId(source != null ? source.getId() : null);
 }
 
 export const getUnfilteredActivity = (state: State) => state.unfilteredActivity;
