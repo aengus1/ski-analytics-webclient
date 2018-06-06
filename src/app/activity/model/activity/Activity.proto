@@ -76,6 +76,7 @@ message Summary {
     double pauseDistance = 33;
     int32 stopCount = 34;
     int32 pauseCount = 35;
+
 }
 
 message Values {

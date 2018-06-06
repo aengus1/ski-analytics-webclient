@@ -4,22 +4,24 @@ import {HrZoneHistogramComponent} from './hr-zone-histogram.component';
 import {ActivityModule} from '../../activity.module';
 import {RouterTestingModule} from '@angular/router/testing';
 import {EffectsModule} from '@ngrx/effects';
-import {combineReducers, StoreModule} from '@ngrx/store';
+import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromActivities from '../../reducers';
 import {MockActivity} from '../../model/activity/activity.mock';
 import {Component, OnInit} from '@angular/core';
 import {D3Service} from 'd3-ng2-service';
 import {LoggerService} from '../../../shared/services/logger.service';
 import {ConsoleLoggerService} from '../../../shared/services/console-logger.service';
+import * as fromActivity from '../../reducers/';
 
 let fixture: ComponentFixture<AppMockComponent>;
 let component: AppMockComponent;
 let compiled: HTMLElement | null;
+let store: Store<fromActivity.State>;
 
 @Component({
   selector: 'app-mock-component',
   template: `<app-hr-zone-histogram [thresholds]="layout.thresholds" [distTime]="layout.distTime"
-                                    [activity]="layout.activity" >
+                                    [activity]="layout.activity" [tsList]="layout.activity.getValues().getTsList()" >
   </app-hr-zone-histogram>`
 })
 class AppMockComponent  implements OnInit {
@@ -28,7 +30,8 @@ class AppMockComponent  implements OnInit {
   public layout = {
     activity: MockActivity.generateMockActivity(),
     thresholds: [120, 140, 160, 170],
-    distTime: 1
+    distTime: 1,
+    tsList: []
   };
 
   constructor() {
@@ -60,6 +63,7 @@ describe('HrZoneHistogramComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     compiled = fixture.debugElement.nativeElement;
+    store = fixture.debugElement.injector.get(Store);
   }));
 
   it('should create', () => {
@@ -67,22 +71,16 @@ describe('HrZoneHistogramComponent', () => {
   });
 
 
-  it('should calculate bins on init', () => {
-    const comp = new HrZoneHistogramComponent();
-    comp.activity = component.layout.activity;
-    comp.thresholds = component.layout.thresholds;
-    const spy = jest.spyOn(comp, 'calcData');
-    comp.ngOnInit();
+  // it('should calculate bins on init', () => {
+  //   const summaryService  = new ActivitySummaryService();
+  //   const comp = new HrZoneHistogramComponent(store, summaryService);
+  //   comp.activity = component.layout.activity;
+  //   comp.unfiltered
+  //   comp.thresholds = component.layout.thresholds;
+  //   const spy = jest.spyOn(comp, 'calcData');
+  //   comp.ngOnInit();
+  //
+  //   expect(spy).toHaveBeenCalled();
+  // });
 
-    expect(spy).toHaveBeenCalled();
-  });
-
-  it('should correctly sum time in zone', () => {
-    const comp = new HrZoneHistogramComponent();
-    comp.activity = component.layout.activity;
-    comp.thresholds = component.layout.thresholds;
-    // const spy = jest.spyOn(comp, 'data');
-    comp.ngOnInit();
-    expect(comp.data()).toEqual([0, 5, 5, 2, 1]);
-  });
 });

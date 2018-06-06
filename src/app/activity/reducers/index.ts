@@ -111,6 +111,11 @@ export const getUnfiltered = createSelector(
   state => state.unfilteredActivity
 );
 
+export const getTsLookup = createSelector(
+  getActivitiesEntitiesState,
+  state => state.tsLookup
+);
+
 export const getFilters = createSelector(
   getActivityFilterEntitiesState,
   fromFilters.getAllActivityFilters

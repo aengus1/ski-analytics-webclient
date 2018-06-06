@@ -23,8 +23,8 @@ describe('SpeedFilter', () => {
     const filter: SpeedFilter = new SpeedFilter(1, 6, 'speed');
     const result: number[] = filter.applyFilter(activity);
 
-    expect(Math.min.apply(null, activity.getValues().getSpeedList())).toBeGreaterThanOrEqual(filter.initialMin);
-    expect(Math.max.apply(null, activity.getValues().getSpeedList())).toBeLessThanOrEqual(filter.initialMax);
+    expect(Math.min.apply(null, activity.getValues().getSpeedList().filter(x => !isNaN(x)))).toBeGreaterThanOrEqual(filter.initialMin);
+    expect(Math.max.apply(null, activity.getValues().getSpeedList().filter(x => !isNaN(x)))).toBeLessThanOrEqual(filter.initialMax);
 
     for (let i = 0; i < result.length - 1; i++ ) {
     const res = actClone.getValues().getSpeedList()
@@ -43,8 +43,8 @@ describe('SpeedFilter', () => {
     filter._max = newMax;
     const result =  filter.applyFilter(activity);
 
-    expect(Math.min.apply(null, activity.getValues().getSpeedList())).toBeGreaterThanOrEqual(newMin);
-    expect(Math.max.apply(null, activity.getValues().getSpeedList())).toBeLessThanOrEqual(newMax);
+    expect(Math.min.apply(null, activity.getValues().getSpeedList().filter(x => !isNaN(x)))).toBeGreaterThanOrEqual(newMin);
+    expect(Math.max.apply(null, activity.getValues().getSpeedList().filter(x => !isNaN(x)))).toBeLessThanOrEqual(newMax);
 
     for (let i = 0; i < result.length - 1; i++ ) {
       const res = actClone.getValues().getSpeedList()
@@ -60,7 +60,7 @@ describe('SpeedFilter', () => {
     console.log('ff = ' + JSON.stringify(filter));
     filter.applyFilter(activity);
 
-    expect(activity.getValues().getSpeedList()).toEqual(actClone.getValues().getSpeedList());
+    expect(activity.getValues().getSpeedList().filter(x => !isNaN(x))).toEqual(actClone.getValues().getSpeedList());
   });
 
   it( 'should reset to initial min max after clear is called', () => {
@@ -81,8 +81,8 @@ describe('SpeedFilter', () => {
     let newFilter = new SpeedFilter();
     newFilter = newFilter.reHydrate(obj);
     newFilter.applyFilter(activity);
-    expect(Math.min.apply(null, activity.getValues().getSpeedList())).toBeGreaterThanOrEqual(newFilter.initialMin);
-    expect(Math.max.apply(null, activity.getValues().getSpeedList())).toBeLessThanOrEqual(newFilter.initialMax);
+    expect(Math.min.apply(null, activity.getValues().getSpeedList().filter(x => !isNaN(x)))).toBeGreaterThanOrEqual(newFilter.initialMin);
+    expect(Math.max.apply(null, activity.getValues().getSpeedList().filter(x => !isNaN(x)))).toBeLessThanOrEqual(newFilter.initialMax);
 
   });
 

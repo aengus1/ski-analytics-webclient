@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {Activity} from '../../model/activity/Activity_pb';
 import {Observable} from 'rxjs/Observable';
+import * as fromActivity from '../../reducers/activity.reducer';
 import {ActivitySummaryService} from '../activity-summary-service/activity-summary.service';
 
 
@@ -46,7 +47,7 @@ export class ActivityService implements OnInit {
            // v.getValues().setSpeedList(res);
 
            //  v.getSummary().setMaxspeed(4.2);
-            ActivitySummaryService.summarizeActivity(v, null);
+            ActivitySummaryService.summarizeActivity(v, null, v, fromActivity.buildTsLookupMap(v));
             // console.log('total distance = ' + v.getSummary().getTotaldistance());
             //  console.log(v.getSummary().getHasattributemapMap().getEntryList());
              return v;

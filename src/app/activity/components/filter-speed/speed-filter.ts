@@ -46,7 +46,7 @@ export class SpeedFilter extends AbstractActivityFilter implements MinMaxActivit
    */
   applyFilter(activity: Activity): number[] {
 
-    // console.log('applying filter' + JSON.stringify(this) + ' to ' + activity.getValues().getSpeedList());
+     // console.log('applying filter' + JSON.stringify(this) + ' to ' + activity.getValues().getSpeedList());
     const filteredValues = activity.getValues().getSpeedList();
     const res = new Array<Array<number>>();
 
@@ -54,14 +54,16 @@ export class SpeedFilter extends AbstractActivityFilter implements MinMaxActivit
       res.push([filteredValues[i], i]);
     }
       const result = res.filter(v => {
-        return (v[0] >= +this._min && v[0] <= +this._max);
+        return ( (v[0] >= +this._min && v[0] <= +this._max));
       });
     this.filteredIds = result.map( v => v[1]);
 
     super.filterAllValuesByIndex(activity, this.filteredIds);
 
-    return result.map( v => v[1]);
 
+
+    // console.log('returning ' + result.map( v => v[1]));
+    return result.map( v => v[1]);
   }
 
   clear(): void {

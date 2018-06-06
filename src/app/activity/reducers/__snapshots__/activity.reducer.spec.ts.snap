@@ -62,6 +62,7 @@ Object {
   "ids": Array [],
   "selectedActivityId": null,
   "sidebarContent": 0,
+  "tsLookup": null,
   "unfilteredActivity": Object {
     "array": Array [
       undefined,

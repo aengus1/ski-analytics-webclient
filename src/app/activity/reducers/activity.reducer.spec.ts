@@ -16,7 +16,8 @@ describe('Activity Reducer', () => {
     sidebarContent: ActivitySidebarType.NoContent,
     unfilteredActivity: new Activity(),
     ids: [],
-    entities: null
+    entities: null,
+    tsLookup: fromActivities.buildTsLookupMap(activity)
   };
 
     it('should return the default state', () => {

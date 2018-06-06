@@ -29,8 +29,40 @@ A 'dumb' angular component that acts as a display for a filter control.  Has a t
  
 ### ? extends FilterBase |  `components/filter-?`
 An individualized filter control that is wrapped by the `FilterComponent` and emits filter events up the chain to the store.  This is typically a thin wrapper around a D3 component.  When the filter is enabled, this component creates an instance of the `ActivityFilter` object and dispatches it to the store.  A reference to the filter's id is kept so that it can subsequently send updates and remove requests.
+
+
+### Markers
+
  
+ ```puml
+ @startuml
+ robust "State" as WB
+
+ @0 
+ WB is Stop
  
+ @1
+ WB is Stop
+ 
+ @2
+ WB is Moving
+  
+ @9 
+ WB is Moving
+ 
+ @10 
+ WB is Stop
+ 
+ @11
+ WB is Moving
+ 
+ @13 
+ WB is Moving
+ 
+  
+ 
+ @enduml
+ ```
  
  
  

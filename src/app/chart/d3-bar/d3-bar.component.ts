@@ -40,7 +40,7 @@ export class D3BarComponent extends D3ChartComponent {
         top: this.height * 0.1,
         right: this.width * 0.1,
         bottom: this.height * 0.2,
-        left: this.chartOptions.orientation === ChartOrientation.VERTICAL ? this.width * 0.2 : this.width * 0.4
+        left: this.chartOptions.orientation === ChartOrientation.VERTICAL ? this.width * 0.1 : this.width * 0.4
       };
     }
     this.min = Infinity;
@@ -59,7 +59,7 @@ export class D3BarComponent extends D3ChartComponent {
     if (!this.data) {
       return;
     }
-    this.data = this.data.filter(d => (d !== -999));
+    this.data = this.data.filter(d => (d !== -999 && !isNaN(d)));
     const sel = this.d3Svg.selectAll('svg')
       .data([this.data])
       .enter()
@@ -118,6 +118,7 @@ export class D3BarComponent extends D3ChartComponent {
     if (this.chartOptions.orientation === ChartOrientation.VERTICAL) {
       bars.data(this.data)
         .enter().append('rect').classed('bar', true)
+        // .classed('selected_bar', (d, i) => i === 1)  TODO -> add input for 'selected' bars and change color
         .attr('width', bandwidth)
         .attr('height', (d) => height - yScale(d))
         .attr('x', (d, i) => xScale(this.xLabels[i]))
@@ -137,9 +138,11 @@ export class D3BarComponent extends D3ChartComponent {
         .style('text-anchor', 'middle')
         .attr('fill', 'black')
         .attr('font-size', 10)
-        .attr('x', this.chartOptions.orientation === ChartOrientation.VERTICAL ? (d, i) => bandwidth * i : (d) => yScale(d))
-        .attr('y', this.chartOptions.orientation === ChartOrientation.VERTICAL ?  (d) => yScale(d) : (d, i) => bandwidth * i )
-        .attr('dx', this.chartOptions.orientation === ChartOrientation.VERTICAL ? bandwidth / 2 : '0.5em')
+        .attr('x', this.chartOptions.orientation === ChartOrientation.VERTICAL
+          ? (d, i) => bandwidth * i : (d) => width / 2) // (d) => yScale(d))
+        .attr('y', this.chartOptions.orientation === ChartOrientation.VERTICAL ?
+          (d) => yScale(d) : (d, i) => bandwidth * i )
+        .attr('dx', this.chartOptions.orientation === ChartOrientation.VERTICAL ? bandwidth / 2 : 0)
         .attr('dy', this.chartOptions.orientation === ChartOrientation.VERTICAL ? '-0.2em' : bandwidth / 2 )
         .text((d: number) => this.chartOptions.yLabelFormat === YLabelFormat.NUMERIC ? d : this.intervalPipe.transform(d));
     }

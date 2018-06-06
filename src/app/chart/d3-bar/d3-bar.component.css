@@ -1,6 +1,10 @@
 .bar {
   fill: steelblue;
 }
+
+.selected_bar {
+  fill: red;
+}
 .bar .border {
   border: 1px solid black;
 }

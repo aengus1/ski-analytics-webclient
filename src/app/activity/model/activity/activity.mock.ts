@@ -4,9 +4,13 @@ import Summary = Activity.Summary;
 
 export class MockActivity {
 
+  /**
+   * generates a mock activity object with value array length of 14
+   * @returns {Activity}
+   */
   public static generateMockActivity() {
 
-    const movingList: boolean[] = [false, false, true, true, true, false, true, false, false, true, true, true, true, true];
+    const movingList: boolean[] = [false, false, true, true, true, true, true, true, true, true, false, true, true, true];
     const speedList: number[] = [0, 0, 1, 1.2, 1.7, 1.9, 3.4, 5.7, 7.5, 4.2, 0, 3.3, 9.0, 7.0];
     const altList: number[] = [400, 401, 405, 410, 407, 407, 406, 407, 409, 411, 414, 415, 417, 415];
     const hrList: number[] = [120, 121, 125, 140, 135, 137, 145, 150, 160, 161, 156, 135, 171, 155];
