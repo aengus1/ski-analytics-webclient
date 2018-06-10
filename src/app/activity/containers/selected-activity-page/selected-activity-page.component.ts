@@ -1,13 +1,12 @@
 import {ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Activity} from '../../model/activity/Activity_pb';
 import {select, Store} from '@ngrx/store';
 import * as fromActivity from '../../reducers/';
 import {ActivitySidebarType, SetSidebarContent} from '../../actions/activity.actions';
 import {CloseSidebar, OpenSidebar} from '../../../shared/layout/actions/layout.actions';
-import 'rxjs/add/operator/take';
+
 import {ActivityComponent} from '../../components/activity/activity.component';
-import {async} from 'rxjs/scheduler/async';
 
 
 @Component({

@@ -3,8 +3,8 @@ import {ActivatedRoute} from '@angular/router';
 import {Store} from '@ngrx/store';
 import * as fromActivity from '../../reducers/activity.reducer';
 import * as activity from '../../actions/activity.actions';
-import {Subscription} from 'rxjs/Subscription';
-import { map } from 'rxjs/operators';
+import {Subscription} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 
 /**

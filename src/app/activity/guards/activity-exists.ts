@@ -1,11 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { filter, take, map, tap, catchError, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
+import {Injectable} from '@angular/core';
+import {select, Store} from '@ngrx/store';
+import {ActivatedRouteSnapshot, CanActivate, Router} from '@angular/router';
+import {Observable, of} from 'rxjs';
+import {catchError, map, switchMap, take, tap} from 'rxjs/operators';
 
-import { ActivityService } from '../services/activity-service/activity.service';
+import {ActivityService} from '../services/activity-service/activity.service';
 import * as fromActivities from '../reducers';
 import * as activity from '../actions/activity.actions';
 
