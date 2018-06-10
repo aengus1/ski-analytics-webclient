@@ -1,13 +1,13 @@
-import {Component, EventEmitter, forwardRef, Input,  OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {D3DualRangeSliderComponent} from '../../../chart/components/d3-dual-range-slider/d3-dual-range-slider.component';
 import {MessageEvent} from '../../../shared/utils';
 import {SpeedFilter} from './speed-filter';
 import {Activity} from '../../model/activity/Activity_pb';
 import {ActivityFilter} from '../../model/activity-filter/activity-filter.model';
 import {FilterBase} from '../filter/filter-base.model';
-import {Subject} from 'rxjs/Subject';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/map';
+import {Subject} from 'rxjs';
+import {debounceTime} from 'rxjs/operators/';
+
 import {LoggerService} from '../../../shared/services/logger.service';
 
 @Component({
@@ -55,7 +55,7 @@ export class FilterSpeedComponent extends FilterBase implements  OnInit {
     const sf = <SpeedFilter>filter;
     this._min = sf._min;
     this._max = sf._max;
-    this.debouncer.debounceTime(200).subscribe(v => {
+    this.debouncer.pipe(debounceTime(200)).subscribe(v => {
       this.changeEvent.emit(v);
     });
     this.speedSlider.set(this._min, this._max);
@@ -73,7 +73,7 @@ export class FilterSpeedComponent extends FilterBase implements  OnInit {
     this.logger.info('[FilterSpeedComponent] enabling activity filter ' + speedFilter.id);
     this.changeEvent.emit(new MessageEvent('addActivityFilter', speedFilter));
     this.filterId = speedFilter.id;
-    this.debouncer.debounceTime(200).subscribe(v => {
+    this.debouncer.pipe(debounceTime(200)).subscribe(v => {
       this.changeEvent.emit(v);
     });
   }

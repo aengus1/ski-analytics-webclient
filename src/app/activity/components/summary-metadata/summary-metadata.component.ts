@@ -3,7 +3,7 @@ import {Activity} from '../../model/activity/Activity_pb';
 import {TitleCasePipe} from '../../../shared/pipes/titlecase.pipe';
 import {RemoveUnderscorePipe} from '../../../shared/pipes/remove-underscore.pipe';
 import {IntervalPipe} from '../../../shared/pipes/interval.pipe';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {select, Store} from '@ngrx/store';
 import * as fromActivity from '../../reducers';
 

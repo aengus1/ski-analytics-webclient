@@ -11,8 +11,8 @@ import * as fromActivity from '../../reducers';
 import {select, Store} from '@ngrx/store';
 import {MinMaxActivityFilter} from '../../model/activity-filter/min-max-activity-filter.model';
 import {FilterService} from '../../services/filter-service/filter.service';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
+import {Observable, Subscription} from 'rxjs';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-filter-list',
@@ -43,7 +43,8 @@ export class FilterListComponent implements OnInit {
   receiveMessage($event) {
     switch ($event.name) {
       case 'filterMin': {
-        this.store.pipe(select(fromActivity.getActivityFilterEntities)).take(1).subscribe( (allFilters: Dictionary<ActivityFilter>) => {
+        this.store.pipe(select(fromActivity.getActivityFilterEntities)).pipe(take(1))
+          .subscribe( (allFilters: Dictionary<ActivityFilter>) => {
           if (allFilters[$event.payload[0]] === undefined ) {
             return;
           }
@@ -56,7 +57,7 @@ export class FilterListComponent implements OnInit {
         return;
       }
       case 'filterMax': {
-        this.store.pipe(select(fromActivity.getActivityFilterEntities)).take(1).subscribe( (v: Dictionary<ActivityFilter>) => {
+        this.store.pipe(select(fromActivity.getActivityFilterEntities)).pipe(take(1)).subscribe( (v: Dictionary<ActivityFilter>) => {
           if (v[$event.payload[0]] === undefined ) {
             return;
           }
@@ -69,7 +70,7 @@ export class FilterListComponent implements OnInit {
         return;
       }
       case 'clearFilter': {
-        this.store.pipe(select(fromActivity.getActivityFilterEntities)).take(1).subscribe( (v: Dictionary<ActivityFilter>) => {
+        this.store.pipe(select(fromActivity.getActivityFilterEntities)).pipe(take(1)).subscribe( (v: Dictionary<ActivityFilter>) => {
           console.log(JSON.stringify(v[$event.payload]));
           if (v[$event.payload] === undefined ) {
             return;
@@ -88,7 +89,7 @@ export class FilterListComponent implements OnInit {
           this.changeEvent.emit(new MessageEvent('decFilterCount', 0));
         }
         this.filterService.removeFilter($event.payload);
-        this.store.pipe(select(fromActivity.getActivityFilterEntities)).take(1).subscribe( (v: Dictionary<ActivityFilter>) => {
+        this.store.pipe(select(fromActivity.getActivityFilterEntities)).pipe(take(1)).subscribe( (v: Dictionary<ActivityFilter>) => {
           if (v[$event.payload] === undefined ) {
             return;
           } else {
