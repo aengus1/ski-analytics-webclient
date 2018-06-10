@@ -1,13 +1,4 @@
-import {
-  AfterContentInit, AfterViewInit,
-  Component,
-  ContentChild,
-  EventEmitter,
-  forwardRef,
-  Input,
-  OnInit,
-  Output
-} from '@angular/core';
+import {AfterViewInit, Component, ContentChild, EventEmitter, forwardRef, Input, Output} from '@angular/core';
 import {MessageEvent} from '../../../shared/utils';
 import {FilterBase} from './filter-base.model';
 import {ActivityFilter} from '../../model/activity-filter/activity-filter.model';
@@ -19,22 +10,29 @@ import * as _ from 'lodash';
     <!--<div class="card" ng-class="{bg-success: active, bg-light: !active}">-->
     <div class="card">
       <div class="card-header" [ngClass]="{'bg-success': active}">
-      <span class="switch">
-        <input type="checkbox" class="switch" id="switch-id"  (change)="toggleActive()" [checked]="active">
-        <label for="switch-id">{{active ? 'On' : 'Off'}}</label>
-      </span>
-        <button type="button"
-                (click)="clear()"
-                class="btn btn-sm btn-outline-danger float-right"
-                [disabled]="!active">
-          clear
-        </button>
+      <!--<span class="switch">-->
+        <!--<input type="checkbox" class="switch" id="switch-id"  (change)="toggleActive()" [checked]="active">-->
+        <!--<label for="switch-id">{{active ? 'On' : 'Off'}}</label>-->
+      <!--</span>-->
+        <form class="form-inline">
+        <label class="switch float-left">
+          <input type="checkbox" id="switch-id"  (change)="toggleActive()" [checked]="active">
+          <span class="slider round"></span>
+        </label>           
         <span class="font-weight-bold"> {{title}}&nbsp;&nbsp; </span>
+          <button type="button"
+                  (click)="clear()"
+                  class="btn btn-sm btn-outline-danger float-right"
+                  [disabled]="!active">
+            clear
+          </button>           
+        </form>
       </div>
       <div class="card-body">
         <ng-content></ng-content>
       </div>
-    </div>`
+    </div>`,
+  styleUrls: ['./filter.component.css']
 })
 export class FilterComponent implements AfterViewInit {
 
