@@ -44,7 +44,6 @@ export class ActivitySummaryService {
     let pauseDist = 0;
     let ptAFiltered = false;
     let ptBFiltered = false;
-    console.log('ts values: ' + ts);
     for (let i = 0; i < movingValues.length - 1; i++) {
       if (ts[i] === 'marker') {
         if (i === 0) {  // if first pt in series is filtered then don't sum moving or stopped

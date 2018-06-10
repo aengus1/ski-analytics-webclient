@@ -55,8 +55,7 @@ export class D3RadialComponent extends D3ChartComponent {
     const sel = this.d3Svg.selectAll('svg')
       .data([this.data])
       .enter()
-      .append('g')
-      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+      .append('g');
 
     this.build(<any>sel);
   }
