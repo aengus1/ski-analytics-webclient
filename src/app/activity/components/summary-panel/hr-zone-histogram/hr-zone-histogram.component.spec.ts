@@ -1,17 +1,17 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {HrZoneHistogramComponent} from './hr-zone-histogram.component';
-import {ActivityModule} from '../../activity.module';
+import {ActivityModule} from '../../../activity.module';
 import {RouterTestingModule} from '@angular/router/testing';
 import {EffectsModule} from '@ngrx/effects';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
-import * as fromActivities from '../../reducers';
-import {MockActivity} from '../../model/activity/activity.mock';
+import * as fromActivities from '../../../reducers/index';
+import * as fromActivity from '../../../reducers/index';
+import {MockActivity} from '../../../model/activity/activity.mock';
 import {Component, OnInit} from '@angular/core';
 import {D3Service} from 'd3-ng2-service';
-import {LoggerService} from '../../../shared/services/logger.service';
-import {ConsoleLoggerService} from '../../../shared/services/console-logger.service';
-import * as fromActivity from '../../reducers/';
+import {LoggerService} from '../../../../shared/services/logger.service';
+import {ConsoleLoggerService} from '../../../../shared/services/console-logger.service';
 
 let fixture: ComponentFixture<AppMockComponent>;
 let component: AppMockComponent;

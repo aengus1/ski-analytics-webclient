@@ -16,6 +16,6 @@ import {D3RadialComponent} from './components/d3-radial/d3-radial.component';
   declarations: [D3BoxplotComponent, D3ChartComponent, D3RangeSliderComponent, D3DualRangeSliderComponent,
     D3BarComponent, D3RadialComponent],
   providers: [D3Service, LoggerService],
-  exports: [D3BoxplotComponent, D3RangeSliderComponent, D3DualRangeSliderComponent, D3BarComponent]
+  exports: [D3BoxplotComponent, D3RangeSliderComponent, D3DualRangeSliderComponent, D3BarComponent, D3RadialComponent]
 })
 export class ChartModule { }

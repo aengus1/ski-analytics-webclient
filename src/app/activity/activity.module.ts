@@ -31,7 +31,7 @@ import {InfographicComponent} from './components/summary-panel/infographic/infog
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AscentDescentComponent} from './components/summary-panel/ascent-descent/ascent-descent.component';
 import {MovingStopComponent} from './components/summary-panel/moving-stop/moving-stop.component';
-import {HrZoneHistogramComponent} from './components/hr-zone-histogram/hr-zone-histogram.component';
+import {HrZoneHistogramComponent} from './components/summary-panel/hr-zone-histogram/hr-zone-histogram.component';
 import {IntervalPipe} from '../shared/pipes/interval.pipe';
 import {ActivitySummaryService} from './services/activity-summary-service/activity-summary.service';
 import {LoggerService} from '../shared/services/logger.service';

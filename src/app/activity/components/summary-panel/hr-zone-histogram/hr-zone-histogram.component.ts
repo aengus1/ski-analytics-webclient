@@ -1,10 +1,10 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {ChartOptions, ChartOrientation, YLabelFormat} from '../../../chart/d3-bar/ChartOptions';
-import {Activity} from '../../model/activity/Activity_pb';
+import {ChartOptions, ChartOrientation, YLabelFormat} from '../../../../chart/d3-bar/ChartOptions';
+import {Activity} from '../../../model/activity/Activity_pb';
 import {Observable} from 'rxjs/Observable';
 import {select, Store} from '@ngrx/store';
-import * as fromActivity from '../../reducers/';
-import {ActivitySummaryService} from '../../services/activity-summary-service/activity-summary.service';
+import * as fromActivity from '../../../reducers/index';
+import {ActivitySummaryService} from '../../../services/activity-summary-service/activity-summary.service';
 import {combineLatest} from 'rxjs/observable/combineLatest';
 
 @Component({
@@ -69,7 +69,7 @@ export class HrZoneHistogramComponent implements OnInit, OnChanges {
 
 
   getTimeOrDistanceInZone() {
-    if(this.initialized) {
+    if (this.initialized) {
       return this.timeDistInZone[this.distTime];
     }
     return [];

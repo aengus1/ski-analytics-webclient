@@ -47,7 +47,7 @@ export class ActivitySummaryService {
     console.log('ts values: ' + ts);
     for (let i = 0; i < movingValues.length - 1; i++) {
       if (ts[i] === 'marker') {
-        if(i === 0) {  // if first pt in series is filtered then don't sum moving or stopped
+        if (i === 0) {  // if first pt in series is filtered then don't sum moving or stopped
           continue;
         }
         ptAFiltered = true;
@@ -253,6 +253,13 @@ export class ActivitySummaryService {
       }
       // console.log('data = ' + data);
       return result;
+    }
+
+
+    // TODO -> server-side work to calc initial grade list (based on map?)
+  // TODO -> abstract the calcTimeAndDist function so used by zone and grade
+    public calculateTimeAndDistAtGrade(activity: Activity, tsLookup: Map<string, number>, unfiltered: Activity): number[][] {
+    return null;
     }
 
 }

@@ -1,0 +1,36 @@
+.segment {
+  fill: white;
+  stroke-width: 0.05em;
+  stroke: black;
+}
+
+.segment:hover {
+  fill: brown;
+}
+
+.selected_segment {
+  fill: red;
+}
+
+.arc-axis {
+  fill: None;
+  stroke: black;
+  stroke-dasharray: 2;
+  stroke-width: 0.01em;
+}
+
+.axis--x path {
+  display: none;
+}
+
+.axis--x text {
+  text-anchor: middle;
+  fill: darkgray;
+  font-size: 8px;
+}
+
+.tick line{
+  visibility:hidden;
+}
+
+
