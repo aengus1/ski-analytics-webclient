@@ -8,12 +8,16 @@
   right: 0;
   width: 0;
   height: 100%;
+  margin-top: 25px;
   margin-left: -250px;
   overflow-y: auto;
   margin-right: -250px;
+  border-radius: 10px;
+  padding: 8px;
 
 
-  background: #f1d8f4;
+
+  background: #b3e2ff;
   color: black;
   transition: all 0.5s;
 }

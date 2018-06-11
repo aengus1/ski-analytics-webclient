@@ -2,6 +2,8 @@
 
 #metadata-panel {
   background: lightblue;
+  margin: 10px;
+  border-radius: 10px;
 }
 
 .activity-stat {

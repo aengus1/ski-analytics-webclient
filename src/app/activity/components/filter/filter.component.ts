@@ -7,25 +7,20 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-filter',
   template: `
-    <!--<div class="card" ng-class="{bg-success: active, bg-light: !active}">-->
     <div class="card">
-      <div class="card-header" [ngClass]="{'bg-success': active}">
-      <!--<span class="switch">-->
-        <!--<input type="checkbox" class="switch" id="switch-id"  (change)="toggleActive()" [checked]="active">-->
-        <!--<label for="switch-id">{{active ? 'On' : 'Off'}}</label>-->
-      <!--</span>-->
+      <div class="card-header" [ngClass]="{'success': active}">
         <form class="form-inline">
         <label class="switch float-left">
           <input type="checkbox" id="switch-id"  (change)="toggleActive()" [checked]="active">
           <span class="slider round"></span>
-        </label>           
+        </label>
         <span class="font-weight-bold"> {{title}}&nbsp;&nbsp; </span>
           <button type="button"
                   (click)="clear()"
                   class="btn btn-sm btn-outline-danger float-right"
                   [disabled]="!active">
             clear
-          </button>           
+          </button>
         </form>
       </div>
       <div class="card-body">
