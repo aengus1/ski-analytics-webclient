@@ -39,8 +39,7 @@
 /deep/ .btn.btn-default.active,
 /deep/ .btn.btn-default:active {
   color: #fff;
-  background-color: grey;
-  border-color: darkgrey;
+  background-color: powderblue;
   outline: none;
 }
 /deep/ .btn:hover{
