@@ -15,12 +15,21 @@
   align-items: stretch;
 }
 
+
+
 .main-content {
   /*width: 75%;*/
   /*float: left;*/
   width: 100%;
   padding: 15px;
 
+}
+
+.main-content[toggle=true] {
+  position: absolute;
+  width: calc(100% - 250px);
+  margin-right: 250px;
+  transition: all 0.5s;
 }
 
 /deep/ button:hover i.fa {
