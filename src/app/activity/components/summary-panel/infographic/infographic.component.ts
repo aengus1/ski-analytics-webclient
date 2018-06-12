@@ -6,8 +6,9 @@ import {Component, Input} from '@angular/core';
     `<div  class="card" style="background-color: lightskyblue; border-color: #333;">
     <div class="card-title text-center">
       <i class="fa" [ngClass]="icon" aria-hidden="true" ngbPopover="{{description}}" popoverTitle="{{title}} ({{uom}})"
-         placement="right" container="body" triggers="mouseenter:mouseleave"></i>
+         placement="right" container="body" triggers="mouseenter:mouseleave">
       <span class="text-body">&nbsp;{{title}}</span>
+      </i>
     </div>
     <div class="card-body">
     <ng-content></ng-content>

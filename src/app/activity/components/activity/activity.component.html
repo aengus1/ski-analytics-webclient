@@ -22,14 +22,15 @@
         <div class="row">
           <div class="col-sm-8"></div>
           <div class="col-sm-2">
-            <div class="row">
+            <div class="btn-group" role="toolbar" aria-label="Sidebar controls">
               <!-- filter toggle -->
               <button type="button"
                       class="btn btn-default" [ngClass]="{'active':  sidebarContent === activitySidebarTypes.Filter}"
                       aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Filter);"
               >
-                <i class="fa fa-filter grow" [ngClass]="{'active': sidebarOpen}"></i>
+                <i class="fa fa-filter" [ngClass]="{'active': sidebarOpen}"></i>
               </button>
+              <span *ngIf="filterCount > 0" class="badge badge-notify">{{filterCount}}</span>
               <!-- attribute toggle -->
               <button type="button"
                       class="btn btn-default" [ngClass]="{'active': sidebarContent === activitySidebarTypes.Attribute}"
@@ -69,7 +70,8 @@
       </div>
 
     </div> <!--end of mobile layout -->
-  <div #pageContent id="page-content">
+
+
     <!-- desktop layout -->
     <div class="d-none d-md-block">
       <div class="wrapper">
@@ -80,9 +82,9 @@
             <div class="col-md-11"></div>
             <div class="col-md-1">
 
-              <div class="row">
+              <div class="btn-group" role="toolbar" aria-label="Sidebar controls">
                 <!-- filter toggle -->
-                <span id="filterCount" class="fa-2x has-badge fa-stack" attr.data-count="{{filterCount}}">
+                <!--<span id="filterCount" class="fa-2x has-badge fa-stack" attr.data-count="{{filterCount}}">-->
                 <button type="button"
                         id="filterToggle"
                         class="btn btn-default"
@@ -90,7 +92,8 @@
                         aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Filter)">
                   <i class="fa fa-filter grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
                 </button>
-                  </span>
+                <span *ngIf="filterCount > 0" class="badge badge-notify">{{filterCount}}</span>
+
                 <!-- attribute toggle -->
                 <button type="button"
                         id="attributeToggle"
@@ -128,6 +131,5 @@
     </div>
 
   </div>
-</div>
 </div>
 

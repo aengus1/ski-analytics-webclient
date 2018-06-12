@@ -5,7 +5,7 @@ import {Activity} from '../../../model/activity/Activity_pb';
   selector: 'app-ascent-descent',
   template: `
     <div class="row">
-    <div class="col-md-6">
+      <div class="col-md-6 col-sm-6 col-xs-6">
       <span class="font-weight-bold" id="ascentNum">{{getAscent()}} {{uom}}</span>
       <div id="upArrow" *ngIf="getAscent() > 0">
       <svg [attr.width]="calcUpArrowScale()" [attr.height]="calcUpArrowScale()" viewBox="0 0 60 60">
@@ -13,7 +13,7 @@ import {Activity} from '../../../model/activity/Activity_pb';
       </svg>
       </div>
     </div>
-      <div class="col-md-6">
+      <div class="col-md-6 col-sm-6 col-xs-6">
         <span class="font-weight-bold" id="descentNum">{{getDescent()}} {{uom}}</span>
         <div id="downArrow" *ngIf="getDescent() > 0">
         <svg [attr.width]="calcDownArrowScale()" [attr.height]="calcDownArrowScale()" viewBox="0 0 60 60">

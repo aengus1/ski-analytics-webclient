@@ -22,14 +22,14 @@
   /*float: left;*/
   width: 100%;
   padding: 15px;
-
+  overflow:hidden;
 }
 
 .main-content[toggle=true] {
   position: absolute;
   width: calc(100% - 250px);
   margin-right: 250px;
-  transition: all 0.5s;
+  transition: all 0.3s;
 }
 
 /deep/ button:hover i.fa {
@@ -41,27 +41,26 @@
   color: #fff;
   background-color: powderblue;
   outline: none;
+  border: transparent;
 }
 /deep/ .btn:hover{
   cursor: pointer;
 }
 
+.btn.btn-default{
+  z-index: 0;
+}
 /deep/ .grow { transition: all .2s ease-in-out; }
 /deep/ .grow:hover { transform: scale(1.1); }
 
 
-.fa-stack[data-count]:after{
-  position:absolute;
-  top:1rem;
-  right:1.5rem;
-  content: attr(data-count);
+.badge-notify{
+  background: #ff6266;
+  border-radius: 999px;
   font-size:30%;
-  padding:.6em;
-  border-radius:999px;
-  line-height:.75em;
+  position:relative;
   color: white;
-  background:rgba(255,0,0,.85);
-  text-align:center;
-  min-width:1.5em;
-  font-weight:bold;
+  top: -5px;
+  left: -30px;
+  height: 15px;
 }
