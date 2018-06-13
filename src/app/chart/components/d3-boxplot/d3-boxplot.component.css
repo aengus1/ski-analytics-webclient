@@ -1,5 +1,7 @@
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 1em;
 }
 
 .box {
@@ -9,10 +11,34 @@ body {
 .box line,
 .box rect,
 .box circle {
-  fill: #fff;
-  stroke: #000;
-  stroke-width: 1.5px;
+  /*fill: #fff;*/
+  /*stroke: #000;*/
+  /*stroke-width: 1.5px;*/
+  fill: #99fac8;
+  stroke: black;
+  stroke-width: 1px;
 }
+
+.box {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 8pt;
+}
+
+.whisker text{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 8pt;
+}
+.box rect:hover {
+  fill: #ffa9e6;
+}
+
+.box circle:hover {
+  fill: #ffa9e6;
+}
+
+
 
 .box .center {
   stroke-dasharray: 3,3;

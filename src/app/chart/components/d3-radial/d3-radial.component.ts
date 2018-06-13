@@ -88,7 +88,7 @@ export class D3RadialComponent extends D3ChartComponent {
        .call(valueAxis);
 
     // draw the outer radial axis ticks
-    const outerAxis = g.append('g').attr('class', 'a axis')
+    const outerAxis = g.append('g').attr('class', 'a-axis')
       .attr('transform', 'translate(' + this.width * 0.2 + ',' + this.height * 0.45 + ')' )
       .selectAll('g').data(this.d3.range(-90, 91, 30))
       .enter().append('g').attr('transform', d => 'rotate(' + -d + ')');

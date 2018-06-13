@@ -73,7 +73,6 @@ export class D3BarComponent extends D3ChartComponent {
   protected build(g: Selection<any, SVGSVGElement, any, any>) {
 
     const svg = this.d3Svg.append('g').attr('transform', 'translate(' + this.margin.left + ', ' + this.margin.top + ')');
-
     const width = this.width - this.margin.left - this.margin.right;
     const height = this.height - this.margin.top - this.margin.bottom;
     const xScale = this.chartOptions.orientation === ChartOrientation.VERTICAL ?
@@ -93,16 +92,23 @@ export class D3BarComponent extends D3ChartComponent {
 
     const xAxis = this.chartOptions.orientation === ChartOrientation.VERTICAL ? this.d3.axisBottom(xScale).tickSize(0) :
       this.d3.axisLeft(xScale).tickSize(0);
-    const yAxis = this.chartOptions.orientation === ChartOrientation.VERTICAL ? this.d3.axisLeft(yScale).ticks(6) :
+    const yAxis = this.chartOptions.orientation === ChartOrientation.VERTICAL ? this.d3.axisLeft(yScale).ticks(6).tickPadding(50) :
       this.d3.axisBottom(yScale).ticks(4);
 
     if (this.chartOptions.orientation === ChartOrientation.VERTICAL) {
       svg.append('g').classed('axis--x', true)
+        .style('text-anchor', 'start')
         .attr('transform', 'translate(0,' + height + ')')
         .call(xAxis);
     } else {
-      svg.append('g').classed('axis--x', true).call(xAxis);
+      svg.append('g').classed('axis--x', true)
+        .style('text-anchor', 'start')
+        .attr('transform', 'translate(-15,0)')
+        .call(xAxis);
     }
+
+
+
 
 
 
@@ -134,10 +140,10 @@ export class D3BarComponent extends D3ChartComponent {
 
     if (this.chartOptions.hasNumLabel) {
       svg.append('g').classed('bar-text', true).selectAll('text').data(this.data).enter()
-        .append('text')
-        .style('text-anchor', 'middle')
-        .attr('fill', 'black')
-        .attr('font-size', 10)
+        .append('text').classed('barlabel', true)
+        // .style('text-anchor', 'middle')
+        // .attr('fill', 'black')
+        // .attr('font-size', 10)
         .attr('x', this.chartOptions.orientation === ChartOrientation.VERTICAL
           ? (d, i) => bandwidth * i : (d) => width / 2) // (d) => yScale(d))
         .attr('y', this.chartOptions.orientation === ChartOrientation.VERTICAL ?
@@ -150,23 +156,23 @@ export class D3BarComponent extends D3ChartComponent {
     if (this.chartOptions.orientation === ChartOrientation.VERTICAL && this.chartOptions.hasNumAxis) {
       const yAxisEle = svg.append('g').classed('axis--y', true).call(yAxis);
 
-      yAxisEle.append('text')
+      yAxisEle.append('text').classed('barlabel', true)
         .attr('transform', 'rotate(-90) translate(' + height / 2 + ',0)')
-        .style('text-anchor', 'middle')
-        .style('fill', 'black')
-        .attr('dy', '-2.5em')
-        .attr('y', this.margin.top)
-        .style('font-size', 10);
+        // .style('text-anchor', 'middle')
+        // .style('fill', 'black')
+        // .style('font-size', 10)
+        .attr('dy', '-2.8em')
+        .attr('y', this.margin.top);
     } else if (this.chartOptions.orientation === ChartOrientation.HORIZONTAL && this.chartOptions.hasNumAxis) {
       const yAxisEle = svg.append('g').classed('axis--y', true).call(yAxis);
 
-      yAxisEle.append('text')
+      yAxisEle.append('text').classed('barlabel', true)
       // .attr('transform', ' translate(' + height + ',0)')
-        .style('text-anchor', 'middle')
-        .style('fill', 'black')
-        .attr('dy', '-2.5em')
-        .attr('y', 100)
-        .style('font-size', 10);
+         .style('text-anchor', 'right')
+      //   .style('fill', 'black')
+      //   .style('font-size', 10)
+        .attr('dy', '-15em')
+        .attr('y', 100);
     }
 
 

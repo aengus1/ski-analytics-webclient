@@ -2,42 +2,42 @@
   <!-- desktop layout -->
 <div class="row d-none d-md-flex">
   <div class="col-md-3 hidden-md-down">
-      <span  class="activity-type activity-stat bold">{{((ActivitySport[(activity)?.getMeta().getSport()]) | titleCase) | removeUnderscore}}</span>
+      <span  class="activity-type  h5">{{((ActivitySport[(activity)?.getMeta().getSport()]) | titleCase) | removeUnderscore}}</span>
   </div>
 <div class="col-md-2">
-<span  id="activity-created-date" class="activity-created-date activity-stat bold">{{(activity)?.getMeta().getCreatedts() | date: 'dd MMM yyyy'}}</span>
+<span  id="activity-created-date" class="activity-created-date font-weight-bold">{{(activity)?.getMeta().getCreatedts() | date: 'dd MMM yyyy'}}</span>
 </div>
   <div class="col-md-2">
-    <span class="activity-temp activity-stat">{{ (activity)?.getValues().getTemperatureList()[0]!=-999 ? (((activity)?.getValues().getTemperatureList()[0])+ " °C" ) : ""}}</span>
+    <span class="activity-temp font-weight-normal">{{ (activity)?.getValues().getTemperatureList()[0]!=-999 ? (((activity)?.getValues().getTemperatureList()[0])+ " °C" ) : ""}}</span>
   </div>
   <div class="col-md-3">
- <span class="activity-location-1 activity-stat"> {{ (activity)?.getMeta().getLocation().split(',')[0]}}</span>
+ <span class="activity-location-1  font-weight-normal"> {{ (activity)?.getMeta().getLocation().split(',')[0]}}</span>
   </div>
   <div class="col-md-2">
-    <span class="activity-distance activity-stat bold">{{(activity)?.getSummary().getTotaldistance() > 0 ?
+    <span class="activity-distance  font-weight-bold">{{(activity)?.getSummary().getTotaldistance() > 0 ?
       (((activity)?.getSummary().getTotaldistance()/1000)+" Km") : ""}}</span>
   </div>
 </div>
 <!-- row 2 -->
 <div class="row d-none d-md-flex">
   <div class="col-md-3">
-    <span  class="activity-subtype activity-sub-type">{{(ActivitySubSport[(activity)?.getMeta().getSubsport()] | titleCase) | removeUnderscore}}</span>
+    <span  class="activity-subtype  font-italic">{{(ActivitySubSport[(activity)?.getMeta().getSubsport()] | titleCase) | removeUnderscore}}</span>
   </div>
   <div class="col-md-2">
-    <span  class="activity-created-ts activity-stat">{{(activity)?.getMeta().getCreatedts() | date: 'HH:mm:ss' }} </span>
+    <span  class="activity-created-ts font-weight-normal">{{(activity)?.getMeta().getCreatedts() | date: 'HH:mm:ss' }} </span>
   </div>
   <div class="col-md-2">
 <!-- empty slot -->
   </div>
 
   <div class="col-md-3">
-    <span  class="activity-location-2 activity-stat">
+    <span  class="activity-location-2  font-weight-normal">
     {{(activity)?.getMeta().getLocation().substr(
   (activity)?.getMeta().getLocation().split(',')[0].length+1,(activity)?.getMeta().getLocation().length) }}
       </span>
   </div>
   <div class="col-md-2">
-    <span class="activity-timer activity-stat bold">{{(activity)?.getSummary().getTotaltimer() | interval }}</span><span class="activity-stat-label"> hh:mm:ss</span>
+    <span class="activity-timer  font-weight-bold">{{(activity)?.getSummary().getTotaltimer() | interval }}</span><span class="small font-weight-light"> hh:mm:ss</span>
   </div>
 </div>
 
@@ -46,29 +46,29 @@
 <!-- mobile layout -->
   <div class="row d-flex d-md-none">
     <div class="col-sm-6">
-      <span class="activity-type activity-stat bold">{{((ActivitySport[(activity)?.getMeta().getSport()]) | titleCase) | removeUnderscore}}</span>
-      <span class="activity-subtype activity-sub-type">&nbsp;{{(ActivitySubSport[(activity)?.getMeta().getSubsport()] | titleCase) | removeUnderscore}}</span>
+      <span class="activity-type font-weight-bold">{{((ActivitySport[(activity)?.getMeta().getSport()]) | titleCase) | removeUnderscore}}</span>
+      <span class="activity-subtype font-italic">&nbsp;{{(ActivitySubSport[(activity)?.getMeta().getSubsport()] | titleCase) | removeUnderscore}}</span>
     </div>
   </div>
   <div class="row d-flex d-md-none">
     <div class="col-sm-6">
-      <span  class="activity-created-date activity-stat bold">{{(activity)?.getMeta().getCreatedts() | date: 'dd MMM yyyy'}}</span>
-      <span class="activity-created-ts activity-stat">&nbsp;{{(activity)?.getMeta().getCreatedts() | date: 'HH:mm:ss' }} </span>
+      <span  class="activity-created-date font-weight-bold">{{(activity)?.getMeta().getCreatedts() | date: 'dd MMM yyyy'}}</span>
+      <span class="activity-created-ts font-weight-normal">&nbsp;{{(activity)?.getMeta().getCreatedts() | date: 'HH:mm:ss' }} </span>
     </div>
   </div>
   <div class="row d-flex d-md-none">
     <div class="col-sm-6">
-      <span class="activity-temp activity-stat">&nbsp;{{ (activity)?.getValues().getTemperatureList()[0]!=-999 ? (((activity)?.getValues().getTemperatureList()[0])+ " °C" ) : ""}}</span>
+      <span class="activity-temp font-weight-normal">&nbsp;{{ (activity)?.getValues().getTemperatureList()[0]!=-999 ? (((activity)?.getValues().getTemperatureList()[0])+ " °C" ) : ""}}</span>
     </div>
   </div>
   <div class="row d-flex d-md-none">
     <div class="col-sm-12">
-      <span  class="activity-location-1 activity-stat"> {{ (activity)?.getMeta().getLocation().split(',')[0]}}</span>
+      <span  class="activity-location-1 font-weight-normal"> {{ (activity)?.getMeta().getLocation().split(',')[0]}}</span>
     </div>
   </div>
   <div class="row d-flex d-md-none">
     <div class="col-sm-12">
-      <span  class="activity-location-2 activity-stat">
+      <span  class="activity-location-2 font-weight-normal">
     {{(activity)?.getMeta().getLocation().substr(
   (activity)?.getMeta().getLocation().split(',')[0].length+1,(activity)?.getMeta().getLocation().length) }}
       </span>
@@ -76,9 +76,9 @@
   </div>
   <div class="row d-flex d-md-none">
     <div class="col-sm-6">
-    <span  class="activity-distance activity-stat bold">{{(activity)?.getSummary().getTotaldistance() > 0 ?
+    <span  class="activity-distance font-weight-bold">{{(activity)?.getSummary().getTotaldistance() > 0 ?
       (((activity)?.getSummary().getTotaldistance()/1000)+" Km") : ""}}</span>
-      <span class="activity-timer activity-stat bold">&nbsp;{{(activity)?.getSummary().getTotaltimer() | interval }}</span><span class="activity-stat-label"> hh:mm:ss</span>
+      <span class="activity-timer font-weight-bold">&nbsp;{{(activity)?.getSummary().getTotaltimer() | interval }}</span><span class="small font-weight-light"> hh:mm:ss</span>
     </div>
   </div>
 

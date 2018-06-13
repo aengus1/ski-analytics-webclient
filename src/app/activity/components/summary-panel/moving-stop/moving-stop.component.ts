@@ -3,9 +3,7 @@ import {ChartOptions, ChartOrientation} from '../../../../chart/d3-bar/ChartOpti
 
 @Component({
   selector: 'app-moving-stop',
-  // template: `<app-d3-bar [width]="100" [height]="100" [data]="data" [yLabel]="'mins'"
-  //                        [xLabels]="['Moving',' Stop']" [chartOptions]="this.chartOptions"></app-d3-bar>`
-  template: `<div>{{stopCount}} Stops</div>
+  template: `<div class="font-weight-normal">{{stopCount}} Stops</div>
     <app-d3-bar [width]="100" [height]="100" [data]="data" [yLabel]="'mins'"
                          [xLabels]="['Moving',' Stop']" [chartOptions]="this.chartOptions"></app-d3-bar>`
 })

@@ -25,15 +25,15 @@
             <div class="btn-group" role="toolbar" aria-label="Sidebar controls">
               <!-- filter toggle -->
               <button type="button"
-                      class="btn btn-default" [ngClass]="{'active':  sidebarContent === activitySidebarTypes.Filter}"
-                      aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Filter);"
-              >
-                <i class="fa fa-filter" [ngClass]="{'active': sidebarOpen}"></i>
+                      class="btn btn-sm" [ngClass]="{'active':  sidebarContent === activitySidebarTypes.Filter}"
+                      aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Filter)">
+                <i class="fa fa-filter grow" [ngClass]="{'active': sidebarOpen}"></i>
               </button>
               <span *ngIf="filterCount > 0" class="badge badge-notify">{{filterCount}}</span>
+
               <!-- attribute toggle -->
               <button type="button"
-                      class="btn btn-default" [ngClass]="{'active': sidebarContent === activitySidebarTypes.Attribute}"
+                      class="btn btn-sm" [ngClass]="{'active': sidebarContent === activitySidebarTypes.Attribute}"
                       aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Attribute);">
                 <i class="fa fa-edit grow" [ngClass]="{'active': sidebarOpen}"></i>
               </button>
@@ -44,7 +44,7 @@
 
 <!-- mobile content -->
       <div *ngIf="sidebarOpen && sidebarContent === activitySidebarTypes.Filter" class="hide-on-landscape">
-        <app-filter-list [activity]="activity"></app-filter-list>
+        <app-filter-list id="filterList" [activity]="activity" (changeEvent)="receiveMessage($event)"></app-filter-list>
       </div>
       <div *ngIf="sidebarOpen &&  sidebarContent === activitySidebarTypes.Attribute" class="hide-on-landscape">
         <app-attribute-container></app-attribute-container>
@@ -87,9 +87,11 @@
                 <!--<span id="filterCount" class="fa-2x has-badge fa-stack" attr.data-count="{{filterCount}}">-->
                 <button type="button"
                         id="filterToggle"
-                        class="btn btn-default"
+                        class="btn btn-sm"
                         [ngClass]="{'active': sidebarOpen && sidebarContent === activitySidebarTypes.Filter}"
-                        aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Filter)">
+                        aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Filter)"
+                        ngbPopover="Apply filters to activity" popoverTitle="Filter"
+                        placement="left" container="body" triggers="mouseenter:mouseleave">
                   <i class="fa fa-filter grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
                 </button>
                 <span *ngIf="filterCount > 0" class="badge badge-notify">{{filterCount}}</span>
@@ -97,10 +99,11 @@
                 <!-- attribute toggle -->
                 <button type="button"
                         id="attributeToggle"
-                        class="btn btn-default"
+                        class="btn btn-sm"
                         [ngClass]="{'active': sidebarOpen && sidebarContent === activitySidebarTypes.Attribute}"
-
-                        aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Attribute)">
+                        aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Attribute)"
+                        ngbPopover="Apply attributes to activity" popoverTitle="Attributes"
+                        placement="left" container="body" triggers="mouseenter:mouseleave">
                   <i class="fa fa-edit grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
                 </button>
               </div>
@@ -119,7 +122,7 @@
         <app-sidebar [panelOpen]="sidebarOpen" (messageEvent)="receiveMessage($event)">
           <div *ngIf="sidebarContent === activitySidebarTypes.Filter">
             <!--<app-filter-container [activity]="activity" (changeEvent)="receiveMessage($event)">-->
-              <app-filter-list  id="filterList"[activity]="activity" (changeEvent)="receiveMessage($event)"></app-filter-list>
+              <app-filter-list  id="filterList" [activity]="activity" (changeEvent)="receiveMessage($event)"></app-filter-list>
             <!--</app-filter-container>-->
           </div>
           <div *ngIf="sidebarContent === activitySidebarTypes.Attribute">

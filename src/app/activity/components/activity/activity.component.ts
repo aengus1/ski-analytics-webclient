@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  HostListener,
   Input,
   OnInit,
   Output,
@@ -55,10 +56,29 @@ export class ActivityComponent implements OnInit, AfterViewChecked {
 
   private filterCount = 0;
 
-
+private  resizeTimeout;
 
   constructor(private cdRef: ChangeDetectorRef, private logger: LoggerService ) { }
 
+  /**
+   *  as there are two instances of the filter list, one for desktop and one for mobile
+   * it is necessary to close the sidebar as window is shrunk so that when re-enlarged the
+   * sidebar is reinitialized and correctly populated.  If this isn't done then the sidebar
+   * shows an incorrect state on enlargement
+   * @param e
+   */
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(e) {
+    // debounce resize, wait for resize to finish before doing stuff
+    if (this.resizeTimeout) {
+      clearTimeout(this.resizeTimeout);
+    }
+    this.resizeTimeout = setTimeout((() => {
+      if (e.target.innerWidth < 460) {
+        this.sidebarOpen = false;
+      }
+    }).bind(this), 500);
+  }
 
   ngOnInit() {
 
