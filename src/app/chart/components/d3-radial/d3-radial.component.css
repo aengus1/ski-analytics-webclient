@@ -1,11 +1,12 @@
 .segment {
-  fill: white;
+  fill: #99fac8;
+  /*fill: white;*/
   stroke-width: 0.05em;
   stroke: black;
 }
 
 .segment:hover {
-  fill: brown;
+  fill: #ffa9e6;
 }
 
 .selected_segment {
@@ -25,8 +26,20 @@
 
 .axis--x text {
   text-anchor: middle;
-  fill: darkgray;
+  /*// fill: darkgray; */
   font-size: 8px;
+}
+
+.axis--x.tick text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 7pt;
+}
+
+.a-axis{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 7pt;
 }
 
 .tick line{

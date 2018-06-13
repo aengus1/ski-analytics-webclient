@@ -245,6 +245,9 @@ export class BoxPlot {
 
       boxTick.enter().append('text')
         .attr('class', 'box')
+        // .attr('font-family', 'Helvetica')
+        // .attr('font-weight', 'normal')
+        // .attr('font-size', '10')
         .attr('dy', '.3em')
         .attr('dx', function (dd, ii) {
           return ii & 1 ? 6 : -6;
@@ -274,6 +277,9 @@ export class BoxPlot {
 
       whiskerTick.enter().append('text')
         .attr('class', 'whisker')
+        // .attr('font-family', 'Helvetica')
+        // .attr('font-weight', 'normal')
+        // .attr('font-size', '10')
         .attr('dy', '.3em')
         .attr('dx', 6)
         .attr('x', widthV)

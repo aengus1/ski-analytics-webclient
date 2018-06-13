@@ -29,20 +29,28 @@
   position: absolute;
   width: calc(100% - 250px);
   margin-right: 250px;
-  transition: all 0.3s;
+  /*transition: all 0.3s;*/
 }
 
-/deep/ button:hover i.fa {
-  color:#9b0722;
+.btn-sm {
+  background-color:transparent;
 }
 
-/deep/ .btn.btn-default.active,
-/deep/ .btn.btn-default:active {
-  color: #fff;
-  background-color: powderblue;
-  outline: none;
-  border: transparent;
+.btn-sm.active{
+  background-color: #cccccc;
+
 }
+/*/deep/ button:hover i.fa {*/
+  /*color:#9b0722;*/
+/*}*/
+
+/*/deep/ .btn.btn-default.active,*/
+/*/deep/ .btn.btn-default:active {*/
+  /*color: #fff;*/
+  /*background-color: powderblue;*/
+  /*outline: none;*/
+  /*border: transparent;*/
+/*}*/
 /deep/ .btn:hover{
   cursor: pointer;
 }
@@ -63,4 +71,14 @@
   top: -5px;
   left: -30px;
   height: 15px;
+  z-index: 1;
 }
+
+.popover-header{
+  font-weight: 700 !important;
+}
+
+.popover-body{
+  font-weight: 400 !important;
+}
+

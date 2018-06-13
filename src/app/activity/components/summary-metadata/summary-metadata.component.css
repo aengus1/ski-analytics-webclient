@@ -4,29 +4,31 @@
   background: lightblue;
   margin: 10px;
   border-radius: 10px;
+  border: black 1px;
+  padding: 5px 5px 5px 5px;
 }
 
-.activity-stat {
-  font-family: 'Garamond', sans-serif;
-  font-size: 18px;
-  color: black;
-}
+/*.activity-stat {*/
+  /*font-family: 'Garamond', sans-serif;*/
+  /*font-size: 18px;*/
+  /*color: black;*/
+/*}*/
 
-.activity-stat-label {
-  font-family: 'Garamond', sans-serif;
-  font-size: 12px;
-  color: black;
-}
+/*.activity-stat-label {*/
+  /*font-family: 'Garamond', sans-serif;*/
+  /*font-size: 12px;*/
+  /*color: black;*/
+/*}*/
 
-.activity-stat.bold {
-  font-weight: 900;
-}
-.activity-sub-type {
-  font-style: italic;
-  color: #52A6D5;
-  font-size: 12px;
-  font-family: 'Fjalla One', sans-serif;
-}
+/*.activity-stat.bold {*/
+  /*font-weight: 900;*/
+/*}*/
+/*.activity-sub-type {*/
+  /*font-style: italic;*/
+  /*color: #52A6D5;*/
+  /*font-size: 12px;*/
+  /*font-family: 'Fjalla One', sans-serif;*/
+/*}*/
 
 .card-body{
   padding: 0.4rem;

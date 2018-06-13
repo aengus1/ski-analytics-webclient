@@ -2,3 +2,13 @@
   padding-left: 3px;
   padding-right: 3px;
 }
+
+.arrow path{
+  fill: #99fac8;
+  stroke: black;
+  stroke-width: 1px;
+}
+
+.arrow:hover path{
+  fill: #ffa9e6;
+}

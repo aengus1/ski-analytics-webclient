@@ -9,4 +9,16 @@
   margin: 0;
 }
 
+.text-body {
+  fill: #434343;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.popover-header{
+  font-weight: 700 !important;
+}
+
+.popover-body{
+  font-weight: 400 !important;
+}
 
