@@ -1,0 +1,7 @@
+.btn-outline-secondary {
+  width: 30px;
+}
+
+.btn.active{
+  background-color: #ffa9e6  !important;
+}

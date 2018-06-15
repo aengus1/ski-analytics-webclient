@@ -18,5 +18,6 @@ export class ChartOptions {
   public hasNumLabel = false;
   public barSpacing: number;
   public yLabelFormat: YLabelFormat;
+  public hideZeroLabels = false; // if bar label is zero, do not display
 
 }

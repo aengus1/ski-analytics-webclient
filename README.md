@@ -51,6 +51,11 @@ debugged this by:
 2. found that the server was responding with an error due to cors. configured server to respond
 3. googled typescript return blob
 
+### ng g c putting files in wrong place after angular 6 upgrade
+this is a known bug with angular-cli https://github.com/angular/angular-cli/issues/10653
+resolved by adding the project name to this command like so:
+`ng g c --project='ski-analytics-web' activity/components/filter-hrzone --skip-import`
+
 ## Documentation
 
 ### 1. [Architecture](docs/redux.md)

@@ -25,7 +25,8 @@ export abstract class AbstractActivityFilter implements ActivityFilter {
    * @param {number[]} indices the array indices to exclude
    */
   // TODO -> add all value types to this filter
-  filterAllValuesByIndex(activity: Activity, indices: number[]) {
+  // TODO -> this code needs unit tests.  I am suspicious that NaN is not being inserted properly for single filtered values
+  protected filterAllValuesByIndex(activity: Activity, indices: number[]) {
     activity.getValues().setSpeedList(this.filterByIndices(activity.getValues().getSpeedList(), indices));
     activity.getValues().setHrList(this.filterByIndices(activity.getValues().getHrList(), indices));
     activity.getValues().setTsList(this.filterByIndices(activity.getValues().getTsList(), indices));
@@ -95,7 +96,6 @@ export abstract class AbstractActivityFilter implements ActivityFilter {
 
   private filterByIndices(values: any[], indices: number[]): any[] {
     if (values.length > 0 && typeof values[0] === 'number') {
-      console.log('filtering ' + values[0] + ' as number');
       return this.insertFilterMarkersNumber(values.map((v, i) => [v, i])
         .filter(t => indices.includes(t[1]))
         .map((v) => v[0]), indices);
