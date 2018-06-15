@@ -139,7 +139,7 @@ export class D3BarComponent extends D3ChartComponent {
     }
 
     if (this.chartOptions.hasNumLabel) {
-      svg.append('g').classed('bar-text', true).selectAll('text').data(this.data).enter()
+      const label = svg.append('g').classed('bar-text', true).selectAll('text').data(this.data).enter()
         .append('text').classed('barlabel', true)
         // .style('text-anchor', 'middle')
         // .attr('fill', 'black')
@@ -149,8 +149,12 @@ export class D3BarComponent extends D3ChartComponent {
         .attr('y', this.chartOptions.orientation === ChartOrientation.VERTICAL ?
           (d) => yScale(d) : (d, i) => bandwidth * i )
         .attr('dx', this.chartOptions.orientation === ChartOrientation.VERTICAL ? bandwidth / 2 : 0)
-        .attr('dy', this.chartOptions.orientation === ChartOrientation.VERTICAL ? '-0.2em' : bandwidth / 2 )
-        .text((d: number) => this.chartOptions.yLabelFormat === YLabelFormat.NUMERIC ? d : this.intervalPipe.transform(d));
+        .attr('dy', this.chartOptions.orientation === ChartOrientation.VERTICAL ? '-0.2em' : bandwidth / 2 );
+      if (this.chartOptions.hideZeroLabels) {
+        label.style('display', (d: number) => (d === 0) ? 'none' : 'inline');
+      }
+        label.text((d: number) => this.chartOptions.yLabelFormat === YLabelFormat.NUMERIC ? d : this.intervalPipe.transform(d));
+
     }
 
     if (this.chartOptions.orientation === ChartOrientation.VERTICAL && this.chartOptions.hasNumAxis) {

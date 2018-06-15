@@ -12,6 +12,11 @@ export class SpeedFilter extends AbstractActivityFilter implements MinMaxActivit
   initialMax: number;
   initialMin: number;
 
+  /**
+   * @param {number} initialMin represents existing state of this filter's min value
+   * @param {number} initialMax represents existing state of this filter's max value
+   * @param {string} id a unique identifier for this filter
+   */
   constructor(initialMin: number = 0, initialMax: number = 0, id: string = 'speed') {
     super();
       this.type = ActivityFilterType.Speed;

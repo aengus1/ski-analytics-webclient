@@ -60,6 +60,7 @@ export class HrZoneHistogramComponent implements OnInit, OnChanges {
     this.chartOptions.orientation = ChartOrientation.VERTICAL;
     this.chartOptions.barSpacing = 0;
     this.chartOptions.yLabelFormat = YLabelFormat.INTERVAL;
+    this.chartOptions.hideZeroLabels = true;
     combineLatest(this.tsLookup$, this.unfiltered$).subscribe( (x: Array<any>) => {
       this.timeDistInZone = this.activitySummaryService.calculateTimeAndDistInZone(this.thresholds, this.activity, x[0], x[1]);
       this.initialized = true;

@@ -13,6 +13,7 @@ import {MinMaxActivityFilter} from '../../model/activity-filter/min-max-activity
 import {FilterService} from '../../services/filter-service/filter.service';
 import {Observable, Subscription} from 'rxjs';
 import {take} from 'rxjs/operators';
+import {HrzoneFilter} from '../../components/filter-hrzone/hrzone-filter';
 
 @Component({
   selector: 'app-filter-list',
@@ -42,6 +43,23 @@ export class FilterListComponent implements OnInit {
 
   receiveMessage($event) {
     switch ($event.name) {
+      case 'filterCategory': {
+        console.log('received category filter' + $event.payload[0] + ' ' + $event.payload[1]);
+        this.store.pipe(select(fromActivity.getActivityFilterEntities)).pipe(take(1))
+          .subscribe( (allFilters: Dictionary<ActivityFilter>) => {
+            if (allFilters[$event.payload[0]] === undefined ) {
+              return;
+            }
+            this.reHydrateFilters(allFilters);
+            const currentFilter = <HrzoneFilter>this.reHydrateFilter(allFilters[$event.payload[0]]);
+            currentFilter.setUserZoneBoundaries($event.payload[2]);
+            console.log('zone filter: ' + $event.payload[1]);
+            allFilters[$event.payload[0]] = currentFilter;
+            currentFilter.initialZones = $event.payload[1];
+            this.updateActivityFilter(currentFilter, allFilters);
+          });
+        return;
+      }
       case 'filterMin': {
         this.store.pipe(select(fromActivity.getActivityFilterEntities)).pipe(take(1))
           .subscribe( (allFilters: Dictionary<ActivityFilter>) => {
@@ -57,7 +75,8 @@ export class FilterListComponent implements OnInit {
         return;
       }
       case 'filterMax': {
-        this.store.pipe(select(fromActivity.getActivityFilterEntities)).pipe(take(1)).subscribe( (v: Dictionary<ActivityFilter>) => {
+        this.store.pipe(select(fromActivity.getActivityFilterEntities)).pipe(take(1))
+          .subscribe( (v: Dictionary<ActivityFilter>) => {
           if (v[$event.payload[0]] === undefined ) {
             return;
           }

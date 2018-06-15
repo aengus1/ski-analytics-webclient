@@ -9,4 +9,9 @@
 <app-filter #filt [title]="'Speed'" [filters]="filters$ | async" (changeEvent)="receiveMessage($event)">
   <app-filter-speed [activity]="activity" (changeEvent)="receiveMessage($event)"></app-filter-speed>
 </app-filter>
+
+  <app-filter #filt [title]="'Hr Zone'" [filters]="filters$ | async" (changeEvent)="receiveMessage($event)">
+    <app-filter-hrzone [activity]="activity" [userZoneBoundaries]="[120, 140, 160, 170]"
+                       (changeEvent)="receiveMessage($event)"></app-filter-hrzone>
+  </app-filter>
 </div>

@@ -1,7 +1,7 @@
 import {Activity} from '../activity/Activity_pb';
 
 export enum ActivityFilterType {
-  Speed, TimeInZone
+  Speed, HrZone
 }
 export interface ActivityFilter {
   id: string;

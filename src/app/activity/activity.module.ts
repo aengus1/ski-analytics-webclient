@@ -35,6 +35,8 @@ import {HrZoneHistogramComponent} from './components/summary-panel/hr-zone-histo
 import {IntervalPipe} from '../shared/pipes/interval.pipe';
 import {ActivitySummaryService} from './services/activity-summary-service/activity-summary.service';
 import {LoggerService} from '../shared/services/logger.service';
+import {FilterHrzoneComponent} from './components/filter-hrzone/filter-hrzone.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -58,6 +60,7 @@ import {LoggerService} from '../shared/services/logger.service';
     //  */
     EffectsModule.forFeature([FilterEffects]),
     NgbModule.forRoot(),
+    FormsModule
   ],
   declarations: [
     ActivityComponent,
@@ -75,12 +78,13 @@ import {LoggerService} from '../shared/services/logger.service';
     InfographicComponent,
     AscentDescentComponent,
     MovingStopComponent,
-    HrZoneHistogramComponent
+    HrZoneHistogramComponent,
+    FilterHrzoneComponent
   ],
   providers: [
     ActivityService, FilterService, MockActivityService, D3Service, ActivityExistsGuard, IntervalPipe, ActivitySummaryService, LoggerService
   ],
   exports: [ActivityComponent, FilterListComponent, MapComponent, AttributeComponent,
-  SummaryPanelComponent, AscentDescentComponent, MovingStopComponent, HrZoneHistogramComponent]
+  SummaryPanelComponent, AscentDescentComponent, MovingStopComponent, HrZoneHistogramComponent, FilterHrzoneComponent]
 })
 export class ActivityModule { }
