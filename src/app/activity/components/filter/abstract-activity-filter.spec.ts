@@ -8,7 +8,7 @@ let activity: Activity;
 let actClone: Activity;
  class TestFilter extends AbstractActivityFilter {
 
-  applyFilter(act: Activity): number[] {
+  findRemainingIndices(act: Activity): number[] {
     return [0, 1, 2, 5, 9, 10, 11, 13];
   }
 
@@ -20,7 +20,7 @@ let actClone: Activity;
   }
 
   filterAll(act: Activity, indices: number[]) {
-    super.filterAllValuesByIndex(act, indices);
+    AbstractActivityFilter.filterAllValuesByIndex(act, indices);
   }
 
 }

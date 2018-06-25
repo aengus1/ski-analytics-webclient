@@ -2,6 +2,7 @@ import {ActivityFilterType} from '../../model/activity-filter/activity-filter.mo
 import {Activity} from '../../model/activity/Activity_pb';
 import {AbstractActivityFilter} from '../filter/abstract-activity-filter';
 import {MinMaxActivityFilter} from '../../model/activity-filter/min-max-activity-filter.model';
+import * as _ from 'lodash';
 
 export class SpeedFilter extends AbstractActivityFilter implements MinMaxActivityFilter {
   id: string;
@@ -49,10 +50,10 @@ export class SpeedFilter extends AbstractActivityFilter implements MinMaxActivit
    * @param {Activity} activity
    * @returns number[] the list of remaining value ids
    */
-  applyFilter(activity: Activity): number[] {
+  findRemainingIndices(activity: Activity): number[] {
 
-     // console.log('applying filter' + JSON.stringify(this) + ' to ' + activity.getValues().getSpeedList());
-    const filteredValues = activity.getValues().getSpeedList();
+      // console.log('applying filter' + JSON.stringify(this) + ' to ' + activity.getValues().getSpeedList());
+    const filteredValues = _.cloneDeep(activity.getValues().getSpeedList());
     const res = new Array<Array<number>>();
 
     for (let i = 0; i < filteredValues.length; i++) {
@@ -63,7 +64,7 @@ export class SpeedFilter extends AbstractActivityFilter implements MinMaxActivit
       });
     this.filteredIds = result.map( v => v[1]);
 
-    super.filterAllValuesByIndex(activity, this.filteredIds);
+    // AbstractActivityFilter.filterAllValuesByIndex(activity, this.filteredIds);
 
 
 

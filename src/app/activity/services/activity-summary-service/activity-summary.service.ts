@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Activity} from '../../model/activity/Activity_pb';
-import * as _ from 'lodash';
 
 import {LoggerService} from '../../../shared/services/logger.service';
 
@@ -12,11 +11,14 @@ export class ActivitySummaryService {
   /**
    * Summarizes activity
    * @param {Activity} activity the activity to summarize
-   * @param {number[]} filteredList a list of value indices to include in summarization
+   * @param {number[]} filteredList a list of value indices to include in summarization (deprecated)
+   * @param {Activity} unfilteredActivity
+   * @param {Map<string, number>} tsLookup lookup table.  This provides a lookup of timestamps to index in original unfiltered array.
+   * Required so that the interval between a non-filtered and a filtered value can be calculated
    */
  public static summarizeActivity(activity: Activity, filteredList: number[],
                                  unfilteredActivity: Activity, tsLookup: Map<string, number>) {
-    ActivitySummaryService.calcAscentDescent(activity, filteredList);
+    ActivitySummaryService.calcAscentDescent(activity,  unfilteredActivity, tsLookup);
     ActivitySummaryService.calcStopPauseMovingTime(activity, filteredList, unfilteredActivity, tsLookup);
 
   }
@@ -31,7 +33,6 @@ export class ActivitySummaryService {
    */
   private static calcStopPauseMovingTime(activity: Activity, filteredList: number[], unfiltered: Activity,
                                          tsLookup: Map<string, number>) {
-    const filterSet = new Set(filteredList);
     const movingValues: number[] = activity.getValues().getSpeedList();
     const ts: string[] = activity.getValues().getTsList();
     const distValues: number[] = activity.getValues().getDistanceList();
@@ -56,7 +57,7 @@ export class ActivitySummaryService {
       }
 
       if (ptAFiltered && ptBFiltered) {
-        console.log(' a and b filtered');
+        console.log(' a and b filtered ' + ts);
         // this.logger.warn('[ActivitySummaryService calcStopPauseMovingTime], assertion failed -> contiguous values are both filtered');
         continue;  // we should never get here
       }
@@ -113,66 +114,94 @@ export class ActivitySummaryService {
     activity.getSummary().setStopcount(stopCount);
   }
 
-  // TODO -> refactor this to use the same calc method as stop/moving RE filtered values
   /**
    * ASCENT is accumulated when consecutive readings have positive altitude change
    * DESCENT is accumulated when consecutive readings have negative altitude change
    * if flat, will continue to accumulate asc/desc for 1 iteration based on previous value
    * @param {Activity} activity
-   * @param {number[]} filteredList
+   * @param {Activity} the unfiltered activity used to get the original distance and timestamp of filtered values
+   * @param {Map<string, number>} lookup table.  This provides a lookup of timestamps to index in original unfiltered array.
+   * Required so that the interval between a non-filtered and a filtered value can be calculated
    */
-  private static calcAscentDescent(activity: Activity, filteredList: number[]) {
-    const filterSet = new Set(filteredList);
-    const altValues: number[] = activity.getValues().getAltitudeList();
-    const timeValues: Date[] = _.map(activity.getValues().getTsList(), (x) => new Date(x));
-    const distValues: number[] = activity.getValues().getDistanceList();
-    let ascAccum = 0;
-    let ascTimeAccum = 0;
-    let ascDistAccum = 0;
-    let descAccum = 0;
-    let descTimeAccum = 0;
-    let descDistAccum = 0;
-    // memoize the trajectory.  If ascending and flatten out then continue to accumulate ascent time
-    // -2=na, -1=desc, 0=flat, 1=asc
-    let memo = -2;
-    for (let i = 0; i < altValues.length - 1; i++) {
-      if (filteredList == null || (filterSet.has(i) && filterSet.has(i + 1))) {
-        if (timeValues[i] === null || timeValues[i + 1] == null) {
+  private static calcAscentDescent(activity: Activity,  unfiltered: Activity, tsLookup: Map<string, number>) {
+
+    let ascent = 0;
+    let descent = 0;
+    let ascentTime = 0;
+    let ascentDist = 0;
+    let descentTime = 0;
+    let descentDist = 0;
+    let ptBFiltered = false;
+    let isAscending = 0;
+    const alt = activity.getValues().getAltitudeList();
+    const dist = activity.getValues().getDistanceList();
+    const ts: string[] = activity.getValues().getTsList();
+
+    for (let i = 0; i < alt.length - 1; i++) {
+      if (ts[i] === 'marker') {
+        // if ptA is filtered then continue without summing
           continue;
-        }
-        if (altValues[i] !== -999 && altValues[i + 1] !== -999) {
-          if (altValues[i + 1] > altValues[i]) {
-            ascAccum += altValues[i + 1] - altValues[i];
-            ascTimeAccum += (timeValues[i + 1].valueOf() - timeValues[i].valueOf());
-            ascDistAccum += distValues[i + 1] - distValues[i];
-            memo = 1;
-          } else if (altValues[i + 1] < altValues[i]) {
-            descAccum += altValues[i + 1] - altValues[i];
-            descTimeAccum += timeValues[i + 1].valueOf() - timeValues[i].valueOf();
-            descDistAccum += distValues[i + 1] - distValues[i];
-            memo = -1;
-          } else {
-            if (memo === 1) {
-              ascAccum += altValues[i + 1] - altValues[i];
-              ascTimeAccum += (timeValues[i + 1].valueOf() - timeValues[i].valueOf());
-              ascDistAccum += distValues[i + 1] - distValues[i];
-            }
-            if (memo === -1) {
-              descAccum += altValues[i + 1] - altValues[i];
-              descTimeAccum += timeValues[i + 1].valueOf() - timeValues[i].valueOf();
-              descDistAccum += distValues[i + 1] - distValues[i];
-            }
-            memo = 0;  // limit to one flat reading before stop counting
-          }
+      }
+      if (ts[i + 1] === 'marker') {
+        ptBFiltered = true;
+      }
+
+
+      const ts0: number = new Date(ts[i]).valueOf();
+
+      const ts1: number = ptBFiltered
+        ? new Date(unfiltered.getValues().getTsList()[tsLookup.get(ts[i]) + 1]).valueOf()
+        : new Date(ts[i + 1]).valueOf();
+
+      const d0: number = dist[i];
+
+      const d1: number = ptBFiltered
+        ? unfiltered.getValues().getDistanceList()[tsLookup.get(ts[i]) + 1]
+        : dist[i + 1];
+
+      const m0: number =  alt[i];
+
+      const m1: number = ptBFiltered
+        ? unfiltered.getValues().getAltitudeList()[tsLookup.get(ts[i]) + 1]
+        : alt[i + 1];
+
+
+      // if flat, assume still ascending or descending for 1 iteration
+      if (m1 === m0) {
+        if (isAscending === 1) {
+          ascent += (m1 - m0);
+          ascentTime += (ts1 - ts0) / 1000;
+          ascentDist += (d1 - d0);
+          isAscending = 0;
+        } else if (isAscending === -1) {
+          descent += m1 - m0;
+          descentTime += (ts1 - ts0) / 1000;
+          descentDist += (d1 - d0);
+          isAscending = 0;
         }
       }
+
+      if (m1 > m0) {
+        ascent += (m1 - m0);
+        ascentTime += (ts1 - ts0) / 1000;
+        ascentDist += (d1 - d0);
+        isAscending = 1;
+      }
+      if (m1 < m0) {
+        descent += (m1 - m0);
+        descentTime += (ts1 - ts0) / 1000;
+        descentDist += (d1 - d0);
+        isAscending = -1;
+      }
+      ptBFiltered = false;
     }
-    activity.getSummary().setTotalascent(ascAccum);
-    activity.getSummary().setTotalasctime(ascTimeAccum !== 0 ? (ascTimeAccum / 1000) : 0);
-    activity.getSummary().setTotalascdist(ascDistAccum);
-    activity.getSummary().setTotaldescent(Math.abs(descAccum));
-    activity.getSummary().setTotaldesctime(descTimeAccum !== 0 ? (Math.abs(descTimeAccum) / 1000) : 0);
-    activity.getSummary().setTotaldescdist(descDistAccum);
+    activity.getSummary().setTotalascent(ascent);
+    activity.getSummary().setTotalasctime(ascentTime);
+    activity.getSummary().setTotalascdist(ascentDist);
+    activity.getSummary().setTotaldescent(Math.abs(descent));
+    activity.getSummary().setTotaldesctime(descentTime);
+    activity.getSummary().setTotaldescdist(descentDist);
+
   }
 
   /**
@@ -180,7 +209,7 @@ export class ActivitySummaryService {
    * because it requires additional input of user HR zone data.
    *
    * Do pairwise comparison between points in series.  Attribute HR zone to 1st point in pair.
-   * If pt A is filtered out - do not sum, if Pt B is filtered out, to sum
+   * If pt A is filtered out - do not sum, if Pt B is filtered out, do sum
    *
    * @param {number[4]} hrThresholds the heart rate zone thresholds.
    * Zone 1 = 0 to [0]

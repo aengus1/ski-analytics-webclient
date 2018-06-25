@@ -2,6 +2,7 @@ import {HrzoneFilter} from '../filter-hrzone/hrzone-filter';
 import {MockActivity} from '../../model/activity/activity.mock';
 import {Activity} from '../../model/activity/Activity_pb';
 import * as _ from 'lodash';
+import {AbstractActivityFilter} from '../filter/abstract-activity-filter';
 
 let activity: Activity;
 let actClone: Activity;
@@ -21,7 +22,8 @@ describe('HrzoneFilter', () => {
   it('should filter based on initial values', () => {
     const filter: HrzoneFilter = new HrzoneFilter([false, false, true, false, false], 'hrzone');
     filter.setUserZoneBoundaries([120, 130, 140, 166]);
-    const result: number[] = filter.applyFilter(activity);
+    const result: number[] = filter.findRemainingIndices(activity);
+    AbstractActivityFilter.filterAllValuesByIndex(activity, result);
     // [120, 121, 125, 140, 135, 137, 145, 150, 160, 161, 156, 135, 171, 155];
     // expect activities hr list not to contain values >= 130 and < 140
     expect(activity.getValues().getHrList().filter(x => !isNaN(x)))
@@ -36,12 +38,12 @@ describe('HrzoneFilter', () => {
     const actClone2 = _.cloneDeep(activity);
     const filter: HrzoneFilter = new HrzoneFilter([false, false, true, false, false], 'hrzone');
     filter.setUserZoneBoundaries([120, 130, 140, 166]);
-     filter.applyFilter(activity);
+     filter.findRemainingIndices(activity);
     filter.clear();
-    console.log('activity = ' + activity.getValues().getHrList());
-    const result: number[] = filter.applyFilter(actClone2);
+    // console.log('activity = ' + activity.getValues().getHrList());
+    const result: number[] = filter.findRemainingIndices(actClone2);
     expect(filter.initialZones).toEqual([false, false, false, false, false]);
-    console.log(result + ' vs ' + actClone.getValues().getHrList());
+    // console.log(result + ' vs ' + actClone.getValues().getHrList());
     expect(result.length).toEqual(actClone.getValues().getHrList().length);
 
   });
@@ -52,7 +54,7 @@ describe('HrzoneFilter', () => {
     const obj: Object = <Object>filter;
     let newFilter = new HrzoneFilter();
     newFilter = newFilter.reHydrate(obj);
-    newFilter.applyFilter(activity);
+    AbstractActivityFilter.filterAllValuesByIndex(activity, newFilter.findRemainingIndices(activity));
     expect(activity.getValues().getHrList().filter(x => !isNaN(x)))
       .toEqual(actClone.getValues().getHrList().filter(x => x < 130 || x >= 140));
   });

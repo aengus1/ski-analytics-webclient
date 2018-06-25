@@ -1,6 +1,7 @@
 import {ActivityFilter} from './activity-filter.model';
 import {SpeedFilter} from '../../components/filter-speed/speed-filter';
 import {Dictionary} from '@ngrx/entity/src/models';
+import {HrzoneFilter} from '../../components/filter-hrzone/hrzone-filter';
 
 
 export class MockActivityFilter {
@@ -8,6 +9,13 @@ export class MockActivityFilter {
   public static generateMockSpeedFilter(): SpeedFilter {
 
     return new SpeedFilter(0, 10, 'speed');
+  }
+
+  public static generateMockHrZoneFilter(): HrzoneFilter {
+
+    const f = new HrzoneFilter([true, true, false, false, false], 'hr');
+    f.setUserZoneBoundaries([120, 140, 150, 170]);
+    return f;
   }
 
   public static generateMockSpeedFilter2(): SpeedFilter {
@@ -24,6 +32,13 @@ export class MockActivityFilter {
     const sfThree =  new SpeedFilter(-7, 4, 'sfThree');
 
     return {'sfOne': sfOne, 'sfTwo': sfTwo, 'sfThree': sfThree};
+  }
+
+  public static generateMockFilterDictionary2(): Dictionary<ActivityFilter> {
+
+    const sfOne =  MockActivityFilter.generateMockSpeedFilter2();
+
+    return {'speed': sfOne};
   }
 
 

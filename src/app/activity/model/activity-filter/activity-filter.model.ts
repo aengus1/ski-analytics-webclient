@@ -13,7 +13,7 @@ export interface ActivityFilter {
    * @param {Activity} activity
    * @returns number[] the list of remaining value ids
    */
-  applyFilter(activity: Activity): number[];
+  findRemainingIndices(activity: Activity): number[];
 
   /**
    * Clear the filter from th
