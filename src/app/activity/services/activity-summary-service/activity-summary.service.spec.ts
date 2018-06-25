@@ -13,6 +13,51 @@ describe('ActivitySummaryService', () => {
     });
   });
 
+  let activityf: Activity = MockActivity.generateMockActivity();
+  // values at 6, 7, 9, 11 are filtered out
+  activityf.getValues().getAltitudeList()[0] = NaN;
+  activityf.getValues().getAltitudeList()[1] = NaN;
+  activityf.getValues().getAltitudeList()[2] = NaN;
+  activityf.getValues().getAltitudeList()[3] = NaN;
+  activityf.getValues().getAltitudeList()[4] = NaN;
+  activityf.getValues().getAltitudeList()[5] = NaN;
+  activityf.getValues().getAltitudeList()[8] = NaN;
+  activityf.getValues().getAltitudeList()[10] = NaN;
+  activityf.getValues().getAltitudeList()[12] = NaN;
+  activityf.getValues().getAltitudeList()[13] = NaN;
+
+  activityf.getValues().getDistanceList()[0] = NaN;
+  activityf.getValues().getDistanceList()[1] = NaN;
+  activityf.getValues().getDistanceList()[2] = NaN;
+  activityf.getValues().getDistanceList()[3] = NaN;
+  activityf.getValues().getDistanceList()[4] = NaN;
+  activityf.getValues().getDistanceList()[5] = NaN;
+  activityf.getValues().getDistanceList()[8] = NaN;
+  activityf.getValues().getDistanceList()[10] = NaN;
+  activityf.getValues().getDistanceList()[12] = NaN;
+  activityf.getValues().getDistanceList()[13] = NaN;
+
+  activityf.getValues().getTsList()[0] = 'marker';
+  activityf.getValues().getTsList()[1] = 'marker';
+  activityf.getValues().getTsList()[2] = 'marker';
+  activityf.getValues().getTsList()[3] = 'marker';
+  activityf.getValues().getTsList()[4] = 'marker';
+  activityf.getValues().getTsList()[5] = 'marker';
+  activityf.getValues().getTsList()[8] = 'marker';
+  activityf.getValues().getTsList()[10] = 'marker';
+  activityf.getValues().getTsList()[12] = 'marker';
+  activityf.getValues().getTsList()[13] = 'marker';
+
+  activityf.getValues().getDistanceList().splice(12, 1);
+  activityf.getValues().getAltitudeList().splice(12, 1);
+  activityf.getValues().getTsList().splice(12, 1);
+  activityf.getValues().getDistanceList().splice(0, 5);
+  activityf.getValues().getAltitudeList().splice(0, 5);
+  activityf.getValues().getTsList().splice(0, 5);
+  console.log('dist: ' + activityf.getValues().getDistanceList());
+  console.log('alt: ' + activityf.getValues().getAltitudeList());
+  console.log('ts: ' + activityf.getValues().getTsList());
+
   it('should be created', inject([ActivitySummaryService], (service: ActivitySummaryService) => {
     expect(service).toBeTruthy();
   }));
@@ -20,9 +65,11 @@ describe('ActivitySummaryService', () => {
 
   describe('Ascent calculation', () => {
     const activity: Activity = MockActivity.generateMockActivity();
-    let unfiltered: Activity = MockActivity.generateMockActivity();
-    let tsLookup: Map<string, number> = fromActivity.buildTsLookupMap(activity);
+    const unfiltered: Activity = MockActivity.generateMockActivity();
+    const tsLookup: Map<string, number> = fromActivity.buildTsLookupMap(activity);
+    const tsLookupf: Map<string, number> = fromActivity.buildTsLookupMap(unfiltered);
     ActivitySummaryService.summarizeActivity(activity, null, unfiltered, tsLookup);
+    ActivitySummaryService.summarizeActivity(activityf, [6, 7, 9, 11], unfiltered, tsLookupf);
 
     it('should calculate ascent correctly when no filters are applied', () => {
       expect(activity.getSummary().getTotalascent()).toEqual(21);
@@ -34,32 +81,25 @@ describe('ActivitySummaryService', () => {
     });
 
     it('should calculate ascent distance correctly when no filters are applied', () => {
+      // [400, 401, 405, 410, 407, 407, 406, 407, 409, 411, 414, 415, 417, 415];
       expect(activity.getSummary().getTotalascdist()).toEqual(51);
 
     });
 
-    // it('should calculate ascent correctly when  filters are applied', () => {
-    //
-    //   const activityf: Activity = MockActivity.generateMockActivity();
-    //   // values at 6, 7, 9, 11 are filtered out
-    //   activityf.getValues().getTsList()[6] = 'marker';
-    //   activityf.getValues().getTsList()[7] = 'marker';
-    //   activityf.getValues().getTsList()[9] = 'marker';
-    //   activityf.getValues().getTsList()[11] = 'marker';
-    //   ActivitySummaryService.summarizeActivity(activityf, [0, 1, 2, 3, 4, 5, 8, 10, 12, 13], unfiltered, tsLookup);
-    //   expect(activityf.getSummary().getTotalascent()).toEqual(1);
-    //
-    // });
+    it('should calculate ascent correctly when  filters are applied', () => {
+      expect(activityf.getSummary().getTotalascent()).toEqual(8);
+
+    });
 
     it('should calculate ascent time correctly when  filters are applied', () => {
-      ActivitySummaryService.summarizeActivity(activity, [6, 7, 9, 11], unfiltered, tsLookup);
-      expect(activity.getSummary().getTotalasctime()).toEqual(1);
+      expect(activityf.getSummary().getTotalasctime()).toEqual(4);
 
     });
 
     it('should calculate ascent distance correctly when  filters are applied', () => {
-      ActivitySummaryService.summarizeActivity(activity, [6, 7, 9, 11], unfiltered, tsLookup);
-      expect(activity.getSummary().getTotalascdist()).toEqual(2);
+      // [400, 401, 405, 410, 407, 407, 406, 407, 409, 411, 414, 415, 417, 415];
+      // [0,  0,    10,  15,  35,  40,  45,  47,  53,  57,  72,  77,  81, 97];
+      expect(activityf.getSummary().getTotalascdist()).toEqual(27);
 
     });
 
@@ -68,8 +108,8 @@ describe('ActivitySummaryService', () => {
 
   describe('Descent calculation', () => {
     const activity: Activity = MockActivity.generateMockActivity();
-    let unfiltered: Activity = MockActivity.generateMockActivity();
-    let tsLookup: Map<string, number> = fromActivity.buildTsLookupMap(activity);
+    const unfiltered: Activity = MockActivity.generateMockActivity();
+    const tsLookup: Map<string, number> = fromActivity.buildTsLookupMap(activity);
     ActivitySummaryService.summarizeActivity(activity, null, unfiltered, tsLookup);
     it('should calculate descent correctly when no filters are applied', () => {
       expect(activity.getSummary().getTotaldescent()).toEqual(6);
@@ -86,19 +126,19 @@ describe('ActivitySummaryService', () => {
     });
 
     it('should calculate descent correctly when  filters are applied', () => {
-      ActivitySummaryService.summarizeActivity(activity, [6, 7, 9, 11], unfiltered, tsLookup);
-      expect(activity.getSummary().getTotaldescent()).toEqual(0);
+      // ActivitySummaryService.summarizeActivity(activity, [6, 7, 9, 11], unfiltered, tsLookup);
+      expect(activityf.getSummary().getTotaldescent()).toEqual(0);
     });
 
     it('should calculate descent time correctly when  filters are applied', () => {
-      ActivitySummaryService.summarizeActivity(activity, [6, 7, 9, 11], unfiltered, tsLookup);
-      expect(activity.getSummary().getTotaldesctime()).toEqual(0);
+      // ActivitySummaryService.summarizeActivity(activity, [6, 7, 9, 11], unfiltered, tsLookup);
+      expect(activityf.getSummary().getTotaldesctime()).toEqual(0);
 
     });
 
     it('should calculate descent distance correctly when  filters are applied', () => {
-      ActivitySummaryService.summarizeActivity(activity, [6, 7, 9, 11], unfiltered, tsLookup);
-      expect(activity.getSummary().getTotaldescdist()).toEqual(0);
+      // ActivitySummaryService.summarizeActivity(activity, [6, 7, 9, 11], unfiltered, tsLookup);
+      expect(activityf.getSummary().getTotaldescdist()).toEqual(0);
 
     });
 
@@ -115,7 +155,7 @@ describe('ActivitySummaryService', () => {
     });
 
     it('should calculate stop time correctly when filters are applied', () => {
-      const activityf: Activity = MockActivity.generateMockActivity();
+       activityf = MockActivity.generateMockActivity();
        unfiltered = MockActivity.generateMockActivity();
        tsLookup = fromActivity.buildTsLookupMap(unfiltered);
       // values at 6, 7, 9, 11 are filtered out
@@ -161,7 +201,7 @@ describe('ActivitySummaryService', () => {
     });
 
     it('should calculate moving time correctly when filters are applied', () => {
-      const activityf: Activity = MockActivity.generateMockActivity();
+       activityf = MockActivity.generateMockActivity();
       activityf.getValues().getSpeedList()[6] = NaN;
       activityf.getValues().getSpeedList()[7] = NaN;
       activityf.getValues().getSpeedList()[9] = NaN;

@@ -1,6 +1,7 @@
 import {ActivityFilterType} from '../../model/activity-filter/activity-filter.model';
 import {Activity} from '../../model/activity/Activity_pb';
 import {AbstractActivityFilter} from '../filter/abstract-activity-filter';
+import * as _ from 'lodash';
 
 export class HrzoneFilter extends AbstractActivityFilter {
   id: string;
@@ -48,10 +49,10 @@ export class HrzoneFilter extends AbstractActivityFilter {
    * @param {Activity} activity
    * @returns number[] the list of remaining value ids
    */
-  applyFilter(activity: Activity): number[] {
+  findRemainingIndices(activity: Activity): number[] {
 
     // console.log('applying filter' + JSON.stringify(this) + ' to ' + activity.getValues().getSpeedList());
-    const filteredValues = activity.getValues().getHrList();
+    const filteredValues = _.cloneDeep(activity.getValues().getHrList());
     const res = new Array<Array<number>>();
 
     for (let i = 0; i < filteredValues.length; i++) {
@@ -94,8 +95,6 @@ export class HrzoneFilter extends AbstractActivityFilter {
     });
 
     this.filteredIds = result.map( v => v[1]);
-
-    super.filterAllValuesByIndex(activity, this.filteredIds);
 
     return result.map( v => v[1]);
   }

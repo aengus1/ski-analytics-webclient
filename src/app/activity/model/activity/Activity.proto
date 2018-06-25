@@ -28,7 +28,6 @@ message UserData {
     repeated string tags = 3;
     string userWeather = 4;   /* user input notes on weather */
     /* TODO -> specify a data structure for gear */
-    /* TODO -> specify a data structure for gear */
 }
 
 message Weather {

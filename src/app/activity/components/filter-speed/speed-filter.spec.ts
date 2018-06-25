@@ -2,6 +2,7 @@ import {SpeedFilter} from './speed-filter';
 import {MockActivity} from '../../model/activity/activity.mock';
 import {Activity} from '../../model/activity/Activity_pb';
 import * as _ from 'lodash';
+import {AbstractActivityFilter} from '../filter/abstract-activity-filter';
 
 let activity: Activity;
 
@@ -21,7 +22,8 @@ describe('SpeedFilter', () => {
   it('should filter based on initial values', () => {
     const actClone =  _.cloneDeep(activity);
     const filter: SpeedFilter = new SpeedFilter(1, 6, 'speed');
-    const result: number[] = filter.applyFilter(activity);
+    const result: number[] = filter.findRemainingIndices(activity);
+    AbstractActivityFilter.filterAllValuesByIndex(activity, result);
 
     expect(Math.min.apply(null, activity.getValues().getSpeedList().filter(x => !isNaN(x)))).toBeGreaterThanOrEqual(filter.initialMin);
     expect(Math.max.apply(null, activity.getValues().getSpeedList().filter(x => !isNaN(x)))).toBeLessThanOrEqual(filter.initialMax);
@@ -41,8 +43,8 @@ describe('SpeedFilter', () => {
     const newMax = 6;
     filter._min = newMin;
     filter._max = newMax;
-    const result =  filter.applyFilter(activity);
-
+    const result =  filter.findRemainingIndices(activity);
+    AbstractActivityFilter.filterAllValuesByIndex(activity, result);
     expect(Math.min.apply(null, activity.getValues().getSpeedList().filter(x => !isNaN(x)))).toBeGreaterThanOrEqual(newMin);
     expect(Math.max.apply(null, activity.getValues().getSpeedList().filter(x => !isNaN(x)))).toBeLessThanOrEqual(newMax);
 
@@ -57,8 +59,8 @@ describe('SpeedFilter', () => {
   it( 'should return original set when filter range is outside bounds of original set', () => {
     const actClone = _.cloneDeep(activity);
     const filter: SpeedFilter = new SpeedFilter(-1, 49, 'speed');
-    console.log('ff = ' + JSON.stringify(filter));
-    filter.applyFilter(activity);
+    // console.log('ff = ' + JSON.stringify(filter));
+    filter.findRemainingIndices(activity);
 
     expect(activity.getValues().getSpeedList().filter(x => !isNaN(x))).toEqual(actClone.getValues().getSpeedList());
   });
@@ -80,7 +82,7 @@ describe('SpeedFilter', () => {
     const obj: Object = <Object>filter;
     let newFilter = new SpeedFilter();
     newFilter = newFilter.reHydrate(obj);
-    newFilter.applyFilter(activity);
+    AbstractActivityFilter.filterAllValuesByIndex(activity, newFilter.findRemainingIndices(activity));
     expect(Math.min.apply(null, activity.getValues().getSpeedList().filter(x => !isNaN(x)))).toBeGreaterThanOrEqual(newFilter.initialMin);
     expect(Math.max.apply(null, activity.getValues().getSpeedList().filter(x => !isNaN(x)))).toBeLessThanOrEqual(newFilter.initialMax);
 
