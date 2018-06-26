@@ -1,9 +1,9 @@
 import {Component, ElementRef, Input, ViewEncapsulation} from '@angular/core';
-import {D3ChartComponent} from '../components/d3-chart/d3chart.component';
+import {D3ChartComponent} from '../d3-chart/d3chart.component';
 import {D3Service, Selection} from 'd3-ng2-service';
-import {LoggerService} from '../../shared/services/logger.service';
+import {LoggerService} from '../../../shared/services/logger.service';
 import {ChartOptions, ChartOrientation, YLabelFormat} from './ChartOptions';
-import {IntervalPipe} from '../../shared/pipes/interval.pipe';
+import {IntervalPipe} from '../../../shared/pipes/interval.pipe';
 
 
 @Component({

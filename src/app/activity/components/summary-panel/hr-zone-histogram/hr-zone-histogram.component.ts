@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {ChartOptions, ChartOrientation, YLabelFormat} from '../../../../chart/d3-bar/ChartOptions';
+import {ChartOptions, ChartOrientation, YLabelFormat} from '../../../../chart/components/d3-bar/ChartOptions';
 import {Activity} from '../../../model/activity/Activity_pb';
 import {combineLatest, Observable} from 'rxjs';
 import {select, Store} from '@ngrx/store';

@@ -23,7 +23,7 @@ import {SelectedActivityPageComponent} from './containers/selected-activity-page
 import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {ActivityExistsGuard} from './guards/activity-exists';
 import {FilterComponent} from './components/filter/filter.component';
-import {FilterSpeedComponent} from './components/filter-speed/filter-speed.component';
+import {FilterSpeedComponent} from './components/filter/filter-speed/filter-speed.component';
 import {FilterService} from './services/filter-service/filter.service';
 import {FilterEffects} from './effects/filter.effects';
 import {EffectsModule} from '@ngrx/effects';
@@ -35,7 +35,7 @@ import {HrZoneHistogramComponent} from './components/summary-panel/hr-zone-histo
 import {IntervalPipe} from '../shared/pipes/interval.pipe';
 import {ActivitySummaryService} from './services/activity-summary-service/activity-summary.service';
 import {LoggerService} from '../shared/services/logger.service';
-import {FilterHrzoneComponent} from './components/filter-hrzone/filter-hrzone.component';
+import {FilterHrzoneComponent} from './components/filter/filter-hrzone/filter-hrzone.component';
 import {FormsModule} from '@angular/forms';
 
 @NgModule({

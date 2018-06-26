@@ -1,7 +1,7 @@
 import {ActivityFilter} from './activity-filter.model';
-import {SpeedFilter} from '../../components/filter-speed/speed-filter';
+import {SpeedFilter} from '../../components/filter/filter-speed/speed-filter';
 import {Dictionary} from '@ngrx/entity/src/models';
-import {HrzoneFilter} from '../../components/filter-hrzone/hrzone-filter';
+import {HrzoneFilter} from '../../components/filter/filter-hrzone/hrzone-filter';
 
 
 export class MockActivityFilter {

@@ -13,7 +13,7 @@ import {MinMaxActivityFilter} from '../../model/activity-filter/min-max-activity
 import {FilterService} from '../../services/filter-service/filter.service';
 import {Observable, Subscription} from 'rxjs';
 import {take} from 'rxjs/operators';
-import {HrzoneFilter} from '../../components/filter-hrzone/hrzone-filter';
+import {HrzoneFilter} from '../../components/filter/filter-hrzone/hrzone-filter';
 
 @Component({
   selector: 'app-filter-list',

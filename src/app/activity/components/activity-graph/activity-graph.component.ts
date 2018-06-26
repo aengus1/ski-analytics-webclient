@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivityService} from '../../services/activity-service/activity.service';
+import {Component, Input, OnInit} from '@angular/core';
 import {Activity} from '../../model/activity/Activity_pb';
+import {ChartOptions, YLabelFormat} from '../../../chart/components/d3-bar/ChartOptions';
 
 @Component({
   selector: 'app-activity-graph-container',
@@ -10,21 +10,28 @@ import {Activity} from '../../model/activity/Activity_pb';
 export class ActivityGraphComponent implements OnInit {
 
 
+  @Input()
   private activity: Activity;
-  private activityService: ActivityService;
-  private speedData: number[][];
 
-  constructor(activityService: ActivityService) {
-    this.activityService = activityService;
+  private chartOptions: ChartOptions;
+
+  constructor() {
   }
 
   ngOnInit() {
-     this.activityService.getActivity( '1' ).subscribe( v => {
-       this.activity = v;
-       const res = [];
-       res[0] = this.activity.getValues().getSpeedList().filter(x => Math.floor(x));
-       this.speedData = res;
-     });
+    this.chartOptions = new ChartOptions();
+  }
+
+  chartData() {
+    return [this.activity.getValues().getAltitudeList(), this.activity.getValues().getSpeedList()];
+  }
+
+  leftAxis() {
+    return ['Altitude', 0, YLabelFormat.NUMERIC];
+  }
+
+  rightAxis() {
+    return ['Speed', 1, YLabelFormat.NUMERIC];
   }
 
 

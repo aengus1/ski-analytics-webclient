@@ -3,5 +3,7 @@
 
 
     <h1>Activity Graph</h1>
+    <app-d3-line [width]="500" [height]="200" [chartOptions]="chartOptions" [xAxisData]="activity.getValues().getTsList()" [data]="chartData()"
+    [seriesData]="chartData()" [leftAxis]="leftAxis()" [rightAxis]="rightAxis()"></app-d3-line>
   </div>
 </div>

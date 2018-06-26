@@ -1,8 +1,8 @@
-import {HrzoneFilter} from '../filter-hrzone/hrzone-filter';
-import {MockActivity} from '../../model/activity/activity.mock';
-import {Activity} from '../../model/activity/Activity_pb';
+import {HrzoneFilter} from './hrzone-filter';
+import {MockActivity} from '../../../model/activity/activity.mock';
+import {Activity} from '../../../model/activity/Activity_pb';
 import * as _ from 'lodash';
-import {AbstractActivityFilter} from '../filter/abstract-activity-filter';
+import {AbstractActivityFilter} from '../abstract-activity-filter';
 
 let activity: Activity;
 let actClone: Activity;

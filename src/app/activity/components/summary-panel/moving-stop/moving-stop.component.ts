@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ChartOptions, ChartOrientation} from '../../../../chart/d3-bar/ChartOptions';
+import {ChartOptions, ChartOrientation} from '../../../../chart/components/d3-bar/ChartOptions';
 
 @Component({
   selector: 'app-moving-stop',

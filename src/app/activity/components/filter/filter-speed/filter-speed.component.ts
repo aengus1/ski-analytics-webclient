@@ -1,14 +1,14 @@
 import {Component, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {D3DualRangeSliderComponent} from '../../../chart/components/d3-dual-range-slider/d3-dual-range-slider.component';
-import {MessageEvent} from '../../../shared/utils';
+import {D3DualRangeSliderComponent} from '../../../../chart/components/d3-dual-range-slider/d3-dual-range-slider.component';
+import {MessageEvent} from '../../../../shared/utils';
 import {SpeedFilter} from './speed-filter';
-import {Activity} from '../../model/activity/Activity_pb';
-import {ActivityFilter} from '../../model/activity-filter/activity-filter.model';
-import {FilterBase} from '../filter/filter-base.model';
+import {Activity} from '../../../model/activity/Activity_pb';
+import {ActivityFilter} from '../../../model/activity-filter/activity-filter.model';
+import {FilterBase} from '../filter-base.model';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators/';
 
-import {LoggerService} from '../../../shared/services/logger.service';
+import {LoggerService} from '../../../../shared/services/logger.service';
 
 @Component({
   selector: 'app-filter-speed',

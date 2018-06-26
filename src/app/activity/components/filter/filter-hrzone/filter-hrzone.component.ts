@@ -1,10 +1,10 @@
 import {Component, EventEmitter, forwardRef, Input, OnInit, Output} from '@angular/core';
-import {FilterBase} from '../filter/filter-base.model';
-import {ActivityFilter} from '../../model/activity-filter/activity-filter.model';
-import {LoggerService} from '../../../shared/services/logger.service';
+import {FilterBase} from '../filter-base.model';
+import {ActivityFilter} from '../../../model/activity-filter/activity-filter.model';
+import {LoggerService} from '../../../../shared/services/logger.service';
 import {Subject} from 'rxjs/index';
-import {MessageEvent} from '../../../shared/utils';
-import {Activity} from '../../model/activity/Activity_pb';
+import {MessageEvent} from '../../../../shared/utils';
+import {Activity} from '../../../model/activity/Activity_pb';
 import {debounceTime} from 'rxjs/operators';
 import {HrzoneFilter} from './hrzone-filter';
 

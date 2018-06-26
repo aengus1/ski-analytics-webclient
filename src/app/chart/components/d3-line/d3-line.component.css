@@ -1,0 +1,47 @@
+.axis--x.axis-bottom path {
+  display: block !important;
+}
+
+.tick line{
+  visibility:visible !important;
+}
+
+.axis-left line{
+  stroke: red;
+  stroke-width: 0.5px;
+}
+
+.axis-left path {
+  stroke: red;
+  stroke-width: 0.5px;
+}
+
+.axis-left text {
+  fill: red;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 7pt;
+}
+
+.axis-right line{
+  stroke: deepskyblue;
+  stroke-width: 0.5px;
+}
+
+.axis-right path {
+  stroke: deepskyblue;
+  stroke-width: 0.5px;
+}
+
+.axis-right text {
+  fill: deepskyblue;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 7pt;
+}
+
+.line.left-axis-series  {
+  fill: none !important;
+  stroke: red !important;
+  stroke-width: 1px !important;
+}
