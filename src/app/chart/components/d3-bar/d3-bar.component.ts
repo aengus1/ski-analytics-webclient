@@ -145,7 +145,7 @@ export class D3BarComponent extends D3ChartComponent {
         // .attr('fill', 'black')
         // .attr('font-size', 10)
         .attr('x', this.chartOptions.orientation === ChartOrientation.VERTICAL
-          ? (d, i) => bandwidth * i : (d) => width / 2) // (d) => yScale(d))
+          ? (d, i) => bandwidth * i : (dl) => width / 2) // (d) => yScale(d))
         .attr('y', this.chartOptions.orientation === ChartOrientation.VERTICAL ?
           (d) => yScale(d) : (d, i) => bandwidth * i )
         .attr('dx', this.chartOptions.orientation === ChartOrientation.VERTICAL ? bandwidth / 2 : 0)

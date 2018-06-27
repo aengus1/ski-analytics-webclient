@@ -23,15 +23,17 @@ export class ActivityGraphComponent implements OnInit {
   }
 
   chartData() {
-    return [this.activity.getValues().getAltitudeList(), this.activity.getValues().getSpeedList()];
+    return [this.activity.getValues().getAltitudeList(), this.activity.getValues().getSpeedList(),
+    this.activity.getValues().getHrList(), this.activity.getValues().getMovingList()];
   }
 
-  leftAxis() {
-    return ['Altitude', 0, YLabelFormat.NUMERIC];
-  }
-
-  rightAxis() {
-    return ['Speed', 1, YLabelFormat.NUMERIC];
+  getSeriesKey() {
+    return [
+      ['Altitude', 0, YLabelFormat.NUMERIC, 'deepskyblue'],
+      ['Speed', 1, YLabelFormat.NUMERIC, 'red'],
+      ['HR', 2, YLabelFormat.NUMERIC, '#dddd00'],
+      ['Moving', 3, YLabelFormat.NUMERIC, 'yellowgreen']
+      ];
   }
 
 

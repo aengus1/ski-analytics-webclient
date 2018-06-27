@@ -7,34 +7,32 @@
 }
 
 .axis-left line{
-  stroke: red;
   stroke-width: 0.5px;
+  z-index: 1000;
 }
 
 .axis-left path {
-  stroke: red;
   stroke-width: 0.5px;
+  z-index: 1000;
 }
 
 .axis-left text {
-  fill: red;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-size: 7pt;
 }
 
 .axis-right line{
-  stroke: deepskyblue;
   stroke-width: 0.5px;
+  z-index: 1000;
 }
 
 .axis-right path {
-  stroke: deepskyblue;
   stroke-width: 0.5px;
+  z-index: 1000;
 }
 
 .axis-right text {
-  fill: deepskyblue;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-size: 7pt;
@@ -42,6 +40,22 @@
 
 .line.left-axis-series  {
   fill: none !important;
-  stroke: red !important;
   stroke-width: 1px !important;
+}
+
+.line.right-axis-series  {
+  fill: none !important;
+  stroke-width: 1px !important;
+}
+
+.line.axis-series  {
+  fill: none !important;
+  stroke-width: 1px !important;
+  z-index: 500;
+}
+
+.line.axis-series hover {
+  fill: none !important;
+  stroke-width: 1px !important;
+  z-index: 500;
 }
