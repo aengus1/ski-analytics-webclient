@@ -9,7 +9,7 @@ import {Activity} from '../../model/activity/Activity_pb';
 export class SummaryPanelComponent {
 
 
-  @Input()
+ @Input()
   private activity: Activity;
   @Input()
   public ActivitySport: string[];

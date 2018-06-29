@@ -1,8 +1,8 @@
 import {SpeedFilter} from './speed-filter';
-import {MockActivity} from '../../model/activity/activity.mock';
-import {Activity} from '../../model/activity/Activity_pb';
+import {MockActivity} from '../../../model/activity/activity.mock';
+import {Activity} from '../../../model/activity/Activity_pb';
 import * as _ from 'lodash';
-import {AbstractActivityFilter} from '../filter/abstract-activity-filter';
+import {AbstractActivityFilter} from '../abstract-activity-filter';
 
 let activity: Activity;
 

@@ -33,6 +33,8 @@ An individualized filter control that is wrapped by the `FilterComponent` and em
 
 ### Markers
 
+In the application there are cases when it is necessary to perform aggregations on the filtered activity.  E.g. summing distance, time, time in heart rate zone, etc. In order to perform these calculations accurately we need to know where the breaks are in the activity value series.  For example, total moving time is calculated by summing the time difference between points where the point has a non-zero speed.  If points 3 to 10 are filtered out, our filtered data array
+will look like 1,2,11 and would include the timestamp difference between 2 and 11 which is not accurate because these points should not be included.  Instead we insert markers: `NaN` for numerical value series and `marker` for string series.  To simplify the aggregation algorithms, contigious markers are removed, i.e. our series would become 1,2, NaN, 11.
  
  ```puml
  @startuml
@@ -64,5 +66,14 @@ An individualized filter control that is wrapped by the `FilterComponent` and em
  @enduml
  ```
  
+ As all data series maintain the same shape, markers are inserted equally into every series.
+ 
+ ###Timestamp Lookup
+ 
+ In most cases when performing summary calculations around filtered out points that do pairwise comparisons between adjacent points, we make the assumption that if point A is unfiltered then we include the time/dist/whatever sum between A and B in the aggregation.  
+ 
+ e.g. given `5`, `NaN`, `6`  we would include the `5` to `NaN` but not the `NaN` to `6`.  This presents a problem as the value (and timestamp) for `NaN` is obviously missing.  We could get around this by looking up the point at the same index as `NaN` in the unfiltered activity, but because contigious markers are reduced down to a single marker the indices are also skewed.
+ The solution used here is to create a lookup map between index and timestamp on the unfiltered activity as timestamps are guaranteed to be unique across points.  In this example then we could lookup the timestamp for value at `5`, get the index and add `1` to get the index of `NaN`, allowing us to look it up in the unfiltered activity.
+  
  
  

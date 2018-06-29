@@ -1,6 +1,6 @@
-import {ActivityFilterType} from '../../model/activity-filter/activity-filter.model';
-import {Activity} from '../../model/activity/Activity_pb';
-import {AbstractActivityFilter} from '../filter/abstract-activity-filter';
+import {ActivityFilterType} from '../../../model/activity-filter/activity-filter.model';
+import {Activity} from '../../../model/activity/Activity_pb';
+import {AbstractActivityFilter} from '../abstract-activity-filter';
 import * as _ from 'lodash';
 
 export class HrzoneFilter extends AbstractActivityFilter {

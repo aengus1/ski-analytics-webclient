@@ -1,14 +1,8 @@
-import { reducer, initialState } from './activity-filter.reducer';
-import * as fromActivities from './activity.reducer';
-import {ActivitySidebarType} from '../actions/activity.actions';
 import * as fromFilters from './activity-filter.reducer';
-import {
-  AddActivityFilter,
-  DeleteActivityFilter,
-  UpdateActivityFilter
-} from '../actions/activity-filter.actions';
-import { MockActivityFilter } from '../model/activity-filter/activity-filter.mock';
-import {SpeedFilter} from '../components/filter-speed/speed-filter';
+import {reducer} from './activity-filter.reducer';
+import {AddActivityFilter, DeleteActivityFilter, UpdateActivityFilter} from '../actions/activity-filter.actions';
+import {MockActivityFilter} from '../model/activity-filter/activity-filter.mock';
+import {SpeedFilter} from '../components/filter/filter-speed/speed-filter';
 
 const initState: fromFilters.State  = {
   ids: [],

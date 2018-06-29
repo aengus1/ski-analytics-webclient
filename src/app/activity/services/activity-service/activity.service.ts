@@ -20,8 +20,8 @@ export class ActivityService implements OnInit {
   }
 
   getActivity(id: string): Observable<Activity> {
-    // return this.http.get( 'https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/27031720.pb', {responseType: 'arraybuffer'})
-     return this.http.get( 'https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/2612170.pb', {responseType: 'arraybuffer'})
+     return this.http.get( 'https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/27031720.pb', {responseType: 'arraybuffer'})
+     // return this.http.get( 'https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/2612170.pb', {responseType: 'arraybuffer'})
     // return this.http.get( 'https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/run280317_0.pb', {responseType: 'arraybuffer'})
       // return this.http.get('https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/suunto_10.pb', {responseType: 'arraybuffer'})
        .pipe(map(res => Activity.deserializeBinary(new Uint8Array(res)))).pipe(map(v => {
