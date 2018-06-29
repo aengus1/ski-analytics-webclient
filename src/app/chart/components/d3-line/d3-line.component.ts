@@ -2,8 +2,9 @@ import {Component, ElementRef, Input, ViewEncapsulation} from '@angular/core';
 import {D3ChartComponent} from '../d3-chart/d3chart.component';
 import {LoggerService} from '../../../shared/services/logger.service';
 import {D3Service, Selection} from 'd3-ng2-service';
-import {ChartOptions, YLabelFormat} from '../d3-bar/ChartOptions';
+import {ChartOptions} from '../d3-bar/ChartOptions';
 import {ScaleLinear} from 'd3-scale';
+import {DataSeries} from './data-series.model';
 
 @Component({
   selector: 'app-d3-line',
@@ -23,10 +24,10 @@ export class D3LineComponent extends D3ChartComponent {
   private seriesData: number[][];  // data in base type represents the x axis data series.  seriesData represents all of the value series
 
   @Input()
-  private seriesKey: [[string, number, YLabelFormat, string]];  // tuple: name, index of data series in 'seriesData', data type, color
+  private seriesKey: DataSeries[];  // tuple: name, index of data series in 'seriesData', data type, color
 
   @Input()
-  private showSeries: number[];
+  private xAxisFormat = 2; // 0 = time of day, 1 = seconds, 2 = hh:mm:ss
 
   private min: any;
   private max: any;
@@ -35,11 +36,16 @@ export class D3LineComponent extends D3ChartComponent {
   private axes: any[][] = [];
   private lAxis: any = null;
   private rAxis: any = null;
+  private rAxisIdx = null;
+  private lAxisIdx = null;
+  private xSeries = null;
+  private xScale = null;
+  private xAxis = null;
   private g: Selection<any, SVGSVGElement, any, any>;
 
   constructor(element: ElementRef, d3Service: D3Service, logger: LoggerService) {
-    super(element, d3Service, logger);
-    this.logger = logger;
+  super(element, d3Service, logger);
+  this.logger = logger;
   }
 
   public createChart() {
@@ -81,68 +87,137 @@ export class D3LineComponent extends D3ChartComponent {
   }
 
   public setLeftAxis(index: number) {
-     this.g.select('g.axis--y.axis-left').remove();
-      this.lAxis = this.g.append('g').classed('axis--y axis-left', true)
-        .style('stroke', this.axes[index][0][3])
-        .call(this.axes[index][2]);
-      this.lAxis.selectAll('g').classed('tick', true)
-        .attr('class', 'tick axis-left')
-        .style('font-family', '"Helvetica Neue", Helvetica, Arial, sans-serif')
-        .style('font-weight', 'normal')
-        .style('font-size', 'normal')
-        .select('line').attr('class', 'axis-left');
+    this.g.select('g.axis--y.axis-left').remove();
+    this.g.select('text.axis--y.axis-left').remove();
+
+    this.lAxis = this.g.append('g').classed('axis--y axis-left', true)
+      .style('stroke', this.axes[index][0].color)
+      .call(this.axes[index][2]);
+
+    // axis ticks
+    this.lAxis.selectAll('g').classed('tick', true)
+      .attr('class', 'tick axis-left')
+      .style('font-family', '"Helvetica Neue", Helvetica, Arial, sans-serif')
+      .style('font-weight', 'normal')
+      .style('font-size', 'normal')
+      .style('stroke', this.axes[index][0].color)
+      .select('line').attr('class', 'axis-left');
+
+    this.lAxis.selectAll('g.tick.axis-left.text').style('stroke', 'black');
+      // .select('text').style('stroke', 'black !important');
+
+    // axis label
+    this.g.append('text').classed('axis--y axis-left', true)
+      .attr('transform', 'rotate(-90)')
+      .attr('x', 0 - (this.height / 2.5))
+      .attr('y', 0 - this.margin.left)
+      .attr('dy', '1em')
+      .style('font-family', '"Helvetica Neue", Helvetica, Arial, sans-serif')
+      .style('font-weight', 'normal')
+      .style('font-size', 'small')
+      .style('text-anchor', 'middle')
+      .text(this.axes[index][0].name);
   }
 
   public setRightAxis(index: number) {
-     this.g.select('g.axis--y.axis-right').remove();
-      this.rAxis = this.g.append('g').classed('axis--y axis-right', true)
-        .attr('transform', 'translate( ' + (this.width - this.margin.left - this.margin.right) + ', 0 )')
-        .style('stroke', this.axes[index][0][3] + ' !important;')
-        .call(this.axes[index][3]);
-      this.rAxis.selectAll('g').classed('tick', true).attr('class', 'tick axis-right')
-        .style('stroke', this.axes[index][0][3])
-        .style('font-family', '"Helvetica Neue", Helvetica, Arial, sans-serif')
-        .style('font-weight', 'normal')
-        .style('font-size', 'normal')
-        .select('line').attr('class', 'axis-right')
-        .style('stroke', this.axes[index][0][3]);
+    this.g.select('g.axis--y.axis-right').remove();
+    this.g.select('text.axis--y.axis-right').remove();
+
+    this.rAxis = this.g.append('g').classed('axis--y axis-right', true)
+      .attr('transform', 'translate( ' + (this.width - this.margin.left - this.margin.right) + ', 0 )')
+      .style('stroke', this.axes[index][0].color + ' !important;')
+      .call(this.axes[index][3]);
+
+    this.rAxis.selectAll('g').classed('tick', true)
+      .attr('class', 'tick axis-right')
+      .style('font-family', '"Helvetica Neue", Helvetica, Arial, sans-serif')
+      .style('font-weight', 'normal')
+      .style('font-size', 'normal')
+      .style('stroke', this.axes[index][0].color)
+      .select('line').attr('class', 'axis-right');
+
+    this.g.append('text').classed('axis--y axis-right', true)
+      .attr('transform', 'rotate(-90)')
+      .attr('x', 0 - (this.height / 2.5))
+      .attr('y', this.width - this.margin.left - this.margin.right + 25)
+      .attr('dy', '1em')
+      .style('font-family', '"Helvetica Neue", Helvetica, Arial, sans-serif')
+      .style('font-weight', 'normal')
+      .style('font-size', 'small')
+      .style('text-anchor', 'middle')
+      .text(this.axes[index][0].name);
 
 
   }
-
 
   protected build() {
     const svg = this.d3Svg.append('g').attr('transform', 'translate(' + this.margin.left + ', ' + this.margin.top + ')');
     const width = this.width - this.margin.left - this.margin.right;
     const height = this.height - this.margin.top - this.margin.bottom;
+    const background = svg.append('rect')
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('width', width)
+      .attr('height', height)
+      .style('opacity', 0.5)
+      .style('fill', '#d2f7ff');
 
-    // todo -> make x axis variable (time, interval, dist) and change interval format to mm:ss
-    let timeSeries = this.xAxisData.map(x => new Date(x).valueOf());
-    const timeOffset: number = timeSeries[0];
-    const toSeconds = x => (x - timeOffset) / 1000;
-    timeSeries = timeSeries.map(x => toSeconds(x));
-    const xScale = this.d3.scaleLinear().domain([0, this.d3.max(timeSeries)]).range([0, width]);
 
-    const xAxis = this.d3.axisBottom(xScale).tickSize(0);
+    // set up the x axis
+    switch (this.xAxisFormat) {
+      case 0: { // in seconds
+        this.xSeries = this.xAxisData.map(x => new Date(x).valueOf());
+        this.xScale = this.d3.scaleTime().domain([this.xSeries[0], this.d3.max(this.xSeries)]).range([0, width]);
+         this.xAxis = this.d3.axisBottom(this.xScale).tickSize(5);
+        break;
+      }
+      case 1: { // in time of day
+         this.xSeries = this.xAxisData.map(x => new Date(x).valueOf());
+        const timeOffset: number = this.xSeries[0];
+        const toSeconds = x => (x - timeOffset) / 1000;
+         this.xSeries = this.xSeries.map(x => toSeconds(x));
+        this.xScale = this.d3.scaleLinear()
+          .domain([0, this.d3.max(<number[]>this.xSeries)])
+          .range([0, width]);
+        this.xAxis = this.d3.axisBottom(this.xScale).tickSize(0);
+        break;
+      }
+      case 2: {  // in hh:mm:ss
+         this.xSeries = this.xAxisData.map(x => new Date(x).valueOf()
+          - (new Date(this.xAxisData[0]).valueOf() - this.d3.timeDay.round(new Date(this.xAxisData[0])).valueOf()));
+        this.xScale = this.d3.scaleTime().domain([this.xSeries[0], this.d3.max(this.xSeries)]).range([0, width]).nice();
+        this.xAxis = this.d3.axisBottom(this.xScale).tickSize(5).tickFormat(this.d3.timeFormat('%H:%M:%S'));
+      }
+    }
+
+    // TODO //option 4 -> display distance
+
     const xAxisEl = svg.append('g').classed('axis--x', true)
       .attr('class', 'axis-bottom')
       .style('text-anchor', 'start')
       .attr('transform', 'translate(0,' + height + ')')
-      .call(xAxis);
+      .call(this.xAxis)
+      .selectAll('text')
+      .style('text-anchor', 'end')
+      .attr('dx', '-.8em')
+      .attr('dy', '.15em')
+      .attr('transform', 'rotate(-65)');
 
     /**
-     * create an array of axis
+     * set up the y axes - create an array of axis
      * key:  -ve = currently visible axis, lower number is left axis.
      * number indicates index of data series it represents in seriesData array
      * value: [ ['name:string', 'index: number', format:YLabelFormat], [scale], [axisL], [axisR] (draw elements on demand)
      */
     this.seriesKey.forEach(series => {
-      const scale = this.d3.scaleLinear().domain([0, this.d3.max(this.seriesData[series[1]])]).range([height, 0]);
+      const scale = this.d3.scaleLinear().domain([0, this.d3.max(this.seriesData[series.index])]).range([height, 0]);
       const axisL = this.d3.axisLeft(scale).ticks(6).tickPadding(5);
       const axisR = this.d3.axisRight(scale).ticks(6).tickPadding(5);
       this.axes.push([series, scale, axisL, axisR]);
     });
 
+    this.lAxisIdx = 0;
+    this.rAxisIdx = 1;
     this.setLeftAxis(0);
     this.setRightAxis(1);
 
@@ -150,100 +225,48 @@ export class D3LineComponent extends D3ChartComponent {
     /**
      * draw the enabled series'
      */
-    this.showSeries.forEach( (x, i) => {
+    this.seriesKey.forEach((x, i) => {
+      if (! x.enabled) { // only draw enabled series
+        return;
+      }
       const scale: ScaleLinear<number, number> = this.axes[i][1];
-      const dict =  [];
-      this.seriesData[x].forEach( (v, idx) => {
+      const dict = [];
+      this.seriesData[x.index].forEach((v, idx) => {
         const seriesA = {};
-        seriesA['x'] = timeSeries[idx];
+        seriesA['x'] = this.xSeries[idx];
         seriesA['y'] = v;
         dict.push(seriesA);
       });
 
       const valueline = this.d3.line()
-        .x( (d) => xScale(d['x'])).y( d => scale(d['y']));
-
+        .x((d) => this.xScale(d['x'])).y(d => scale(d['y']));
+      let clicked = false;
       svg.append('path')
         .attr('class', 'line axis-series a' + i)
-        .style('stroke', this.axes[i][0][3])
+        .style('stroke', this.axes[i][0].color)
         .attr('d', valueline(dict))
-        // TODO -> make lines pop on mouseover and add axis if not currently set
         .on('mouseover', d => {
-          console.log('mousein' + JSON.stringify(this.d3.select(this.d3.event.target)));
-          this.d3.select(this.d3.event.target).style('stroke-width', 5);
+          this.d3.select(this.d3.event.target).style('stroke-width', 2);
+          //TODO -> this isn't working
+          if (this.lAxisIdx !== this.axes[x.index][0].index && this.rAxisIdx !== this.axes[x.index][0].index) {
+            this.setRightAxis(x.index);
+          }
         })
         .on('mouseout', d => {
-          console.log('mouseout');
           this.d3.select(this.d3.event.target).style('stroke-width', '1px');
+          if (!clicked) {
+            this.setRightAxis(this.rAxisIdx);
+          }
+          clicked = false;
+        })
+        .on('click', d => {
+          this.d3.select(this.d3.event.target).style('stroke-width', '1px');
+          this.rAxisIdx = x;
+          this.setRightAxis(x.index);
+          clicked = true;
         });
       //
-    })
-
-    this.setRightAxis(1);
-    this.setLeftAxis(2);
-
-//   const lAxisSeries: number = this.leftAxis['1'];
-//   const leftYScale = this.d3.scaleLinear().domain([0, this.d3.max(this.seriesData[this.leftAxis['1']])]).range([height, 0]);
-//   const yAxisLeft =  this.d3.axisLeft(leftYScale).ticks(6).tickPadding(5);
-//   const yAxisLeftEl = svg.append('g')
-//     .classed('axis--y axis-left', true)
-//     .call(yAxisLeft);
-//   yAxisLeftEl.selectAll('g').classed('tick', true).attr('class', 'tick axis-left')
-//     .select('line').attr('class', 'axis-left');
-//
-//   axes.set(-2, [ this.seriesData[0], leftYScale, yAxisLeft, yAxisLeftEl]);
-//
-//   const rightYScale = this.d3.scaleLinear().domain([0, this.d3.max(this.seriesData[this.rightAxis['1']])]).range([height, 0]);
-//   const yAxisRight = this.d3.axisRight(rightYScale).ticks(6).tickPadding(5);
-//   const yAxisRightEl = svg.append('g')
-//     .classed('axis--y axis-right', true)
-//     .attr('transform', 'translate( ' + width + ', 0 )')
-//     .call(yAxisRight);
-//   yAxisRightEl.selectAll('g').classed('tick', true).attr('class', 'tick axis-right')
-//     .select('line').attr('class', 'axis-right');
-//   axes.set(-1, [ this.rightAxis, rightYScale, yAxisRight, yAxisRightEl]);
-//
-//
-
-
-// left axis series
-// const dictL =  [];
-//   this.seriesData[0].forEach( (x, i) => {
-//     const seriesA = {};
-//     seriesA['x'] = timeSeries[i];
-//     seriesA['y'] = x;
-//     dictL.push(seriesA);
-//   });
-//    // console.log('seriesA ' + JSON.stringify(dict));
-//    const valueline2 = this.d3.line()
-//      .x( (d) => xScale(d['x'])).y( d => leftYScale(d['y']));
-//   //   .x( (d, i) => xScale(this.xAxisData[i]))
-//   //   .y(d => leftYScale(d));
-//
-//   svg.append('path')
-//     .attr('class', 'line left-axis-series')
-//     .attr('d', valueline2(dictL));
-//
-//   // right axis series
-//   const dictR =  [];
-//   this.seriesData[1].forEach( (x, i) => {
-//     const seriesA = {};
-//     seriesA['x'] = timeSeries[i];
-//     seriesA['y'] = x;
-//     dictR.push(seriesA);
-//   });
-//   // console.log('seriesA ' + JSON.stringify(dict));
-//   const valuelineR = this.d3.line()
-//     .x( (d) => xScale(d['x'])).y( d => rightYScale(d['y']));
-//   //   .x( (d, i) => xScale(this.xAxisData[i]))
-//   //   .y(d => leftYScale(d));
-//
-//   svg.append('path')
-//     .attr('class', 'line right-axis-series')
-//     .attr('d', valuelineR(dictR));
-
-
-
+    });
   }
 
 }

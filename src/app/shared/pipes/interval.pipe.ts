@@ -8,13 +8,17 @@ export class IntervalPipe implements PipeTransform {
   private leadingZeroes = true;
 
   transform(seconds: any, args?: any): any {
-    if (seconds <= 0) {
-      return '00:00:00';
+    try {
+      if (seconds <= 0) {
+        return '00:00:00';
+      }
+      const hours = Math.floor(seconds / 60 / 60);
+      const minutes = Math.floor((seconds / 60) - (hours * 60));
+      const sec = Math.floor(seconds - (minutes * 60) - (hours * 3600));
+      return (hours > 0 || this.leadingZeroes ? this.pad(hours, 2) + ':' : '') + this.pad(minutes, 2) + ':' + this.pad(sec, 2);
+    }catch (ex) {
+      console.warn('[Interval Pipe]  transform error ' + ex);
     }
-    const hours = Math.floor(seconds / 60 / 60);
-    const minutes = Math.floor((seconds / 60) - (hours * 60));
-    const sec = Math.floor(seconds - (minutes * 60) - (hours * 3600));
-    return (hours > 0 || this.leadingZeroes ? this.pad(hours, 2) + ':' : '')  + this.pad(minutes, 2) + ':' + this.pad(sec, 2);
   }
 
   /* pad a number (num) as a string with  (size) leading zeroes */

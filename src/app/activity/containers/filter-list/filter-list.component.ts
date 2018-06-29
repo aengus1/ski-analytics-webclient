@@ -11,7 +11,7 @@ import * as fromActivity from '../../reducers';
 import {select, Store} from '@ngrx/store';
 import {MinMaxActivityFilter} from '../../model/activity-filter/min-max-activity-filter.model';
 import {FilterService} from '../../services/filter-service/filter.service';
-import {Observable, Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import {take} from 'rxjs/operators';
 import {HrzoneFilter} from '../../components/filter/filter-hrzone/hrzone-filter';
 
@@ -31,7 +31,6 @@ export class FilterListComponent implements OnInit {
   changeEvent = new EventEmitter<MessageEvent<number | string>>();
   private filterCount = 0;
   private filters$: Observable<Dictionary<ActivityFilter>>;
-  private sub: Subscription;
   constructor(private store: Store<fromActivity.State>, private filterService: FilterService, private cd: ChangeDetectorRef) {
 
   }

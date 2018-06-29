@@ -1,6 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Activity} from '../../model/activity/Activity_pb';
 import {ChartOptions, YLabelFormat} from '../../../chart/components/d3-bar/ChartOptions';
+import {D3LineComponent} from '../../../chart/components/d3-line/d3-line.component';
+import {DataSeries} from '../../../chart/components/d3-line/data-series.model';
 
 @Component({
   selector: 'app-activity-graph-container',
@@ -15,8 +17,19 @@ export class ActivityGraphComponent implements OnInit {
 
   private chartOptions: ChartOptions;
 
+  @ViewChild(D3LineComponent) graph;
+
+  // private showSeries: number[] = [0, 1, 2];
+
   constructor() {
   }
+  private seriesKey =    [
+    new DataSeries('Altitude (m)', 0, 'deepskyblue', YLabelFormat.NUMERIC,  true),
+    new DataSeries('Speed (km/h)', 1, '#ffa9e6', YLabelFormat.NUMERIC, true),
+    new DataSeries('Heart Rate (bpm)', 2, '#99fac8', YLabelFormat.NUMERIC,  true),
+    new DataSeries('Moving', 3, 'yellowgreen', YLabelFormat.NUMERIC, false)
+  ];
+
 
   ngOnInit() {
     this.chartOptions = new ChartOptions();
@@ -27,15 +40,21 @@ export class ActivityGraphComponent implements OnInit {
     this.activity.getValues().getHrList(), this.activity.getValues().getMovingList()];
   }
 
-  getSeriesKey() {
-    return [
-      ['Altitude', 0, YLabelFormat.NUMERIC, 'deepskyblue'],
-      ['Speed', 1, YLabelFormat.NUMERIC, 'red'],
-      ['HR', 2, YLabelFormat.NUMERIC, '#dddd00'],
-      ['Moving', 3, YLabelFormat.NUMERIC, 'yellowgreen']
-      ];
+  toggleSeries(idx: number) {
+    const series = this.seriesKey.filter(x => x.index === idx)[0];
+    series.enabled ? series.enabled = false : series.enabled = true;
   }
 
+  receiveMessage($event) {
+    console.log('received message');
+    switch ($event.name) {
+      case 'toggleSeries': {
+        console.log('received message toggle');
+        this.toggleSeries($event.payload);
+        break;
+      }
+    }
+  }
 
 
 

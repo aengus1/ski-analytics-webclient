@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="btn-group-toggle col-xs-12" data-toggle="buttons">
+    <label
+      *ngFor="let key of seriesKey; index as i;"
+      class="btn btn-sm btn-outline-secondary"
+      [ngClass]="key.enabled ?'active':''"
+    [ngStyle]="{'background-color': key.enabled ? key.color : '#FFF'}"
+      [ngStyle]="{'background-color': key.enabled ? key.color : '#FFF'} "
+      [ngStyle]="{'.btn-secondary-outline.active :hover': {color: key.color}}"
+    >
+      <input
+        type="checkbox"
+        name="z{{i}}"
+        id="z{{i}}"
+        value="{{i}}"
+        (click)="toggleSeries(key.index)"
+        [checked]="key.enabled">{{key.name}}
+    </label>
+  </div>
+</div>

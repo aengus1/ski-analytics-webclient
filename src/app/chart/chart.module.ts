@@ -9,10 +9,12 @@ import {D3BarComponent} from './components/d3-bar/d3-bar.component';
 import {LoggerService} from '../shared/services/logger.service';
 import {D3RadialComponent} from './components/d3-radial/d3-radial.component';
 import {D3LineComponent} from './components/d3-line/d3-line.component';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule
   ],
   declarations: [D3BoxplotComponent, D3ChartComponent, D3RangeSliderComponent, D3DualRangeSliderComponent,
     D3BarComponent, D3RadialComponent, D3LineComponent],

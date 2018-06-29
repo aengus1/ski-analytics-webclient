@@ -1,9 +1,10 @@
 <div class="card">
   <div class="card-body">
 
-
-    <h1>Activity Graph</h1>
-    <app-d3-line [width]="500" [height]="200" [chartOptions]="chartOptions" [xAxisData]="activity.getValues().getTsList()" [data]="chartData()"
-    [seriesData]="chartData()" [showSeries]="[0,1,2]" [seriesKey]="getSeriesKey()" ></app-d3-line>
+    <app-d3-line #graph [width]="600" [height]="300" [chartOptions]="chartOptions" [xAxisData]="activity.getValues().getTsList()" [data]="chartData()"
+    [seriesData]="chartData()" [seriesKey]="seriesKey" ></app-d3-line>
   </div>
+
+  <app-series-control (changeEvent)="receiveMessage($event)" [seriesKey]="seriesKey"></app-series-control>
+
 </div>
