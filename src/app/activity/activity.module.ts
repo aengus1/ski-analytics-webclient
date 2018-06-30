@@ -38,6 +38,7 @@ import {LoggerService} from '../shared/services/logger.service';
 import {FilterHrzoneComponent} from './components/filter/filter-hrzone/filter-hrzone.component';
 import {FormsModule} from '@angular/forms';
 import {SeriesControlComponent} from './components/activity-graph/series-control/series-control.component';
+import {XAxisControlComponent} from './components/activity-graph/x-axis-control/x-axis-control.component';
 
 @NgModule({
   imports: [
@@ -81,13 +82,14 @@ import {SeriesControlComponent} from './components/activity-graph/series-control
     MovingStopComponent,
     HrZoneHistogramComponent,
     FilterHrzoneComponent,
-    SeriesControlComponent
+    SeriesControlComponent,
+    XAxisControlComponent
   ],
   providers: [
     ActivityService, FilterService, MockActivityService, D3Service, ActivityExistsGuard, IntervalPipe, ActivitySummaryService, LoggerService
   ],
   exports: [ActivityComponent, FilterListComponent, MapComponent, AttributeComponent,
   SummaryPanelComponent, AscentDescentComponent, MovingStopComponent, HrZoneHistogramComponent,
-    FilterHrzoneComponent, SeriesControlComponent]
+    FilterHrzoneComponent, SeriesControlComponent, XAxisControlComponent]
 })
 export class ActivityModule { }
