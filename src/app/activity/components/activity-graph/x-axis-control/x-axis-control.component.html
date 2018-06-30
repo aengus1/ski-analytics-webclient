@@ -1,0 +1,24 @@
+<div class="container">
+  <!--<div class="row">-->
+    <!--<div class="col-md-1 col-sm-1 col-xs-1">-->
+
+    <!--</div>-->
+    <!--<div class="col-md-6 col-sm-9 col-xs-10">-->
+      <div class="btn-group-toggle col-xs-12" data-toggle="buttons">
+        <label
+          *ngFor="let key of axisKeys; index as i;"
+          class="btn btn-sm btn-outline-secondary"
+          [ngClass]="selectedAxis ===key  ?'active':''"
+        >
+          <input
+            type="checkbox"
+            name="z{{i}}"
+            id="z{{i}}"
+            value="{{i}}"
+            (click)="selectAxis(key)"
+            [checked]="selectedAxis ===key">{{key}}
+        </label>
+      </div>
+    <!--</div>-->
+  <!--</div>-->
+</div>

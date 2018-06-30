@@ -146,8 +146,37 @@ export class D3LineComponent extends D3ChartComponent {
       .style('font-size', 'small')
       .style('text-anchor', 'middle')
       .text(this.axes[index][0].name);
+  }
 
-
+  public setXAxis(axisFormat: number) {
+    this.xAxisFormat = axisFormat;
+    switch (this.xAxisFormat) {
+      case 0: { // in seconds
+        this.xSeries = this.xAxisData.map(x => new Date(x).valueOf());
+        this.xScale = this.d3.scaleTime().domain([this.xSeries[0], this.d3.max(this.xSeries)])
+          .range([0, (this.width - this.margin.left - this.margin.right)]);
+        this.xAxis = this.d3.axisBottom(this.xScale).tickSize(5);
+        break;
+      }
+      case 1: { // in time of day
+        this.xSeries = this.xAxisData.map(x => new Date(x).valueOf());
+        const timeOffset: number = this.xSeries[0];
+        const toSeconds = x => (x - timeOffset) / 1000;
+        this.xSeries = this.xSeries.map(x => toSeconds(x));
+        this.xScale = this.d3.scaleLinear()
+          .domain([0, this.d3.max(<number[]>this.xSeries)])
+          .range([0, (this.width - this.margin.left - this.margin.right)]);
+        this.xAxis = this.d3.axisBottom(this.xScale).tickSize(0);
+        break;
+      }
+      case 2: {  // in hh:mm:ss
+        this.xSeries = this.xAxisData.map(x => new Date(x).valueOf()
+          - (new Date(this.xAxisData[0]).valueOf() - this.d3.timeDay.round(new Date(this.xAxisData[0])).valueOf()));
+        this.xScale = this.d3.scaleTime().domain([this.xSeries[0], this.d3.max(this.xSeries)])
+          .range([0, (this.width - this.margin.left - this.margin.right)]);
+        this.xAxis = this.d3.axisBottom(this.xScale).tickSize(5).tickFormat(this.d3.timeFormat('%H:%M:%S'));
+      }
+    }
   }
 
   protected build() {
@@ -164,31 +193,7 @@ export class D3LineComponent extends D3ChartComponent {
 
 
     // set up the x axis
-    switch (this.xAxisFormat) {
-      case 0: { // in seconds
-        this.xSeries = this.xAxisData.map(x => new Date(x).valueOf());
-        this.xScale = this.d3.scaleTime().domain([this.xSeries[0], this.d3.max(this.xSeries)]).range([0, width]);
-         this.xAxis = this.d3.axisBottom(this.xScale).tickSize(5);
-        break;
-      }
-      case 1: { // in time of day
-         this.xSeries = this.xAxisData.map(x => new Date(x).valueOf());
-        const timeOffset: number = this.xSeries[0];
-        const toSeconds = x => (x - timeOffset) / 1000;
-         this.xSeries = this.xSeries.map(x => toSeconds(x));
-        this.xScale = this.d3.scaleLinear()
-          .domain([0, this.d3.max(<number[]>this.xSeries)])
-          .range([0, width]);
-        this.xAxis = this.d3.axisBottom(this.xScale).tickSize(0);
-        break;
-      }
-      case 2: {  // in hh:mm:ss
-         this.xSeries = this.xAxisData.map(x => new Date(x).valueOf()
-          - (new Date(this.xAxisData[0]).valueOf() - this.d3.timeDay.round(new Date(this.xAxisData[0])).valueOf()));
-        this.xScale = this.d3.scaleTime().domain([this.xSeries[0], this.d3.max(this.xSeries)]).range([0, width]).nice();
-        this.xAxis = this.d3.axisBottom(this.xScale).tickSize(5).tickFormat(this.d3.timeFormat('%H:%M:%S'));
-      }
-    }
+    this.setXAxis(this.xAxisFormat);
 
     // TODO //option 4 -> display distance
 

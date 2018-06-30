@@ -19,6 +19,8 @@ export class ActivityGraphComponent implements OnInit {
 
   @ViewChild(D3LineComponent) graph;
 
+  private xAxisFormat = new Map<string, number>();
+
   // private showSeries: number[] = [0, 1, 2];
 
   constructor() {
@@ -33,6 +35,9 @@ export class ActivityGraphComponent implements OnInit {
 
   ngOnInit() {
     this.chartOptions = new ChartOptions();
+    this.xAxisFormat.set('time of day', 0);
+    this.xAxisFormat.set('seconds', 1);
+    this.xAxisFormat.set('hh:mm:ss', 2);
   }
 
   chartData() {
@@ -49,8 +54,11 @@ export class ActivityGraphComponent implements OnInit {
     console.log('received message');
     switch ($event.name) {
       case 'toggleSeries': {
-        console.log('received message toggle');
         this.toggleSeries($event.payload);
+        break;
+      }
+      case 'selectXAxis': {
+        this.graph.setXAxis(this.xAxisFormat.get($event.payload));
         break;
       }
     }
