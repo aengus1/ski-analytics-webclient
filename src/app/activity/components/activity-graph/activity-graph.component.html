@@ -2,7 +2,7 @@
   <div class="card-body">
     <app-series-control id="seriesControl" (changeEvent)="receiveMessage($event)" [seriesKey]="seriesKey"></app-series-control>
     <app-d3-line #graph [width]="600" [height]="300" [chartOptions]="chartOptions" [xAxisData]="activity.getValues().getTsList()" [data]="chartData()"
-    [seriesData]="chartData()" [seriesKey]="seriesKey" ></app-d3-line>
+    [seriesData]="chartData()" [seriesKey]="seriesKey" [filteredIndices]="filteredIndices"></app-d3-line>
     <app-x-axis-control id="xAxisControl" (changeEvent)="receiveMessage($event)" [axisKeys]="['hh:mm:ss', 'seconds', 'time of day']"></app-x-axis-control>
   </div>
 

@@ -59,6 +59,7 @@ Object {
     "INVALID_SUBSPORT",
   ],
   "entities": Object {},
+  "filteredIndices": Array [],
   "ids": Array [],
   "selectedActivityId": null,
   "sidebarContent": 0,
