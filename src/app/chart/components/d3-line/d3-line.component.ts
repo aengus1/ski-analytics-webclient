@@ -5,6 +5,7 @@ import {D3Service, Selection} from 'd3-ng2-service';
 import {ChartOptions} from '../d3-bar/ChartOptions';
 import {ScaleLinear} from 'd3-scale';
 import {DataSeries} from './data-series.model';
+import {BaseType} from 'd3-selection';
 
 @Component({
   selector: 'app-d3-line',
@@ -29,6 +30,9 @@ export class D3LineComponent extends D3ChartComponent {
   @Input()
   private xAxisFormat = 2; // 0 = time of day, 1 = seconds, 2 = hh:mm:ss
 
+  @Input()
+  private filteredIndices: number[];
+
   private min: any;
   private max: any;
   private margin: any;
@@ -44,8 +48,8 @@ export class D3LineComponent extends D3ChartComponent {
   private g: Selection<any, SVGSVGElement, any, any>;
 
   constructor(element: ElementRef, d3Service: D3Service, logger: LoggerService) {
-  super(element, d3Service, logger);
-  this.logger = logger;
+    super(element, d3Service, logger);
+    this.logger = logger;
   }
 
   public createChart() {
@@ -104,7 +108,7 @@ export class D3LineComponent extends D3ChartComponent {
       .select('line').attr('class', 'axis-left');
 
     this.lAxis.selectAll('g.tick.axis-left.text').style('stroke', 'black');
-      // .select('text').style('stroke', 'black !important');
+    // .select('text').style('stroke', 'black !important');
 
     // axis label
     this.g.append('text').classed('axis--y axis-left', true)
@@ -148,6 +152,32 @@ export class D3LineComponent extends D3ChartComponent {
       .text(this.axes[index][0].name);
   }
 
+  public drawFilters(svg: Selection<BaseType, any, null, undefined>) {
+    if (this.filteredIndices != null && this.filteredIndices !== []) {
+      for (let i = 0; i < this.xSeries.length - 1; i++) {
+
+        // draw filters
+        if (this.filteredIndices.includes(i)) {
+          let j = 0;
+          while (this.filteredIndices.includes(i + j++) && (j + i) < this.xSeries.length - 2) {}
+
+          svg.append('rect')
+            .attr('x', this.xScale(this.xSeries[i]))
+            .attr('y', 0)
+            .attr('width', this.xScale(this.xSeries[(j + i)]) - this.xScale(this.xSeries[i]))
+            .attr('height', this.height - this.margin.top - this.margin.bottom)
+            .style('opacity', 0.5)
+            .style('fill', '#f1d8f4');
+          i += j;
+          if ( i >= this.xSeries.length) {
+            return;
+          }
+        }
+
+      }
+    }
+  }
+
   public setXAxis(axisFormat: number) {
     this.xAxisFormat = axisFormat;
     switch (this.xAxisFormat) {
@@ -183,6 +213,7 @@ export class D3LineComponent extends D3ChartComponent {
     const svg = this.d3Svg.append('g').attr('transform', 'translate(' + this.margin.left + ', ' + this.margin.top + ')');
     const width = this.width - this.margin.left - this.margin.right;
     const height = this.height - this.margin.top - this.margin.bottom;
+
     const background = svg.append('rect')
       .attr('x', 0)
       .attr('y', 0)
@@ -195,7 +226,8 @@ export class D3LineComponent extends D3ChartComponent {
     // set up the x axis
     this.setXAxis(this.xAxisFormat);
 
-    // TODO //option 4 -> display distance
+    // draw filters
+    this.drawFilters(svg);
 
     const xAxisEl = svg.append('g').classed('axis--x', true)
       .attr('class', 'axis-bottom')
@@ -231,7 +263,7 @@ export class D3LineComponent extends D3ChartComponent {
      * draw the enabled series'
      */
     this.seriesKey.forEach((x, i) => {
-      if (! x.enabled) { // only draw enabled series
+      if (!x.enabled) { // only draw enabled series
         return;
       }
       const scale: ScaleLinear<number, number> = this.axes[i][1];
@@ -252,7 +284,7 @@ export class D3LineComponent extends D3ChartComponent {
         .attr('d', valueline(dict))
         .on('mouseover', d => {
           this.d3.select(this.d3.event.target).style('stroke-width', 2);
-          //TODO -> this isn't working
+          // TODO -> this isn't working
           if (this.lAxisIdx !== this.axes[x.index][0].index && this.rAxisIdx !== this.axes[x.index][0].index) {
             this.setRightAxis(x.index);
           }
@@ -273,5 +305,5 @@ export class D3LineComponent extends D3ChartComponent {
       //
     });
   }
-
 }
+

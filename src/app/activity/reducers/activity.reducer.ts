@@ -21,6 +21,7 @@ export interface State extends EntityState<Activity> {
   activitySubSport: Array<string>;
   sidebarContent: ActivitySidebarType;
   unfilteredActivity: Activity;
+  filteredIndices: number[];
   tsLookup: Map<string, number>;
 }
 
@@ -35,6 +36,7 @@ export const initialState: State = adapter.getInitialState({
   activitySubSport: buildActivitySubSport(),
   sidebarContent: ActivitySidebarType.NoContent,
   unfilteredActivity: new Activity(),
+  filteredIndices: [],
   tsLookup: null
 });
 
@@ -86,7 +88,8 @@ export function reducer(state = initialState, action: ActivityActions | Activity
       return adapter.addOne(act.payload, {
         ...state,
         unfilteredActivity: act.payload,
-        tsLookup: tsLookup
+        tsLookup: tsLookup,
+        filteredIndices: []
       });
     }
 
@@ -140,6 +143,9 @@ export function reducer(state = initialState, action: ActivityActions | Activity
            filteredSet = applyFilters(activity, filters);
           // console.log(' n filters = ' + Object.keys(filters).length);
         }
+        //TODO -> optimize this all set creation. Do we really need to do it every time?
+      const allSet = Array.from({length: state.unfilteredActivity.getValues().getTsList().length}, (v, k) => k + 1);
+      state.filteredIndices = _.difference(allSet, filteredSet);
       ActivitySummaryService.summarizeActivity(activity, Object.keys(filters).length > 0 ? filteredSet : null,
         state.unfilteredActivity, state.tsLookup);
       // replacing the entire activity entity will break the subscription in the component chain so just update values instead
@@ -166,6 +172,8 @@ export function reducer(state = initialState, action: ActivityActions | Activity
         filteredSet = applyFilters(activity, filters);
         // console.log(' n filters = ' + Object.keys(filters).length);
       }
+      const allSet = Array.from({length: state.unfilteredActivity.getValues().getTsList().length}, (v, k) => k + 1);
+      state.filteredIndices = _.difference(allSet, filteredSet);
       ActivitySummaryService.summarizeActivity(activity, Object.keys(filters).length > 0 ? filteredSet : null,
         state.unfilteredActivity, state.tsLookup);
       const entityReference = state.entities;
@@ -237,5 +245,6 @@ export const getSelectedActivityId = (state: State) => state.selectedActivityId;
 export const getActivitySport = (state: State) => state.activitySport;
 export const getActivitySubSport = (state: State) => state.activitySubSport;
 export const getSidebarContents = (state: State) => state.sidebarContent;
+export const getFilteredIndices = (state: State) => state.filteredIndices;
 
 

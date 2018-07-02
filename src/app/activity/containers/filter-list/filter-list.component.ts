@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Activity} from '../../model/activity/Activity_pb';
 
 import {MessageEvent} from '../../../shared/utils';
@@ -31,7 +31,7 @@ export class FilterListComponent implements OnInit {
   changeEvent = new EventEmitter<MessageEvent<number | string>>();
   private filterCount = 0;
   private filters$: Observable<Dictionary<ActivityFilter>>;
-  constructor(private store: Store<fromActivity.State>, private filterService: FilterService, private cd: ChangeDetectorRef) {
+  constructor(private store: Store<fromActivity.State>, private filterService: FilterService) {
 
   }
 
