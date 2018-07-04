@@ -57,7 +57,6 @@ export class ActivityGraphComponent implements OnInit {
   toggleSeries(idx: number) {
     const series = this.seriesKey.filter(x => x.index === idx)[0];
     series.enabled ? series.enabled = false : series.enabled = true;
-
   }
 
   receiveMessage($event) {
