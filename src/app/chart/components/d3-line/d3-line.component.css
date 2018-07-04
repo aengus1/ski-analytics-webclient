@@ -57,6 +57,20 @@
 .graph-svg {
   background-color: #cccccc;
 }
+
+.focusPopoverText {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  stroke: black;
+  font-size: 7pt;
+}
+
+.focusPopoverText2 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  stroke: black;
+  font-size: 7pt;
+}
 /*.line.axis-series hover {*/
   /*fill: none !important;*/
   /*stroke-width: 1px !important;*/
