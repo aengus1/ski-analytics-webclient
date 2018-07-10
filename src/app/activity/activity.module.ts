@@ -39,6 +39,8 @@ import {FilterHrzoneComponent} from './components/filter/filter-hrzone/filter-hr
 import {FormsModule} from '@angular/forms';
 import {SeriesControlComponent} from './components/activity-graph/series-control/series-control.component';
 import {XAxisControlComponent} from './components/activity-graph/x-axis-control/x-axis-control.component';
+import {NgxMapboxGLModule} from 'ngx-mapbox-gl';
+
 
 @NgModule({
   imports: [
@@ -62,7 +64,8 @@ import {XAxisControlComponent} from './components/activity-graph/x-axis-control/
     //  */
     EffectsModule.forFeature([FilterEffects]),
     NgbModule.forRoot(),
-    FormsModule
+    FormsModule,
+    NgxMapboxGLModule
   ],
   declarations: [
     ActivityComponent,

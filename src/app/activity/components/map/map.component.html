@@ -1,5 +1,22 @@
-<div class="card">
+<div class="card" *ngIf="activity" >
   <div class="card-body">
-    <h1>Map Container</h1>
+
+    <mgl-map #map
+      [style]="'https://tiles.stadiamaps.com/styles/osm_bright.json'"
+      [zoom]="9"
+      [center]="center"
+    >
+      <mgl-layer
+        id="activityLine"
+        type="line"
+        [source]="activityTrack"
+        [paint]="{
+      'line-color': '#e30000',
+      'line-width': 2
+    }"
+      ></mgl-layer>
+
+    </mgl-map>
+
   </div>
 </div>
