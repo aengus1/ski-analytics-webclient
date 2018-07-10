@@ -1,7 +1,8 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { MapComponent } from './map.component';
+import {MapComponent} from './map.component';
+import {MapService} from 'ngx-mapbox-gl';
 
 describe('MapContainerComponent', () => {
   let component: MapComponent;
@@ -9,7 +10,8 @@ describe('MapContainerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MapComponent ]
+      declarations: [ MapComponent ],
+      providers: [MapService]
     })
     .compileComponents();
   }));

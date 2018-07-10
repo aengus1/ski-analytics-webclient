@@ -39,7 +39,7 @@ import {FilterHrzoneComponent} from './components/filter/filter-hrzone/filter-hr
 import {FormsModule} from '@angular/forms';
 import {SeriesControlComponent} from './components/activity-graph/series-control/series-control.component';
 import {XAxisControlComponent} from './components/activity-graph/x-axis-control/x-axis-control.component';
-import {NgxMapboxGLModule} from 'ngx-mapbox-gl';
+import {MapService, NgxMapboxGLModule} from 'ngx-mapbox-gl';
 
 
 @NgModule({
@@ -89,7 +89,8 @@ import {NgxMapboxGLModule} from 'ngx-mapbox-gl';
     XAxisControlComponent
   ],
   providers: [
-    ActivityService, FilterService, MockActivityService, D3Service, ActivityExistsGuard, IntervalPipe, ActivitySummaryService, LoggerService
+    ActivityService, FilterService, MockActivityService, D3Service, ActivityExistsGuard, IntervalPipe,
+    ActivitySummaryService, LoggerService, MapService
   ],
   exports: [ActivityComponent, FilterListComponent, MapComponent, AttributeComponent,
   SummaryPanelComponent, AscentDescentComponent, MovingStopComponent, HrZoneHistogramComponent,

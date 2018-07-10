@@ -31,12 +31,11 @@ class AppMockComponent  implements OnInit {
   };
 
   constructor() {
-
   }
 
   ngOnInit() {
     // run summarize activity manually as component expects activity to be summarized
-    ActivitySummaryService.summarizeActivity(this.act, null);
+    ActivitySummaryService.summarizeActivity(this.act, null, null, null);
   }
 }
 
