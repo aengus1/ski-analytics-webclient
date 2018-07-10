@@ -60,7 +60,7 @@
           </div>
 
           <div [hidden]="summaryDisplay==true">
-            <app-map-container></app-map-container>
+            <app-map-container [activity]="activity"></app-map-container>
           </div>
 
         </div>
@@ -116,7 +116,7 @@
             >
           </app-summary-panel>
           <app-activity-graph-container ></app-activity-graph-container>
-          <app-map-container></app-map-container>
+          <app-map-container [activity]="activity"></app-map-container>
         </div>
 
         <app-sidebar [panelOpen]="sidebarOpen" (messageEvent)="receiveMessage($event)">
