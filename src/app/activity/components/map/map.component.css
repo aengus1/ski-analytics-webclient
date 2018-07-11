@@ -16,6 +16,6 @@ body {
   display: flex;
 }
 mgl-map {
-  height: 50vh;
-  width: 50vw;
+  height: 300px;
+  width: 600px;
 }
