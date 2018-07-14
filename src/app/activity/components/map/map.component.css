@@ -19,3 +19,18 @@ mgl-map {
   height: 300px;
   width: 600px;
 }
+
+.marker-container{
+  fill: #FFF;
+  stroke: #9e9e9e;
+  stroke-width: 0.5px;
+  width: 60px;
+  height: 30px;
+  display: block;
+}
+
+.fa.fa-circle{
+  font-size: 6px;
+  color: #3bbaff;
+}
+

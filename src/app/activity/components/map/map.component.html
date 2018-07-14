@@ -1,6 +1,8 @@
 <div class="card" *ngIf="activity" >
   <div class="card-body">
 
+
+
     <mgl-map #map
       [style]="'https://tiles.stadiamaps.com/styles/osm_bright.json'"
       [zoom]="11"
@@ -27,6 +29,23 @@
         mglNavigation
         position="bottom-right"
       ></mgl-control>
+
+
+      <mgl-marker *ngFor="let i of buildMarkerIndexes()" [lngLat]="coords[i]">
+          <div class="fa"
+               [ngClass]="{'fa-circle': i !==0 && i !== coords.length-1, 'fa-map-marker' : i===0, 'fa-stop-circle': i==coords.length-1}"
+               [ngbPopover]="popContent"
+               popoverTitle="{{activity.getValues().getTsList()[i] | date: 'mediumTime' }}"
+               html="true"
+               placement="right" container="body" triggers="mouseenter:mouseleave"
+          >
+            <ng-template #popContent>
+              hr: {{activity.getValues().getHrList()[i] | number : '0.0-0'}} bpm <br>
+              speed: {{activity.getValues().getSpeedList()[i] | number: '0.0-2'}} km/h <br>
+              altitude: {{activity.getValues().getAltitudeList()[i] | number: '0.0-0'}} m
+            </ng-template>
+          </div>
+        </mgl-marker>
 
 
     </mgl-map>
