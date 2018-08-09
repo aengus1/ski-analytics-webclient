@@ -26,6 +26,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
+      # install dependencies
       - run: sudo npm install -g npm
 
       - run: npm install
@@ -39,4 +40,31 @@ jobs:
       - run:
           name: unit tests
           command: npm run jest
+
+      - run:
+          name: build production
+          command: ng build --prod
+  deploy-staging:
+    docker:
+       # specify the version you desire here
+      - image: circleci/python:3.6-jessie
+    working_directory: ~/repo
+    steps:
+      - run:
+         context: staging
+         name: install AWS
+         command: |
+           apk add --update python python-dev py-pip jq
+           sudo pip install awscli
+           aws --version
+           aws configure set region ca-central-1
+           aws configure set default.output json
+
+      - run:
+         context: staging
+         name: do deployment
+         command: ./deploy.sh staging
+
+
+
 

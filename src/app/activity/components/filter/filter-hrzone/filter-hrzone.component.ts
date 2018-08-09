@@ -37,12 +37,12 @@ export class FilterHrzoneComponent extends FilterBase implements OnInit {
   @Output()
   changeEvent = new EventEmitter<MessageEvent<any[]| ActivityFilter | string>>();
   @Input()
-  private activity: Activity;
+  public activity: Activity;
   @Input()
-  private userZoneBoundaries: number[];
-  private filterId = 'hrzone';
-  private debouncer: Subject<MessageEvent<any[]| ActivityFilter>> = new Subject<MessageEvent<any[]| ActivityFilter>>();
-  private initialState = [false, false, false, false, false];
+  public userZoneBoundaries: number[];
+  public filterId = 'hrzone';
+  public debouncer: Subject<MessageEvent<any[]| ActivityFilter>> = new Subject<MessageEvent<any[]| ActivityFilter>>();
+  public initialState = [false, false, false, false, false];
 
   constructor(private logger: LoggerService) {
     super();

@@ -29,11 +29,11 @@ export class FilterSpeedComponent extends FilterBase implements  OnInit {
   @Output()
   changeEvent = new EventEmitter<MessageEvent<any[]| ActivityFilter | string>>();
   @Input()
-  private activity: Activity;
-  private filterId = 'speed';
-  private debouncer: Subject<MessageEvent<any[]| ActivityFilter>> = new Subject<MessageEvent<any[]| ActivityFilter>>();
-   private _min: number;
-   private _max: number;
+  public activity: Activity;
+  public filterId = 'speed';
+  public debouncer: Subject<MessageEvent<any[]| ActivityFilter>> = new Subject<MessageEvent<any[]| ActivityFilter>>();
+  public _min: number;
+  public _max: number;
 
   constructor(private logger: LoggerService) {
     super();

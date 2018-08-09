@@ -18,19 +18,19 @@ export class ActivityGraphComponent implements OnInit {
   activity: Activity;
 
 
-  private unfilteredActivity$: Observable<Activity>;
-  private filteredIndices$: Observable<number[]>;
-  private filteredIndices: number[] = [];
+  public unfilteredActivity$: Observable<Activity>;
+  public filteredIndices$: Observable<number[]>;
+  public filteredIndices: number[] = [];
 
-  private chartOptions: ChartOptions;
+  public chartOptions: ChartOptions;
   @ViewChild(D3LineComponent) graph;
-  private xAxisFormat = new Map<string, number>();
+  public xAxisFormat = new Map<string, number>();
 
   // private showSeries: number[] = [0, 1, 2];
 
   constructor(private store: Store<fromActivity.State>) {
 }
-  private seriesKey =    [
+  public seriesKey =    [
     new DataSeries('Altitude (m)', 0, 'deepskyblue', YLabelFormat.NUMERIC,  true),
     new DataSeries('Speed (km/h)', 1, '#ffa9e6', YLabelFormat.NUMERIC, true),
     new DataSeries('Heart Rate (bpm)', 2, '#99fac8', YLabelFormat.NUMERIC,  true),

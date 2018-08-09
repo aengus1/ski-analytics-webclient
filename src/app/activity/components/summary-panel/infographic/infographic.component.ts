@@ -25,16 +25,16 @@ import {Component, Input} from '@angular/core';
 export class InfographicComponent {
 
   @Input()
-  private title: string;
+  public title: string;
 
   @Input()
-  private description = '';
+  public description = '';
 
   @Input()
-  private uom: string;
+  public uom: string;
 
   @Input()
-  private icon: string;
+  public icon: string;
 
   constructor() { }
 }

@@ -17,7 +17,7 @@ import * as fromActivity from '../../reducers';
 export class SummaryMetadataComponent {
 
 @Input()
-private activity$: Observable<Activity>;  // this is the UNFILTERED ACTIVITY!
+public activity$: Observable<Activity>;  // this is the UNFILTERED ACTIVITY!
   @Input()
   public ActivitySport: string[];
 @Input()
