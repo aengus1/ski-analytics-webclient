@@ -126,7 +126,7 @@ workflows:
             - build
           filters:
             branches:
-              ignore:
+              only:
                 - develop
                 - master
       - deploy_staging:
