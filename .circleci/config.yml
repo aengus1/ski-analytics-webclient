@@ -91,7 +91,7 @@ jobs:
       - run:
          context: staging
          name: do deployment
-         command: ./deploy.sh staging
+         command: .circleci/deploy.sh staging
 
   deploy-prod:
       docker:
@@ -105,8 +105,8 @@ jobs:
            context: prod
            name: install AWS
            command: |
-             apk add --update python python-dev py-pip jq
-             sudo pip install awscli
+             sudo apt-get update
+             sudo apt-get install jq
              aws --version
              aws configure set region ca-central-1
              aws configure set default.output json
@@ -114,7 +114,7 @@ jobs:
         - run:
            context: prod
            name: do deployment
-#           command: ./deploy.sh prod
+           command: .circleci/deploy.sh prod
 
 workflows:
   version: 2
