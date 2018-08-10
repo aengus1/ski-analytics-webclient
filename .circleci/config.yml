@@ -51,7 +51,7 @@ jobs:
 
         # install dependencies
         - run: sudo npm install -g npm
-#        - run: sudo npm install angular-cli@latest -g
+        #- run: sudo npm install angular-cli@latest -g
         - run: npm install
         # cache node_modules
         - save_cache:
@@ -66,9 +66,8 @@ jobs:
         # build production
         - run:
             name: build production
-            command: |
-#              chown -R $USER:$USER /usr/local/lib/node_modules/
-              ng build --prod
+            #chown -R $USER:$USER /usr/local/lib/node_modules/
+            command: ng build --prod
 
   deploy-staging:
     docker:
