@@ -119,6 +119,12 @@ workflows:
   build-test-deploy:
     jobs:
       - build
+      - build-prod:
+          filters:
+            branches:
+              ignore:
+                - develop
+                - master
       - deploy_staging:
           requires:
             - build
