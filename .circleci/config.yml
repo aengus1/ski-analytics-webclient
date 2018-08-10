@@ -81,7 +81,8 @@ jobs:
          context: staging
          name: install AWS
          command: |
-           apk add --update python python-dev py-pip jq
+           sudo apt-get update
+           sudo apt-get install jq
            sudo pip install awscli
            aws --version
            aws configure set region ca-central-1
