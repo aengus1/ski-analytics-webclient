@@ -42,13 +42,13 @@ import {Activity} from '../../../model/activity/Activity_pb';
 export class AscentDescentComponent implements OnInit {
 
   @Input()
-  private activity: Activity;
+  public activity: Activity;
 
   @Input()
-  private uom: string;
+  public uom: string;
 
   @Input()
-  private uomRate: string;
+  public uomRate: string;
 
 
   getAscent() {

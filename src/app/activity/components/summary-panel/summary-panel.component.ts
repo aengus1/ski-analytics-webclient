@@ -10,7 +10,7 @@ export class SummaryPanelComponent {
 
 
  @Input()
-  private activity: Activity;
+  public activity: Activity;
   @Input()
   public ActivitySport: string[];
   @Input()

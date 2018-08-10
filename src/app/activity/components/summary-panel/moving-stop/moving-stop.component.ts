@@ -9,14 +9,14 @@ import {ChartOptions, ChartOrientation} from '../../../../chart/components/d3-ba
 })
 export class MovingStopComponent implements OnInit {
 
-  private chartOptions: ChartOptions;
+  public chartOptions: ChartOptions;
   constructor() { }
 
   @Input()
-  private data: number[];
+  public data: number[];
 
   @Input()
-  private stopCount: number;
+  public stopCount: number;
 
   ngOnInit() {
     this.chartOptions = new ChartOptions();

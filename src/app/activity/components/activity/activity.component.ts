@@ -26,7 +26,7 @@ export class ActivityComponent implements OnInit, AfterViewChecked {
 
   // the main activity instance
   @Input()
-  private activity: Activity;
+  public activity: Activity;
 
   // static arrays of activity sport / subsport
   @Input()
@@ -54,7 +54,7 @@ export class ActivityComponent implements OnInit, AfterViewChecked {
   // sidebar component
   @ViewChild(SidebarComponent) sidebar;
 
-  private filterCount = 0;
+  public filterCount = 0;
 
 private  resizeTimeout;
 

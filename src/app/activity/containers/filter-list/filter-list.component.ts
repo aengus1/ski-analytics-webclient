@@ -26,11 +26,11 @@ export class FilterListComponent implements OnInit {
   @Input()
   filterOpen: boolean;
   @Input()
-  private activity: Activity;
+  public activity: Activity;
   @Output()
   changeEvent = new EventEmitter<MessageEvent<number | string>>();
-  private filterCount = 0;
-  private filters$: Observable<Dictionary<ActivityFilter>>;
+  public filterCount = 0;
+  public filters$: Observable<Dictionary<ActivityFilter>>;
   constructor(private store: Store<fromActivity.State>, private filterService: FilterService) {
 
   }

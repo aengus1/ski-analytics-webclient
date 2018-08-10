@@ -16,10 +16,10 @@ import {ActivitySummaryService} from '../../../services/activity-summary-service
 })
 export class HrZoneHistogramComponent implements OnInit, OnChanges {
 
-  private chartOptions: ChartOptions;
+  public chartOptions: ChartOptions;
 
-  private unfiltered$: Observable<Activity>;
-  private tsLookup$: Observable<Map<string, number>>;
+  public unfiltered$: Observable<Activity>;
+  public tsLookup$: Observable<Map<string, number>>;
 
   @Input()
   public distTime = 0;  // 0 = time, 1 = distance
@@ -34,7 +34,7 @@ export class HrZoneHistogramComponent implements OnInit, OnChanges {
   public tsList: number[];  // this is not actually used, but it is a shortcut to get angular to trigger change detection cycle
 
 
-  private timeDistInZone: number[][];  // [0] = time, [1] = distance
+  public timeDistInZone: number[][];  // [0] = time, [1] = distance
 
   private initialized = false;
 

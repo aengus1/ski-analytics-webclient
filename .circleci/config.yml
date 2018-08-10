@@ -6,13 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
       - image: circleci/node:8.11-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
 
     working_directory: ~/repo
 
@@ -25,18 +19,136 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-
+      # install dependencies
       - run: sudo npm install -g npm
-
       - run: npm install
-
+      # cache node_modules
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-
       # run tests!
       - run:
           name: unit tests
           command: npm run jest
+
+  build-prod:
+      docker:
+        # specify the version you desire here
+        - image: circleci/node:8.11-browsers
+
+      working_directory: ~/repo
+
+      steps:
+        - checkout
+
+        # Download and cache dependencies
+        - restore_cache:
+            keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+        # install dependencies
+        - run: sudo npm install -g npm
+        #- run: sudo npm install angular-cli@latest -g
+        - run: npm install
+        # cache node_modules
+        - save_cache:
+            paths:
+              - node_modules
+            key: v1-dependencies-{{ checksum "package.json" }}
+
+        # run unit tests
+        - run:
+            name: unit tests
+            command: npm run jest
+        # build production
+        - run:
+            name: build production
+            #chown -R $USER:$USER /usr/local/lib/node_modules/
+            command: ng build --prod
+
+  deploy-staging:
+    docker:
+      - image: circleci/python:3.6-jessie
+
+    working_directory: ~/repo
+
+    steps:
+      # install dependencies
+      - run:
+         context: staging
+         name: install AWS
+         command: |
+           apk add --update python python-dev py-pip jq
+           sudo pip install awscli
+           aws --version
+           aws configure set region ca-central-1
+           aws configure set default.output json
+      # deploy staging
+      - run:
+         context: staging
+         name: do deployment
+         command: ./deploy.sh staging
+
+  deploy-prod:
+      docker:
+        - image: circleci/python:3.6-jessie
+
+      working_directory: ~/repo
+
+      steps:
+        # install dependencies
+        - run:
+           context: prod
+           name: install AWS
+           command: |
+             apk add --update python python-dev py-pip jq
+             sudo pip install awscli
+             aws --version
+             aws configure set region ca-central-1
+             aws configure set default.output json
+        # deploy prod
+        - run:
+           context: prod
+           name: do deployment
+#           command: ./deploy.sh prod
+
+workflows:
+  version: 2
+  build-test-deploy:
+    jobs:
+      - build
+      - build-prod:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
+                - master
+      - deploy_staging:
+          requires:
+            - build
+            - build-prod
+          filters:
+            branches:
+              only: develop
+      - hold:
+          type: approval
+          requires:
+            - build-prod
+          filters:
+            branches:
+              only: master
+      - deploy_prod:
+          requires:
+            - build
+            - build-prod
+          filters:
+            branches:
+              only: master
+
+
 
