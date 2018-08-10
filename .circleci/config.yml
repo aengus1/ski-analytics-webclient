@@ -59,10 +59,10 @@ jobs:
               - node_modules
             key: v1-dependencies-{{ checksum "package.json" }}
 
-        # run unit tests
-        - run:
-            name: unit tests
-            command: npm run jest
+#        # run unit tests
+#        - run:
+#            name: unit tests
+#            command: npm run jest
         # build production
         - run:
             name: build production
@@ -128,7 +128,7 @@ workflows:
               only:
                 - develop
                 - master
-      - deploy_staging:
+      - deploy-staging:
           requires:
             - build
             - build-prod
@@ -142,7 +142,7 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy_prod:
+      - deploy-prod:
           requires:
             - build
             - build-prod
