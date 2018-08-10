@@ -67,7 +67,7 @@ jobs:
         - run:
             name: build production
             #chown -R $USER:$USER /usr/local/lib/node_modules/
-            command: ng build --prod
+            command: yarn ng build --prod
 
   deploy-staging:
     docker:
