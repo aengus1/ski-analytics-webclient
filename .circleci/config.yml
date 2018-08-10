@@ -66,7 +66,9 @@ jobs:
         # build production
         - run:
             name: build production
-            command: ng build --prod
+            command: |
+              chown -R $USER:$USER /usr/local/lib/node_modules/
+              ng build --prod
 
   deploy-staging:
     docker:
@@ -120,6 +122,8 @@ workflows:
     jobs:
       - build
       - build-prod:
+          requires:
+            - build
           filters:
             branches:
               ignore:
