@@ -118,27 +118,27 @@ workflows:
   version: 2
   build-test-deploy:
     - build
-    - deploy_staging:
-        requires:
-          - build
-          - build-prod
-        filters:
-          branches:
-            only: develop
-    - hold:
-        type: approval
-        requires:
-          - build-prod
-        filters:
-          branches:
-            only: master
-    - deploy_prod:
-        requires:
-          - build
-          - build-prod
-        filters:
-          branches:
-            only: master
+#    - deploy_staging:
+#        requires:
+#          - build
+#          - build-prod
+#        filters:
+#          branches:
+#            only: develop
+#    - hold:
+#        type: approval
+#        requires:
+#          - build-prod
+#        filters:
+#          branches:
+#            only: master
+#    - deploy_prod:
+#        requires:
+#          - build
+#          - build-prod
+#        filters:
+#          branches:
+#            only: master
 
 
 
