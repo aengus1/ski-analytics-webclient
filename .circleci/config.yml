@@ -68,51 +68,51 @@ jobs:
             name: build production
             command: ng build --prod
 
-  deploy-staging:
-    docker:
-      - image: circleci/python:3.6-jessie
-
-    working_directory: ~/repo
-
-    steps:
-      # install dependencies
-      - run:
-         context: staging
-         name: install AWS
-         command: |
-           apk add --update python python-dev py-pip jq
-           sudo pip install awscli
-           aws --version
-           aws configure set region ca-central-1
-           aws configure set default.output json
-      # deploy staging
-      - run:
-         context: staging
-         name: do deployment
-         command: ./deploy.sh staging
-
-  deploy-prod:
-      docker:
-        - image: circleci/python:3.6-jessie
-
-      working_directory: ~/repo
-
-      steps:
-        # install dependencies
-        - run:
-           context: prod
-           name: install AWS
-           command: |
-             apk add --update python python-dev py-pip jq
-             sudo pip install awscli
-             aws --version
-             aws configure set region ca-central-1
-             aws configure set default.output json
-        # deploy prod
-        - run:
-           context: prod
-           name: do deployment
-           command: ./deploy.sh prod
+#  deploy-staging:
+#    docker:
+#      - image: circleci/python:3.6-jessie
+#
+#    working_directory: ~/repo
+#
+#    steps:
+#      # install dependencies
+#      - run:
+#         context: staging
+#         name: install AWS
+#         command: |
+#           apk add --update python python-dev py-pip jq
+#           sudo pip install awscli
+#           aws --version
+#           aws configure set region ca-central-1
+#           aws configure set default.output json
+#      # deploy staging
+#      - run:
+#         context: staging
+#         name: do deployment
+#         command: ./deploy.sh staging
+#
+#  deploy-prod:
+#      docker:
+#        - image: circleci/python:3.6-jessie
+#
+#      working_directory: ~/repo
+#
+#      steps:
+#        # install dependencies
+#        - run:
+#           context: prod
+#           name: install AWS
+#           command: |
+#             apk add --update python python-dev py-pip jq
+#             sudo pip install awscli
+#             aws --version
+#             aws configure set region ca-central-1
+#             aws configure set default.output json
+#        # deploy prod
+#        - run:
+#           context: prod
+#           name: do deployment
+#           command: ./deploy.sh prod
 
 workflows:
   version: 2
