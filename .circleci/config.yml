@@ -64,21 +64,18 @@ jobs:
         - run:
             name: build production
             command: |
-              mkdir -p ~/repo/workspace
-              cd workspace
+              mkdir -p ~/repo/workspace/deploy
+              mkdir -p ~/repo/workspace/dist
               yarn ng build --prod --configuration=production
-              pwd
-              ls -lh
+              ls -lh ~/repo
+              cp -r ~/repo/dist ~/repo/workspace/dist
+              cp  ~/repo/.circleci/deploy.sh ~/repo/workspace/deploy/
         - persist_to_workspace:
             root: workspace
             paths:
-              - ./dist
-        - persist_to_workspace:
-            root: workspace
-            paths:
-              - ./.circleci
+              - ./
         - store_artifacts:
-            path: ~/repo/workspace/dist
+            path: ~/repo/workspace/dist/
             destination: app-distribution
 
   deploy-staging:
