@@ -59,15 +59,18 @@ jobs:
               - node_modules
             key: v1-dependencies-{{ checksum "package.json" }}
 
-#        # run unit tests
-#        - run:
-#            name: unit tests
-#            command: npm run jest
+
         # build production
         - run:
             name: build production
-            command: yarn ng build --prod --env=prod
-
+            command: |
+              mkdir -p workspace
+              cd workspace
+              yarn ng build --prod --env=prod
+        - persist_to_workspace:
+            root: workspace
+            paths:
+              - /
         - store_artifacts:
             path: ~/repo/dist
             destination: app-distribution
@@ -79,6 +82,8 @@ jobs:
     working_directory: ~/repo
 
     steps:
+      - attach_workspace:
+          at: /
       # install dependencies
       - run:
          context: staging
@@ -91,6 +96,7 @@ jobs:
            aws configure set region ca-central-1
            aws configure set default.output json
       # deploy staging
+      - run: ls -lh
       - run:
          context: staging
          name: deploy build (staging)
