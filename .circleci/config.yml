@@ -91,12 +91,11 @@ jobs:
       - run:
          context: staging
          name: install AWS
-         #           sudo apt-get update
          command: |
            sudo apt-get install jq
            sudo pip install awscli
            aws --version
-           echo $AWS_ACCESS_KEY_ID
+           echo access key: $AWS_ACCESS_KEY_ID
            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
            aws configure set region ca-central-1
@@ -155,6 +154,8 @@ workflows:
           filters:
             branches:
               only: develop
+          context:
+            - staging
       - hold:
           type: approval
           requires:
@@ -169,6 +170,8 @@ workflows:
           filters:
             branches:
               only: master
+          context:
+            - prod
 
 
 
