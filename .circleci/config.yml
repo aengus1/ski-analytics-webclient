@@ -68,7 +68,7 @@ jobs:
               mkdir -p ~/repo/workspace/dist
               yarn ng build --prod --configuration=production
               ls -lh ~/repo
-              cp -r ~/repo/dist ~/repo/workspace/dist
+              cp -r ~/repo/dist/* ~/repo/workspace/dist
               cp  ~/repo/.circleci/deploy.sh ~/repo/workspace/deploy/
         - persist_to_workspace:
             root: workspace
@@ -103,7 +103,11 @@ jobs:
       - run:
          context: staging
          name: deploy build (staging)
-         command: ~/repo/workspace/deploy/deploy.sh staging
+         command: |
+           ls -lh ~/repo/
+           ls -lh ~/repo/workspace/
+           chmod 744 ~/repo/workspace/deploy/deploy.sh
+           ~/repo/workspace/deploy/deploy.sh staging
 
   deploy-prod:
       docker:
