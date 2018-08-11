@@ -70,7 +70,11 @@ jobs:
         - persist_to_workspace:
             root: workspace
             paths:
-              - /
+              - dist
+        - persist_to_workspace:
+                    root: deploy
+                    paths:
+                      - .circleci
         - store_artifacts:
             path: ~/repo/dist
             destination: app-distribution
@@ -83,7 +87,7 @@ jobs:
 
     steps:
       - attach_workspace:
-          at: /
+          at: ~/repo/workspace
       # install dependencies
       - run:
          context: staging
@@ -100,7 +104,7 @@ jobs:
       - run:
          context: staging
          name: deploy build (staging)
-         command: ~/repo/deploy.sh staging
+         command: ~/repo/workspace/deploy/deploy.sh staging
 
   deploy-prod:
       docker:
