@@ -122,7 +122,6 @@ jobs:
         - run:
            context: prod
            name: install AWS
-           #             sudo apt-get update
            command: |
              sudo apt-get install jq
              aws --version
@@ -154,8 +153,7 @@ workflows:
           filters:
             branches:
               only: develop
-          context:
-            - staging
+          context: staging
       - hold:
           type: approval
           requires:
@@ -170,8 +168,7 @@ workflows:
           filters:
             branches:
               only: master
-          context:
-            - prod
+          context: prod
 
 
 
