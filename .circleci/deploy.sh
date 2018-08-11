@@ -34,7 +34,7 @@ fi
 ## Publish to S3
 echo "Attempting to deploy to s3://${bucket}"
 
-aws s3 sync workspace/dist/* s3://${bucket} --delete
+aws s3 sync workspace/dist/ s3://${bucket} --delete
 
 ## Invalidate the Cache
 aws cloudfront create-invalidation --distribution-id ${cf} --paths /*
