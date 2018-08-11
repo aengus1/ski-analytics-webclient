@@ -66,10 +66,10 @@ jobs:
         # build production
         - run:
             name: build production
-            command: yarn ng build --prod
+            command: yarn ng build --prod --env=prod
 
         - store_artifacts:
-            path: ~/repo
+            path: ~/repo/dist
             destination: app-distribution
 
   deploy-staging:
@@ -94,7 +94,7 @@ jobs:
       - run:
          context: staging
          name: deploy build (staging)
-         command: ~/repo/.circleci/deploy.sh staging
+         command: ~/repo/deploy.sh staging
 
   deploy-prod:
       docker:
@@ -117,7 +117,7 @@ jobs:
         - run:
            context: prod
            name: deploy build (prod)
-           command: ~/repo/.circleci/deploy.sh prod
+           command: ~/repo/deploy.sh prod
 
 workflows:
   version: 2
