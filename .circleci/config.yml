@@ -83,8 +83,8 @@ jobs:
       - run:
          context: staging
          name: install AWS
+         #           sudo apt-get update
          command: |
-#           sudo apt-get update
            sudo apt-get install jq
            sudo pip install awscli
            aws --version
@@ -107,8 +107,8 @@ jobs:
         - run:
            context: prod
            name: install AWS
+           #             sudo apt-get update
            command: |
-#             sudo apt-get update
              sudo apt-get install jq
              aws --version
              aws configure set region ca-central-1
