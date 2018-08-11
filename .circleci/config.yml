@@ -66,17 +66,19 @@ jobs:
             command: |
               mkdir -p ~/repo/workspace
               cd workspace
-              yarn ng build --prod --env=prod
+              pwd
+              ls -lh
+              yarn ng build --prod --configuration=prod
         - persist_to_workspace:
             root: ~/repo/workspace
             paths:
-              - dist
+              - ./dist
         - persist_to_workspace:
-            root: deploy
+            root: ~/repo/workspace
             paths:
-              - .circleci
+              - ./.circleci
         - store_artifacts:
-            path: ~/repo/dist
+            path: ~/repo/workspace/dist
             destination: app-distribution
 
   deploy-staging:
