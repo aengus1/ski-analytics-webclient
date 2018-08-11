@@ -68,7 +68,7 @@ jobs:
               cd workspace
               pwd
               ls -lh
-              yarn ng build --prod --configuration=prod
+              yarn ng build --prod --configuration=production
         - persist_to_workspace:
             root: ~/repo/workspace
             paths:
