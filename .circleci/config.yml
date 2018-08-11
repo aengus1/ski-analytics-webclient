@@ -66,8 +66,11 @@ jobs:
         # build production
         - run:
             name: build production
-            #chown -R $USER:$USER /usr/local/lib/node_modules/
             command: yarn ng build --prod
+
+        - store_artifacts:
+            path: ~/repo
+            destination: app-distribution
 
   deploy-staging:
     docker:
@@ -81,7 +84,7 @@ jobs:
          context: staging
          name: install AWS
          command: |
-           sudo apt-get update
+#           sudo apt-get update
            sudo apt-get install jq
            sudo pip install awscli
            aws --version
@@ -90,7 +93,7 @@ jobs:
       # deploy staging
       - run:
          context: staging
-         name: do deployment
+         name: deploy build (staging)
          command: ~/repo/.circleci/deploy.sh staging
 
   deploy-prod:
@@ -105,7 +108,7 @@ jobs:
            context: prod
            name: install AWS
            command: |
-             sudo apt-get update
+#             sudo apt-get update
              sudo apt-get install jq
              aws --version
              aws configure set region ca-central-1
@@ -113,7 +116,7 @@ jobs:
         # deploy prod
         - run:
            context: prod
-           name: do deployment
+           name: deploy build (prod)
            command: ~/repo/.circleci/deploy.sh prod
 
 workflows:
