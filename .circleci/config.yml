@@ -117,21 +117,30 @@ jobs:
 
       working_directory: ~/repo
 
-      steps:
-        # install dependencies
-        - run:
-           context: prod
-           name: install AWS
-           command: |
-             sudo apt-get install jq
-             aws --version
-             aws configure set region ca-central-1
-             aws configure set default.output json
-        # deploy prod
-        - run:
-           context: prod
-           name: deploy build (prod)
-           command: ~/repo/deploy.sh prod
+       steps:
+            - attach_workspace:
+                at: ~/repo/workspace
+            # install dependencies
+            - run:
+               context: prod
+               name: install AWS
+               command: |
+                 sudo apt-get install jq
+                 sudo pip install awscli
+                 aws --version
+                 aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+                 aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+                 aws configure set region ca-central-1
+                 aws configure set default.output json
+            # deploy production
+            - run:
+               context: prod
+               name: deploy build (production)
+               command: |
+                 ls -lh ~/repo/
+                 ls -lh ~/repo/workspace/
+                 chmod 744 ~/repo/workspace/deploy/deploy.sh
+                 ~/repo/workspace/deploy/deploy.sh prod
 
 workflows:
   version: 2
