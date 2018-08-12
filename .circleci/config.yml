@@ -134,7 +134,7 @@ jobs:
                  aws configure set default.output json
             # deploy production
             - run:
-               context: staging
+               context: prod
                name: deploy build (production)
                command: |
                  ls -lh ~/repo/
