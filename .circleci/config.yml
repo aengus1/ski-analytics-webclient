@@ -170,6 +170,7 @@ workflows:
           filters:
             branches:
               only: master
+          context: prod
       - deploy-prod:
           requires:
             - build
