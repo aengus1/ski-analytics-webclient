@@ -32,6 +32,8 @@
     "@ngrx/store-devtools": "^6.0.1",
     "@types/jasminewd2": "~2.0.2",
     "@types/lodash": "^4.14.109",
+    "aws-amplify": "^1.0.6",
+    "aws-amplify-angular": "^1.0.3",
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.7",
     "d3": "^4.13.0",
