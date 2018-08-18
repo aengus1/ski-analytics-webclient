@@ -4,5 +4,20 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  amplify: {
+    Auth: {
+      region: 'ca-central-1',
+      userPoolId: '',
+      userPoolWebClientId: '',
+      mandatorySignIn: true,
+      cookieStorage: {
+        domain: '.staging-app.crunch.ski',
+        path: '/',
+        expires: 365,
+        secure: true
+      },
+      authenticationFlowType: 'USER_PASSWORD_AUTH'
+    }
+  }
 };
