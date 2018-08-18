@@ -7,7 +7,7 @@
     "start": "ng serve",
     "build": "ng build --prod",
     "test": "ng test --watch=false",
-    "jest": "jest",
+    "jest": "jest --maxWorkers=2",
     "jest:cov": "jest --coverage",
     "jest:watch": "jest --watch",
     "lint": "ng lint",

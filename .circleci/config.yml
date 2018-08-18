@@ -116,7 +116,6 @@ jobs:
         - image: circleci/python:3.6-jessie
 
       working_directory: ~/repo
-
       steps:
             - attach_workspace:
                 at: ~/repo/workspace
