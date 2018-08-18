@@ -18,6 +18,8 @@ import {EffectsModule} from '@ngrx/effects';
 import {CustomRouterStateSerializer} from './shared/utils';
 import {LoggerService} from './shared/services/logger.service';
 import {ConsoleLoggerService} from './shared/services/console-logger.service';
+import {AmplifyAngularModule, AmplifyService} from 'aws-amplify-angular';
+import {AuthModule} from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import {ConsoleLoggerService} from './shared/services/console-logger.service';
     ActivityModule,
     SharedModule,
     AppRoutingModule,
+    AuthModule.forRoot(),
     StoreModule.forRoot(reducers, { metaReducers }),
     /**
      * @ngrx/router-store keeps router state up-to-date in the store.
@@ -52,14 +55,16 @@ import {ConsoleLoggerService} from './shared/services/console-logger.service';
     !environment.production ? StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production
-    }) : []
+    }) : [],
+    AmplifyAngularModule
   ],
   providers: [
     SharedModule,
     ActivityModule,
     ChartModule,
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
-    { provide: LoggerService, useClass: ConsoleLoggerService }
+    { provide: LoggerService, useClass: ConsoleLoggerService },
+    AmplifyService
     ],
   exports: [AppRoutingModule],
 
