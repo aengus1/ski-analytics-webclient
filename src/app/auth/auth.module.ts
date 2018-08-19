@@ -9,7 +9,7 @@ import {AuthRoutingModule} from './auth-routing.module';
 import {StoreModule} from '@ngrx/store';
 import {AuthGuard} from './guards/auth.guard';
 import {AuthEffects} from './effects/auth.effects';
-import {reducers} from '../reducers';
+import {reducers} from './reducers';
 
 export const COMPONENTS = [LoginPageComponent, LoginFormComponent];
 
@@ -17,8 +17,8 @@ export const COMPONENTS = [LoginPageComponent, LoginFormComponent];
   imports: [
     CommonModule, ReactiveFormsModule
   ],
-  declarations: [ COMPONENTS, LoginFormComponent, LoginPageComponent ],
-  exports: [COMPONENTS]
+  declarations:  COMPONENTS,
+  exports: COMPONENTS
 })
 export class AuthModule {
   static forRoot(): ModuleWithProviders {

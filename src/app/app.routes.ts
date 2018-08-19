@@ -5,11 +5,13 @@ import {environment} from '../environments/environment';
 import {AuthGuard} from './auth/guards/auth.guard';
 
 const appRoutes: Routes = [
+
+
   {path: '', redirectTo: 'activity', pathMatch: 'full'},
   {
     path: 'activity',
-    loadChildren: './activity/activity.module#ActivityModule',
-    canActivate: [ AuthGuard]
+    canLoad: [AuthGuard],
+    loadChildren: './activity/activity.module#ActivityModule'
   },
   { path: '**', component: NotFoundComponent}
 ];
