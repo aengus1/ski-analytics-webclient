@@ -2,7 +2,7 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
 import {EffectsModule} from '@ngrx/effects';
-import {LoginFormComponent} from './components/login-form.component';
+import {LoginFormComponent} from './components/login-form/login-form.component';
 import {LoginPageComponent} from './containers/login-page.component';
 import {AuthService} from './services/auth.service';
 import {AuthRoutingModule} from './auth-routing.module';
@@ -36,5 +36,8 @@ export class AuthModule {
     StoreModule.forFeature('auth', reducers),
     EffectsModule.forFeature([AuthEffects]),
   ],
+  exports: [
+    LoginPageComponent
+  ]
 })
 export class RootAuthModule {}
