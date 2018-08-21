@@ -30,7 +30,7 @@ jobs:
       # run tests!
       - run:
           name: unit tests
-          command: npm run jest -u
+          command: npm run jest --updateSnapshot
 
   build-prod:
       docker:
