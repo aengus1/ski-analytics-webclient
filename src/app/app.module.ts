@@ -20,6 +20,8 @@ import {LoggerService} from './shared/services/logger.service';
 import {ConsoleLoggerService} from './shared/services/console-logger.service';
 import {AmplifyAngularModule, AmplifyService} from 'aws-amplify-angular';
 import {AuthModule} from './auth/auth.module';
+import {AuthGuard} from './auth/guards/auth.guard';
+import {AuthService} from './auth/services/auth.service';
 
 @NgModule({
   declarations: [
@@ -31,8 +33,8 @@ import {AuthModule} from './auth/auth.module';
     HttpClientModule,
     ActivityModule,
     SharedModule,
-    AppRoutingModule,
     AuthModule.forRoot(),
+    AppRoutingModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     /**
      * @ngrx/router-store keeps router state up-to-date in the store.
@@ -64,7 +66,10 @@ import {AuthModule} from './auth/auth.module';
     ChartModule,
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
     { provide: LoggerService, useClass: ConsoleLoggerService },
-    AmplifyService
+    AmplifyService,
+    AuthService,
+    AuthGuard
+
     ],
   exports: [AppRoutingModule],
 

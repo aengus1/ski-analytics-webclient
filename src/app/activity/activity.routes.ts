@@ -3,13 +3,19 @@ import {RouterModule, Routes} from '@angular/router';
 import {ActivityRootComponent} from './containers/activity-root/activity-root.component';
 import {ViewActivityPageComponent} from './containers/view-activity-page/view-activity-page.component';
 import {ActivityExistsGuard} from './guards/activity-exists';
+import {AuthGuard} from '../auth/guards/auth.guard';
+import {NotFoundComponent} from '../shared/components/not-found/not-found.component';
 
 const activityRoutes: Routes = [
   {
     path: 'activity', component: ActivityRootComponent, children: [
       {path: ':id',
         component: ViewActivityPageComponent,
-        canActivate: [ActivityExistsGuard]
+        canActivate: [ActivityExistsGuard, AuthGuard]
+      },
+      {path: '',
+        component: NotFoundComponent,
+        canActivate: [AuthGuard]
       }
     ]
   }
