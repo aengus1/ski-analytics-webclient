@@ -11,6 +11,7 @@ import {AuthGuard} from './guards/auth.guard';
 import {AuthEffects} from './effects/auth.effects';
 import {reducers} from './reducers';
 
+
 export const COMPONENTS = [LoginPageComponent, LoginFormComponent];
 
 @NgModule({
@@ -36,8 +37,9 @@ export class AuthModule {
     StoreModule.forFeature('auth', reducers),
     EffectsModule.forFeature([AuthEffects]),
   ],
+  declarations: [COMPONENTS],
   exports: [
-    LoginPageComponent
+    COMPONENTS
   ]
 })
 export class RootAuthModule {}

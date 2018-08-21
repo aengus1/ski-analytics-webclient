@@ -1,25 +1,63 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {LoginPageComponent} from './login-page.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {combineReducers, Store, StoreModule} from '@ngrx/store';
+import * as fromAuth from '../reducers';
+import {LoginFormComponent} from '../components/login-form/login-form.component';
+import {Login} from '../actions/auth.actions';
 
 describe('LoginPageComponent', () => {
-  let component: LoginPageComponent;
   let fixture: ComponentFixture<LoginPageComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ LoginPageComponent ]
-    })
-    .compileComponents();
-  }));
+  let store: Store<fromAuth.State>;
+  let instance: LoginPageComponent;
 
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot({
+          auth: combineReducers(fromAuth.reducers),
+        }),
+        ReactiveFormsModule
+      ],
+      declarations: [LoginPageComponent, LoginFormComponent],
+    });
+  });
+  beforeEach(() => {
     fixture = TestBed.createComponent(LoginPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    instance = fixture.componentInstance;
+    store = TestBed.get(Store);
+    spyOn(store, 'dispatch').and.callThrough();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  /**
+     * Container components are used as integration points for connecting
+     * the store to presentational components and dispatching
+     * actions to the store.
+     *
+     * Container methods that dispatch events are like a component's output observables.
+     * Container properties that select state from store are like a component's input properties.
+     * If pure components are functions of their inputs, containers are functions of state
+     *
+     * Traditionally you would query the components rendered template
+     * to validate its state. Since the components are analogous to
+     * pure functions, we take snapshots of these components for a given state
+     * to validate the rendered output and verify the component's output
+     * against changes in state.
+     */
+    it('should compile', () => {
+      fixture.detectChanges();
+
+      expect(fixture).toMatchSnapshot();
+    });
+
+    it('should dispatch a login event on submit', () => {
+      const $event: any = {};
+      const action = new Login($event);
+
+      instance.onSubmit($event);
+
+      expect(store.dispatch).toHaveBeenCalledWith(action);
+    });
 });
+
