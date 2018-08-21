@@ -8,8 +8,8 @@ export const environment = {
   amplify: {
     Auth: {
       region: 'ca-central-1',
-      userPoolId: '',
-      userPoolWebClientId: '',
+      userPoolId: 'us-west-2_ZIpGyzT5G',
+      userPoolWebClientId: '5e8tfn42168hrob2j407ghgrsc',
       mandatorySignIn: true,
       cookieStorage: {
         domain: '.staging-app.crunch.ski',

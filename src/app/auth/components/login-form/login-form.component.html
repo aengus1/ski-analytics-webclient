@@ -1,3 +1,37 @@
-<p>
-  login-form works!
-</p>
+<form class="form-signin" novalidate [formGroup]="form" (ngSubmit)="submit()">
+  <img class="mb-4" src="../../assets/images/logo_only.png" alt="" width="64" height="64">
+  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+  <label for="inputEmail" class="sr-only">Email address</label>
+  <input type="email" id="inputEmail" formControlName="username" class="form-control" placeholder="Email address"
+         required autofocus>
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input type="password" id="inputPassword" formControlName="password" class="form-control" placeholder="Password"
+         required>
+  <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="form.invalid">Sign in</button>
+  <br>
+  <!-- username validation error -->
+  <div
+    class="alert alert-danger"
+    *ngIf="form.get('username').hasError('required') && form.get('username').touched">
+    Username is required
+  </div>
+  <div
+    class="alert alert-danger"
+    *ngIf="form.get('username').hasError('email') && form.get('username').touched">
+    not a valid email address
+  </div>
+  <!-- username validation error -->
+  <div
+    class="alert alert-danger"
+    *ngIf="form.get('password').hasError('required') && form.get('password').touched">
+    Password is required
+  </div>
+
+
+  <p *ngIf="errorMessage" class="loginError">
+    {{ errorMessage.type }}
+  </p>
+  <hr>
+  <a href="/forgot">Forgotten password ?</a>
+  <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+</form>
