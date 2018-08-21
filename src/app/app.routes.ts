@@ -7,11 +7,12 @@ import {AuthGuard} from './auth/guards/auth.guard';
 const appRoutes: Routes = [
 
 
-  {path: '', redirectTo: 'activity', pathMatch: 'full'},
+  {path: '', component: NotFoundComponent, canActivate: [AuthGuard]},
+  // {path: 'activity',  component: NotFoundComponent, canActivate: [AuthGuard]},
   {
     path: 'activity',
-    canLoad: [AuthGuard],
-    loadChildren: './activity/activity.module#ActivityModule'
+    loadChildren: './activity/activity.module#ActivityModule',
+    canLoad: [AuthGuard]
   },
   { path: '**', component: NotFoundComponent}
 ];

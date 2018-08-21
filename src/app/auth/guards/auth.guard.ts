@@ -4,11 +4,13 @@ import {Observable} from 'rxjs';
 import {tap} from 'rxjs/internal/operators';
 import {AuthService} from '../services/auth.service';
 import {Route} from '@angular/compiler/src/core';
+import {Store} from '@ngrx/store';
+import {LoginRedirect} from '../actions/auth.actions';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanLoad {
 
-  constructor(private router: Router, private auth: AuthService) {}
+  constructor(private router: Router, private auth: AuthService, private store: Store<any>) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -18,16 +20,18 @@ export class AuthGuard implements CanActivate, CanLoad {
       .pipe(
         tap(loggedIn => {
           if (!loggedIn) {
-            this.router.navigate(['/signin']);
+            this.store.dispatch(new LoginRedirect());
+            // this.router.navigate(['/signin']);
           }
         })
       );
   }
 
   canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
-    console.log('CAN LOAD CALLED');
+    console.log('--------CAN LOAD CALLED');
     return this.auth.isAuthenticated().pipe( tap( loggedIn => {
       if (!loggedIn) {
+        // this.store.dispatch(new LoginRedirect());
         this.router.navigate(['/signin']);
       }
     }));

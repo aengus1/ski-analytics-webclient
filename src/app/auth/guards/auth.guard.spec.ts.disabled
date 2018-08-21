@@ -33,7 +33,12 @@ describe('AuthGuardGuard', () => {
           auth: combineReducers(fromAuth.reducers),
         }),
         RouterTestingModule.withRoutes([
-          {path: 'signin', component: LoginPageComponent}
+          {path: 'signin', component: LoginPageComponent},
+          {
+            path: 'activity',
+            canLoad: [AuthGuard],
+            loadChildren: './activity/activity.module#ActivityModule'
+          }
         ]),
       ],
       providers: [
