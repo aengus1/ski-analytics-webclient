@@ -40,10 +40,22 @@
 
   <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="signupForm.invalid">Sign up</button>
   <br>
-  <!-- ERROR MESSAGE DISPLAY -->
-  <p *ngIf="signupErrorMessage" class="errorMessage">
+  <!-- SIGNUP ERROR MESSAGE DISPLAY -->
+  <div *ngIf="signupErrorMessage" class="errorMessage">
     {{ signupErrorMessage }}
-  </p>
+    <div *ngIf="signupErrorMessage==='An account with the given email already exists.'">
+    <button class="btn btn-sm btn-secondary btn-block" type="button" (click)="resendConfirm()">Resend Code</button>
+    </div>
+  </div>
+  <!-- RESEND CONFIRM CODE ERROR MESSAGE DISPLAY -->
+  <div *ngIf="resendConfirmErrorMessage" class="errorMessage">
+    {{ resendConfirmErrorMessage }}
+    <div *ngIf="resendConfirmErrorMessage==='User is already confirmed.'">
+      <a routerLink="/forgot"><button class="btn btn-sm btn-secondary">Reset Password</button></a>
+      <a routerLink="/signin"><button class="btn btn-sm btn-secondary">Sign In</button></a>
+    </div>
+  </div>
+
   <!-- VALIDATION -->
   <div
     class="alert alert-danger"
@@ -77,13 +89,6 @@
     Last name must be at least 2 characters
   </div>
 
-  <!-- ERROR MESSAGE DISPLAY -->
-  <p *ngIf="errorMessage" class="loginError">
-    {{ errorMessage.type }}
-    <span *ngIf="errorMessage.type==='An account with the given email already exists.'">
-      <!--// TODO -> add resend code button-->
-    </span>
-  </p>
   <hr>
   Already have an account ? <a routerLink="/signin"> Sign In</a>
   <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
@@ -102,18 +107,25 @@
 
     <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="confirmForm.invalid">Confirm</button>
     <br>
+
+    <!-- ERROR MESSAGE DISPLAY -->
+    <div *ngIf="confirmErrorMessage" class="errorMessage">
+      {{ confirmErrorMessage }}
+      <div *ngIf="confirmErrorMessage==='User is already confirmed.'">
+        <a routerLink="/forgot"><button class="btn btn-sm btn-secondary">Reset Password</button></a>
+        <a routerLink="/signin"><button class="btn btn-sm btn-secondary">Sign In</button></a>
+      </div>
+    </div>
+
     <!-- VALIDATION -->
     <div
       class="alert alert-danger"
       *ngIf="confirmForm.get('validationCode').hasError('required') && confirmForm.get('validationCode').touched">
       Validation code is required
-      <!-- // TODO -> implement resend -->
+      <button class="btn btn-sm btn-secondary btn-block" type="button" (click)="resendConfirm()">Resend Code</button>
     </div>
 
-    <!-- ERROR MESSAGE DISPLAY -->
-    <p *ngIf="confirmErrorMessage" class="confirmError">
-      {{ errorMessage.type }}
-    </p>
+
     <hr>
     Already have an account ? <a routerLink="/signin"> Sign In</a>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
@@ -128,6 +140,7 @@
     <p>Registration successful</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-lg btn-primary btn-block" (click)="gotoLogin()">Go to Login</button>
+    <button type="button" class="btn btn-md btn-primary btn-block" (click)="gotoLogin()">Go to Login</button>
+    <button type="button" class="btn btn-md btn-primary" (click)="closeModal()">Close</button>
   </div>
 </ng-template>

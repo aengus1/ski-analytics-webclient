@@ -4,12 +4,14 @@ export interface State {
   signupError: string | null;
   signupStatus: SignupStatus;
   confirmError: string | null;
+  resendConfirmError: string | null;
 }
 
 export const initialState: State = {
   signupError: null,
   signupStatus: SignupStatus.NOT_STARTED,
-  confirmError: null
+  confirmError: null,
+  resendConfirmError: null
 };
 
 export function reducer(state = initialState, action: AuthActions): State {
@@ -19,7 +21,8 @@ export function reducer(state = initialState, action: AuthActions): State {
         ...state,
         signupError: null,
         signupStatus: SignupStatus.SIGNUP_PENDING,
-        confirmError: null
+        confirmError: null,
+        resendConfirmError: null
       };
     }
 
@@ -28,17 +31,18 @@ export function reducer(state = initialState, action: AuthActions): State {
         ...state,
         signupError: null,
         signupStatus: SignupStatus.SIGNUP_COMPLETE,
-        confirmError: null
+        confirmError: null,
+        resendConfirmError: null
       };
     }
 
     case AuthActionTypes.SignupFailure: {
-      console.log('action.payload.message=' + action.payload.message);
       return {
         ...state,
         signupError: action.payload.message,
         signupStatus: SignupStatus.NOT_STARTED,
-        confirmError: null
+        confirmError: null,
+        resendConfirmError: null
       };
     }
 
@@ -47,7 +51,8 @@ export function reducer(state = initialState, action: AuthActions): State {
         ...state,
         signupError: null,
         signupStatus: SignupStatus.CONFIRM_PENDING,
-        confirmError: null
+        confirmError: null,
+        resendConfirmError: null
       };
     }
 
@@ -56,7 +61,8 @@ export function reducer(state = initialState, action: AuthActions): State {
         ...state,
         signupError: null,
         signupStatus: SignupStatus.CONFIRM_COMPLETE,
-        confirmError: null
+        confirmError: null,
+        resendConfirmError: null
       };
     }
     case AuthActionTypes.ConfirmFailure: {
@@ -64,7 +70,22 @@ export function reducer(state = initialState, action: AuthActions): State {
         ...state,
         signupError: null,
         signupStatus: SignupStatus.SIGNUP_COMPLETE,
-        confirmError: action.payload
+        confirmError: action.payload.message,
+        resendConfirmError: null
+      };
+  }
+    case AuthActionTypes.ResendConfirmCodeSuccess: {
+      return {
+        ...state,
+        signupStatus: SignupStatus.SIGNUP_COMPLETE,
+        resendConfirmError: null
+      };
+    }
+    case AuthActionTypes.ResendConfirmCodeFailure: {
+      return {
+        ...state,
+        signupStatus: SignupStatus.RESEND_CONFIRM_FAILED,
+        resendConfirmError: action.payload.message
       };
     }
 
@@ -77,4 +98,5 @@ export function reducer(state = initialState, action: AuthActions): State {
 export const getSignupError = (state: State) => state.signupError;
 export const getSignupStatus = (state: State) => state.signupStatus;
 export const getConfirmError = (state: State) => state.confirmError;
+export const getResendConfirmError = (state: State) => state.resendConfirmError;
 

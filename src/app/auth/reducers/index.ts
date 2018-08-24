@@ -30,6 +30,7 @@ export const getLoggedIn = createSelector(
   selectAuthStatusState,
   fromAuth.getLoggedIn
 );
+
 export const getUser = createSelector(selectAuthStatusState, fromAuth.getUser);
 
 export const selectLoginPageState = createSelector(
@@ -61,6 +62,11 @@ export const getSignupPageStatus = createSelector(
 export const getSignupPageConfirmError = createSelector(
   selectSignupPageState,
   fromSignupPage.getConfirmError
+);
+
+export const getSignupPageResendConfirmError = createSelector(
+  selectSignupPageState,
+  fromSignupPage.getResendConfirmError
 );
 
 

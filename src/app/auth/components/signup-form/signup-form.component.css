@@ -78,6 +78,9 @@ body {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
+.btn-sm {
+  padding-right: 6px;
+}
 
 
 

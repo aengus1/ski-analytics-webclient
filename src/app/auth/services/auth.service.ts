@@ -32,6 +32,10 @@ export class AuthService {
     return fromPromise(Auth.confirmSignUp(email, code));
   }
 
+  public resendConfirmCode(email): Observable<any> {
+    return fromPromise(Auth.resendSignUp(email));
+  }
+
   public signIn(username: string, password): Observable<any> {
     return fromPromise(Auth.signIn(username, password))
       .pipe(
