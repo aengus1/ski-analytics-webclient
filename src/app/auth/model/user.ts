@@ -16,6 +16,11 @@ export interface ConfirmUser {
   confirmCode: string;
 }
 
+export interface ResetPasswordUser {
+  username: string;
+  confirmCode: string;
+  password: string;
+}
 export interface User {
   name: string;
 }

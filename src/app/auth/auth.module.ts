@@ -16,6 +16,8 @@ import {SignupPageComponent} from './containers/signup-page.component';
 import {SignupFormComponent} from './components/signup-form/signup-form.component';
 import {RouterModule} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
+import {ResetFormComponent} from './components/reset-form/reset-form.component';
+import {ResetPageComponent} from './containers/reset-page.component';
 
 
 export const COMPONENTS = [
@@ -24,7 +26,9 @@ export const COMPONENTS = [
   SignupPageComponent,
   SignupFormComponent,
   ForgotPageComponent,
-  ForgotFormComponent
+  ForgotFormComponent,
+  ResetPageComponent,
+  ResetFormComponent
 ];
 
 @NgModule({

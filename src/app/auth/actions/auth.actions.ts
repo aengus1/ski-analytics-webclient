@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {Authenticate, ConfirmUser, SignupUser, User} from '../model/user';
+import {Authenticate, ConfirmUser, ResetPasswordUser, SignupUser, User} from '../model/user';
 
 export enum AuthActionTypes {
   Login = '[Auth] Login',
@@ -18,7 +18,10 @@ export enum AuthActionTypes {
   ResendConfirmCodeFailure = '[Auth] Resend Confirm Failure',
   ForgotPassword = '[Auth] Forgot Password',
   ForgotPasswordSuccess = '[Auth] Forgot Password Success',
-  ForgotPasswordFailure= '[Auth] Forgot Password Failure'
+  ForgotPasswordFailure= '[Auth] Forgot Password Failure',
+  ResetPassword = '[Auth] Reset Password',
+  ResetPasswordSuccess = '[Auth] Reset Password Success',
+  ResetPasswordFailure = '[Auth] Reset Password Failure'
 }
 
 export class Login implements Action {
@@ -121,12 +124,31 @@ export class ForgotPasswordFailure implements Action {
   }
 }
 
+export class ResetPassword implements Action {
+  readonly type = AuthActionTypes.ResetPassword;
+
+  constructor(public resetUser: ResetPasswordUser) {}
+}
+
+export class ResetPasswordSuccess implements Action {
+  readonly type = AuthActionTypes.ResetPasswordSuccess;
+
+  constructor(public payload: string ) {}
+}
+
+export class ResetPasswordFailure implements Action {
+  readonly type = AuthActionTypes.ResetPasswordFailure;
+
+  constructor(public payload: any) {
+  }
+}
+
 
 
 
 
 export enum SignupStatus  { NOT_STARTED , SIGNUP_PENDING , SIGNUP_COMPLETE,
-CONFIRM_PENDING, CONFIRM_COMPLETE, RESEND_CONFIRM_FAILED }
+CONFIRM_PENDING, CONFIRM_COMPLETE }
 export type AuthActions =
   | Login
   | LoginSuccess
@@ -145,4 +167,7 @@ export type AuthActions =
   | ForgotPassword
   | ForgotPasswordFailure
   | ForgotPasswordSuccess
+  | ResetPassword
+  | ResetPasswordSuccess
+  | ResetPasswordFailure
   ;

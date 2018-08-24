@@ -1,24 +1,24 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ForgotFormComponent} from './forgot-form.component';
+import {ResetFormComponent} from './reset-form.component';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 
-describe('ForgotFormComponent', () => {
-  let component: ForgotFormComponent;
-  let fixture: ComponentFixture<ForgotFormComponent>;
+describe('ResetFormComponent', () => {
+  let component: ResetFormComponent;
+  let fixture: ComponentFixture<ResetFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
+      declarations: [ ResetFormComponent ],
       schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ ForgotFormComponent ]
+      imports: [ReactiveFormsModule]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ForgotFormComponent);
+    fixture = TestBed.createComponent(ResetFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

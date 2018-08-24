@@ -1,18 +1,18 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ForgotPageComponent} from './forgot-page.component';
+import {ResetPageComponent} from './reset-page.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {combineReducers, StoreModule} from '@ngrx/store';
 import * as fromAuth from '../reducers';
-import {ForgotFormComponent} from '../components/forgot-form/forgot-form.component';
+import {ResetFormComponent} from '../components/reset-form/reset-form.component';
 
-describe('ForgotPageComponent', () => {
-  let component: ForgotPageComponent;
-  let fixture: ComponentFixture<ForgotPageComponent>;
+describe('ResetPageComponent', () => {
+  let component: ResetPageComponent;
+  let fixture: ComponentFixture<ResetPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ForgotPageComponent, ForgotFormComponent ],
+      declarations: [ ResetPageComponent, ResetFormComponent ],
       imports: [
         StoreModule.forRoot({
           auth: combineReducers(fromAuth.reducers),
@@ -24,7 +24,7 @@ describe('ForgotPageComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ForgotPageComponent);
+    fixture = TestBed.createComponent(ResetPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

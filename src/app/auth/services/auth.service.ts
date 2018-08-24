@@ -44,8 +44,11 @@ export class AuthService {
   }
 
   public forgotPassword(username: string): Observable<any> {
-    console.log('username = ' + JSON.stringify(username));
     return fromPromise(Auth.forgotPassword(username));
+  }
+
+  public resetPassword(username: string, code: string, password: string): Observable<any> {
+    return fromPromise(Auth.forgotPasswordSubmit(username, code, password));
   }
 
   public isAuthenticated(): Observable<boolean> {
