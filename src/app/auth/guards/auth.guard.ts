@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, CanLoad, Router, RouterStateSnapshot} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, CanLoad, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/internal/operators';
 import {AuthService} from '../services/auth.service';
@@ -10,7 +10,7 @@ import {LoginRedirect} from '../actions/auth.actions';
 @Injectable()
 export class AuthGuard implements CanActivate, CanLoad {
 
-  constructor(private router: Router, private auth: AuthService, private store: Store<any>) {}
+  constructor(private auth: AuthService, private store: Store<any>) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -22,6 +22,8 @@ export class AuthGuard implements CanActivate, CanLoad {
           if (!loggedIn) {
             this.store.dispatch(new LoginRedirect());
             // this.router.navigate(['/signin']);
+          }else {
+            console.log('logged in - we good');
           }
         })
       );
@@ -31,8 +33,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     console.log('--------CAN LOAD CALLED');
     return this.auth.isAuthenticated().pipe( tap( loggedIn => {
       if (!loggedIn) {
-        // this.store.dispatch(new LoginRedirect());
-        this.router.navigate(['/signin']);
+        this.store.dispatch(new LoginRedirect());
       }
     }));
   }

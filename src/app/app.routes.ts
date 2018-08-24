@@ -3,11 +3,12 @@ import {NotFoundComponent} from './shared/components/not-found/not-found.compone
 import {NgModule} from '@angular/core';
 import {environment} from '../environments/environment';
 import {AuthGuard} from './auth/guards/auth.guard';
+import {HomeComponent} from './shared/components/home/home.component';
 
 const appRoutes: Routes = [
 
 
-  {path: '', component: NotFoundComponent, canActivate: [AuthGuard]},
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   // {path: 'activity',  component: NotFoundComponent, canActivate: [AuthGuard]},
   {
     path: 'activity',

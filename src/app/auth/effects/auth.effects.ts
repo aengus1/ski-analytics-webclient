@@ -120,8 +120,12 @@ export class AuthEffects {
 
   @Effect({dispatch: false})
   loginSuccess$ = this.actions$.pipe(
-    ofType(AuthActionTypes.LoginSuccess),
-    tap(() => this.router.navigate(['/']))
+    ofType<LoginSuccess>(AuthActionTypes.LoginSuccess),
+    tap(user => {
+      localStorage.setItem('username', user.payload.user.username);
+      localStorage.setItem('sessiontoken', user.payload.user.signInUserSession.accessToken.jwtToken);
+      this.router.navigate(['/home']);
+    })
   );
 
   @Effect({dispatch: false})
