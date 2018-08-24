@@ -1,16 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-
-import {LoginPageComponent} from './login-page.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {combineReducers, Store, StoreModule} from '@ngrx/store';
 import * as fromAuth from '../reducers';
-import {LoginFormComponent} from '../components/login-form/login-form.component';
-import {Login} from '../actions/auth.actions';
+import {SignupFormComponent} from '../components/signup-form/signup-form.component';
+import {Confirm, Signup} from '../actions/auth.actions';
+import {SignupPageComponent} from './signup-page.component';
+import {NgbModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {RouterTestingModule} from '@angular/router/testing';
 
-describe('LoginPageComponent', () => {
-  let fixture: ComponentFixture<LoginPageComponent>;
+describe('SignupPageComponent', () => {
+  let fixture: ComponentFixture<SignupPageComponent>;
   let store: Store<fromAuth.State>;
-  let instance: LoginPageComponent;
+  let instance: SignupPageComponent;
+  let modal: NgbModal;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -18,15 +20,18 @@ describe('LoginPageComponent', () => {
         StoreModule.forRoot({
           auth: combineReducers(fromAuth.reducers),
         }),
-        ReactiveFormsModule
+        NgbModule.forRoot(),
+        ReactiveFormsModule, RouterTestingModule
       ],
-      declarations: [LoginPageComponent, LoginFormComponent],
+      declarations: [SignupPageComponent, SignupFormComponent],
+      providers: [NgbModal]
     });
   });
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginPageComponent);
+    fixture = TestBed.createComponent(SignupPageComponent);
     instance = fixture.componentInstance;
     store = TestBed.get(Store);
+    modal = TestBed.get(NgbModal);
     spyOn(store, 'dispatch').and.callThrough();
   });
 
@@ -48,17 +53,26 @@ describe('LoginPageComponent', () => {
     it('should compile', () => {
       fixture.detectChanges();
 
-      // noinspection BadExpressionStatementJS
+      // noinspection TypeScriptUnresolvedFunction
       expect(fixture).toMatchSnapshot();
     });
 
-    it('should dispatch a login event on submit', () => {
+    it('should dispatch a signup event on submit', () => {
       const $event: any = {};
-      const action = new Login($event);
+      const action = new Signup($event);
 
-      instance.onSubmit($event);
+      instance.onSubmitSignup($event);
 
       expect(store.dispatch).toHaveBeenCalledWith(action);
     });
+
+  it('should dispatch a confirm event on submit', () => {
+    const $event: any = {};
+    const action = new Confirm($event);
+
+    instance.onSubmitConfirm($event);
+
+    expect(store.dispatch).toHaveBeenCalledWith(action);
+  });
 });
 

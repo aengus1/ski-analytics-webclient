@@ -10,13 +10,22 @@ import {StoreModule} from '@ngrx/store';
 import {AuthGuard} from './guards/auth.guard';
 import {AuthEffects} from './effects/auth.effects';
 import {reducers} from './reducers';
+import {SignupPageComponent} from './containers/signup-page.component';
+import {SignupFormComponent} from './components/signup-form/signup-form.component';
+import {RouterModule} from '@angular/router';
+import {SharedModule} from '../shared/shared.module';
 
 
-export const COMPONENTS = [LoginPageComponent, LoginFormComponent];
+export const COMPONENTS = [
+  LoginPageComponent,
+  LoginFormComponent,
+  SignupPageComponent,
+  SignupFormComponent
+];
 
 @NgModule({
   imports: [
-    CommonModule, ReactiveFormsModule, FormsModule
+    CommonModule, ReactiveFormsModule, FormsModule, RouterModule, SharedModule
   ],
   declarations:  COMPONENTS,
   exports: COMPONENTS
@@ -37,9 +46,7 @@ export class AuthModule {
     StoreModule.forFeature('auth', reducers),
     EffectsModule.forFeature([AuthEffects]),
   ],
-  declarations: [COMPONENTS],
-  exports: [
-    COMPONENTS
-  ]
+  declarations: [],
+  exports: []
 })
 export class RootAuthModule {}

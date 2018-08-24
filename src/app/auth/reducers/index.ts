@@ -1,20 +1,23 @@
 import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
 import * as fromAuth from './auth.reducer';
 import * as fromLoginPage from './login-page.reducer';
+import * as fromSignupPage from './signup-page.reducer';
 import * as fromRoot from '../../reducers';
 
 export interface AuthState {
   status: fromAuth.State;
   loginPage: fromLoginPage.State;
+  signupPage: fromSignupPage.State;
 }
 
 export interface State extends fromRoot.State {
   auth: AuthState;
-};
+}
 
 export const reducers: ActionReducerMap<AuthState> = {
   status: fromAuth.reducer,
-  loginPage: fromLoginPage.reducer
+  loginPage: fromLoginPage.reducer,
+  signupPage: fromSignupPage.reducer
 };
 
 export const selectAuthState = createFeatureSelector<AuthState>('auth');
@@ -41,3 +44,23 @@ export const getLoginPagePending = createSelector(
   selectLoginPageState,
   fromLoginPage.getPending
 );
+
+export const selectSignupPageState = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.signupPage
+);
+export const getSignupPageSignupError = createSelector(
+  selectSignupPageState,
+  fromSignupPage.getSignupError
+);
+export const getSignupPageStatus = createSelector(
+  selectSignupPageState,
+  fromSignupPage.getSignupStatus
+);
+
+export const getSignupPageConfirmError = createSelector(
+  selectSignupPageState,
+  fromSignupPage.getConfirmError
+);
+
+

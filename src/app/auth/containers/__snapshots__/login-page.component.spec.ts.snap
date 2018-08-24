@@ -18,7 +18,7 @@ exports[`LoginPageComponent should compile 1`] = `
         alt=""
         class="mb-4"
         height="64"
-        src="../../assets/images/logo_only.png"
+        src="../../../assets/images/logo_only.png"
         width="64"
       />
       <h1
@@ -70,13 +70,24 @@ exports[`LoginPageComponent should compile 1`] = `
       
       
       
-      
       <hr />
-      <a
-        href="/forgot"
-      >
-        Forgotten password ?
-      </a>
+      <div>
+        <a
+          routerlink="/forgot"
+          routerlinkactive="active"
+        >
+          Forgot password?
+        </a>
+      </div>
+      <div>
+         No account? 
+        <a
+          routerlink="/signup"
+          routerlinkactive="active"
+        >
+           register
+        </a>
+      </div>
       <p
         class="mt-5 mb-3 text-muted"
       >

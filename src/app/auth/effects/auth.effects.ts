@@ -1,8 +1,19 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {AuthActionTypes, Login, LoginFailure, LoginSuccess} from '../actions/auth.actions';
+import {
+  AuthActionTypes,
+  Confirm,
+  ConfirmFailure,
+  ConfirmSuccess,
+  Login,
+  LoginFailure,
+  LoginSuccess,
+  Signup,
+  SignupFailure,
+  SignupSuccess,
+} from '../actions/auth.actions';
 
-import {Authenticate} from '../model/user';
+import {Authenticate, ConfirmUser, SignupUser} from '../model/user';
 import {catchError, exhaustMap, map, tap} from 'rxjs/internal/operators';
 import {of} from 'rxjs/index';
 import {AuthService} from '../services/auth.service';
@@ -19,6 +30,30 @@ export class AuthEffects {
       this.authService.signIn(auth.username, auth.password).pipe(
         map(user => new LoginSuccess({ user })),
         catchError(error => of(new LoginFailure(error)))
+      )
+    )
+  );
+
+  @Effect()
+  signup$ = this.actions$.pipe(
+    ofType<Signup>(AuthActionTypes.Signup),
+    map(action => action.payload),
+    exhaustMap((userSignup: SignupUser) =>
+      this.authService.signUp(userSignup.username, userSignup.password, userSignup.firstName, userSignup.lastName).pipe(
+        map(user => new SignupSuccess({ user })),
+        catchError(error => of(new SignupFailure(error)))
+      )
+    )
+  );
+
+  @Effect()
+  confirmSignup$ = this.actions$.pipe(
+    ofType<Confirm>(AuthActionTypes.Confirm),
+    map(action => action.payload),
+    exhaustMap((confirmUser: ConfirmUser) =>
+      this.authService.confirmSignUp(confirmUser.username, confirmUser.confirmCode).pipe(
+        map(user => new ConfirmSuccess(confirmUser)),
+        catchError(error => of(new ConfirmFailure(error)))
       )
     )
   );
