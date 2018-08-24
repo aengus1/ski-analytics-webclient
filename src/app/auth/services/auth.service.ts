@@ -21,8 +21,11 @@ export class AuthService {
     // this.loggedIn = new BehaviorSubject<boolean>(false);
   }
 
-  public signUp(email, password): Observable<any> {
-    return fromPromise(Auth.signUp(email, password));
+  public signUp(email, password, firstName, lastName): Observable<any> {
+    return fromPromise(
+      Auth.signUp(
+      {username: email, password: password, attributes: { name: firstName, 'custom:familyName': lastName}}
+      ));
   }
 
   public confirmSignUp(email, code): Observable<any> {
@@ -40,6 +43,7 @@ export class AuthService {
     return fromPromise(Auth.currentAuthenticatedUser())
       .pipe(
         map(result => {
+          // TODO -> store logged in state
           // this.loggedIn.next(true);
           return true;
         }),
@@ -55,6 +59,7 @@ export class AuthService {
       .subscribe(
         result => {
           this.store.dispatch(new Logout());
+          //  TODO -> store logged in state
           // this.loggedIn.next(false);
           // this.router.navigate(['/signin']);
         },

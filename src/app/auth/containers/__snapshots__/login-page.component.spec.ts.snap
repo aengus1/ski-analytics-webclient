@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginPageComponent should compile 1`] = `
+<app-login-page
+  error$={[Function Store]}
+  pending$={[Function Store]}
+  store={[Function Store]}
+>
+  <app-login-form
+    ng-reflect-pending="false"
+  >
+    <form
+      class="form-signin ng-untouched ng-pristine ng-invalid"
+      ng-reflect-form="[object Object]"
+      novalidate=""
+    >
+      <img
+        alt=""
+        class="mb-4"
+        height="64"
+        src="../../../assets/images/logo_only.png"
+        width="64"
+      />
+      <h1
+        class="h3 mb-3 font-weight-normal"
+      >
+        Please sign in
+      </h1>
+      <label
+        class="sr-only"
+        for="inputEmail"
+      >
+        Email address
+      </label>
+      <input
+        autofocus=""
+        class="form-control ng-untouched ng-pristine ng-invalid"
+        formcontrolname="username"
+        id="inputEmail"
+        ng-reflect-name="username"
+        ng-reflect-required=""
+        placeholder="Email address"
+        required=""
+        type="email"
+      />
+      <label
+        class="sr-only"
+        for="inputPassword"
+      >
+        Password
+      </label>
+      <input
+        class="form-control ng-untouched ng-pristine ng-invalid"
+        formcontrolname="password"
+        id="inputPassword"
+        ng-reflect-name="password"
+        ng-reflect-required=""
+        placeholder="Password"
+        required=""
+        type="password"
+      />
+      <button
+        class="btn btn-lg btn-primary btn-block"
+        disabled=""
+        type="submit"
+      >
+        Sign in
+      </button>
+      <br />
+      
+      
+      
+      <hr />
+      <div>
+        <a
+          routerlink="/forgot"
+          routerlinkactive="active"
+        >
+          Forgot password?
+        </a>
+      </div>
+      <div>
+         No account? 
+        <a
+          routerlink="/signup"
+          routerlinkactive="active"
+        >
+           register
+        </a>
+      </div>
+      <p
+        class="mt-5 mb-3 text-muted"
+      >
+        © 2017-2018
+      </p>
+    </form>
+  </app-login-form>
+</app-login-page>
+`;

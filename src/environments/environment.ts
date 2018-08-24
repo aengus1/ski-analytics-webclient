@@ -7,9 +7,9 @@ export const environment = {
   production: false,
   amplify: {
     Auth: {
-      region: 'ca-central-1',
-      userPoolId: '',
-      userPoolWebClientId: '',
+      region: 'us-west-2',
+      userPoolId: 'us-west-2_FrH0UdrNz',
+      userPoolWebClientId: '755f5d0elsg5ie96116540qm3u',
       mandatorySignIn: true,
       cookieStorage: {
         domain: '.staging-app.crunch.ski',
