@@ -4,6 +4,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {EffectsModule} from '@ngrx/effects';
 import {LoginFormComponent} from './components/login-form/login-form.component';
 import {LoginPageComponent} from './containers/login-page.component';
+import {ForgotFormComponent} from './components/forgot-form/forgot-form.component';
+import {ForgotPageComponent} from './containers/forgot-page.component';
 import {AuthService} from './services/auth.service';
 import {AuthRoutingModule} from './auth-routing.module';
 import {StoreModule} from '@ngrx/store';
@@ -20,7 +22,9 @@ export const COMPONENTS = [
   LoginPageComponent,
   LoginFormComponent,
   SignupPageComponent,
-  SignupFormComponent
+  SignupFormComponent,
+  ForgotPageComponent,
+  ForgotFormComponent
 ];
 
 @NgModule({

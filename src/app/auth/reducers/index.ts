@@ -2,12 +2,14 @@ import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/sto
 import * as fromAuth from './auth.reducer';
 import * as fromLoginPage from './login-page.reducer';
 import * as fromSignupPage from './signup-page.reducer';
+import * as fromForgotPage from './forgot-page.reducer';
 import * as fromRoot from '../../reducers';
 
 export interface AuthState {
   status: fromAuth.State;
   loginPage: fromLoginPage.State;
   signupPage: fromSignupPage.State;
+  forgotPage: fromForgotPage.State;
 }
 
 export interface State extends fromRoot.State {
@@ -17,7 +19,8 @@ export interface State extends fromRoot.State {
 export const reducers: ActionReducerMap<AuthState> = {
   status: fromAuth.reducer,
   loginPage: fromLoginPage.reducer,
-  signupPage: fromSignupPage.reducer
+  signupPage: fromSignupPage.reducer,
+  forgotPage: fromForgotPage.reducer
 };
 
 export const selectAuthState = createFeatureSelector<AuthState>('auth');
@@ -69,4 +72,16 @@ export const getSignupPageResendConfirmError = createSelector(
   fromSignupPage.getResendConfirmError
 );
 
+export const selectForgotPageState = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.forgotPage
+);
+export const getForgotPageError = createSelector(
+  selectForgotPageState,
+  fromForgotPage.getError
+);
+export const getForgotPagePending = createSelector(
+  selectLoginPageState,
+  fromForgotPage.getPending
+);
 

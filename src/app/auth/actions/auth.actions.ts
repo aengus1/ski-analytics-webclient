@@ -16,6 +16,9 @@ export enum AuthActionTypes {
   ResendConfirmCode = '[Auth] Resend Confirm code',
   ResendConfirmCodeSuccess = '[Auth] Resend Confirm Success',
   ResendConfirmCodeFailure = '[Auth] Resend Confirm Failure',
+  ForgotPassword = '[Auth] Forgot Password',
+  ForgotPasswordSuccess = '[Auth] Forgot Password Success',
+  ForgotPasswordFailure= '[Auth] Forgot Password Failure'
 }
 
 export class Login implements Action {
@@ -98,6 +101,30 @@ export class ResendConfirmCodeSuccess implements Action {
 
   constructor(public payload: any) {}
 }
+
+export class ForgotPassword implements Action {
+  readonly type = AuthActionTypes.ForgotPassword;
+
+  constructor(public payload: string) {}
+}
+
+export class ForgotPasswordSuccess implements Action {
+  readonly type = AuthActionTypes.ForgotPasswordSuccess;
+
+  constructor(public payload: { confirmCode: string }) {}
+}
+
+export class ForgotPasswordFailure implements Action {
+  readonly type = AuthActionTypes.ForgotPasswordFailure;
+
+  constructor(public payload: any) {
+  }
+}
+
+
+
+
+
 export enum SignupStatus  { NOT_STARTED , SIGNUP_PENDING , SIGNUP_COMPLETE,
 CONFIRM_PENDING, CONFIRM_COMPLETE, RESEND_CONFIRM_FAILED }
 export type AuthActions =
@@ -114,4 +141,8 @@ export type AuthActions =
   | ConfirmFailure
   | ResendConfirmCode
   | ResendConfirmCodeFailure
-  | ResendConfirmCodeSuccess;
+  | ResendConfirmCodeSuccess
+  | ForgotPassword
+  | ForgotPasswordFailure
+  | ForgotPasswordSuccess
+  ;
