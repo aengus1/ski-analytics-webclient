@@ -1,0 +1,28 @@
+<form class="form-forgot" novalidate [formGroup]="form" (ngSubmit)="submit()">
+  <img class="mb-4" src="../../../assets/images/logo_only.png" alt="" width="64" height="64">
+  <h1 class="h3 mb-3 font-weight-normal">Request Password Reset</h1>
+  <label for="inputEmail" class="sr-only">Email address</label>
+  <input type="email" id="inputEmail" formControlName="username" class="form-control" placeholder="Email address"
+         required autofocus>
+
+  <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="form.invalid">Request Password Reset</button>
+  <br>
+  <div
+    class="alert alert-danger"
+    *ngIf="form.get('username').hasError('email') && form.get('username').touched">
+    not a valid email address
+  </div>
+
+
+  <p *ngIf="errorMessage" class="errorMessage">
+    {{ errorMessage }}
+  </p>
+  <hr>
+  <div>
+    <a routerLink="/signin" routerLinkActive="active">Sign in</a>
+  </div>
+  <div>
+    No account? <a routerLink="/signup" routerLinkActive="active"> register</a>
+  </div>
+  <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+</form>

@@ -33,7 +33,6 @@ export class SignupFormComponent implements OnInit {
       this.signupSuccess = true;
     }
     if ( status === SignupStatus.CONFIRM_COMPLETE) {
-      console.log('CONFIRM COMPLETE');
       const options: NgbModalOptions = {
         size: 'lg'
       };

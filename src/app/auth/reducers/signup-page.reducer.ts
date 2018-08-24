@@ -84,7 +84,6 @@ export function reducer(state = initialState, action: AuthActions): State {
     case AuthActionTypes.ResendConfirmCodeFailure: {
       return {
         ...state,
-        signupStatus: SignupStatus.RESEND_CONFIRM_FAILED,
         resendConfirmError: action.payload.message
       };
     }

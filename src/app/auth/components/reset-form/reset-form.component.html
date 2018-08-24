@@ -1,0 +1,49 @@
+<form class="form-reset" novalidate [formGroup]="form" (ngSubmit)="submit()">
+  <img class="mb-4" src="../../../assets/images/logo_only.png" alt="" width="64" height="64">
+  <h1 class="h3 mb-3 font-weight-normal">Reset Password</h1>
+  <label for="inputEmail" class="sr-only">Email address</label>
+  <input type="email" id="inputEmail" formControlName="username" class="form-control" placeholder="Email address"
+         required autofocus>
+  <label for="inputConfirmCode" class="sr-only">Confirmation code</label>
+  <input type="text" id="inputConfirmCode" formControlName="confirmCode" class="form-control"
+         placeholder="Confirmation Code"
+         required autofocus>
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input type="password" id="inputPassword" formControlName="password" class="form-control" placeholder="Password"
+         required>
+  <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="form.invalid">Reset Password</button>
+  <br>
+  <!-- username validation error -->
+  <div
+    class="alert alert-danger"
+    *ngIf="form.get('username').hasError('email') && form.get('username').touched">
+    not a valid email address
+  </div>
+  <!-- password validation error -->
+  <div
+    class="alert alert-danger"
+    *ngIf="form.get('password').hasError('required') && form.get('password').touched">
+    Password is required
+  </div>
+  <div
+    class="alert alert-danger"
+    *ngIf="form.get('password').hasError('pattern') && form.get('password').touched">
+    Password must be at least 8 characters, and contain a mixture of upper case, lower case and number characters
+  </div>
+  <!-- confirm code validation -->
+  <div
+    class="alert alert-danger"
+    *ngIf="form.get('confirmCode').hasError('required') && form.get('confirmCode').touched">
+    Confirmation code is required. Please check your email for this code.
+  </div>
+
+
+  <p *ngIf="resetErrorMessage" class="errorMessage">
+    {{ resetErrorMessage }}
+  </p>
+  <hr>
+  <div>
+    No account? <a routerLink="/signup" routerLinkActive="active"> register</a>
+  </div>
+  <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+</form>

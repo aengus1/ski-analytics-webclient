@@ -5,17 +5,23 @@ import {
   Confirm,
   ConfirmFailure,
   ConfirmSuccess,
+  ForgotPassword,
+  ForgotPasswordFailure,
+  ForgotPasswordSuccess,
   Login,
   LoginFailure,
   LoginSuccess,
   ResendConfirmCodeFailure,
   ResendConfirmCodeSuccess,
+  ResetPassword,
+  ResetPasswordFailure,
+  ResetPasswordSuccess,
   Signup,
   SignupFailure,
-  SignupSuccess,
+  SignupSuccess
 } from '../actions/auth.actions';
 
-import {Authenticate, ConfirmUser, SignupUser} from '../model/user';
+import {Authenticate, ConfirmUser, ResetPasswordUser, SignupUser} from '../model/user';
 import {catchError, exhaustMap, map, tap} from 'rxjs/internal/operators';
 import {of} from 'rxjs/index';
 import {AuthService} from '../services/auth.service';
@@ -30,7 +36,7 @@ export class AuthEffects {
     map(action => action.payload),
     exhaustMap((auth: Authenticate) =>
       this.authService.signIn(auth.username, auth.password).pipe(
-        map(user => new LoginSuccess({ user })),
+        map(user => new LoginSuccess({user})),
         catchError(error => of(new LoginFailure(error)))
       )
     )
@@ -42,7 +48,7 @@ export class AuthEffects {
     map(action => action.payload),
     exhaustMap((userSignup: SignupUser) =>
       this.authService.signUp(userSignup.username, userSignup.password, userSignup.firstName, userSignup.lastName).pipe(
-        map(user => new SignupSuccess({ user })),
+        map(user => new SignupSuccess({user})),
         catchError(error => of(new SignupFailure(error)))
       )
     )
@@ -54,7 +60,7 @@ export class AuthEffects {
     map(action => action.payload),
     exhaustMap((confirmUser: ConfirmUser) =>
       this.authService.confirmSignUp(confirmUser.username, confirmUser.confirmCode).pipe(
-        map(user => new ConfirmSuccess(confirmUser)),
+        map(() => new ConfirmSuccess(confirmUser)),
         catchError(error => of(new ConfirmFailure(error)))
       )
     )
@@ -72,16 +78,56 @@ export class AuthEffects {
     )
   );
 
-  @Effect({ dispatch: false })
+  @Effect()
+  forgotPassword$ = this.actions$.pipe(
+    ofType<ForgotPassword>(AuthActionTypes.ForgotPassword),
+    map(action => action.payload),
+    exhaustMap((username: any) =>
+      this.authService.forgotPassword(username.username).pipe(
+        map(confirmCode => new ForgotPasswordSuccess(confirmCode)),
+        catchError(error => of(new ForgotPasswordFailure(error)))
+      )
+    )
+  );
+
+  @Effect()
+  resetPassword$ = this.actions$.pipe(
+    ofType<ResetPassword>(AuthActionTypes.ResetPassword),
+    map(action => action.resetUser),
+    exhaustMap((resetUser: ResetPasswordUser) =>
+      this.authService.resetPassword(resetUser.username, resetUser.confirmCode, resetUser.password).pipe(
+        map(user => new ResetPasswordSuccess(user)),
+        catchError(error => of(new ResetPasswordFailure(error)))
+      )
+    )
+  );
+
+  @Effect({dispatch: false})
+  forgotSuccess$ = this.actions$.pipe(
+    ofType<ForgotPasswordSuccess>(AuthActionTypes.ForgotPasswordSuccess),
+    tap(() => {
+      this.router.navigate(['/reset']);
+    })
+  );
+
+  @Effect({dispatch: false})
+  resetSuccess = this.actions$.pipe(
+    ofType<ForgotPasswordSuccess>(AuthActionTypes.ResetPasswordSuccess),
+    tap(() => {
+      this.router.navigate(['/signin']);
+    })
+  );
+
+  @Effect({dispatch: false})
   loginSuccess$ = this.actions$.pipe(
     ofType(AuthActionTypes.LoginSuccess),
     tap(() => this.router.navigate(['/']))
   );
 
-  @Effect({ dispatch: false })
+  @Effect({dispatch: false})
   loginRedirect$ = this.actions$.pipe(
     ofType(AuthActionTypes.LoginRedirect, AuthActionTypes.Logout),
-    tap(authed => {
+    tap(() => {
       this.router.navigate(['/signin']);
     })
   );
@@ -90,5 +136,6 @@ export class AuthEffects {
     private actions$: Actions,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) {
+  }
 }

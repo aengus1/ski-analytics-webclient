@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {Authenticate, ConfirmUser, SignupUser, User} from '../model/user';
+import {Authenticate, ConfirmUser, ResetPasswordUser, SignupUser, User} from '../model/user';
 
 export enum AuthActionTypes {
   Login = '[Auth] Login',
@@ -16,6 +16,12 @@ export enum AuthActionTypes {
   ResendConfirmCode = '[Auth] Resend Confirm code',
   ResendConfirmCodeSuccess = '[Auth] Resend Confirm Success',
   ResendConfirmCodeFailure = '[Auth] Resend Confirm Failure',
+  ForgotPassword = '[Auth] Forgot Password',
+  ForgotPasswordSuccess = '[Auth] Forgot Password Success',
+  ForgotPasswordFailure= '[Auth] Forgot Password Failure',
+  ResetPassword = '[Auth] Reset Password',
+  ResetPasswordSuccess = '[Auth] Reset Password Success',
+  ResetPasswordFailure = '[Auth] Reset Password Failure'
 }
 
 export class Login implements Action {
@@ -98,8 +104,51 @@ export class ResendConfirmCodeSuccess implements Action {
 
   constructor(public payload: any) {}
 }
+
+export class ForgotPassword implements Action {
+  readonly type = AuthActionTypes.ForgotPassword;
+
+  constructor(public payload: string) {}
+}
+
+export class ForgotPasswordSuccess implements Action {
+  readonly type = AuthActionTypes.ForgotPasswordSuccess;
+
+  constructor(public payload: string ) {}
+}
+
+export class ForgotPasswordFailure implements Action {
+  readonly type = AuthActionTypes.ForgotPasswordFailure;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class ResetPassword implements Action {
+  readonly type = AuthActionTypes.ResetPassword;
+
+  constructor(public resetUser: ResetPasswordUser) {}
+}
+
+export class ResetPasswordSuccess implements Action {
+  readonly type = AuthActionTypes.ResetPasswordSuccess;
+
+  constructor(public payload: string ) {}
+}
+
+export class ResetPasswordFailure implements Action {
+  readonly type = AuthActionTypes.ResetPasswordFailure;
+
+  constructor(public payload: any) {
+  }
+}
+
+
+
+
+
 export enum SignupStatus  { NOT_STARTED , SIGNUP_PENDING , SIGNUP_COMPLETE,
-CONFIRM_PENDING, CONFIRM_COMPLETE, RESEND_CONFIRM_FAILED }
+CONFIRM_PENDING, CONFIRM_COMPLETE }
 export type AuthActions =
   | Login
   | LoginSuccess
@@ -114,4 +163,11 @@ export type AuthActions =
   | ConfirmFailure
   | ResendConfirmCode
   | ResendConfirmCodeFailure
-  | ResendConfirmCodeSuccess;
+  | ResendConfirmCodeSuccess
+  | ForgotPassword
+  | ForgotPasswordFailure
+  | ForgotPasswordSuccess
+  | ResetPassword
+  | ResetPasswordSuccess
+  | ResetPasswordFailure
+  ;
