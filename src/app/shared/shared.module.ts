@@ -5,13 +5,15 @@ import {IntervalPipe} from './pipes/interval.pipe';
 import {TitleCasePipe} from './pipes/titlecase.pipe';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
+import {HomeComponent} from './components/home/home.component';
+import {RouterModule} from '@angular/router';
 
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule, RouterModule
   ],
-  declarations: [IntervalPipe, RemoveUnderscorePipe, TitleCasePipe, SidebarComponent,  NotFoundComponent],
-  exports: [SidebarComponent, IntervalPipe, RemoveUnderscorePipe, TitleCasePipe, NotFoundComponent]
+  declarations: [IntervalPipe, RemoveUnderscorePipe, TitleCasePipe, SidebarComponent,  NotFoundComponent, HomeComponent],
+  exports: [SidebarComponent, IntervalPipe, RemoveUnderscorePipe, TitleCasePipe, NotFoundComponent, HomeComponent]
 })
 export class SharedModule { }

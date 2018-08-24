@@ -5,11 +5,9 @@ import {environment} from '../../../environments/environment';
 import Amplify, {Auth} from 'aws-amplify';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
 import {Observable} from 'rxjs/Observable';
-import {catchError, map, tap} from 'rxjs/internal/operators';
-import {of} from 'rxjs/index';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import * as fromAuth from '../reducers';
-import {Login, Logout} from '../actions/auth.actions';
+import {Logout} from '../actions/auth.actions';
 
 @Injectable()
 export class AuthService {
@@ -37,10 +35,10 @@ export class AuthService {
   }
 
   public signIn(username: string, password): Observable<any> {
-    return fromPromise(Auth.signIn(username, password))
-      .pipe(
-        tap(() => this.store.dispatch(new Login({username, password})))
-      );
+    return fromPromise(Auth.signIn(username, password));
+      // .pipe(
+      //   tap(() => this.store.dispatch(new Login({username, password})))
+      // );
   }
 
   public forgotPassword(username: string): Observable<any> {
@@ -52,18 +50,27 @@ export class AuthService {
   }
 
   public isAuthenticated(): Observable<boolean> {
-    return fromPromise(Auth.currentAuthenticatedUser())
-      .pipe(
-        map(result => {
-          // TODO -> store logged in state
-          // this.loggedIn.next(true);
-          return true;
-        }),
-      catchError(error => {
-        // this.loggedIn.next(false);
-        return of(false);
-      })
-      );
+    return this.store.pipe(select(fromAuth.getLoggedIn));
+    // return fromPromise(Auth.currentSession())
+    // // use currentAuthenticatedUser() for federated identities
+    // // return fromPromise(Auth.currentAuthenticatedUser())
+    //   .pipe(
+    //     map(result => {
+    //       // TODO -> store logged in state
+    //       console.log('auth result = ' + result);
+    //       // this.loggedIn.next(true);
+    //       return true;
+    //     }),
+    //   catchError(error => {
+    //     // this.loggedIn.next(false);
+    //     console.log('auth result = ' + error);
+    //     return of(false);
+    //   })
+    //   );
+  }
+
+  public getToken(): string {
+      return sessionStorage.getItem('token');
   }
 
   public signOut() {
