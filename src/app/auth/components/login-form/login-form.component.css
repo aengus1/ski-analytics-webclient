@@ -13,6 +13,11 @@ body {
   background-color: #f5f5f5;
 }
 
+.errorMessage {
+  color: red;
+  font-family: Helvetica;
+}
+
 .form-signin {
   width: 100%;
   max-width: 330px;

@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConfirmUser, SignupUser} from '../../model/user';
 import {SignupStatus} from '../../actions/auth.actions';
-import {NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalOptions, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 
 @Component({
@@ -15,8 +15,8 @@ export class SignupFormComponent implements OnInit {
   public status: SignupStatus = SignupStatus.NOT_STARTED;
   public signupSuccess = false;
   private signupEmail = '';
-  private activeModal = null;
-
+  private modalRef: NgbModalRef;
+  private modalCloseResult: string;
 
 
   @Input()
@@ -38,7 +38,12 @@ export class SignupFormComponent implements OnInit {
         size: 'lg'
       };
       setTimeout(() => {
-        this.activeModal =  this.modal.open(this.confirmSuccessModal, options);
+        this.modalRef =  this.modal.open(this.confirmSuccessModal, options);
+          this.modalRef.result.then((result) => {
+            this.modalCloseResult = `Closed with: ${result}`;
+          }, (reason) => {
+            this.modalCloseResult = 'Dismissed';
+          });
         }
       , 100);
     }
@@ -48,9 +53,13 @@ export class SignupFormComponent implements OnInit {
 
   @Input() confirmErrorMessage: string | null;
 
+  @Input() resendConfirmErrorMessage: string | null;
+
   @Output() submittedSignup = new EventEmitter<SignupUser>();
 
   @Output() submittedConfirm = new EventEmitter<ConfirmUser>();
+
+  @Output() submittedResendConfirm = new EventEmitter<SignupUser>();
 
   @ViewChild('confirmSuccessModal') private confirmSuccessModal;
 
@@ -91,8 +100,18 @@ export class SignupFormComponent implements OnInit {
     }
   }
 
+  resendConfirm() {
+    this.submittedResendConfirm.emit(this.signupForm.value);
+    // this.signupStatus = SignupStatus.SIGNUP_COMPLETE;
+  }
+
+  /* edge case when user wants to sign up again.. */
+  closeModal() {
+      this.modalRef.close();
+  }
+
   gotoLogin() {
-    this.activeModal.close();
+    this.modalRef.close();
     this.router.navigateByUrl('/signin');
   }
 

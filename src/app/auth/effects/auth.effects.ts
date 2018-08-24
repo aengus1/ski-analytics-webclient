@@ -8,6 +8,8 @@ import {
   Login,
   LoginFailure,
   LoginSuccess,
+  ResendConfirmCodeFailure,
+  ResendConfirmCodeSuccess,
   Signup,
   SignupFailure,
   SignupSuccess,
@@ -54,6 +56,18 @@ export class AuthEffects {
       this.authService.confirmSignUp(confirmUser.username, confirmUser.confirmCode).pipe(
         map(user => new ConfirmSuccess(confirmUser)),
         catchError(error => of(new ConfirmFailure(error)))
+      )
+    )
+  );
+
+  @Effect()
+  resendConfirm$ = this.actions$.pipe(
+    ofType<Confirm>(AuthActionTypes.ResendConfirmCode),
+    map(action => action.payload),
+    exhaustMap((signupUser: SignupUser) =>
+      this.authService.resendConfirmCode(signupUser.username).pipe(
+        map(user => new ResendConfirmCodeSuccess(user)),
+        catchError(error => of(new ResendConfirmCodeFailure(error)))
       )
     )
   );

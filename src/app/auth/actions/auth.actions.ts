@@ -12,7 +12,10 @@ export enum AuthActionTypes {
   SignupFailure = '[Auth] Signup Failure',
   Confirm = '[Auth] Confirm',
   ConfirmSuccess = '[Auth] ConfirmSuccess',
-  ConfirmFailure = '[Auth] ConfirmFailure'
+  ConfirmFailure = '[Auth] ConfirmFailure',
+  ResendConfirmCode = '[Auth] Resend Confirm code',
+  ResendConfirmCodeSuccess = '[Auth] Resend Confirm Success',
+  ResendConfirmCodeFailure = '[Auth] Resend Confirm Failure',
 }
 
 export class Login implements Action {
@@ -31,7 +34,6 @@ export class LoginFailure implements Action {
   readonly type = AuthActionTypes.LoginFailure;
 
   constructor(public payload: any) {
-    console.log('login failure: ' + JSON.stringify(payload));
   }
 }
 
@@ -80,8 +82,24 @@ export class ConfirmFailure implements Action {
 
   constructor(public payload: any) {}
 }
+export class ResendConfirmCode implements Action {
+  readonly type = AuthActionTypes.ResendConfirmCode;
 
-export enum SignupStatus  { NOT_STARTED , SIGNUP_PENDING , SIGNUP_COMPLETE, CONFIRM_PENDING, CONFIRM_COMPLETE}
+  constructor(public payload: SignupUser) {}
+}
+
+export class ResendConfirmCodeFailure implements Action {
+  readonly type = AuthActionTypes.ResendConfirmCodeFailure;
+
+  constructor(public payload: any) {}
+}
+export class ResendConfirmCodeSuccess implements Action {
+  readonly type = AuthActionTypes.ResendConfirmCodeSuccess;
+
+  constructor(public payload: any) {}
+}
+export enum SignupStatus  { NOT_STARTED , SIGNUP_PENDING , SIGNUP_COMPLETE,
+CONFIRM_PENDING, CONFIRM_COMPLETE, RESEND_CONFIRM_FAILED }
 export type AuthActions =
   | Login
   | LoginSuccess
@@ -93,4 +111,7 @@ export type AuthActions =
   | SignupFailure
   | Confirm
   | ConfirmSuccess
-  | ConfirmFailure;
+  | ConfirmFailure
+  | ResendConfirmCode
+  | ResendConfirmCodeFailure
+  | ResendConfirmCodeSuccess;

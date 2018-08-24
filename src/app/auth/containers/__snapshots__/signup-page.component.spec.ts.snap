@@ -4,6 +4,7 @@ exports[`SignupPageComponent should compile 1`] = `
 <app-signup-page
   errorConfirm$={[Function Store]}
   errorSignup$={[Function Store]}
+  resendConfirm$={[Function Store]}
   signupStatus$={[Function Store]}
   store={[Function Store]}
 >
