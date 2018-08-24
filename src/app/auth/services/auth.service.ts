@@ -43,6 +43,11 @@ export class AuthService {
       );
   }
 
+  public forgotPassword(username: string): Observable<any> {
+    console.log('username = ' + JSON.stringify(username));
+    return fromPromise(Auth.forgotPassword(username));
+  }
+
   public isAuthenticated(): Observable<boolean> {
     return fromPromise(Auth.currentAuthenticatedUser())
       .pipe(

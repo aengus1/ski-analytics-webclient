@@ -111,7 +111,7 @@ export class ForgotPassword implements Action {
 export class ForgotPasswordSuccess implements Action {
   readonly type = AuthActionTypes.ForgotPasswordSuccess;
 
-  constructor(public payload: { confirmCode: string }) {}
+  constructor(public payload: string ) {}
 }
 
 export class ForgotPasswordFailure implements Action {

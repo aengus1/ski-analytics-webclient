@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Authenticate} from '../../model/user';
 
 @Component({
   selector: 'app-forgot-form',
@@ -7,9 +9,30 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ForgotFormComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+  @Input()
+  set pending(isPending: boolean) {
+    if (isPending) {
+      this.form.disable();
+    } else {
+      this.form.enable();
+    }
   }
 
+  @Input() errorMessage: string | null;
+
+  @Output() submitted = new EventEmitter<Authenticate>();
+
+  form: FormGroup = new FormGroup({
+    username: new FormControl('', [Validators.required, Validators.email])
+  });
+
+  constructor() {}
+
+  ngOnInit() {}
+
+  submit() {
+    if (this.form.valid) {
+      this.submitted.emit(this.form.value);
+    }
+  }
 }

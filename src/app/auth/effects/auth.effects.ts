@@ -5,6 +5,9 @@ import {
   Confirm,
   ConfirmFailure,
   ConfirmSuccess,
+  ForgotPassword,
+  ForgotPasswordFailure,
+  ForgotPasswordSuccess,
   Login,
   LoginFailure,
   LoginSuccess,
@@ -30,7 +33,7 @@ export class AuthEffects {
     map(action => action.payload),
     exhaustMap((auth: Authenticate) =>
       this.authService.signIn(auth.username, auth.password).pipe(
-        map(user => new LoginSuccess({ user })),
+        map(user => new LoginSuccess({user})),
         catchError(error => of(new LoginFailure(error)))
       )
     )
@@ -42,7 +45,7 @@ export class AuthEffects {
     map(action => action.payload),
     exhaustMap((userSignup: SignupUser) =>
       this.authService.signUp(userSignup.username, userSignup.password, userSignup.firstName, userSignup.lastName).pipe(
-        map(user => new SignupSuccess({ user })),
+        map(user => new SignupSuccess({user})),
         catchError(error => of(new SignupFailure(error)))
       )
     )
@@ -72,13 +75,33 @@ export class AuthEffects {
     )
   );
 
-  @Effect({ dispatch: false })
+  @Effect()
+  forgotPassword$ = this.actions$.pipe(
+    ofType<ForgotPassword>(AuthActionTypes.ForgotPassword),
+    map(action => action.payload),
+    exhaustMap((username: any) =>
+      this.authService.forgotPassword(username.username).pipe(
+        map(confirmCode => new ForgotPasswordSuccess(confirmCode)),
+        catchError(error => of(new ForgotPasswordFailure(error)))
+      )
+    )
+  );
+
+  @Effect({dispatch: false})
+  forgotSuccess$ = this.actions$.pipe(
+    ofType<ForgotPasswordSuccess>(AuthActionTypes.ForgotPasswordSuccess),
+    tap(redir => {
+      this.router.navigate(['/reset']);
+    })
+  );
+
+  @Effect({dispatch: false})
   loginSuccess$ = this.actions$.pipe(
     ofType(AuthActionTypes.LoginSuccess),
     tap(() => this.router.navigate(['/']))
   );
 
-  @Effect({ dispatch: false })
+  @Effect({dispatch: false})
   loginRedirect$ = this.actions$.pipe(
     ofType(AuthActionTypes.LoginRedirect, AuthActionTypes.Logout),
     tap(authed => {
@@ -90,5 +113,6 @@ export class AuthEffects {
     private actions$: Actions,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) {
+  }
 }
