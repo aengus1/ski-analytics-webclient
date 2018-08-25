@@ -30,6 +30,11 @@ export class ResetFormComponent implements OnInit {
         Validators.required,
         Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,20}')
       ])
+    // ,
+    // passwordConfirm: new FormControl('',
+    //   [
+    //     Validators.required
+    //   ])
   });
 
   constructor() {}

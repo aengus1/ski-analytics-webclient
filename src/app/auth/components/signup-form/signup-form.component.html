@@ -27,16 +27,18 @@
     <div class="col-md-6">
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" formControlName="password" class="form-control" placeholder="Password"
+             autocomplete="new-password"
              required>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-6">
-      <label for="inputPasswordConfirm" class="sr-only">Password Confirm</label>
-      <input type="password" id="inputPasswordConfirm" formControlName="passwordConfirm" class="form-control" placeholder="Password confirm"
-             required>
-    </div>
-  </div>
+  <!--<div class="row">-->
+    <!--<div class="col-md-6">-->
+      <!--<label for="inputPasswordConfirm" class="sr-only">Password Confirm</label>-->
+      <!--<input type="password" id="inputPasswordConfirm" name="passwordConfirm" formControlName="passwordConfirm" class="form-control" placeholder="Password confirm"-->
+             <!--autocomplete="new-password"-->
+             <!--required>-->
+    <!--</div>-->
+  <!--</div>-->
 
   <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="signupForm.invalid">Sign up</button>
   <br>
@@ -78,6 +80,11 @@
     *ngIf="signupForm.get('password').hasError('pattern') && signupForm.get('password').touched">
     Password must be at least 8 characters, and contain a mixture of upper case, lower case and number characters
   </div>
+  <!--<div-->
+    <!--class="alert alert-danger"-->
+    <!--*ngIf="signupForm.get('password').hasError('validateEqual') && signupForm.get('password').touched">-->
+    <!--Passwords must match-->
+  <!--</div>-->
   <div
     class="alert alert-danger"
     *ngIf="signupForm.get('firstName').hasError('minLength') && signupForm.get('firstName').touched">

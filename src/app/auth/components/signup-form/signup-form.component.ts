@@ -4,6 +4,7 @@ import {ConfirmUser, SignupUser} from '../../model/user';
 import {SignupStatus} from '../../actions/auth.actions';
 import {NgbModal, NgbModalOptions, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
+import {TextEqualityValidatorDirective} from '../../directives/ngx-text-equality-validator.directive';
 
 @Component({
   selector: 'app-signup-form',
@@ -67,9 +68,8 @@ export class SignupFormComponent implements OnInit {
     password: new FormControl('', [
       Validators.required,
       Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,20}')
-      // TODO -> add password confirm validator
     ]),
-    passwordConfirm: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,20}')]),
+    // passwordConfirm: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,20}')]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required, Validators.minLength(2)])
   });

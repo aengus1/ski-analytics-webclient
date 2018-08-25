@@ -110,36 +110,13 @@ exports[`SignupPageComponent should compile 1`] = `
               Password
             </label>
             <input
+              autocomplete="new-password"
               class="form-control ng-untouched ng-pristine ng-invalid"
               formcontrolname="password"
               id="inputPassword"
               ng-reflect-name="password"
               ng-reflect-required=""
               placeholder="Password"
-              required=""
-              type="password"
-            />
-          </div>
-        </div>
-        <div
-          class="row"
-        >
-          <div
-            class="col-md-6"
-          >
-            <label
-              class="sr-only"
-              for="inputPasswordConfirm"
-            >
-              Password Confirm
-            </label>
-            <input
-              class="form-control ng-untouched ng-pristine ng-invalid"
-              formcontrolname="passwordConfirm"
-              id="inputPasswordConfirm"
-              ng-reflect-name="passwordConfirm"
-              ng-reflect-required=""
-              placeholder="Password confirm"
               required=""
               type="password"
             />
