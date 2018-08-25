@@ -33,6 +33,7 @@ exports[`LoginPageComponent should compile 1`] = `
         Email address
       </label>
       <input
+        autocomplete="email"
         autofocus=""
         class="form-control ng-untouched ng-pristine ng-invalid"
         formcontrolname="username"
@@ -50,6 +51,7 @@ exports[`LoginPageComponent should compile 1`] = `
         Password
       </label>
       <input
+        autocomplete="current-password"
         class="form-control ng-untouched ng-pristine ng-invalid"
         formcontrolname="password"
         id="inputPassword"
