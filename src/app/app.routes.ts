@@ -8,7 +8,7 @@ import {HomeComponent} from './shared/components/home/home.component';
 const appRoutes: Routes = [
 
 
-  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: '', component: HomeComponent, canActivate: [AuthGuard]},
   // {path: 'activity',  component: NotFoundComponent, canActivate: [AuthGuard]},
   {
     path: 'activity',
