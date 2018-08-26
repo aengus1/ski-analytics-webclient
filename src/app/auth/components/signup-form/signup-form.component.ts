@@ -4,7 +4,6 @@ import {ConfirmUser, SignupUser} from '../../model/user';
 import {SignupStatus} from '../../actions/auth.actions';
 import {NgbModal, NgbModalOptions, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
-import {TextEqualityValidatorDirective} from '../../directives/ngx-text-equality-validator.directive';
 
 @Component({
   selector: 'app-signup-form',
