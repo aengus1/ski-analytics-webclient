@@ -67,7 +67,7 @@ jobs:
             command: |
               mkdir -p ~/repo/workspace/deploy
               mkdir -p ~/repo/workspace/dist
-              yarn ng build --configuration=staging
+              yarn ng build --configuration=staging --prod
               ls -lh ~/repo
               cp -r ~/repo/dist/* ~/repo/workspace/dist
               cp  ~/repo/.circleci/deploy.sh ~/repo/workspace/deploy/
@@ -108,7 +108,6 @@ jobs:
 
 
         # build production
-        # yarn ng build --prod --configuration=production
         - run:
             name: build production
             command: |
@@ -202,12 +201,18 @@ workflows:
           filters:
             branches:
               only:
-                - develop
                 - master
+      - build-staging:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
       - deploy-staging:
           requires:
             - build
-            - build-prod
+            - build-staging
           filters:
             branches:
               only: develop
