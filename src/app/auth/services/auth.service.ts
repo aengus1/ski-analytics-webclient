@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import Amplify, {Auth} from 'aws-amplify';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
+
 import {Observable} from 'rxjs/Observable';
 import {select, Store} from '@ngrx/store';
 import * as fromAuth from '../reducers';
@@ -52,8 +53,9 @@ export class AuthService {
   public isAuthenticated(): Observable<boolean> {
     return this.store.pipe(select(fromAuth.getLoggedIn));
     // return fromPromise(Auth.currentSession())
-    // // use currentAuthenticatedUser() for federated identities
-    // // return fromPromise(Auth.currentAuthenticatedUser())
+    // use currentAuthenticatedUser() for federated identities
+    // return fromPromise(Auth.currentAuthenticatedUser())
+    // return fromPromise(Auth.currentUserPoolUser())
     //   .pipe(
     //     map(result => {
     //       // TODO -> store logged in state
