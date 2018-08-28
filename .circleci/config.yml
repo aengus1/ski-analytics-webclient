@@ -212,22 +212,22 @@ workflows:
             branches:
               only: develop
           context: staging
-      - hold:
-          type: approval
-          requires:
-            - build-prod
-          filters:
-            branches:
-              only: master
-          context: prod
-      - deploy-prod:
-          requires:
-            - build
-            - build-prod
-          filters:
-            branches:
-              only: master
-          context: prod
+#      - hold:
+#          type: approval
+#          requires:
+#            - build-prod
+#          filters:
+#            branches:
+#              only: master
+#          context: prod
+#      - deploy-prod:
+#          requires:
+#            - build
+#            - build-prod
+#          filters:
+#            branches:
+#              only: master
+#          context: prod
 
 
 
