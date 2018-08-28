@@ -61,12 +61,13 @@ jobs:
 
 
         # build production
+        # yarn ng build --prod --configuration=production
         - run:
             name: build production
             command: |
               mkdir -p ~/repo/workspace/deploy
               mkdir -p ~/repo/workspace/dist
-              yarn ng build --prod --configuration=production
+              yarn ng build 
               ls -lh ~/repo
               cp -r ~/repo/dist/* ~/repo/workspace/dist
               cp  ~/repo/.circleci/deploy.sh ~/repo/workspace/deploy/
@@ -77,6 +78,7 @@ jobs:
         - store_artifacts:
             path: ~/repo/workspace/dist/
             destination: app-distribution
+
 
   deploy-staging:
     docker:
