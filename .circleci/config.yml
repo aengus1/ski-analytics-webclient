@@ -196,7 +196,7 @@ workflows:
   build-test-deploy:
     jobs:
       - build
-      - build-staging:
+      - build-prod:
           requires:
             - build
           filters:
@@ -207,27 +207,27 @@ workflows:
       - deploy-staging:
           requires:
             - build
-            - build-staging
+            - build-prod
           filters:
             branches:
               only: develop
           context: staging
-#      - hold:
-#          type: approval
-#          requires:
-#            - build-prod
-#          filters:
-#            branches:
-#              only: master
-#          context: prod
-#      - deploy-prod:
-#          requires:
-#            - build
-#            - build-prod
-#          filters:
-#            branches:
-#              only: master
-#          context: prod
+      - hold:
+          type: approval
+          requires:
+            - build-prod
+          filters:
+            branches:
+              only: master
+          context: prod
+      - deploy-prod:
+          requires:
+            - build
+            - build-prod
+          filters:
+            branches:
+              only: master
+          context: prod
 
 
 
