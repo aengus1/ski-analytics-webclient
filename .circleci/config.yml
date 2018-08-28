@@ -67,7 +67,7 @@ jobs:
             command: |
               mkdir -p ~/repo/workspace/deploy
               mkdir -p ~/repo/workspace/dist
-              yarn ng build 
+              yarn ng build
               ls -lh ~/repo
               cp -r ~/repo/dist/* ~/repo/workspace/dist
               cp  ~/repo/.circleci/deploy.sh ~/repo/workspace/deploy/

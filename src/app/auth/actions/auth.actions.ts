@@ -67,7 +67,7 @@ export class SignupFailure implements Action {
   readonly type = AuthActionTypes.SignupFailure;
 
   constructor(public payload: any) {
-    console.log('signup failure: ' + payload.message);
+    console.log('signup failure: ' + JSON.stringify(payload));
   }
 }
 
