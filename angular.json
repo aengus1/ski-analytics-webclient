@@ -47,6 +47,17 @@
                 }
               ]
             },
+            "staging": {
+              "optimization": false,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "extractCss": false,
+              "namedChunks": false,
+              "aot": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false,
+            },
             "sourcemap": {
               "optimization": true,
               "outputHashing": "all",
@@ -74,6 +85,9 @@
           "configurations": {
             "production": {
               "browserTarget": "ski-analytics-web:build:production"
+            },
+            "staging": {
+              "browserTarget": "ski-analytics-web:build:staging"
             }
           }
         },
