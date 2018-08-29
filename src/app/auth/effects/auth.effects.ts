@@ -42,6 +42,15 @@ export class AuthEffects {
     )
   );
 
+  // NO -> the event is already being dispatched in the auth service
+  // @Effect()
+  // logout$ = this.actions$.pipe(
+  //   ofType<Logout>(AuthActionTypes.Logout),
+  //   tap(() =>
+  //     this.authService.signOut()
+  //   )
+  // );
+
   @Effect()
   signup$ = this.actions$.pipe(
     ofType<Signup>(AuthActionTypes.Signup),
@@ -121,7 +130,7 @@ export class AuthEffects {
   @Effect({dispatch: false})
   loginSuccess$ = this.actions$.pipe(
     ofType<LoginSuccess>(AuthActionTypes.LoginSuccess),
-    tap(user => {
+    tap(() => {
       // sessionStorage.setItem('username', user.payload.user.username);
       // sessionStorage.setItem('sessiontoken', user.payload.user.signInUserSession.accessToken.jwtToken);
       this.router.navigate(['/']);
@@ -132,7 +141,9 @@ export class AuthEffects {
   loginRedirect$ = this.actions$.pipe(
     ofType(AuthActionTypes.LoginRedirect, AuthActionTypes.Logout),
     tap(() => {
-      this.router.navigate(['/signin']);
+      if ( this.router.url !== '/signout') {
+        this.router.navigate(['/signin']);
+      }
     })
   );
 

@@ -1,4 +1,4 @@
-import {AuthActions, AuthActionTypes} from './../actions/auth.actions';
+import {AuthActions, AuthActionTypes} from '../actions/auth.actions';
 import {User} from '../model/user';
 
 export interface State {
@@ -20,7 +20,6 @@ export function reducer(state = initialState, action: AuthActions): State {
         user: action.payload.user,
       };
     }
-
     case AuthActionTypes.Logout: {
       return initialState;
     }
