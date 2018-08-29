@@ -9,6 +9,20 @@ exports[`LoginPageComponent should compile 1`] = `
   <app-login-form
     ng-reflect-pending="false"
   >
+    <div
+      class="header"
+    >
+      <button
+        class="btn btn-lg btn-primary logo-button "
+      >
+        <a
+          class="logo-font"
+          href="http://crunch.ski"
+        >
+           Crunch.Ski
+        </a>
+      </button>
+    </div>
     <form
       class="form-signin ng-untouched ng-pristine ng-invalid"
       ng-reflect-form="[object Object]"

@@ -11,6 +11,20 @@ exports[`SignupPageComponent should compile 1`] = `
   <app-signup-form
     ng-reflect-signup-status="0"
   >
+    <div
+      class="header"
+    >
+      <button
+        class="btn btn-lg btn-primary logo-button "
+      >
+        <a
+          class="logo-font"
+          href="http://crunch.ski"
+        >
+           Crunch.Ski
+        </a>
+      </button>
+    </div>
     
     <div>
       <form

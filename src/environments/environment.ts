@@ -13,5 +13,6 @@ export const environment = {
       mandatorySignIn: true,
       authenticationFlowType: 'USER_PASSWORD_AUTH'
     }
-  }
+  },
+  domain: 'staging.crunch.ski'
 };
