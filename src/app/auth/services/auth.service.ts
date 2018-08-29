@@ -53,29 +53,18 @@ export class AuthService {
   }
 
   public isAuthenticated(): Observable<boolean> {
-    //return this.store.pipe(select(fromAuth.getLoggedIn));
-    // return fromPromise(Auth.currentSession())
-    // use currentAuthenticatedUser() for federated identities
      return fromPromise(Auth.currentAuthenticatedUser())
-    // return fromPromise(Auth.currentUserPoolUser())
       .pipe(
         map(result => {
-          // TODO -> store logged in state
-          console.log('auth result = ' + JSON.stringify(result));
-          // this.loggedIn.next(true);
           return true;
         }),
       catchError(error => {
-        // this.loggedIn.next(false);
-        console.log('auth result = ' + error);
+        console.error('auth result = ' + error);
         return of(false);
       })
       );
   }
 
-  public getToken(): string {
-      return sessionStorage.getItem('token');
-  }
 
   public signOut() {
     fromPromise(Auth.signOut())
