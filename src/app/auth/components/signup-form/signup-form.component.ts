@@ -68,12 +68,11 @@ export class SignupFormComponent implements OnInit {
         Validators.required,
         Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,20}')
       ]),
-      passwordConfirm: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,20}')]),
-    // password: new FormControl('', [
-    //   Validators.required,
-    //   Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,20}')
-    // ]),
-    // passwordConfirm: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,20}')]),
+      passwordConfirm: new FormControl('',
+        [
+          Validators.required,
+          Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,20}')
+        ]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required, Validators.minLength(2)])
   }, this.passwordMatchValidator);
@@ -99,16 +98,13 @@ export class SignupFormComponent implements OnInit {
   }
 
   submitConfirm() {
-    this.signupForm.setValidators(this.passwordMatchValidator);
     if (this.confirmForm.valid) {
       this.submittedConfirm.emit({username: this.signupEmail, confirmCode: this.confirmForm.value.validationCode});
     }
   }
 
   resendConfirm() {
-    this.signupForm.setValidators(this.passwordMatchValidator);
     this.submittedResendConfirm.emit(this.signupForm.value);
-    // this.signupStatus = SignupStatus.SIGNUP_COMPLETE;
   }
 
   /* edge case when user wants to sign up again.. */
