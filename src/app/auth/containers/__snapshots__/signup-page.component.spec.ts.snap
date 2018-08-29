@@ -122,6 +122,32 @@ exports[`SignupPageComponent should compile 1`] = `
             />
           </div>
         </div>
+        <div
+          class="row"
+        >
+          <div
+            class="col-md-6"
+          >
+            <label
+              class="sr-only"
+              for="inputPasswordConfirm"
+            >
+              Password Confirm
+            </label>
+            <input
+              autocomplete="new-password"
+              class="form-control ng-untouched ng-pristine ng-invalid"
+              formcontrolname="passwordConfirm"
+              id="inputPasswordConfirm"
+              name="passwordConfirm"
+              ng-reflect-name="passwordConfirm"
+              ng-reflect-required=""
+              placeholder="Password confirm"
+              required=""
+              type="password"
+            />
+          </div>
+        </div>
         <button
           class="btn btn-lg btn-primary btn-block"
           disabled=""
@@ -130,6 +156,7 @@ exports[`SignupPageComponent should compile 1`] = `
           Sign up
         </button>
         <br />
+        
         
         
         

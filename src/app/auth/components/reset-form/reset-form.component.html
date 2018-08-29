@@ -11,9 +11,9 @@
   <label for="inputPassword" class="sr-only">Password</label>
   <input type="password" id="inputPassword" formControlName="password" class="form-control" placeholder="Password"
          required autocomplete="new-password">
-  <!--<label for="inputPasswordConfirm" class="sr-only">Password Confirm</label>-->
-  <!--<input type="password" id="inputPasswordConfirm" formControlName="passwordConfirm" class="form-control" placeholder="Password Confirm"-->
-         <!--required autocomplete="new-password">-->
+  <label for="inputPasswordConfirm" class="sr-only">Password Confirm</label>
+  <input type="password" id="inputPasswordConfirm" formControlName="passwordConfirm" class="form-control" placeholder="Password Confirm"
+         required autocomplete="new-password">
   <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="form.invalid">Reset Password</button>
   <br>
   <!-- username validation error -->
@@ -33,11 +33,11 @@
     *ngIf="form.get('password').hasError('pattern') && form.get('password').touched">
     Password must be at least 8 characters, and contain a mixture of upper case, lower case and number characters
   </div>
-  <!--<div-->
-    <!--class="alert alert-danger"-->
-    <!--*ngIf="form.get('password').hasError('matchOtherValidator') && form.get('password').touched">-->
-    <!--Passwords must match-->
-  <!--</div>-->
+  <div
+    class="alert alert-danger"
+    *ngIf="form.errors?.mismatch && (form.controls['passwordConfirm'].dirty || form.controls['passwordConfirm'].touched)">
+    Passwords must match
+  </div>
   <!-- confirm code validation -->
   <div
     class="alert alert-danger"

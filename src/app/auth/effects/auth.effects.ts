@@ -122,8 +122,8 @@ export class AuthEffects {
   loginSuccess$ = this.actions$.pipe(
     ofType<LoginSuccess>(AuthActionTypes.LoginSuccess),
     tap(user => {
-      sessionStorage.setItem('username', user.payload.user.username);
-      sessionStorage.setItem('sessiontoken', user.payload.user.signInUserSession.accessToken.jwtToken);
+      // sessionStorage.setItem('username', user.payload.user.username);
+      // sessionStorage.setItem('sessiontoken', user.payload.user.signInUserSession.accessToken.jwtToken);
       this.router.navigate(['/']);
     })
   );

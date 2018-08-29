@@ -32,19 +32,19 @@ export class SignupFormComponent implements OnInit {
       this.confirmForm.enable();
       this.signupSuccess = true;
     }
-    if ( status === SignupStatus.CONFIRM_COMPLETE) {
+    if (status === SignupStatus.CONFIRM_COMPLETE) {
       const options: NgbModalOptions = {
         size: 'lg'
       };
       setTimeout(() => {
-        this.modalRef =  this.modal.open(this.confirmSuccessModal, options);
+          this.modalRef = this.modal.open(this.confirmSuccessModal, options);
           this.modalRef.result.then((result) => {
             this.modalCloseResult = `Closed with: ${result}`;
           }, (reason) => {
             this.modalCloseResult = 'Dismissed';
           });
         }
-      , 100);
+        , 100);
     }
   }
 
@@ -64,14 +64,18 @@ export class SignupFormComponent implements OnInit {
 
   signupForm: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,20}')
-    ]),
-    // passwordConfirm: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,20}')]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,20}')
+      ]),
+      passwordConfirm: new FormControl('',
+        [
+          Validators.required,
+          Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,20}')
+        ]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required, Validators.minLength(2)])
-  });
+  }, this.passwordMatchValidator);
 
   confirmForm: FormGroup = new FormGroup({
     validationCode: new FormControl('', [
@@ -79,7 +83,8 @@ export class SignupFormComponent implements OnInit {
     ])
   });
 
-  constructor(private modal: NgbModal, private router: Router) {}
+  constructor(private modal: NgbModal, private router: Router) {
+  }
 
   ngOnInit() {
     this.signupStatus = SignupStatus.NOT_STARTED;
@@ -100,12 +105,11 @@ export class SignupFormComponent implements OnInit {
 
   resendConfirm() {
     this.submittedResendConfirm.emit(this.signupForm.value);
-    // this.signupStatus = SignupStatus.SIGNUP_COMPLETE;
   }
 
   /* edge case when user wants to sign up again.. */
   closeModal() {
-      this.modalRef.close();
+    this.modalRef.close();
   }
 
   gotoLogin() {
@@ -113,4 +117,11 @@ export class SignupFormComponent implements OnInit {
     this.router.navigateByUrl('/signin');
   }
 
+  passwordMatchValidator(frm: FormGroup) {
+    const pass = frm.get('password').value;
+    const confirmPass = frm.get('passwordConfirm').value;
+
+    return pass === confirmPass ? null : { mismatch: true };
+  }
 }
+
