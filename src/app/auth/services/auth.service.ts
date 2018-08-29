@@ -4,9 +4,11 @@ import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import Amplify, {Auth} from 'aws-amplify';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
-
+import {map} from 'rxjs/operators/map';
+import {of} from 'rxjs/internal/observable/of';
+import {catchError} from 'rxjs/operators/catchError';
 import {Observable} from 'rxjs/Observable';
-import {select, Store} from '@ngrx/store';
+import {Store} from '@ngrx/store';
 import * as fromAuth from '../reducers';
 import {Logout} from '../actions/auth.actions';
 
@@ -51,24 +53,24 @@ export class AuthService {
   }
 
   public isAuthenticated(): Observable<boolean> {
-    return this.store.pipe(select(fromAuth.getLoggedIn));
+    //return this.store.pipe(select(fromAuth.getLoggedIn));
     // return fromPromise(Auth.currentSession())
     // use currentAuthenticatedUser() for federated identities
-    // return fromPromise(Auth.currentAuthenticatedUser())
+     return fromPromise(Auth.currentAuthenticatedUser())
     // return fromPromise(Auth.currentUserPoolUser())
-    //   .pipe(
-    //     map(result => {
-    //       // TODO -> store logged in state
-    //       console.log('auth result = ' + result);
-    //       // this.loggedIn.next(true);
-    //       return true;
-    //     }),
-    //   catchError(error => {
-    //     // this.loggedIn.next(false);
-    //     console.log('auth result = ' + error);
-    //     return of(false);
-    //   })
-    //   );
+      .pipe(
+        map(result => {
+          // TODO -> store logged in state
+          console.log('auth result = ' + JSON.stringify(result));
+          // this.loggedIn.next(true);
+          return true;
+        }),
+      catchError(error => {
+        // this.loggedIn.next(false);
+        console.log('auth result = ' + error);
+        return of(false);
+      })
+      );
   }
 
   public getToken(): string {
