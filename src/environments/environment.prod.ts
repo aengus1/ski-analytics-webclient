@@ -14,5 +14,6 @@ export const environment = {
       },
       authenticationFlowType: 'USER_PASSWORD_AUTH'
     }
-  }
+  },
+  domain: 'crunch.ski'
 };

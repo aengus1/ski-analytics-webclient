@@ -82,6 +82,30 @@ body {
   padding-right: 6px;
 }
 
+/** header bar **/
+.header {
+  padding: 10px 16px;
+  background: #faf5f0;
+  color: #f1f1f1;
+}
+.logo-button{
+  background-color: #52A6D5;
+}
+.logo-button a:hover{
+  text-decoration: none;
+}
+
+.logo-font{
+  font-family: "Fjalla One", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  background-color: #52A6D5;
+  color: white;
+}
+
+
+.content {
+  padding: 16px;
+}
 
 
 
