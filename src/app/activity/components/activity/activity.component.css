@@ -27,8 +27,8 @@
 
 .main-content[toggle=true] {
   position: absolute;
-  width: calc(100% - 250px);
-  margin-right: 250px;
+  width: calc(100% - 270px);
+  margin-right: 270px;
   /*transition: all 0.3s;*/
 }
 
@@ -37,7 +37,7 @@
 }
 
 .btn-sm.active{
-  background-color: #cccccc;
+  color: #cc4f4a;
 
 }
 /*/deep/ button:hover i.fa {*/

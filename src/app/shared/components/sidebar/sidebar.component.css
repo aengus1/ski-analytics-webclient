@@ -5,7 +5,7 @@
   /*width: 25%;*/
   /*float: right;*/
   position: fixed;
-  right: 0;
+  right: 20px;
   width: 0;
   height: 100%;
   /*margin-top: 25px;*/
@@ -15,7 +15,7 @@
   overflow-y: auto;
   border-radius: 10px;
   padding: 8px;
-  margin: 25px -250px 5px -250px;
+  margin: 25px -270px 5px -270px;
   border: 1px solid black;
 
 
