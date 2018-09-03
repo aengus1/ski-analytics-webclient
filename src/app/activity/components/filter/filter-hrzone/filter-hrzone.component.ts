@@ -42,7 +42,7 @@ export class FilterHrzoneComponent extends FilterBase implements OnInit {
   public userZoneBoundaries: number[];
   public filterId = 'hrzone';
   public debouncer: Subject<MessageEvent<any[]| ActivityFilter>> = new Subject<MessageEvent<any[]| ActivityFilter>>();
-  public initialState = [false, false, false, false, false];
+  public initialState = [true, true, true, true, true];
 
   constructor(private logger: LoggerService) {
     super();
@@ -79,7 +79,7 @@ export class FilterHrzoneComponent extends FilterBase implements OnInit {
 
   reset(): void {
     this.logger.info('[FilterHrZoneComponent] reset called');
-    this.initialState = [false, false, false, false, false];
+    this.initialState = [true, true, true, true, true];
   }
 
   set (filter: ActivityFilter) {

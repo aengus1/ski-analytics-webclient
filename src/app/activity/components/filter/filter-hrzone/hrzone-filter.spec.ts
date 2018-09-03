@@ -14,13 +14,13 @@ describe('HrzoneFilter', () => {
   });
 
   it('should create', () => {
-    const filter: HrzoneFilter = new HrzoneFilter([false, true, false, false, false], 'hrzone');
+    const filter: HrzoneFilter = new HrzoneFilter([true, false, true, true, true], 'hrzone');
     filter.setUserZoneBoundaries([120, 130, 150, 166]);
     expect(filter == null).toBeFalsy();
   });
 
   it('should filter based on initial values', () => {
-    const filter: HrzoneFilter = new HrzoneFilter([false, false, true, false, false], 'hrzone');
+    const filter: HrzoneFilter = new HrzoneFilter([true, true, false, true, true], 'hrzone');
     filter.setUserZoneBoundaries([120, 130, 140, 166]);
     const result: number[] = filter.findRemainingIndices(activity);
     AbstractActivityFilter.filterAllValuesByIndex(activity, result);
@@ -36,20 +36,20 @@ describe('HrzoneFilter', () => {
 
   it('should reset to initial unfiltered state after clear is called', () => {
     const actClone2 = _.cloneDeep(activity);
-    const filter: HrzoneFilter = new HrzoneFilter([false, false, true, false, false], 'hrzone');
+    const filter: HrzoneFilter = new HrzoneFilter([true, true, false, true, true], 'hrzone');
     filter.setUserZoneBoundaries([120, 130, 140, 166]);
      filter.findRemainingIndices(activity);
     filter.clear();
     // console.log('activity = ' + activity.getValues().getHrList());
     const result: number[] = filter.findRemainingIndices(actClone2);
-    expect(filter.initialZones).toEqual([false, false, false, false, false]);
+    expect(filter.initialZones).toEqual([true, true, true, true, true]);
     // console.log(result + ' vs ' + actClone.getValues().getHrList());
     expect(result.length).toEqual(actClone.getValues().getHrList().length);
 
   });
 
   it('should still filter correctly after being rehydrated', () => {
-    const filter: HrzoneFilter = new HrzoneFilter([false, false, true, false, false], 'hrzone');
+    const filter: HrzoneFilter = new HrzoneFilter([true, true, false, true, true], 'hrzone');
     filter.setUserZoneBoundaries([120, 130, 140, 166]);
     const obj: Object = <Object>filter;
     let newFilter = new HrzoneFilter();

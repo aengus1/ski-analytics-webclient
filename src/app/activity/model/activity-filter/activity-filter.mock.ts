@@ -13,7 +13,7 @@ export class MockActivityFilter {
 
   public static generateMockHrZoneFilter(): HrzoneFilter {
 
-    const f = new HrzoneFilter([true, true, false, false, false], 'hr');
+    const f = new HrzoneFilter([false, false, true, true, true], 'hr');
     f.setUserZoneBoundaries([120, 140, 150, 170]);
     return f;
   }
