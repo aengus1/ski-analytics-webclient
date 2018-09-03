@@ -18,7 +18,7 @@ export class HrzoneFilter extends AbstractActivityFilter {
    * @param {number[]} initialZones current state of filter
    * @param {string} id unique id for this filter type
    */
-  constructor(initialZones = [false, false, false, false, false], id: string = 'hrzone') {
+  constructor(initialZones = [true, true, true, true, true], id: string = 'hrzone') {
     super();
     this.type = ActivityFilterType.HrZone;
     this.initialZones = initialZones;
@@ -86,7 +86,7 @@ export class HrzoneFilter extends AbstractActivityFilter {
       let j = 0;
       let keep = true;
       for (j = 0; j < this.initialZones.length; j++) {
-        if (zone[ix] === j + 1 && this.initialZones[j] === true) {
+        if (zone[ix] === j + 1 && this.initialZones[j] === false) {
           keep = false;
           break;
         }
@@ -100,7 +100,7 @@ export class HrzoneFilter extends AbstractActivityFilter {
   }
 
   clear(): void {
-    this.initialZones = [false, false, false, false, false];
+    this.initialZones = [true, true, true, true, true];
   }
 
   reHydrate(obj: Object) {
