@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation} from '@angular/core';
 import {D3ChartComponent} from '../d3-chart/d3chart.component';
 import {D3Service} from 'd3-ng2-service';
 import {BoxPlot} from './boxplot';
@@ -9,7 +9,8 @@ import {LoggerService} from '../../../shared/services/logger.service';
   selector: 'app-d3-boxplot',
   template: `<svg></svg>`,
   styleUrls: ['./d3-boxplot.component.css'],
-  encapsulation: ViewEncapsulation.None      // this forces angular to respect css class names on d3 elements
+  encapsulation: ViewEncapsulation.None,      // this forces angular to respect css class names on d3 elements
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class D3BoxplotComponent extends D3ChartComponent {
 

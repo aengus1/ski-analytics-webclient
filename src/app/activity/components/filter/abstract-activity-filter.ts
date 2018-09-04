@@ -12,14 +12,12 @@ export abstract class AbstractActivityFilter implements ActivityFilter {
    * @param {Activity} activity the activity to filter
    * @param {number[]} indices the array indices to exclude
    */
-  // TODO -> add all value types to this filter
   public static filterAllValuesByIndex(activity: Activity, indices: number[]) {
     activity.getValues().setSpeedList(AbstractActivityFilter.filterByIndices(activity.getValues().getSpeedList(), indices));
     activity.getValues().setHrList(AbstractActivityFilter.filterByIndices(activity.getValues().getHrList(), indices));
     activity.getValues().setTsList(AbstractActivityFilter.filterByIndices(activity.getValues().getTsList(), indices));
     activity.getValues().setDistanceList(AbstractActivityFilter.filterByIndices(activity.getValues().getDistanceList(), indices));
     activity.getValues().setAltitudeList(AbstractActivityFilter.filterByIndices(activity.getValues().getAltitudeList(), indices));
-    // console.log('tslist = ' + activity.getValues().getTsList());
   }
 
   /**

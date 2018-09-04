@@ -58,6 +58,9 @@ export class MapComponent implements  AfterViewInit, OnInit {
     };
   }
 
+  getTsListNoMarkers() {
+    return this.activity.getValues().getTsList().filter(x => x !== 'marker');
+  }
   /**
    * return every 30th index to draw map markers at
    * @returns {any[]}

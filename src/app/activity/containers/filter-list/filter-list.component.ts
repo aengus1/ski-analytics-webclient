@@ -89,7 +89,7 @@ export class FilterListComponent implements OnInit {
       }
       case 'clearFilter': {
         this.store.pipe(select(fromActivity.getActivityFilterEntities)).pipe(take(1)).subscribe( (v: Dictionary<ActivityFilter>) => {
-          console.log(JSON.stringify(v[$event.payload]));
+          // console.log(JSON.stringify(v[$event.payload]));
           if (v[$event.payload] === undefined ) {
             return;
           }
