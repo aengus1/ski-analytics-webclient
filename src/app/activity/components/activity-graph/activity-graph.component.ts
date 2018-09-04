@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Activity} from '../../model/activity/Activity_pb';
 import {ChartOptions, YLabelFormat} from '../../../chart/components/d3-bar/ChartOptions';
 import {D3LineComponent} from '../../../chart/components/d3-line/d3-line.component';
@@ -26,6 +26,8 @@ export class ActivityGraphComponent implements OnInit {
   @ViewChild(D3LineComponent) graph;
   public xAxisFormat = new Map<string, number>();
 
+  @Input()
+  panelOpen = false;
   // private showSeries: number[] = [0, 1, 2];
 
   constructor(private store: Store<fromActivity.State>) {

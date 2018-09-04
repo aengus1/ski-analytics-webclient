@@ -89,7 +89,7 @@ export class AscentDescentComponent implements OnInit {
 
   constructor() {
   }
-
+F
   ngOnInit() {
   }
 

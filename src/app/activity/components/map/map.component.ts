@@ -18,6 +18,9 @@ export class MapComponent implements  AfterViewInit, OnInit {
   @Input()
   public activity: Activity;
 
+  @Input()
+  panelOpen = false;
+
   private center;
   private latList;
   private lonList;
@@ -70,7 +73,7 @@ export class MapComponent implements  AfterViewInit, OnInit {
     indices.push(0);
     indices.push(this.lonList.length - 1);
     let i = 0;
-    while ((i += 30) < this.lonList.length - 1) {
+    while ((i += 20) < this.lonList.length - 1) {
       indices.push(i);
     }
     return indices;

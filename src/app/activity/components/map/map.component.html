@@ -33,7 +33,7 @@
 
       <mgl-marker *ngFor="let i of buildMarkerIndexes()" [lngLat]="coords[i]">
           <div class="fa"
-               [ngClass]="{'fa-circle': i !==0 && i !== coords.length-1, 'fa-map-marker' : i===0, 'fa-stop-circle': i==coords.length-1}"
+               [ngClass]="{'fa-circle fa-4x': i !==0 && i !== coords.length-1, 'fa-map-marker' : i===0, 'fa-stop-circle': i==coords.length-1}"
                [ngbPopover]="popContent"
                popoverTitle="{{getTsListNoMarkers[i] | date: 'mediumTime' }}"
                html="true"
