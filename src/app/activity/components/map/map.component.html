@@ -35,7 +35,7 @@
           <div class="fa"
                [ngClass]="{'fa-circle': i !==0 && i !== coords.length-1, 'fa-map-marker' : i===0, 'fa-stop-circle': i==coords.length-1}"
                [ngbPopover]="popContent"
-               popoverTitle="{{activity.getValues().getTsList()[i] | date: 'mediumTime' }}"
+               popoverTitle="{{getTsListNoMarkers[i] | date: 'mediumTime' }}"
                html="true"
                placement="right" container="body" triggers="mouseenter:mouseleave"
           >

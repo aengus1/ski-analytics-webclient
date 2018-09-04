@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, Input, ViewEncapsulation} from '@angular/core';
 import {D3ChartComponent} from '../d3-chart/d3chart.component';
 import {D3Service, Selection} from 'd3-ng2-service';
 import {LoggerService} from '../../../shared/services/logger.service';
@@ -8,7 +8,8 @@ import {LoggerService} from '../../../shared/services/logger.service';
   selector: 'app-d3-radial',
   template: `<svg></svg>`,
   styleUrls: ['./d3-radial.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class D3RadialComponent extends D3ChartComponent {
 

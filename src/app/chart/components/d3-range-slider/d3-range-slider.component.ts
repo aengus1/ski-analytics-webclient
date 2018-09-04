@@ -1,5 +1,6 @@
 // Caution -> this component isn't tested, or currently used in the application
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -19,7 +20,8 @@ import {BaseType} from 'd3-selection';
   selector: 'app-d3-range-slider',
   template: `<span class="badge badge-light pull-right">{{value | number: '1.1-1' }} {{unitLabel}}</span><svg></svg>`,
   styleUrls: ['./d3-range-slider.component.css'],
-  encapsulation: ViewEncapsulation.None      // this forces angular to respect css class names on d3 elements
+  encapsulation: ViewEncapsulation.None,      // this forces angular to respect css class names on d3 elements
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class D3RangeSliderComponent implements OnInit {
 

@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, Input, ViewEncapsulation} from '@angular/core';
 import {D3ChartComponent} from '../d3-chart/d3chart.component';
 import {LoggerService} from '../../../shared/services/logger.service';
 import {D3Service, Selection} from 'd3-ng2-service';
@@ -12,7 +12,8 @@ import {BaseType} from 'd3-selection';
   template: `
     <svg></svg>`,
   styleUrls: ['./d3-line.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class D3LineComponent extends D3ChartComponent {
 

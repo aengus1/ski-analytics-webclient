@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {D3, D3Service, Selection} from 'd3-ng2-service';
 import {LoggerService} from '../../../shared/services/logger.service';
 
@@ -8,8 +8,7 @@ import {LoggerService} from '../../../shared/services/logger.service';
 // updateChart and createChart methods
 @Component({
   selector: 'app-d3chart',
-  template: `<svg></svg>`,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  template: `<svg></svg>`
 })
 export  class D3ChartComponent implements OnInit, OnChanges  {
 
@@ -28,17 +27,17 @@ export  class D3ChartComponent implements OnInit, OnChanges  {
     this.logger = logger;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    // data input is subject to change from filters being applied or async loading from http.
-    if (this.chartCreated && changes['data']) {
-      this.d3Svg.selectAll('*').remove();  // TODO -> use animation to update chart rather than redraw
-      if (this.data && this.data.length > 0) {
-        this.updateChart();
-      } else {
-        this.logger.warn('[D3ChartComponent] no data - not drawing');
-      }
-    }
-  }
+   ngOnChanges(changes: SimpleChanges): void {
+       // data input is subject to change from filters being applied or async loading from http.
+       if (this.chartCreated && changes['data']) {
+         this.d3Svg.selectAll('*').remove();  // TODO -> use animation to update chart rather than redraw
+         if (this.data && this.data.length > 0) {
+           this.updateChart();
+         } else {
+           this.logger.warn('[D3ChartComponent] no data - not drawing');
+         }
+       }
+   }
 
   ngOnInit(): void {
     this.data = this.data !== undefined ? this.data.filter(d => (d !== -999)) : undefined;
@@ -50,6 +49,7 @@ export  class D3ChartComponent implements OnInit, OnChanges  {
       this.updateChart();
     }
   }
+
   public  createChart() {}
 
   public  updateChart() {}
