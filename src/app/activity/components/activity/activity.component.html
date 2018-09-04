@@ -42,7 +42,7 @@
         </div> <!-- end of sidebar toggle controls -->
       </div>
 
-<!-- mobile content -->
+      <!-- mobile content -->
       <div *ngIf="sidebarOpen && sidebarContent === activitySidebarTypes.Filter" class="hide-on-landscape">
         <app-filter-list id="filterList" [activity]="activity" (changeEvent)="receiveMessage($event)"></app-filter-list>
       </div>
@@ -114,16 +114,21 @@
             [ActivitySport]="ActivitySport"
             [ActivitySubSport]="ActivitySubSport"
             [activity]="activity"
-            >
+          >
           </app-summary-panel>
-          <app-activity-graph-container ></app-activity-graph-container>
-          <app-map-container [activity]="activity"></app-map-container>
+          <div class="row d-flex d-md-flex">
+            <div class="card-deck">
+              <app-activity-graph-container [panelOpen]="sidebarOpen"></app-activity-graph-container>
+              <app-map-container [activity]="activity" [panelOpen]="sidebarOpen"></app-map-container>
+            </div>
+          </div>
         </div>
 
         <app-sidebar [panelOpen]="sidebarOpen" (messageEvent)="receiveMessage($event)">
           <div *ngIf="sidebarContent === activitySidebarTypes.Filter">
             <!--<app-filter-container [activity]="activity" (changeEvent)="receiveMessage($event)">-->
-              <app-filter-list  id="filterList" [activity]="activity" (changeEvent)="receiveMessage($event)"></app-filter-list>
+            <app-filter-list id="filterList" [activity]="activity"
+                             (changeEvent)="receiveMessage($event)"></app-filter-list>
             <!--</app-filter-container>-->
           </div>
           <div *ngIf="sidebarContent === activitySidebarTypes.Attribute">
