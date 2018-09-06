@@ -2,10 +2,11 @@
 
 #metadata-panel {
   background: lightblue;
-  margin: 10px;
-  border-radius: 10px;
+  /*margin-bottom: 10px;*/
+  /*margin-top: 10px;*/
+  /*border-radius: 10px;*/
   border: black 1px;
-  padding: 5px 5px 5px 5px;
+  padding: 0px 5px 0px 5px;
 }
 
 /*.activity-stat {*/

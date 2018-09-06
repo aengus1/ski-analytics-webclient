@@ -1,11 +1,13 @@
 import {LayoutActions, LayoutActionTypes} from '../actions/layout.actions';
 
-export interface State {
+export interface State  {
   showSidebar: boolean;
+  navbarCollapsed: boolean;
 }
 
 const initialState: State = {
-  showSidebar: false
+  showSidebar: false,
+  navbarCollapsed: true
 };
 
 export function reducer(state = initialState, action: LayoutActions): State {
@@ -21,6 +23,12 @@ export function reducer(state = initialState, action: LayoutActions): State {
         ...state, showSidebar: false
       };
     }
+    case LayoutActionTypes.ToggleNavbar: {
+
+      return {
+        ...state, navbarCollapsed: !state.navbarCollapsed
+      };
+    }
 
     default:
       return state;
@@ -28,3 +36,8 @@ export function reducer(state = initialState, action: LayoutActions): State {
 }
 
 export const getShowSidebar = (state: State) => state.showSidebar;
+
+export const getNavbarCollapsed = (state: State) => state.navbarCollapsed;
+
+
+

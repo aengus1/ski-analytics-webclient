@@ -1,14 +1,8 @@
-import {
-  ActionReducer,
-  ActionReducerMap,
-  createFeatureSelector,
-  createSelector,
-  MetaReducer
-} from '@ngrx/store';
-import { environment } from '../../environments/environment';
+import {ActionReducer, ActionReducerMap, createFeatureSelector, createSelector, MetaReducer} from '@ngrx/store';
+import {environment} from '../../environments/environment';
 import * as fromLayout from '../shared/layout/reducers/layout.reducer';
 import * as fromRouter from '@ngrx/router-store';
-import { RouterStateUrl } from '../shared/utils';
+import {RouterStateUrl} from '../shared/utils';
 
 export interface State {
 
@@ -41,4 +35,10 @@ export const metaReducers: MetaReducer<State>[] = !environment.production ? [log
  * Layout Reducers
  */
 export const getLayoutState = createFeatureSelector<fromLayout.State>('layout');
+
+export const getNavbarCollapsed = createSelector(
+  getLayoutState,
+  fromLayout.getNavbarCollapsed
+);
+
 

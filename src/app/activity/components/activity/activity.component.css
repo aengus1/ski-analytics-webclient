@@ -34,6 +34,12 @@
 
 .btn-sm {
   background-color:transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.btn.btn-sm.focus {
+  outline:0;
 }
 
 .btn-sm.active{

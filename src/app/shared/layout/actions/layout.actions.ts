@@ -1,8 +1,9 @@
-import { Action } from '@ngrx/store';
+import {Action} from '@ngrx/store';
 
 export enum LayoutActionTypes {
   OpenSidebar = '[Layout] Open Sidebar',
-  CloseSidebar = '[Layout] Close Sidebar'
+  CloseSidebar = '[Layout] Close Sidebar',
+  ToggleNavbar = '[Layout] Toggle Navbar'
 }
 
 export class OpenSidebar implements Action {
@@ -12,8 +13,11 @@ export class OpenSidebar implements Action {
 export class CloseSidebar implements Action {
   readonly type = LayoutActionTypes.CloseSidebar;
 }
+export class ToggleNavbar implements Action {
+  readonly type = LayoutActionTypes.ToggleNavbar;
+}
 
 
-export type LayoutActions = OpenSidebar | CloseSidebar;
+export type LayoutActions = OpenSidebar | CloseSidebar | ToggleNavbar;
 
 
