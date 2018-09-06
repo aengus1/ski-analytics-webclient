@@ -10,7 +10,7 @@ import {Observable} from 'rxjs/Observable';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  private navbarCollapsed$: Observable<boolean>;
+  navbarCollapsed$: Observable<boolean>;
 
   constructor(private store: Store<fromRoot.State>) {
   }
