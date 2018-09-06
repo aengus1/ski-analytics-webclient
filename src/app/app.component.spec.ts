@@ -1,8 +1,9 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import {async, TestBed} from '@angular/core/testing';
+import {AppComponent} from './app.component';
 import {RouterTestingModule} from '@angular/router/testing';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 
 describe('AppComponent', () => {
@@ -15,9 +16,12 @@ describe('AppComponent', () => {
         RouterTestingModule.withRoutes([
           {path: '', redirectTo: 'activity', pathMatch: 'full'},
           {path: 'activity', loadChildren: './activity/activity.module#ActivityModule'}
-      ]
+      ],
         )
-        ]
+        ],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ],
     });
     TestBed.compileComponents();
   });

@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One');
+
+.logo-font{
+  font-family: "Fjalla One", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  /*background-color: #52A6D5;*/
+  /*color: white;*/
+}
+
+.nav-link :hover {
+  color: purple;
+}
+
+.nav-link {
+  color: blue;
+}

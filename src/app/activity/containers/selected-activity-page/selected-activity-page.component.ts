@@ -40,7 +40,7 @@ export class SelectedActivityPageComponent {
 
 
   receiveMessage($event) {
-    console.log('RECEIVED EVENT: ' + $event.name + ' ' + $event.payload);
+    // console.log('RECEIVED EVENT: ' + $event.name + ' ' + $event.payload);
     switch ($event.name) {
       case 'closeSidebar':
         return this.closeSidebar();

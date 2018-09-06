@@ -1,5 +1,5 @@
-<div class="card">
-  <div class="card-body">
+<!--<div class="card">-->
+  <!--<div class="card-body">-->
 
     <!-- mobile layout -->
     <div class="d-block d-md-none">
@@ -52,6 +52,7 @@
       <div *ngIf="!sidebarOpen && sidebarContent === activitySidebarTypes.NoContent">
         <div class="hide-on-landscape">
           <div [hidden]="summaryDisplay==false">
+              <app-summary-metadata  [ActivitySubSport]="ActivitySubSport" [ActivitySport]="ActivitySport"></app-summary-metadata>
             <app-summary-panel
               [ActivitySport]="ActivitySport"
               [ActivitySubSport]="ActivitySubSport"
@@ -74,48 +75,63 @@
 
     <!-- desktop layout -->
     <div class="d-none d-md-block">
+      <div class="card" *ngIf="activity" style="border: transparent;">
+        <app-summary-metadata  [ActivitySubSport]="ActivitySubSport" [ActivitySport]="ActivitySport"></app-summary-metadata>
+      </div>
+      <!-- toolbar -->
+      <div class="row" style="background-color: azure; border-radius: 2px;">
+      <div class="col-md-10"></div>
+      <div class="col-md-1">
+
+      <div class="btn-group" role="toolbar" aria-label="Sidebar controls">
+      <!-- filter toggle -->
+      <!--<span id="filterCount" class="fa-2x has-badge fa-stack" attr.data-count="{{filterCount}}">-->
+      <button type="button"
+      id="filterToggle"
+      class="btn btn-sm"
+      [ngClass]="{'active': sidebarOpen && sidebarContent === activitySidebarTypes.Filter}"
+      aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Filter)"
+      ngbPopover="Apply filters to activity" popoverTitle="Filter"
+      placement="left" container="body" triggers="mouseenter:mouseleave">
+      <i class="fa fa-filter grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
+      </button>
+      <span *ngIf="filterCount > 0" class="badge badge-notify">{{filterCount}}</span>
+
+      <!-- attribute toggle -->
+      <button type="button"
+      id="attributeToggle"
+      class="btn btn-sm"
+      [ngClass]="{'active': sidebarOpen && sidebarContent === activitySidebarTypes.Attribute}"
+      aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Attribute)"
+      ngbPopover="Apply attributes to activity" popoverTitle="Attributes"
+      placement="left" container="body" triggers="mouseenter:mouseleave">
+      <i class="fa fa-edit grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
+      </button>
+      </div>
+      </div>
+      <div class="col-md-1"></div>
+      </div>
+
+      <!-- end toolbar -->
       <div class="wrapper">
 
         <div class="main-content" attr.toggle="{{sidebarOpen}}">
-          <!-- toolbar -->
+
+
+
+
+
           <div class="row">
-            <div class="col-md-10"></div>
-            <div class="col-md-1">
-
-              <div class="btn-group" role="toolbar" aria-label="Sidebar controls">
-                <!-- filter toggle -->
-                <!--<span id="filterCount" class="fa-2x has-badge fa-stack" attr.data-count="{{filterCount}}">-->
-                <button type="button"
-                        id="filterToggle"
-                        class="btn btn-sm"
-                        [ngClass]="{'active': sidebarOpen && sidebarContent === activitySidebarTypes.Filter}"
-                        aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Filter)"
-                        ngbPopover="Apply filters to activity" popoverTitle="Filter"
-                        placement="left" container="body" triggers="mouseenter:mouseleave">
-                  <i class="fa fa-filter grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
-                </button>
-                <span *ngIf="filterCount > 0" class="badge badge-notify">{{filterCount}}</span>
-
-                <!-- attribute toggle -->
-                <button type="button"
-                        id="attributeToggle"
-                        class="btn btn-sm"
-                        [ngClass]="{'active': sidebarOpen && sidebarContent === activitySidebarTypes.Attribute}"
-                        aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Attribute)"
-                        ngbPopover="Apply attributes to activity" popoverTitle="Attributes"
-                        placement="left" container="body" triggers="mouseenter:mouseleave">
-                  <i class="fa fa-edit grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
-                </button>
-              </div>
+            <div class="col-md-10">
+              <app-summary-panel
+                [ActivitySport]="ActivitySport"
+                [ActivitySubSport]="ActivitySubSport"
+                [activity]="activity"
+              >
+              </app-summary-panel>
             </div>
-            <div class="col-md-1"></div>
-          </div><!-- end toolbar -->
-          <app-summary-panel
-            [ActivitySport]="ActivitySport"
-            [ActivitySubSport]="ActivitySubSport"
-            [activity]="activity"
-          >
-          </app-summary-panel>
+            <div class="col-md-2"></div>
+          </div>
           <div class="row d-flex d-md-flex">
             <div class="card-deck">
               <app-activity-graph-container [panelOpen]="sidebarOpen"></app-activity-graph-container>
@@ -139,6 +155,6 @@
 
     </div>
 
-  </div>
-</div>
+  <!--</div>-->
+<!--</div>-->
 

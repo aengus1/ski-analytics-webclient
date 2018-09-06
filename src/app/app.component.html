@@ -1,5 +1,10 @@
+<div style=" font-family: 'Fjalla One', sans-serif;"></div>
 <div class="card">
-    <!--<app-activity-module></app-activity-module>-->
+  <!--<app-activity-module></app-activity-module>-->
+  <div *ngIf="router.url !== '/signin' && router.url !== '/signup'
+  && router.url !== '/forgot' && router.url !== '/reset' && router.url !== '/signout'">
+    <app-navbar></app-navbar>
+  </div>
   <router-outlet></router-outlet>
 </div>
 
