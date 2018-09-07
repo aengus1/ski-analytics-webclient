@@ -16,7 +16,7 @@
         <!--</div>-->
       <!--</div>-->
   <!--</div>-->
-  <div class="card-columns">
+  <div class="card-deck">
   <!-- speed box plot -->
     <app-infographic [title]="'Speed'" [icon]="'fa-tachometer'" [uom]="'Km/h'" [description]="'Box plot showing speed values'">
       <app-d3-boxplot [width]="80" [height]="100"  [data]="activity.getValues().getSpeedList()"></app-d3-boxplot>

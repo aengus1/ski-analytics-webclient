@@ -3,7 +3,7 @@ import {Component, Input} from '@angular/core';
 @Component({
   selector: 'app-infographic',
   template:
-    `<div  class="card" style="background-color: lightskyblue; border-color: #333;">
+    `<div  class="card">
     <div class="card-title text-center">
       <i class="fa"
       [ngClass]="icon"
@@ -11,7 +11,7 @@ import {Component, Input} from '@angular/core';
          ngbPopover="{{description}}"
          popoverTitle="{{title}} ({{uom}})"
          placement="right" container="body" triggers="mouseenter:mouseleave">
-      <span class="text-body font-weight-bold">&nbsp;{{title}}</span>
+      <span class="text-body">&nbsp;{{title}}</span>
       </i>
     </div>
     <div class="card-body">

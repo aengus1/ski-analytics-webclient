@@ -653,6 +653,9 @@ export namespace Activity {
     INDOOR_SKIING = 25,
     CARDIO_TRAINING = 26,
     INDOOR_WALKING = 27,
+    CLASSIC = 28,
+    SKATE = 29,
+    ROLLER = 30,
     ALL_SUBSPORT = 254,
     INVALID_SUBSPORT = 255,
   }

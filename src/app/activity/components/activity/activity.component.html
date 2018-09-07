@@ -1,160 +1,163 @@
 <!--<div class="card">-->
-  <!--<div class="card-body">-->
+<!--<div class="card-body">-->
 
-    <!-- mobile layout -->
-    <div class="d-block d-md-none">
-      <!-- menu for mobile display -->
-      <div class="hide-on-landscape">
-        <ul class="nav nav-pills nav-justified" role="tablist">
-          <li class="nav-item">
-            <button (click)="summaryDisplay = !summaryDisplay;" class="nav-link btn-default"
-                    [ngClass]="{'active' : summaryDisplay}">Summary
-            </button>
-          </li>
-          <li class="nav-item">
-            <button (click)="summaryDisplay = !summaryDisplay" class="nav-link btn-default"
-                    [ngClass]="{'active' : !summaryDisplay}">Map
-            </button>
-          </li>
-        </ul> <!-- end of mobile display menu -->
-        <br>
-        <!-- sidebar toggle controls -->
-        <div class="row">
-          <div class="col-sm-8"></div>
-          <div class="col-sm-2">
-            <div class="btn-group" role="toolbar" aria-label="Sidebar controls">
-              <!-- filter toggle -->
-              <button type="button"
-                      class="btn btn-sm" [ngClass]="{'active':  sidebarContent === activitySidebarTypes.Filter}"
-                      aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Filter)">
-                <i class="fa fa-filter grow" [ngClass]="{'active': sidebarOpen}"></i>
-              </button>
-              <span *ngIf="filterCount > 0" class="badge badge-notify">{{filterCount}}</span>
+<!-- mobile layout -->
+<div class="d-block d-md-none">
+  <!-- menu for mobile display -->
+  <div class="hide-on-landscape">
+    <ul class="nav nav-pills nav-justified" role="tablist">
+      <li class="nav-item">
+        <button (click)="summaryDisplay = !summaryDisplay;" class="nav-link btn-default"
+                [ngClass]="{'active' : summaryDisplay}">Summary
+        </button>
+      </li>
+      <li class="nav-item">
+        <button (click)="summaryDisplay = !summaryDisplay" class="nav-link btn-default"
+                [ngClass]="{'active' : !summaryDisplay}">Map
+        </button>
+      </li>
+    </ul> <!-- end of mobile display menu -->
+    <br>
+    <!-- sidebar toggle controls -->
+    <div class="row">
+      <div class="col-sm-8"></div>
+      <div class="col-sm-2">
+        <div class="btn-group" role="toolbar" aria-label="Sidebar controls">
+          <!-- filter toggle -->
+          <button type="button"
+                  class="btn btn-sm" [ngClass]="{'active':  sidebarContent === activitySidebarTypes.Filter}"
+                  aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Filter)">
+            <i class="fa fa-filter grow toolbar-button" [ngClass]="{'active': sidebarOpen}"></i>
+          </button>
+          <span *ngIf="filterCount > 0" class="badge badge-notify">{{filterCount}}</span>
 
-              <!-- attribute toggle -->
-              <button type="button"
-                      class="btn btn-sm" [ngClass]="{'active': sidebarContent === activitySidebarTypes.Attribute}"
-                      aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Attribute);">
-                <i class="fa fa-edit grow" [ngClass]="{'active': sidebarOpen}"></i>
-              </button>
-            </div>
-          </div>
-        </div> <!-- end of sidebar toggle controls -->
-      </div>
-
-      <!-- mobile content -->
-      <div *ngIf="sidebarOpen && sidebarContent === activitySidebarTypes.Filter" class="hide-on-landscape">
-        <app-filter-list id="filterList" [activity]="activity" (changeEvent)="receiveMessage($event)"></app-filter-list>
-      </div>
-      <div *ngIf="sidebarOpen &&  sidebarContent === activitySidebarTypes.Attribute" class="hide-on-landscape">
-        <app-attribute-container></app-attribute-container>
-      </div>
-      <div *ngIf="!sidebarOpen && sidebarContent === activitySidebarTypes.NoContent">
-        <div class="hide-on-landscape">
-          <div [hidden]="summaryDisplay==false">
-              <app-summary-metadata  [ActivitySubSport]="ActivitySubSport" [ActivitySport]="ActivitySport"></app-summary-metadata>
-            <app-summary-panel
-              [ActivitySport]="ActivitySport"
-              [ActivitySubSport]="ActivitySubSport"
-              [activity]="activity">
-            </app-summary-panel>
-          </div>
-
-          <div [hidden]="summaryDisplay==true">
-            <app-map-container [activity]="activity"></app-map-container>
-          </div>
-
+          <!-- attribute toggle -->
+          <button type="button"
+                  class="btn btn-sm" [ngClass]="{'active': sidebarContent === activitySidebarTypes.Attribute}"
+                  aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Attribute);">
+            <i class="fa fa-edit grow toolbar-button" [ngClass]="{'active': sidebarOpen}"></i>
+          </button>
         </div>
       </div>
-      <div class="hide-on-portrait">
-        <app-activity-graph-container></app-activity-graph-container>
+    </div> <!-- end of sidebar toggle controls -->
+  </div>
+
+  <!-- mobile content -->
+  <div *ngIf="sidebarOpen && sidebarContent === activitySidebarTypes.Filter" class="hide-on-landscape">
+    <app-filter-list id="filterList" [activity]="activity" (changeEvent)="receiveMessage($event)"></app-filter-list>
+  </div>
+  <div *ngIf="sidebarOpen &&  sidebarContent === activitySidebarTypes.Attribute" class="hide-on-landscape">
+    <app-attribute-container></app-attribute-container>
+  </div>
+  <div *ngIf="!sidebarOpen && sidebarContent === activitySidebarTypes.NoContent">
+    <div class="hide-on-landscape">
+      <div [hidden]="summaryDisplay==false">
+        <app-summary-metadata [ActivitySubSport]="ActivitySubSport"
+                              [ActivitySport]="ActivitySport"></app-summary-metadata>
+        <app-summary-panel
+          [ActivitySport]="ActivitySport"
+          [ActivitySubSport]="ActivitySubSport"
+          [activity]="activity">
+        </app-summary-panel>
       </div>
 
-    </div> <!--end of mobile layout -->
-
-
-    <!-- desktop layout -->
-    <div class="d-none d-md-block">
-      <div class="card" *ngIf="activity" style="border: transparent;">
-        <app-summary-metadata  [ActivitySubSport]="ActivitySubSport" [ActivitySport]="ActivitySport"></app-summary-metadata>
-      </div>
-      <!-- toolbar -->
-      <div class="row" style="background-color: azure; border-radius: 2px;">
-      <div class="col-md-10"></div>
-      <div class="col-md-1">
-
-      <div class="btn-group" role="toolbar" aria-label="Sidebar controls">
-      <!-- filter toggle -->
-      <!--<span id="filterCount" class="fa-2x has-badge fa-stack" attr.data-count="{{filterCount}}">-->
-      <button type="button"
-      id="filterToggle"
-      class="btn btn-sm"
-      [ngClass]="{'active': sidebarOpen && sidebarContent === activitySidebarTypes.Filter}"
-      aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Filter)"
-      ngbPopover="Apply filters to activity" popoverTitle="Filter"
-      placement="left" container="body" triggers="mouseenter:mouseleave">
-      <i class="fa fa-filter grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
-      </button>
-      <span *ngIf="filterCount > 0" class="badge badge-notify">{{filterCount}}</span>
-
-      <!-- attribute toggle -->
-      <button type="button"
-      id="attributeToggle"
-      class="btn btn-sm"
-      [ngClass]="{'active': sidebarOpen && sidebarContent === activitySidebarTypes.Attribute}"
-      aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Attribute)"
-      ngbPopover="Apply attributes to activity" popoverTitle="Attributes"
-      placement="left" container="body" triggers="mouseenter:mouseleave">
-      <i class="fa fa-edit grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
-      </button>
-      </div>
-      </div>
-      <div class="col-md-1"></div>
-      </div>
-
-      <!-- end toolbar -->
-      <div class="wrapper">
-
-        <div class="main-content" attr.toggle="{{sidebarOpen}}">
-
-
-
-
-
-          <div class="row">
-            <div class="col-md-10">
-              <app-summary-panel
-                [ActivitySport]="ActivitySport"
-                [ActivitySubSport]="ActivitySubSport"
-                [activity]="activity"
-              >
-              </app-summary-panel>
-            </div>
-            <div class="col-md-2"></div>
-          </div>
-          <div class="row d-flex d-md-flex">
-            <div class="card-deck">
-              <app-activity-graph-container [panelOpen]="sidebarOpen"></app-activity-graph-container>
-              <app-map-container [activity]="activity" [panelOpen]="sidebarOpen"></app-map-container>
-            </div>
-          </div>
-        </div>
-
-        <app-sidebar [panelOpen]="sidebarOpen" (messageEvent)="receiveMessage($event)">
-          <div *ngIf="sidebarContent === activitySidebarTypes.Filter">
-            <!--<app-filter-container [activity]="activity" (changeEvent)="receiveMessage($event)">-->
-            <app-filter-list id="filterList" [activity]="activity"
-                             (changeEvent)="receiveMessage($event)"></app-filter-list>
-            <!--</app-filter-container>-->
-          </div>
-          <div *ngIf="sidebarContent === activitySidebarTypes.Attribute">
-            <app-attribute-container></app-attribute-container>
-          </div>
-        </app-sidebar>
+      <div [hidden]="summaryDisplay==true">
+        <app-map-container [activity]="activity"></app-map-container>
       </div>
 
     </div>
+  </div>
+  <div class="hide-on-portrait">
+    <app-activity-graph-container></app-activity-graph-container>
+  </div>
 
-  <!--</div>-->
+</div> <!--end of mobile layout -->
+
+
+<!-- desktop layout -->
+<div class="d-none d-md-block activity">
+  <div class="card" *ngIf="activity" style="border: transparent;">
+    <app-summary-metadata [ActivitySubSport]="ActivitySubSport" [ActivitySport]="ActivitySport"></app-summary-metadata>
+  </div>
+  <!-- toolbar -->
+  <div class="toolbar fixed-top">
+    <div class="row">
+      <div class="col-md-11"></div>
+      <div class="col-md-1">
+
+        <div class="btn-group" role="toolbar" aria-label="Sidebar controls">
+          <!-- filter toggle -->
+          <!--<span id="filterCount" class="fa-2x has-badge fa-stack" attr.data-count="{{filterCount}}">-->
+          <button type="button"
+                  id="filterToggle"
+                  class="btn btn-sm"
+                  [ngClass]="{'active': sidebarOpen && sidebarContent === activitySidebarTypes.Filter}"
+                  aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Filter)"
+                  ngbPopover="Apply filters to activity" popoverTitle="Filter"
+                  placement="left" container="body" triggers="mouseenter:mouseleave">
+            <i class="fa fa-filter grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
+          </button>
+          <span *ngIf="filterCount > 0" class="badge badge-notify">{{filterCount}}</span>
+
+          <!-- attribute toggle -->
+          <button type="button"
+                  id="attributeToggle"
+                  class="btn btn-sm"
+                  [ngClass]="{'active': sidebarOpen && sidebarContent === activitySidebarTypes.Attribute}"
+                  aria-label="Left Align" (click)="toggleSidebar(activitySidebarTypes.Attribute)"
+                  ngbPopover="Apply attributes to activity" popoverTitle="Attributes"
+                  placement="left" container="body" triggers="mouseenter:mouseleave">
+            <i class="fa fa-edit grow" [ngClass]="{'active': sidebar.panelOpen}"></i>
+          </button>
+          <span>&nbsp;&nbsp;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end toolbar -->
+  <div class="wrapper">
+
+    <div class="main-content" attr.toggle="{{sidebarOpen}}">
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <app-summary-panel
+            [ActivitySport]="ActivitySport"
+            [ActivitySubSport]="ActivitySubSport"
+            [activity]="activity"
+          >
+          </app-summary-panel>
+        </div>
+      </div>
+
+      <div class="row d-flex d-md-flex">
+        <!--<div class="card-deck">-->
+        <div class="col-md-6">
+          <app-activity-graph-container [panelOpen]="sidebarOpen"></app-activity-graph-container>
+        </div>
+        <div class="col-md-6">
+          <app-map-container [activity]="activity" [panelOpen]="sidebarOpen"></app-map-container>
+        </div>
+      </div>
+      <!--</div>-->
+    </div>
+
+    <app-sidebar [panelOpen]="sidebarOpen" (messageEvent)="receiveMessage($event)">
+      <div *ngIf="sidebarContent === activitySidebarTypes.Filter">
+        <!--<app-filter-container [activity]="activity" (changeEvent)="receiveMessage($event)">-->
+        <app-filter-list id="filterList" [activity]="activity"
+                         (changeEvent)="receiveMessage($event)"></app-filter-list>
+        <!--</app-filter-container>-->
+      </div>
+      <div *ngIf="sidebarContent === activitySidebarTypes.Attribute">
+        <app-attribute-container></app-attribute-container>
+      </div>
+    </app-sidebar>
+  </div>
+
+</div>
+
+<!--</div>-->
 <!--</div>-->
 
