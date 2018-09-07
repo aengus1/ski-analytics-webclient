@@ -16,8 +16,9 @@
   /*border-radius: 10px;*/
   padding: 8px;
   margin: 0px -270px 0px -270px;
-  border-left: 1px solid black;
-
+  border-left: 1px solid lightgray;
+  border-top: 1px solid lightgray;
+  border-right: 1px solid lightgray;
 
   background-color: floralwhite !important;
   /*background: #b3e2ff;*/

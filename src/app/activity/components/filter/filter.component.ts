@@ -14,7 +14,7 @@ import * as _ from 'lodash';
           <input type="checkbox" id="switch-id"  (change)="toggleActive()" [checked]="active">
           <span class="slider round"></span>
         </label>
-        <span class="font-weight-bold"> {{title}}&nbsp;&nbsp; </span>
+        <span class="font-weight-normal"> {{title}}&nbsp;&nbsp; </span>
           <button type="button"
                   (click)="clear()"
                   class="btn btn-sm btn-outline-danger float-right"

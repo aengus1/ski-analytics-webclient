@@ -1,5 +1,7 @@
 .card {
   margin-top: 5px;
+  /*border: none;*/
+  background-color: transparent;
 }
 
 .card-header{

@@ -91,7 +91,7 @@
 
 .toolbar{
   margin-top: 106px;
-  border-bottom: 1px solid lightgrey;
+  /*border-bottom: 1px solid lightgrey;*/
   background-color: white;
   /*background-color: #52A6D5;*/
   z-index: 900;
