@@ -1,5 +1,26 @@
+.container {
+  border: 1px solid lightgrey;
+  border-radius: 2px 2px;
+  margin-bottom: 10px;
+}
 .card-body {
 
+}
+
+.logo-color{
+  color: #52A6D5 !important;
+}
+
+.fa-chevron-circle-down{
+  color: #5265d5;
+  margin-top: 5px;
+}
+.activity-type{
+  padding-left: 10px;
+}
+
+.activity-subtype{
+  padding-left: 10px;
 }
 
 

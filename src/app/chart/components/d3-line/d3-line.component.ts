@@ -222,8 +222,8 @@ export class D3LineComponent extends D3ChartComponent {
       .attr('y', 0)
       .attr('width', width)
       .attr('height', height)
-      .style('opacity', 0.5)
-      .style('fill', '#d2f7ff');
+      .style('opacity', 0);
+      // .style('fill', '#d2f7ff');
 
 
     // set up the x axis

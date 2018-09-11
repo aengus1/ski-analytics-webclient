@@ -1,0 +1,15 @@
+.container {
+  border: 1px solid lightgrey;
+  border-radius: 2px 2px;
+  margin-bottom: 10px;
+  min-height: 300px;
+}
+
+.logo-color{
+  color: #52A6D5 !important;
+}
+
+.fa-chevron-circle-down{
+  color: #5265d5;
+  margin-top: 5px;
+}

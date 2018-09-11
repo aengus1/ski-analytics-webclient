@@ -23,6 +23,7 @@
   width: 100%;
   padding: 15px;
   overflow:hidden;
+  /*background-color: lightgrey;*/
 }
 
 .main-content[toggle=true] {
@@ -36,6 +37,7 @@
   background-color:transparent;
   border: none;
   box-shadow: none;
+  color: #5265d5;
 }
 
 .btn.btn-sm.focus {
@@ -87,4 +89,24 @@
 .popover-body{
   font-weight: 400 !important;
 }
+
+.toolbar{
+  margin-top: 105px;
+  /*border-bottom: 1px solid lightgrey;*/
+  background-color: white;
+  /*background-color: #52A6D5;*/
+  z-index: 900;
+
+  /*border-bottom: 1px solid lightgray;*/
+}
+.toolbar-button{
+  color: #52d5c3;
+}
+
+.activity {
+  margin-top: 80px;
+  /*background-color: lightgrey;*/
+}
+
+
 

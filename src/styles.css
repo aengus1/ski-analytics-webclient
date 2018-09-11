@@ -1,2 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Fjalla+One');
+
+.nav-link{
+  color: #52A6D5 !important;
+}
+
+.nav-link:hover {
+  color: #5265d5 !important;
+}

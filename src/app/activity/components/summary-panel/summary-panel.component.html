@@ -1,89 +1,101 @@
 <!-- metadata panel -->
 <!--<div class="card" width="100%" *ngIf="activity" style="border: transparent;">-->
-  <!--<app-summary-metadata  [ActivitySubSport]="ActivitySubSport" [ActivitySport]="ActivitySport"></app-summary-metadata>-->
+<!--<app-summary-metadata  [ActivitySubSport]="ActivitySubSport" [ActivitySport]="ActivitySport"></app-summary-metadata>-->
 <!--</div>-->
 <div class="container">
+  <div class="wrapper">
+    <a><span class="fa fa-chevron-circle-down pull-right"></span></a>
+      <h5 class="logo-color">Summary</h5>
+      <!-- desktop layout -->
+      <div class="test">
+        <div class="row d-flex d-md-flex">
+          <div class="col-md-12 pull-left">
 
-  <!-- desktop layout -->
-<div class="row d-flex d-md-flex">
-  <!-- heart rate box plot -->
-  <!--<div class="col-md-2">-->
-    <!--<div class="card " style="background-color: lightskyblue; border-color: #333;">-->
-        <!--<h6 class="card-title ">Heart Rate</h6>-->
-        <!--<h6 class="card-subtitle mb-2 text-muted">bpm</h6>-->
-        <!--<div class="card-body">-->
-          <!--<app-d3-boxplot [width]="80" [height]="100"  [data]="activity.getValues().getHrList()"></app-d3-boxplot>-->
-        <!--</div>-->
+            <div class="card-deck">
+              <!-- heart rate box plot -->
+              <app-infographic [title]="'Heart Rate'" [icon]="'fa-heart'" [uom]="'bpm'"
+                               [description]="'Box plot showing heart rate distribution'">
+                <app-d3-boxplot [width]="80" [height]="100" [data]="activity.getValues().getHrList()"></app-d3-boxplot>
+              </app-infographic>
+              <!-- speed box plot -->
+              <app-infographic [title]="'Speed'" [icon]="'fa-tachometer'" [uom]="'Km/h'"
+                               [description]="'Box plot showing speed values'">
+                <app-d3-boxplot [width]="80" [height]="100"
+                                [data]="activity.getValues().getSpeedList()"></app-d3-boxplot>
+              </app-infographic>
+              <!-- ascent / descent -->
+              <app-infographic [title]="'Ascent/Descent'" [icon]="'fa-arrows-v'" [uom]="'metres'"
+                               [description]="'Total ascent and descent'">
+                <app-ascent-descent [uom]="'m'" [uomRate]="'m/min'" [activity]="activity"></app-ascent-descent>
+              </app-infographic>
+
+              <!-- stop / moving-->
+              <app-infographic [title]="'Stop/Moving'" [icon]="'fa-stop-circle'" [uom]="'mins'"
+                               [description]="'Time stopped, moving and paused'">
+                <app-moving-stop
+                  [data]="[activity.getSummary().getTotalmoving(),activity.getSummary().getTotalstopped()]"
+                  [stopCount]="activity.getSummary().getStopcount()"></app-moving-stop>
+                <!--<app-d3-bar [width]="100" [height]="100" [data]="[30,6]" [yLabel]="'mins'" [xLabels]="['Moving',' Stop']"></app-d3-bar>-->
+              </app-infographic>
+              <!-- time in zone -->
+              <app-infographic [title]="'Heart Rate Zone'" [icon]="'fa-heart'" [uom]="'mins'"
+                               [description]="'Time in heart rate zone'">
+                <app-hr-zone-histogram [thresholds]="[120,140,160,170]" [distTime]="0" [activity]="activity"
+                                       [tsList]="activity.getValues().getTsList()"></app-hr-zone-histogram>
+              </app-infographic>
+              <!-- gradient -->
+              <app-infographic [title]="'Gradient'" [icon]="'fa-chevron-circle-right'" [uom]="'mins'"
+                               [description]="'Time at gradient'">
+                <app-d3-radial [width]="150" [height]="150"
+                               [data]="[0, 0, 10, 0, 15, 0, 0, 0, 5, 10, 15, 20, 25, 40, 90, 40, 30, 20, 100, 5, 20, 17, 0, 4, 16, 0, 0, 40, 30, 10, 0, 0, 0, 3, 6, 8, 0]"
+                               [binSize]="5"
+                ></app-d3-radial>
+              </app-infographic>
+            </div>
+          </div>
+        </div>
+
+      <!-- mobile layout -->
+      <!--<div class="row d-flex d-sm-none" *ngIf="activity">-->
+      <!--&lt;!&ndash; heart rate box plot &ndash;&gt;-->
+      <!--&lt;!&ndash; TODO -> ADD LOGIC TO ONLY SHOW THESE COMPONENTS IF THEY HAVE DATA IN THE hasAttributeMap-->
+      <!--(currently this is not populated &ndash;&gt;-->
+      <!--&lt;!&ndash;<div *ngIf="activity.getSummary().getHasattributemapMap().get('hr')===true"></div>&ndash;&gt;-->
+      <!--&lt;!&ndash;<div class="col-sm-3">&ndash;&gt;-->
+      <!--&lt;!&ndash;<div class="card " style="background-color: lightskyblue; border-color: #333;">&ndash;&gt;-->
+      <!--&lt;!&ndash;<div class="card-body">&ndash;&gt;-->
+      <!--&lt;!&ndash;<h6>Heart Rate </h6><h6 class="text-muted">bpm</h6>&ndash;&gt;-->
+      <!--&lt;!&ndash;<app-d3-boxplot [width]="60" [height]="60"  [data]="hrData"></app-d3-boxplot>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--&lt;!&ndash; speed box plot &ndash;&gt;-->
+      <!--<div class="card-columns">-->
+      <!--<app-infographic [title]="'Speed'" [icon]="'fa-tachometer'" [uom]="'Km/h'">-->
+      <!--<app-d3-boxplot [width]="80" [height]="100"  [data]="activity.getValues().getSpeedList()"></app-d3-boxplot>-->
+      <!--</app-infographic>-->
+      <!--&lt;!&ndash; ascent / descent &ndash;&gt;-->
+      <!--<app-infographic [title]="'Ascent/Descent'" [icon]="'fa-arrows-v'" [uom]="''">-->
+      <!--<app-ascent-descent [mobile]="true" [uom]="'m'" [uomRate]="'m/min'" [activity]="activity"></app-ascent-descent>-->
+      <!--</app-infographic>-->
+      <!--&lt;!&ndash; stop / moving&ndash;&gt;-->
+      <!--<app-infographic [title]="'Stop/Moving'" [icon]="'fa-stop-circle'" [uom]="'mins'">-->
+      <!--<app-moving-stop [data]="[activity.getSummary().getTotalmoving(),activity.getSummary().getTotalstopped()]" [stopCount]="activity.getSummary().getStopcount()"></app-moving-stop>-->
+      <!--</app-infographic>-->
+      <!--&lt;!&ndash; time in zone &ndash;&gt;-->
+      <!--<app-infographic [title]="'Heart Rate Zone'" [icon]="'fa-heart'" [uom]="'mins'" [description]="'Time in heart rate zone'">-->
+      <!--<app-hr-zone-histogram [thresholds]="[120,140,160,170]" [distTime]="0" [activity]="activity"-->
+      <!--[tsList]="activity.getValues().getTsList()"></app-hr-zone-histogram>-->
+      <!--</app-infographic>-->
+      <!--&lt;!&ndash; gradient &ndash;&gt;-->
+      <!--<app-infographic [title]="'Gradient'" [icon]="'fa-chevron-circle-right'" [uom]="'mins'" [description]="'Time at gradient'">-->
+      <!--<app-d3-radial [width]="150" [height]="150" [data]="[0, 0, 10, 0, 15, 0, 0, 0, 5, 10, 15, 20, 25, 40, 90, 40, 30, 20, 100, 5, 20, 17, 0, 4, 16, 0, 0, 40, 30, 10, 0, 0, 0, 3, 6, 8, 0]" [binSize]="5"-->
+      <!--&gt;</app-d3-radial>-->
+      <!--</app-infographic>-->
+      <!--</div>-->
       <!--</div>-->
   <!--</div>-->
-  <div class="card-columns">
-  <!-- speed box plot -->
-    <app-infographic [title]="'Speed'" [icon]="'fa-tachometer'" [uom]="'Km/h'" [description]="'Box plot showing speed values'">
-      <app-d3-boxplot [width]="80" [height]="100"  [data]="activity.getValues().getSpeedList()"></app-d3-boxplot>
-    </app-infographic>
-  <!-- ascent / descent -->
-    <app-infographic [title]="'Ascent/Descent'" [icon]="'fa-arrows-v'" [uom]="'metres'" [description]="'Total ascent and descent'">
-      <app-ascent-descent [uom]="'m'" [uomRate]="'m/min'" [activity]="activity"></app-ascent-descent>
-    </app-infographic>
-
-  <!-- stop / moving-->
-    <app-infographic [title]="'Stop/Moving'" [icon]="'fa-stop-circle'" [uom]="'mins'" [description]="'Time stopped, moving and paused'">
-      <app-moving-stop [data]="[activity.getSummary().getTotalmoving(),activity.getSummary().getTotalstopped()]" [stopCount]="activity.getSummary().getStopcount()"></app-moving-stop>
-      <!--<app-d3-bar [width]="100" [height]="100" [data]="[30,6]" [yLabel]="'mins'" [xLabels]="['Moving',' Stop']"></app-d3-bar>-->
-    </app-infographic>
-    <!-- time in zone -->
-      <app-infographic [title]="'Heart Rate Zone'" [icon]="'fa-heart'" [uom]="'mins'" [description]="'Time in heart rate zone'">
-        <app-hr-zone-histogram [thresholds]="[120,140,160,170]" [distTime]="0" [activity]="activity"
-                               [tsList]="activity.getValues().getTsList()"></app-hr-zone-histogram>
-      </app-infographic>
-  <!-- gradient -->
-    <app-infographic [title]="'Gradient'" [icon]="'fa-chevron-circle-right'" [uom]="'mins'" [description]="'Time at gradient'">
-      <app-d3-radial [width]="150" [height]="150" [data]="[0, 0, 10, 0, 15, 0, 0, 0, 5, 10, 15, 20, 25, 40, 90, 40, 30, 20, 100, 5, 20, 17, 0, 4, 16, 0, 0, 40, 30, 10, 0, 0, 0, 3, 6, 8, 0]" [binSize]="5"
-      ></app-d3-radial>
-    </app-infographic>
-
+</div>
 
   </div>
 </div>
-
- <!-- mobile layout -->
-  <!--<div class="row d-flex d-sm-none" *ngIf="activity">-->
-    <!--&lt;!&ndash; heart rate box plot &ndash;&gt;-->
-    <!--&lt;!&ndash; TODO -> ADD LOGIC TO ONLY SHOW THESE COMPONENTS IF THEY HAVE DATA IN THE hasAttributeMap-->
-     <!--(currently this is not populated &ndash;&gt;-->
-    <!--&lt;!&ndash;<div *ngIf="activity.getSummary().getHasattributemapMap().get('hr')===true"></div>&ndash;&gt;-->
-    <!--&lt;!&ndash;<div class="col-sm-3">&ndash;&gt;-->
-      <!--&lt;!&ndash;<div class="card " style="background-color: lightskyblue; border-color: #333;">&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="card-body">&ndash;&gt;-->
-          <!--&lt;!&ndash;<h6>Heart Rate </h6><h6 class="text-muted">bpm</h6>&ndash;&gt;-->
-          <!--&lt;!&ndash;<app-d3-boxplot [width]="60" [height]="60"  [data]="hrData"></app-d3-boxplot>&ndash;&gt;-->
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-    <!--&lt;!&ndash; speed box plot &ndash;&gt;-->
-    <!--<div class="card-columns">-->
-      <!--<app-infographic [title]="'Speed'" [icon]="'fa-tachometer'" [uom]="'Km/h'">-->
-        <!--<app-d3-boxplot [width]="80" [height]="100"  [data]="activity.getValues().getSpeedList()"></app-d3-boxplot>-->
-      <!--</app-infographic>-->
-    <!--&lt;!&ndash; ascent / descent &ndash;&gt;-->
-      <!--<app-infographic [title]="'Ascent/Descent'" [icon]="'fa-arrows-v'" [uom]="''">-->
-        <!--<app-ascent-descent [mobile]="true" [uom]="'m'" [uomRate]="'m/min'" [activity]="activity"></app-ascent-descent>-->
-      <!--</app-infographic>-->
-    <!--&lt;!&ndash; stop / moving&ndash;&gt;-->
-      <!--<app-infographic [title]="'Stop/Moving'" [icon]="'fa-stop-circle'" [uom]="'mins'">-->
-        <!--<app-moving-stop [data]="[activity.getSummary().getTotalmoving(),activity.getSummary().getTotalstopped()]" [stopCount]="activity.getSummary().getStopcount()"></app-moving-stop>-->
-      <!--</app-infographic>-->
-    <!--&lt;!&ndash; time in zone &ndash;&gt;-->
-    <!--<app-infographic [title]="'Heart Rate Zone'" [icon]="'fa-heart'" [uom]="'mins'" [description]="'Time in heart rate zone'">-->
-      <!--<app-hr-zone-histogram [thresholds]="[120,140,160,170]" [distTime]="0" [activity]="activity"-->
-                             <!--[tsList]="activity.getValues().getTsList()"></app-hr-zone-histogram>-->
-    <!--</app-infographic>-->
-    <!--&lt;!&ndash; gradient &ndash;&gt;-->
-    <!--<app-infographic [title]="'Gradient'" [icon]="'fa-chevron-circle-right'" [uom]="'mins'" [description]="'Time at gradient'">-->
-      <!--<app-d3-radial [width]="150" [height]="150" [data]="[0, 0, 10, 0, 15, 0, 0, 0, 5, 10, 15, 20, 25, 40, 90, 40, 30, 20, 100, 5, 20, 17, 0, 4, 16, 0, 0, 40, 30, 10, 0, 0, 0, 3, 6, 8, 0]" [binSize]="5"-->
-      <!--&gt;</app-d3-radial>-->
-    <!--</app-infographic>-->
-    <!--</div>-->
-<!--</div>-->
-</div>
-

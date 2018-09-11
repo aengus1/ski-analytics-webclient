@@ -5,6 +5,12 @@ body {
   padding: 0;
 }
 
+.map-container {
+  border: 1px solid lightgrey;
+  border-radius: 2px 2px;
+  margin-bottom: 10px;
+}
+
 #map {
   position: absolute;
   top: 0;
@@ -16,8 +22,8 @@ body {
   display: flex;
 }
 mgl-map {
-  height: 350px;
-  width: 500px;
+  height: 500px;
+  width: 100%;
 }
 
 .marker-container{

@@ -1,11 +1,11 @@
-<div id="metadata-panel" *ngIf="activity$ | async as activity">
+<div id="metadata-panel" *ngIf="activity$ | async as activity" class="fixed-top">
   <!-- desktop layout -->
 <div class="row d-none d-md-flex">
   <div class="col-md-3 hidden-md-down">
-      <span  class="activity-type  h5">{{((ActivitySport[(activity)?.getMeta().getSport()]) | titleCase) | removeUnderscore}}</span>
+      <span  class="activity-type">{{((ActivitySport[(activity)?.getMeta().getSport()]) | titleCase) | removeUnderscore}}</span>
   </div>
 <div class="col-md-2">
-<span  id="activity-created-date" class="activity-created-date font-weight-bold">{{(activity)?.getMeta().getCreatedts() | date: 'dd MMM yyyy'}}</span>
+<span  id="activity-created-date" class="activity-created-date">{{(activity)?.getMeta().getCreatedts() | date: 'dd MMM yyyy'}}</span>
 </div>
   <div class="col-md-2">
     <span class="activity-temp font-weight-normal">{{ (activity)?.getValues().getTemperatureList()[0]!=-999 ? (((activity)?.getValues().getTemperatureList()[0])+ " °C" ) : ""}}</span>
@@ -14,8 +14,9 @@
  <span class="activity-location-1  font-weight-normal"> {{ (activity)?.getMeta().getLocation().split(',')[0]}}</span>
   </div>
   <div class="col-md-2">
-    <span class="activity-distance  font-weight-bold">{{(activity)?.getSummary().getTotaldistance() > 0 ?
+    <span class="activity-distance ">{{(activity)?.getSummary().getTotaldistance() > 0 ?
       (((activity)?.getSummary().getTotaldistance()/1000)+" Km") : ""}}</span>
+    <a routerLink="/activities"><span class="fa fa-window-close pull-right"></span></a>
   </div>
 </div>
 <!-- row 2 -->
@@ -38,7 +39,7 @@
       </span>
   </div>
   <div class="col-md-2">
-    <span class="activity-timer  font-weight-bold">{{(activity)?.getSummary().getTotaltimer() | interval }}</span><span class="small font-weight-light"> hh:mm:ss</span>
+    <span class="activity-timer">{{(activity)?.getSummary().getTotaltimer() | interval }}</span><span class="small font-weight-light"> hh:mm:ss</span>
   </div>
 </div>
 

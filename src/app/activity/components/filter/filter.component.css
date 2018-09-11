@@ -1,5 +1,11 @@
 .card {
   margin-top: 5px;
+  /*border: none;*/
+  background-color: transparent;
+}
+
+.card-header{
+  border-bottom: none;
 }
 
 /* The switch - the box around the slider */

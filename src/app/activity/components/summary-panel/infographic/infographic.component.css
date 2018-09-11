@@ -1,6 +1,7 @@
 .card {
-  background-color: lightskyblue;
-  border-color: #333;
+  /*background-color: lightskyblue;*/
+  /*border-color: #333;*/
+  border: none;
   width: 170px;
   height: 200px;
   margin-outside: 20px;
@@ -8,7 +9,9 @@
 .no-gutter-card > .card {
   margin: 0;
 }
-
+.fa{
+  font-size: 11px;
+}
 .text-body {
   fill: #434343;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif

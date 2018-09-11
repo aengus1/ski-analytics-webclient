@@ -27,6 +27,9 @@ export class ActivityService implements OnInit {
        .pipe(map(res => Activity.deserializeBinary(new Uint8Array(res)))).pipe(map(v => {
         // console.log('hr list = ' + v.getValues().getHrList());
         v.setId('1');
+        v.getMeta().setLocation('McCullough Ski Trails, Kelowna, BC');
+        v.getMeta().setSubsport(Activity.SubSport.CLASSIC);
+        v.getValues().setTemperatureList([-21, -22]);
              const res = [];
 
              // res[0] = v.getValues().getSpeedList(); // .filter(d => Math.floor(d));
