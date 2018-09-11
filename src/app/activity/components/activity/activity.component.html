@@ -121,7 +121,7 @@
 
 
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
           <app-summary-panel
             [ActivitySport]="ActivitySport"
             [ActivitySubSport]="ActivitySubSport"
@@ -129,17 +129,30 @@
           >
           </app-summary-panel>
         </div>
-      </div>
-
-      <div class="row d-flex d-md-flex">
-        <!--<div class="card-deck">-->
         <div class="col-md-6">
-          <app-activity-graph-container [panelOpen]="sidebarOpen"></app-activity-graph-container>
+          <div class="row">
+            <!--<div class="card-deck">-->
+            <div class="col-md-12">
+              <app-activity-graph-container [panelOpen]="sidebarOpen"></app-activity-graph-container>
+            </div>
+          </div>
         </div>
-        <div class="col-md-6">
+      </div>
+      <div class="row">
+        <div class="col-md-12">
           <app-map-container [activity]="activity" [panelOpen]="sidebarOpen"></app-map-container>
         </div>
       </div>
+
+      <!--<div class="row d-flex d-md-flex">-->
+        <!--&lt;!&ndash;<div class="card-deck">&ndash;&gt;-->
+        <!--<div class="col-md-6">-->
+          <!--<app-activity-graph-container [panelOpen]="sidebarOpen"></app-activity-graph-container>-->
+        <!--</div>-->
+        <!--<div class="col-md-6">-->
+          <!--<app-map-container [activity]="activity" [panelOpen]="sidebarOpen"></app-map-container>-->
+        <!--</div>-->
+      <!--</div>-->
       <!--</div>-->
     </div>
 

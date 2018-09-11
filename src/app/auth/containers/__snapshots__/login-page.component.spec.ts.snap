@@ -10,7 +10,7 @@ exports[`LoginPageComponent should compile 1`] = `
     ng-reflect-pending="false"
   >
     <div
-      class="header"
+      class="header fixed-top"
     >
       <button
         class="btn btn-lg btn-primary logo-button "

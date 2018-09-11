@@ -1,20 +1,42 @@
 <div class="container">
-  <div class="btn-group-toggle col-xs-12" data-toggle="buttons">
-    <label
-      *ngFor="let key of seriesKey; index as i;"
-      class="btn btn-sm btn-outline-secondary"
-      [ngClass]="key.enabled ?'active':''"
-    [ngStyle]="{'background-color': key.enabled ? key.color : '#FFF'}"
-      [ngStyle]="{'background-color': key.enabled ? key.color : '#FFF'} "
-      [ngStyle]="{'.btn-secondary-outline.active :hover': {color: key.color}}"
-    >
-      <input
-        type="checkbox"
-        name="z{{i}}"
-        id="z{{i}}"
-        value="{{i}}"
-        (click)="toggleSeries(key.index)"
-        [checked]="key.enabled">{{key.name}}
-    </label>
+  <!--<div class="btn-group-toggle" data-toggle="buttons">-->
+  <div class="row">
+    <div *ngFor="let key of seriesKey; index as i" class="col-md-3">
+      <label
+        class="switch"
+        [ngClass]="key.enabled ? 'active': ''"
+        [ngStyle]="{'color': key.enabled ? key.color : '#FFF'}"
+      >
+        <input type="checkbox"
+               id="switch-id-{{i}}"
+               name="z{{i}}"
+               value="{{i}}"
+               (change)="toggleSeries(key.index)"
+               [checked]="key.enabled"
+        >
+        <span
+          class="slider round"
+        [ngStyle]="{'background-color': key.enabled ? key.color : '##D3D3D3'}"
+        ></span>
+      </label>
+      <div class="text-sm-left">{{key.name}}</div>
+    </div>
   </div>
+    <!--<label-->
+      <!--*ngFor="let key of seriesKey; index as i;"-->
+      <!--class="btn btn-sm btn-outline-secondary"-->
+      <!--[ngClass]="key.enabled ?'active':''"-->
+    <!--[ngStyle]="{'background-color': key.enabled ? key.color : '#FFF'}"-->
+      <!--[ngStyle]="{'background-color': key.enabled ? key.color : '#FFF'} "-->
+      <!--[ngStyle]="{'.btn-secondary-outline.active :hover': {color: key.color}}"-->
+    <!--&gt;-->
+      <!--<input-->
+        <!--type="checkbox"-->
+        <!--name="z{{i}}"-->
+        <!--id="z{{i}}"-->
+        <!--value="{{i}}"-->
+        <!--(click)="toggleSeries(key.index)"-->
+        <!--[checked]="key.enabled">{{key.name}}-->
+    <!--</label>-->
+  <!--</div>-->
 </div>

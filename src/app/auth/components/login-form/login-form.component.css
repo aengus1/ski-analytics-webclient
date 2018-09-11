@@ -51,8 +51,8 @@ body {
 /** header bar **/
 .header {
   padding: 10px 16px;
-  background: #faf5f0;
-  color: #f1f1f1;
+  background: transparent;
+  /*color: #f1f1f1;*/
 }
 .logo-button{
   background-color: #52A6D5;

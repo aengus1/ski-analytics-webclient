@@ -1,8 +1,4 @@
-<div class="card" *ngIf="activity" >
-  <div class="card-body">
-
-
-
+<div class="map-container" *ngIf="activity" >
     <mgl-map #map
       [style]="'https://tiles.stadiamaps.com/styles/osm_bright.json'"
       [zoom]="11"
@@ -49,6 +45,4 @@
 
 
     </mgl-map>
-
-  </div>
 </div>

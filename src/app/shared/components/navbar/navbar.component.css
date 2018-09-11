@@ -18,3 +18,11 @@
 .navbar-nav {
   z-index: 2000 !important;
 }
+
+.dropdown:hover>.dropdown-menu {
+  display: block;
+  position: absolute;
+  right: 40px;
+  top: -6px;
+  z-index: 1500;
+}

@@ -4,10 +4,10 @@
 
     <!--</div>-->
     <!--<div class="col-md-6 col-sm-9 col-xs-10">-->
-      <div class="btn-group-toggle col-xs-12" data-toggle="buttons">
+      <div class="btn-group-toggle d-flex" role="group" data-toggle="buttons">
         <label
           *ngFor="let key of axisKeys; index as i;"
-          class="btn btn-sm btn-outline-secondary"
+          class="btn btn-sm btn-outline-secondary w-100"
           [ngClass]="selectedAxis ===key  ?'active':''"
         >
           <input
@@ -16,7 +16,7 @@
             id="z{{i}}"
             value="{{i}}"
             (click)="selectAxis(key)"
-            [checked]="selectedAxis ===key">{{key}}
+            [checked]="selectedAxis ===key">{{key}} <span class="fa fa-clock-o"></span>
         </label>
       </div>
     <!--</div>-->
