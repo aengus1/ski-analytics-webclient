@@ -63,7 +63,7 @@ describe('HrZoneHistogramComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     compiled = fixture.debugElement.nativeElement;
-    store = fixture.debugElement.injector.get(Store);
+    store =  fixture.debugElement.injector.get(Store);
   }));
 
   it('should create', () => {

@@ -40,11 +40,13 @@ export class ActivityExistsGuard implements CanActivate {
    * it in the store, returning `true` or `false` if it was found.
    */
   hasActivityInApi(id: string): Observable<boolean> {
+    console.log('calling hasActivityInAPI');
     return this.activityService.getActivity(id).pipe(
       map(activityEntity => new activity.LoadActivity(activityEntity)),
       tap((action: activity.LoadActivity) => this.store.dispatch(action)),
       map(act => !!act),
-      catchError(() => {
+      catchError((e) => {
+        console.log('error occurred fetching activity ' + e);
         this.router.navigate(['/404']);
         return of(false);
       })

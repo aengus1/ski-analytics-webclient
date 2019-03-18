@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {ActivityService} from './activity.service';
 import {Activity} from '../../model/activity/Activity_pb';
 import {map} from 'rxjs/operators';
+import Sport = Activity.Sport;
+import SubSport = Activity.SubSport;
 
 @Injectable()
 export class MockActivityService extends ActivityService {
@@ -13,8 +15,9 @@ export class MockActivityService extends ActivityService {
           .pipe(map(res => {
             const activity =  Activity.deserializeBinary(new Uint8Array(res));
             // todo -> remove this from production code. just to test display as these values are not included in test data
-            activity.getMeta().setSubsport(Activity.SubSport.CARDIO_TRAINING);
-            activity.getMeta().setLocation('Knox Mountain Park, Kelowna, BC, V1P 1L7');
+            activity.getMeta().getLocation().setDisplayname('Knox Mountain Park, Kelowna, BC, V1P 1L7');
+            activity.getSessionsList().pop().setSport(Sport.CYCLING);
+            activity.getSessionsList().pop().setSubsport(SubSport.CARDIO_TRAINING);
             activity.getValues().getTemperatureList()[0] = -4;
             return activity;
           }));
@@ -24,9 +27,9 @@ export class MockActivityService extends ActivityService {
            .pipe(map(res => {
             const activity =  Activity.deserializeBinary(new Uint8Array(res));
             // todo -> remove this from production code. just to test display as these values are not included in test data
-            activity.getMeta().setSport(Activity.Sport.CROSS_COUNTRY_SKIING);
-            activity.getMeta().setSubsport(Activity.SubSport.INDOOR_SKIING);
-            activity.getMeta().setLocation('Goldbar, Edmonton');
+            activity.getSessionsList().pop().setSport(Activity.Sport.CROSS_COUNTRY_SKIING);
+            activity.getSessionsList().pop().setSubsport(Activity.SubSport.INDOOR_SKIING);
+            activity.getMeta().getLocation().setAddress1('Goldbar, Edmonton');
             activity.getValues().getTemperatureList()[0] = -4;
             return activity;
           }));

@@ -111,7 +111,7 @@ export class ActivitySummaryService {
     activity.getSummary().setTotalstopped(stopTime !== 0 ? stopTime / 1000 : 0);
     // console.log('data = ' + activity.getValues().getMovingList());
     // console.log('moving = ' + activity.getSummary().getTotalmoving() + ', stopped: ' + activity.getSummary().getTotalstopped());
-    activity.getSummary().setStopcount(stopCount);
+    // activity.getSummary().setStopcount(stopCount);
   }
 
   /**

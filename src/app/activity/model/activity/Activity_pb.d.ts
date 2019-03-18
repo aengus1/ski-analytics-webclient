@@ -32,6 +32,34 @@ export class Activity extends jspb.Message {
   getId(): string;
   setId(value: string): void;
 
+  clearSessionsList(): void;
+  getSessionsList(): Array<Activity.Session>;
+  setSessionsList(value: Array<Activity.Session>): void;
+  addSessions(value?: Activity.Session, index?: number): Activity.Session;
+
+  clearPausesList(): void;
+  getPausesList(): Array<Activity.Segment>;
+  setPausesList(value: Array<Activity.Segment>): void;
+  addPauses(value?: Activity.Segment, index?: number): Activity.Segment;
+
+  clearLapsList(): void;
+  getLapsList(): Array<Activity.Segment>;
+  setLapsList(value: Array<Activity.Segment>): void;
+  addLaps(value?: Activity.Segment, index?: number): Activity.Segment;
+
+  clearStopsList(): void;
+  getStopsList(): Array<Activity.Segment>;
+  setStopsList(value: Array<Activity.Segment>): void;
+  addStops(value?: Activity.Segment, index?: number): Activity.Segment;
+
+  hasActivitysegment(): boolean;
+  clearActivitysegment(): void;
+  getActivitysegment(): Activity.Segment | undefined;
+  setActivitysegment(value?: Activity.Segment): void;
+
+  getInitialmove(): number;
+  setInitialmove(value: number): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Activity.AsObject;
   static toObject(includeInstance: boolean, msg: Activity): Activity.AsObject;
@@ -50,6 +78,12 @@ export namespace Activity {
     values?: Activity.Values.AsObject,
     eventsList: Array<Activity.FitEvent.AsObject>,
     id: string,
+    sessionsList: Array<Activity.Session.AsObject>,
+    pausesList: Array<Activity.Segment.AsObject>,
+    lapsList: Array<Activity.Segment.AsObject>,
+    stopsList: Array<Activity.Segment.AsObject>,
+    activitysegment?: Activity.Segment.AsObject,
+    initialmove: number,
   }
 
   export class Meta extends jspb.Message {
@@ -71,14 +105,10 @@ export namespace Activity {
     getUploadts(): string;
     setUploadts(value: string): void;
 
-    getSport(): Activity.Sport;
-    setSport(value: Activity.Sport): void;
-
-    getSubsport(): Activity.SubSport;
-    setSubsport(value: Activity.SubSport): void;
-
-    getLocation(): string;
-    setLocation(value: string): void;
+    hasLocation(): boolean;
+    clearLocation(): void;
+    getLocation(): Activity.Location | undefined;
+    setLocation(value?: Activity.Location): void;
 
     hasWeather(): boolean;
     clearWeather(): void;
@@ -103,9 +133,7 @@ export namespace Activity {
       version: number,
       source: string,
       uploadts: string,
-      sport: Activity.Sport,
-      subsport: Activity.SubSport,
-      location: string,
+      location?: Activity.Location.AsObject,
       weather?: Activity.Weather.AsObject,
     }
   }
@@ -145,6 +173,54 @@ export namespace Activity {
   }
 
   export class Weather extends jspb.Message {
+    getTemperature(): number;
+    setTemperature(value: number): void;
+
+    getApparenttemperature(): number;
+    setApparenttemperature(value: number): void;
+
+    getWindspeed(): number;
+    setWindspeed(value: number): void;
+
+    getWinddirection(): number;
+    setWinddirection(value: number): void;
+
+    getCloudcover(): number;
+    setCloudcover(value: number): void;
+
+    getPressure(): number;
+    setPressure(value: number): void;
+
+    getPreciptype(): Activity.PrecipType;
+    setPreciptype(value: Activity.PrecipType): void;
+
+    getPrecipintensity(): number;
+    setPrecipintensity(value: number): void;
+
+    getPrecipaccumulation(): number;
+    setPrecipaccumulation(value: number): void;
+
+    getVisibility(): number;
+    setVisibility(value: number): void;
+
+    getIcon(): Activity.WeatherIcon;
+    setIcon(value: Activity.WeatherIcon): void;
+
+    getHumidity(): number;
+    setHumidity(value: number): void;
+
+    getSnowdepth(): number;
+    setSnowdepth(value: number): void;
+
+    getSnowinpast24hours(): number;
+    setSnowinpast24hours(value: number): void;
+
+    getSummary(): string;
+    setSummary(value: string): void;
+
+    getDewpoint(): number;
+    setDewpoint(value: number): void;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Weather.AsObject;
     static toObject(includeInstance: boolean, msg: Weather): Weather.AsObject;
@@ -157,6 +233,116 @@ export namespace Activity {
 
   export namespace Weather {
     export type AsObject = {
+      temperature: number,
+      apparenttemperature: number,
+      windspeed: number,
+      winddirection: number,
+      cloudcover: number,
+      pressure: number,
+      preciptype: Activity.PrecipType,
+      precipintensity: number,
+      precipaccumulation: number,
+      visibility: number,
+      icon: Activity.WeatherIcon,
+      humidity: number,
+      snowdepth: number,
+      snowinpast24hours: number,
+      summary: string,
+      dewpoint: number,
+    }
+  }
+
+  export class Location extends jspb.Message {
+    getLat(): number;
+    setLat(value: number): void;
+
+    getLon(): number;
+    setLon(value: number): void;
+
+    getSource(): Activity.LocationSource;
+    setSource(value: Activity.LocationSource): void;
+
+    getAddress1(): string;
+    setAddress1(value: string): void;
+
+    getAddress2(): string;
+    setAddress2(value: string): void;
+
+    getCity(): string;
+    setCity(value: string): void;
+
+    getCounty(): string;
+    setCounty(value: string): void;
+
+    getProv(): string;
+    setProv(value: string): void;
+
+    getCountry(): string;
+    setCountry(value: string): void;
+
+    getZip(): string;
+    setZip(value: string): void;
+
+    clearFencesList(): void;
+    getFencesList(): Array<Activity.Geofence>;
+    setFencesList(value: Array<Activity.Geofence>): void;
+    addFences(value?: Activity.Geofence, index?: number): Activity.Geofence;
+
+    getDisplayname(): string;
+    setDisplayname(value: string): void;
+
+    getName(): string;
+    setName(value: string): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): Location.AsObject;
+    static toObject(includeInstance: boolean, msg: Location): Location.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: Location, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Location;
+    static deserializeBinaryFromReader(message: Location, reader: jspb.BinaryReader): Location;
+  }
+
+  export namespace Location {
+    export type AsObject = {
+      lat: number,
+      lon: number,
+      source: Activity.LocationSource,
+      address1: string,
+      address2: string,
+      city: string,
+      county: string,
+      prov: string,
+      country: string,
+      zip: string,
+      fencesList: Array<Activity.Geofence.AsObject>,
+      displayname: string,
+      name: string,
+    }
+  }
+
+  export class Geofence extends jspb.Message {
+    getId(): number;
+    setId(value: number): void;
+
+    getName(): string;
+    setName(value: string): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): Geofence.AsObject;
+    static toObject(includeInstance: boolean, msg: Geofence): Geofence.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: Geofence, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Geofence;
+    static deserializeBinaryFromReader(message: Geofence, reader: jspb.BinaryReader): Geofence;
+  }
+
+  export namespace Geofence {
+    export type AsObject = {
+      id: number,
+      name: string,
     }
   }
 
@@ -193,9 +379,6 @@ export namespace Activity {
     getTotaldistance(): number;
     setTotaldistance(value: number): void;
 
-    getTotalcalories(): number;
-    setTotalcalories(value: number): void;
-
     getAvghr(): number;
     setAvghr(value: number): void;
 
@@ -211,17 +394,11 @@ export namespace Activity {
     getMaxcadence(): number;
     setMaxcadence(value: number): void;
 
-    getMincadence(): number;
-    setMincadence(value: number): void;
-
     getAvgtemp(): number;
     setAvgtemp(value: number): void;
 
     getMaxtemp(): number;
     setMaxtemp(value: number): void;
-
-    getMintemp(): number;
-    setMintemp(value: number): void;
 
     getAvgspeed(): number;
     setAvgspeed(value: number): void;
@@ -229,20 +406,18 @@ export namespace Activity {
     getMaxspeed(): number;
     setMaxspeed(value: number): void;
 
-    getMingradient(): number;
-    setMingradient(value: number): void;
+    getMaxpositivegradient(): number;
+    setMaxpositivegradient(value: number): void;
 
-    getMaxgradient(): number;
-    setMaxgradient(value: number): void;
+    getMaxnegativegradient(): number;
+    setMaxnegativegradient(value: number): void;
 
-    getAvggradient(): number;
-    setAvggradient(value: number): void;
+    getAvgpositivegradient(): number;
+    setAvgpositivegradient(value: number): void;
 
-    getNlaps(): number;
-    setNlaps(value: number): void;
+    getAvgnegativegradient(): number;
+    setAvgnegativegradient(value: number): void;
 
-    getHrvsMap(): jspb.Map<string, number>;
-    clearHrvsMap(): void;
     getTotalasctime(): number;
     setTotalasctime(value: number): void;
 
@@ -255,14 +430,20 @@ export namespace Activity {
     getTotaldescdist(): number;
     setTotaldescdist(value: number): void;
 
-    getPausedistance(): number;
-    setPausedistance(value: number): void;
+    getSegmenttype(): Activity.SegmentType;
+    setSegmenttype(value: Activity.SegmentType): void;
 
-    getStopcount(): number;
-    setStopcount(value: number): void;
+    getMaxpositiveverticalspeed(): number;
+    setMaxpositiveverticalspeed(value: number): void;
 
-    getPausecount(): number;
-    setPausecount(value: number): void;
+    getMaxnegativeverticalspeed(): number;
+    setMaxnegativeverticalspeed(value: number): void;
+
+    getAvgpositiveverticalspeed(): number;
+    setAvgpositiveverticalspeed(value: number): void;
+
+    getAvgnegativeverticalspeed(): number;
+    setAvgnegativeverticalspeed(value: number): void;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Summary.AsObject;
@@ -287,30 +468,58 @@ export namespace Activity {
       totalascent: number,
       totaldescent: number,
       totaldistance: number,
-      totalcalories: number,
       avghr: number,
       maxhr: number,
       minhr: number,
       avgcadence: number,
       maxcadence: number,
-      mincadence: number,
       avgtemp: number,
       maxtemp: number,
-      mintemp: number,
       avgspeed: number,
       maxspeed: number,
-      mingradient: number,
-      maxgradient: number,
-      avggradient: number,
-      nlaps: number,
-      hrvsMap: Array<[string, number]>,
+      maxpositivegradient: number,
+      maxnegativegradient: number,
+      avgpositivegradient: number,
+      avgnegativegradient: number,
       totalasctime: number,
       totaldesctime: number,
       totalascdist: number,
       totaldescdist: number,
-      pausedistance: number,
-      stopcount: number,
-      pausecount: number,
+      segmenttype: Activity.SegmentType,
+      maxpositiveverticalspeed: number,
+      maxnegativeverticalspeed: number,
+      avgpositiveverticalspeed: number,
+      avgnegativeverticalspeed: number,
+    }
+  }
+
+  export class Session extends jspb.Message {
+    getSport(): Activity.Sport;
+    setSport(value: Activity.Sport): void;
+
+    getSubsport(): Activity.SubSport;
+    setSubsport(value: Activity.SubSport): void;
+
+    hasSegment(): boolean;
+    clearSegment(): void;
+    getSegment(): Activity.Segment | undefined;
+    setSegment(value?: Activity.Segment): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): Session.AsObject;
+    static toObject(includeInstance: boolean, msg: Session): Session.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: Session, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Session;
+    static deserializeBinaryFromReader(message: Session, reader: jspb.BinaryReader): Session;
+  }
+
+  export namespace Session {
+    export type AsObject = {
+      sport: Activity.Sport,
+      subsport: Activity.SubSport,
+      segment?: Activity.Segment.AsObject,
     }
   }
 
@@ -372,6 +581,16 @@ export namespace Activity {
 
     getHrvsMap(): jspb.Map<string, number>;
     clearHrvsMap(): void;
+    clearHrvList(): void;
+    getHrvList(): Array<number>;
+    setHrvList(value: Array<number>): void;
+    addHrv(value: number, index?: number): number;
+
+    clearVerticalSpeedList(): void;
+    getVerticalSpeedList(): Array<number>;
+    setVerticalSpeedList(value: Array<number>): void;
+    addVerticalSpeed(value: number, index?: number): number;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Values.AsObject;
     static toObject(includeInstance: boolean, msg: Values): Values.AsObject;
@@ -396,21 +615,17 @@ export namespace Activity {
       movingList: Array<boolean>,
       cadenceList: Array<number>,
       hrvsMap: Array<[string, number]>,
+      hrvList: Array<number>,
+      verticalSpeedList: Array<number>,
     }
   }
 
   export class FitEvent extends jspb.Message {
-    getStartidx(): number;
-    setStartidx(value: number): void;
-
-    getEndidx(): number;
-    setEndidx(value: number): void;
+    getIndex(): number;
+    setIndex(value: number): void;
 
     getTs(): string;
     setTs(value: string): void;
-
-    getStartts(): string;
-    setStartts(value: string): void;
 
     getEvent(): string;
     setEvent(value: string): void;
@@ -418,14 +633,8 @@ export namespace Activity {
     getEventtype(): Activity.EventType;
     setEventtype(value: Activity.EventType): void;
 
-    getTimertime(): number;
-    setTimertime(value: number): void;
-
-    getElapsedtime(): number;
-    setElapsedtime(value: number): void;
-
-    getMovingtime(): number;
-    setMovingtime(value: number): void;
+    getInfo(): string;
+    setInfo(value: string): void;
 
     getTrigger(): string;
     setTrigger(value: string): void;
@@ -442,17 +651,85 @@ export namespace Activity {
 
   export namespace FitEvent {
     export type AsObject = {
-      startidx: number,
-      endidx: number,
+      index: number,
       ts: string,
-      startts: string,
       event: string,
       eventtype: Activity.EventType,
-      timertime: number,
-      elapsedtime: number,
-      movingtime: number,
+      info: string,
       trigger: string,
     }
+  }
+
+  export class Segment extends jspb.Message {
+    getStartts(): string;
+    setStartts(value: string): void;
+
+    getStopts(): string;
+    setStopts(value: string): void;
+
+    getStartidx(): number;
+    setStartidx(value: number): void;
+
+    getStopidx(): number;
+    setStopidx(value: number): void;
+
+    hasSummary(): boolean;
+    clearSummary(): void;
+    getSummary(): Activity.Summary | undefined;
+    setSummary(value?: Activity.Summary): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): Segment.AsObject;
+    static toObject(includeInstance: boolean, msg: Segment): Segment.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: Segment, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Segment;
+    static deserializeBinaryFromReader(message: Segment, reader: jspb.BinaryReader): Segment;
+  }
+
+  export namespace Segment {
+    export type AsObject = {
+      startts: string,
+      stopts: string,
+      startidx: number,
+      stopidx: number,
+      summary?: Activity.Summary.AsObject,
+    }
+  }
+
+  export enum PrecipType {
+    RAIN = 0,
+    SLEET = 1,
+    SNOW = 2,
+    NA_PRECIP = 3,
+  }
+
+  export enum WeatherIcon {
+    CLEAR_DAY = 0,
+    CLEAR_NIGHT = 1,
+    RAIN_ICON = 2,
+    SNOW_ICON = 3,
+    SLEET_ICON = 4,
+    WIND = 5,
+    FOG = 6,
+    CLOUDY = 7,
+    PARTLY_CLOUDY_DAY = 8,
+    PARTLY_CLOUDY_NIGHT = 9,
+    NA_ICON = 10,
+  }
+
+  export enum LocationSource {
+    GOOGLE = 0,
+    LOCATION_IQ = 1,
+    HERE = 2,
+  }
+
+  export enum SegmentType {
+    ACTIVITY = 0,
+    SESSION = 1,
+    LAP = 2,
+    PAUSE = 3,
   }
 
   export enum FitManufacturer {
@@ -653,9 +930,12 @@ export namespace Activity {
     INDOOR_SKIING = 25,
     CARDIO_TRAINING = 26,
     INDOOR_WALKING = 27,
-    CLASSIC = 28,
-    SKATE = 29,
-    ROLLER = 30,
+    CLASSIC_XC = 28,
+    SKATE_XC = 29,
+    TELEMARK_XC = 30,
+    BACKCOUNTRY_XC = 31,
+    ALPINE_TOURING = 32,
+    SKIMO = 33,
     ALL_SUBSPORT = 254,
     INVALID_SUBSPORT = 255,
   }
