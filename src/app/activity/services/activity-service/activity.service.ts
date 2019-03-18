@@ -44,7 +44,7 @@ let resultActivity$: Observable<Activity>;
       try {
         this.sessionKey = x.signInUserSession.idToken.jwtToken;
         resultActivity$ = this.http.get(
-          'https://fgtcxjggck.execute-api.ca-central-1.amazonaws.com/staging/activity/ce1cdd5f-20ee-497f-b1af-e6de11e6707c.pbf',
+          'https://fgtcxjggck.execute-api.ca-central-1.amazonaws.com/staging/activity/b2e2ff3d-1836-48cb-be61-30f06b4b0c0b.pbf',
           { headers: {'Authorization' :  this.sessionKey}, responseType: 'arraybuffer'})
         // return this.http.get( 'https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/run280317_0.pb', {responseType: 'arraybuffer'})
         // return this.http.get('https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/suunto_10.pb', {responseType: 'arraybuffer'})
