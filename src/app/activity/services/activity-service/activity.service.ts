@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 import * as fromActivity from '../../reducers/activity.reducer';
 import {ActivitySummaryService} from '../activity-summary-service/activity-summary.service';
 import {map} from 'rxjs/operators';
-import {select, Store} from '@ngrx/store';
+import {Store} from '@ngrx/store';
 import * as fromAuth from '../../../auth/reducers/';
 import {User} from '../../../auth/model/user';
 
@@ -21,16 +21,16 @@ export class ActivityService {
   constructor(protected http: HttpClient, private store: Store<fromAuth.State>) {
 
     console.log('initing activity service');
-    this.user$ = this.store.pipe(select(fromAuth.getUser));
-    this.user$.subscribe(x => {
-      console.log('user finally returned with ' + x);
-      try {
-        this.sessionKey = x.signInUserSession.accessToken.jwtToken;
-        console.log('setting session key = ' + this.sessionKey);
-      }catch (e) {
-        console.log('failed to set session key');
-      }
-    });
+    // this.user$ = this.store.pipe(select(fromAuth.getUser));
+    // this.user$.subscribe(x => {
+    //   console.log('user finally returned with ' + x);
+    //   try {
+    //     this.sessionKey = x.signInUserSession.accessToken.jwtToken;
+    //     console.log('setting session key = ' + this.sessionKey);
+    //   }catch (e) {
+    //     console.log('failed to set session key');
+    //   }
+    // });
 
   }
 // TODO -> cache user token in localStorage or cookie so it survives full page refresh
@@ -39,13 +39,15 @@ export class ActivityService {
 console.log('in getActivity with ' + this.sessionKey);
 
 let resultActivity$: Observable<Activity>;
-    this.user$.subscribe(x => {
-      console.log('user finally returned with ' + x);
+    // this.user$.subscribe(x => {
+      // console.log('user finally returned with ' + x);
       try {
-        this.sessionKey = x.signInUserSession.idToken.jwtToken;
+        // this.sessionKey = x.signInUserSession.idToken.jwtToken;
         resultActivity$ = this.http.get(
           'https://fgtcxjggck.execute-api.ca-central-1.amazonaws.com/staging/activity/b2e2ff3d-1836-48cb-be61-30f06b4b0c0b.pbf',
-          { headers: {'Authorization' :  this.sessionKey}, responseType: 'arraybuffer'})
+          {
+            // headers: {'Authorization' :  this.sessionKey},
+            responseType: 'arraybuffer'})
         // return this.http.get( 'https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/run280317_0.pb', {responseType: 'arraybuffer'})
         // return this.http.get('https://s3-us-west-2.amazonaws.com/www.ski-analytics.com/suunto_10.pb', {responseType: 'arraybuffer'})
           .pipe(map(res => Activity.deserializeBinary(new Uint8Array(res)))).pipe(map(v => {
@@ -88,7 +90,7 @@ let resultActivity$: Observable<Activity>;
       }catch (e) {
         console.log('failed to set session key');
       }
-    });
+    // });
 
     return resultActivity$;
 
