@@ -37,6 +37,7 @@ export class AuthEffects {
     exhaustMap((auth: Authenticate) =>
       this.authService.signIn(auth.username, auth.password).pipe(
         map(user => {
+          sessionStorage.setItem('userId', JSON.stringify(user));
         return new LoginSuccess({user});
         }),
         catchError(error => of(new LoginFailure(error)))
@@ -143,6 +144,7 @@ export class AuthEffects {
   loginRedirect$ = this.actions$.pipe(
     ofType(AuthActionTypes.LoginRedirect, AuthActionTypes.Logout),
     tap(() => {
+      // this.authService.signOut();
       if ( this.router.url !== '/signout') {
         this.router.navigate(['/signin']);
       }

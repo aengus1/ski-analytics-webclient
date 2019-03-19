@@ -1,7 +1,6 @@
 import {RouterModule, Routes} from '@angular/router';
 import {NotFoundComponent} from './shared/components/not-found/not-found.component';
 import {NgModule} from '@angular/core';
-import {environment} from '../environments/environment';
 import {AuthGuard} from './auth/guards/auth.guard';
 import {HomeComponent} from './shared/components/home/home.component';
 
@@ -9,7 +8,7 @@ const appRoutes: Routes = [
 
 
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
-  // {path: 'activity',  component: NotFoundComponent, canActivate: [AuthGuard]},
+   // {path: '/404',  component: NotFoundComponent, canActivate: [AuthGuard]},
   {
     path: 'activity',
     loadChildren: './activity/activity.module#ActivityModule',
@@ -20,7 +19,8 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes,  { enableTracing: !environment.production })
+    // RouterModule.forRoot(appRoutes,  { enableTracing: !environment.production })
+    RouterModule.forRoot(appRoutes,  { enableTracing: false })
   ],
   exports: [
     RouterModule

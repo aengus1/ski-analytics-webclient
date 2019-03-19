@@ -15,6 +15,13 @@ export class AuthGuard implements CanActivate, CanLoad {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    // console.log('auth.getToken ' + this.auth.getToken());
+    // if ( !this.auth.getToken()) {
+    //   this.store.dispatch(new LoginRedirect());
+    //   return false;
+    // } else {
+    //   return true;
+    // }
     return this.auth.isAuthenticated()
       .pipe(
         tap(loggedIn => {

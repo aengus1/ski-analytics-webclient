@@ -53,7 +53,8 @@ export class AuthService {
   }
 
   public isAuthenticated(): Observable<boolean> {
-     return fromPromise(Auth.currentAuthenticatedUser())
+      // Auth.currentSession();
+      return fromPromise(Auth.currentAuthenticatedUser())
       .pipe(
         map(result => {
           return true;
@@ -65,11 +66,24 @@ export class AuthService {
       );
   }
 
+  public getToken(): string {
+    let user: any = sessionStorage.getItem('userId');
+    if (user != null ) {
+      console.log('user = ' + user);
+      user = JSON.parse(user);
+      return user.signInUserSession.idToken.jwtToken;
+    } else {
+      // trigger recompile
+      return null;
+    }
+  }
+
 
   public signOut() {
     fromPromise(Auth.signOut())
       .subscribe(
         result => {
+          sessionStorage.removeItem('userId');
           this.store.dispatch(new Logout());
           //  TODO -> store logged in state
           // this.loggedIn.next(false);

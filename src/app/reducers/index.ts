@@ -1,5 +1,4 @@
 import {ActionReducer, ActionReducerMap, createFeatureSelector, createSelector, MetaReducer} from '@ngrx/store';
-import {environment} from '../../environments/environment';
 import * as fromLayout from '../shared/layout/reducers/layout.reducer';
 import * as fromRouter from '@ngrx/router-store';
 import {RouterStateUrl} from '../shared/utils';
@@ -28,7 +27,8 @@ export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
 }
 
 
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [logger] : [];
+// export const metaReducers: MetaReducer<State>[] = !environment.production ? [logger] : [];
+export const metaReducers: MetaReducer<State>[] =  [];
 
 
 /**

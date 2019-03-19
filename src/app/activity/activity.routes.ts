@@ -11,7 +11,7 @@ const activityRoutes: Routes = [
     path: 'activity', component: ActivityRootComponent, children: [
       {path: ':id',
         component: ViewActivityPageComponent,
-        canActivate: [ActivityExistsGuard, AuthGuard]
+        canActivate: [AuthGuard, ActivityExistsGuard]
       },
       {path: '',
         component: NotFoundComponent,

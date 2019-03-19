@@ -38,13 +38,16 @@ export const COMPONENTS = [
     CommonModule, ReactiveFormsModule, FormsModule, RouterModule, SharedModule
   ],
   declarations:  COMPONENTS,
-  exports: COMPONENTS
+  exports: COMPONENTS,
 })
 export class AuthModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: RootAuthModule,
-      providers: [AuthService, AuthGuard ]
+      providers: [
+        AuthService,
+        AuthGuard
+      ]
     };
   }
 }
