@@ -1,0 +1,207 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`D3BarNativeComponent should match snapshot 1`] = `
+<app-mock-component
+  layout={[Function Object]}
+>
+  <app-d3-bar-native
+    ng-reflect-chart-options="[object Object]"
+    ng-reflect-data="10,20,30,0,40"
+    ng-reflect-height="50"
+    ng-reflect-margin="15"
+    ng-reflect-width="50"
+    ng-reflect-x-labels="1,2,3,4,5"
+    ng-reflect-y-label="YLabelTest"
+  >
+    <svg
+      height="50"
+      width="50"
+    >
+      <g
+        transform="translate(15,15)"
+      >
+        <g
+          class="axis--x"
+          fill="none"
+          font-family="sans-serif"
+          font-size="10"
+          style="text-anchor; start"
+          text-anchor="middle"
+          transform="translate(0,50)"
+        >
+          <path
+            class="domain"
+            d="M0,0H50"
+            stroke="#000"
+          />
+        </g>
+        <g
+          class="bar-holder"
+        >
+          
+          <rect
+            class="bar"
+            height="5"
+            width="NaN"
+            x="NaN"
+            y="15"
+          />
+          <rect
+            class="bar"
+            height="10"
+            width="NaN"
+            x="NaN"
+            y="10"
+          />
+          <rect
+            class="bar"
+            height="15"
+            width="NaN"
+            x="NaN"
+            y="5"
+          />
+          <rect
+            class="bar"
+            height="0"
+            width="NaN"
+            x="NaN"
+            y="20"
+          />
+          <rect
+            class="bar"
+            height="20"
+            width="NaN"
+            x="NaN"
+            y="0"
+          />
+        </g>
+        <g
+          class="bar-text"
+        >
+          
+          <text
+            class="bar-text"
+            dx="NaN"
+            dy="0"
+            height="5"
+            style="display: inline; font-size: 0.6em;"
+            width="4"
+            x="NaN"
+            y="15"
+          >
+             00:10 
+          </text>
+          <text
+            class="bar-text"
+            dx="NaN"
+            dy="0"
+            height="10"
+            style="display: inline; font-size: 0.6em;"
+            width="4"
+            x="NaN"
+            y="10"
+          >
+             00:20 
+          </text>
+          <text
+            class="bar-text"
+            dx="NaN"
+            dy="0"
+            height="15"
+            style="display: inline; font-size: 0.6em;"
+            width="4"
+            x="NaN"
+            y="5"
+          >
+             00:30 
+          </text>
+          <text
+            class="bar-text"
+            dx="NaN"
+            dy="0"
+            height="0"
+            style="display: inline; font-size: 0.6em;"
+            width="4"
+            x="NaN"
+            y="20"
+          >
+             00:00:00 
+          </text>
+          <text
+            class="bar-text"
+            dx="NaN"
+            dy="0"
+            height="20"
+            style="display: inline; font-size: 0.6em;"
+            width="4"
+            x="NaN"
+            y="0"
+          >
+             00:40 
+          </text>
+        </g>
+        <g
+          class="bar-text"
+        >
+          
+          <text
+            class="bar-text barlabel"
+            dy="-2.8em"
+            height="5"
+            style="display: inline; font-size: 0.6em;"
+            transform="rotate(-90) translate(10,0)"
+            width="4"
+            y="15"
+          >
+             1 
+          </text>
+          <text
+            class="bar-text barlabel"
+            dy="-2.8em"
+            height="10"
+            style="display: inline; font-size: 0.6em;"
+            transform="rotate(-90) translate(10,0)"
+            width="4"
+            y="15"
+          >
+             2 
+          </text>
+          <text
+            class="bar-text barlabel"
+            dy="-2.8em"
+            height="15"
+            style="display: inline; font-size: 0.6em;"
+            transform="rotate(-90) translate(10,0)"
+            width="4"
+            y="15"
+          >
+             3 
+          </text>
+          <text
+            class="bar-text barlabel"
+            dy="-2.8em"
+            height="0"
+            style="display: inline; font-size: 0.6em;"
+            transform="rotate(-90) translate(10,0)"
+            width="4"
+            y="15"
+          >
+             4 
+          </text>
+          <text
+            class="bar-text barlabel"
+            dy="-2.8em"
+            height="20"
+            style="display: inline; font-size: 0.6em;"
+            transform="rotate(-90) translate(10,0)"
+            width="4"
+            y="15"
+          >
+             5 
+          </text>
+        </g>
+      </g>
+    </svg>
+  </app-d3-bar-native>
+</app-mock-component>
+`;

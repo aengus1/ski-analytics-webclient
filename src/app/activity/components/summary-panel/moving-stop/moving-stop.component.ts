@@ -4,8 +4,10 @@ import {ChartOptions, ChartOrientation} from '../../../../chart/components/d3-ba
 @Component({
   selector: 'app-moving-stop',
   template: `<div class="font-weight-normal">{{stopCount}} Stops</div>
-    <app-d3-bar [width]="100" [height]="100" [data]="data" [yLabel]="'mins'"
-                         [xLabels]="['Moving',' Stop']" [chartOptions]="this.chartOptions"></app-d3-bar>`
+    <!--&lt;!&ndash; <app-d3-bar [width]="100" [height]="100" [data]="data" [yLabel]="'mins'"-->
+                         <!--[xLabels]="['Moving',' Stop']" [chartOptions]="this.chartOptions"></app-d3-bar> &ndash;&gt;-->
+  <app-d3-bar-native  [data]="data" [yLabel]="'mins'" [margin]="10" [height]="100" [width]="100"
+    [xLabels]="['Moving',' Stop']" [chartOptions]="this.chartOptions"></app-d3-bar-native>`
 })
 export class MovingStopComponent implements OnInit {
 
@@ -23,6 +25,6 @@ export class MovingStopComponent implements OnInit {
     this.chartOptions.hasNumLabel = true;
     this.chartOptions.hasNumAxis = false;
     this.chartOptions.orientation = ChartOrientation.HORIZONTAL;
-    this.chartOptions.barSpacing = 0.1;
+    this.chartOptions.barSpacing = 0.4;
   }
 }
