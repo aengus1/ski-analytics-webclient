@@ -6,7 +6,7 @@ import {LoggerService} from '../../../shared/services/logger.service';
 import {ChartModule} from '../../chart.module';
 import {ConsoleLoggerService} from '../../../shared/services/console-logger.service';
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {ChartOptions} from './ChartOptions';
+import {ChartOptions} from '../../ChartOptions';
 import {ActivityModule} from '../../../activity/activity.module';
 import {combineReducers, StoreModule} from '@ngrx/store';
 import * as fromActivities from '../../../activity/reducers';

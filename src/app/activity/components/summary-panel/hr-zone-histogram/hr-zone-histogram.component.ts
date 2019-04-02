@@ -9,9 +9,12 @@ import {ActivitySummaryService} from '../../../services/activity-summary-service
 @Component({
   selector: 'app-hr-zone-histogram',
   template: `
-    <app-d3-bar [width]="150" [height]="150" [yLabel]="'mins'"
+    <!--<app-d3-bar [width]="150" [height]="150" [yLabel]="'mins'"
                 [xLabels]="['1',' 2','3','4','5']" [chartOptions]="this.chartOptions"
-                [data]="getTimeOrDistanceInZone()"></app-d3-bar>`,
+                [data]="getTimeOrDistanceInZone()"></app-d3-bar> -->
+    <app-d3-bar-native [width]="100" [height]="100" [yLabel]="'mins'" [margin]="15"
+                [xLabels]="['1',' 2','3','4','5']" [chartOptions]="this.chartOptions"
+                [data]="getTimeOrDistanceInZone()"></app-d3-bar-native>`,
   styleUrls: ['./hr-zone-histogram.component.css']
 })
 export class HrZoneHistogramComponent implements OnInit, OnChanges {

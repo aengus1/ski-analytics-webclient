@@ -25,6 +25,6 @@ export class MovingStopComponent implements OnInit {
     this.chartOptions.hasNumLabel = true;
     this.chartOptions.hasNumAxis = false;
     this.chartOptions.orientation = ChartOrientation.HORIZONTAL;
-    this.chartOptions.barSpacing = 0.1;
+    this.chartOptions.barSpacing = 0.4;
   }
 }
