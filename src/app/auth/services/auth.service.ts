@@ -5,8 +5,6 @@ import {environment} from '../../../environments/environment';
 import Amplify, {Auth} from 'aws-amplify';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
 import {map} from 'rxjs/operators/map';
-import {of} from 'rxjs/internal/observable/of';
-import {catchError} from 'rxjs/operators/catchError';
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
 import * as fromAuth from '../reducers';
@@ -53,17 +51,56 @@ export class AuthService {
   }
 
   public isAuthenticated(): Observable<boolean> {
-      // Auth.currentSession();
-      return fromPromise(Auth.currentAuthenticatedUser())
-      .pipe(
-        map(result => {
+    console.log('checking if authenticated...');
+    return  fromPromise(Auth.currentSession()).pipe(
+        map( x => {
+        try {
+          // console.log('is authenticated result ' + JSON.stringify(x));
+          // console.log('fromCurrent ' + JSON.stringify(x.idToken.jwtToken));
+          const user = JSON.parse(sessionStorage.getItem('userId'));
+          if (user !== undefined
+            && user.signInUserSession !== undefined
+            && user.signInUserSession.idToken !== undefined
+            && user.signInUserSession.idToken.jwtToken !== undefined) {
+            // update the session token as amplify handles refresh automatically
+            // this should keep session alive
+            if (x.idToken !== undefined && x.idToken.jwtToken !== undefined ) {
+              user.signInUserSession.idToken.jwtToken = x.idToken.jwtToken;
+              sessionStorage.setItem('userId', JSON.stringify(user));
+            }
+            // console.log('fromSessionStore ' + user.signInUserSession.idToken.jwtToken);
+          } else {
+            // console.log('error reading from session store ');
+            // console.log('session store userId: ' +  sessionStorage.getItem('userId'));
+          }
+
+          // var user = JSON.parse(sessionStorage.getItem('userId'));
+          // if (x !== undefined && x !== null && x.idToken !== undefined
+          //   && user.signInUserSession !== undefined) {
+          //   user.signInUserSession.idToken.jwtToken = x.idToken.jwtToken;
+          //   sessionStorage.setItem('userId', JSON.stringify(user));
+          //   console.log(' setting token' + x.idToken.jwtToken);
+          // //sessionStorage.setItem('userId', x.idToken.jwtToken);
           return true;
-        }),
-      catchError(error => {
-        console.error('auth result = ' + error);
-        return of(false);
-      })
+        // return false;
+        } catch (e) {
+          console.log('not authenticated' + e);
+          return false;
+        }
+      }, e => {
+          console.log(e);
+        })
       );
+      // return fromPromise(Auth.currentAuthenticatedUser())
+      // .pipe(
+      //   map(result => {
+      //     return true;
+      //   }),
+      // catchError(error => {
+      //   console.error('auth result = ' + error);
+      //   return of(false);
+      // })
+      // );
   }
 
   public getToken(): string {
