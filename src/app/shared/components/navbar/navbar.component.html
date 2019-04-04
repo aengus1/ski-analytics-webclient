@@ -23,6 +23,7 @@
         <!-- user settings menu (mobile view) -->
         <li class="nav-item d-block d-md-none">
           <a class="nav-link disabled" routerLink="/settings">User Settings</a>
+          <!--<a class="nav-link" routerLink="/import">Import</a> // import not available from mobile -->
         </li>
         <div class="dropdown-divider d-block d-md-none"></div>
         <li class="nav-item d-block d-md-none">
@@ -42,6 +43,7 @@
                 <!-- mouseover is kinda flaky (mouseover)="$event.stopPropagation(); dropdown.toggle(true);-->
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-right">
                   <button class="dropdown-item nav-link disabled btn btn-link" routerLink="/settings">Settings</button>
+                  <button class="dropdown-item nav-link btn btn-link" routerLink="/import">Import</button>
                   <div class="dropdown-divider"></div>
                   <button class="dropdown-item nav-link btn btn-link" routerLink="/signout">Logout</button>
                 </div>

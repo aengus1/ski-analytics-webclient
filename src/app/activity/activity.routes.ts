@@ -5,6 +5,7 @@ import {ViewActivityPageComponent} from './containers/view-activity-page/view-ac
 import {ActivityExistsGuard} from './guards/activity-exists';
 import {AuthGuard} from '../auth/guards/auth.guard';
 import {NotFoundComponent} from '../shared/components/not-found/not-found.component';
+import {ImportComponent} from './components/import/import.component';
 
 const activityRoutes: Routes = [
   {
@@ -18,6 +19,11 @@ const activityRoutes: Routes = [
         canActivate: [AuthGuard]
       }
     ]
+  },
+  {
+    path: 'import',
+    component: ImportComponent,
+    canActivate: [AuthGuard]
   }
 ];
 @NgModule({
