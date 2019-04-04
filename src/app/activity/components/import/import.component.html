@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+<h3>Import Activity</h3>
+<p>Upload a .fit file from your device</p>
+  </div>
+</div>
+
+<div class="row">
+<div class="col-md-1"></div>
+  <div class="col-md-6">
+    <label for="importButton">Upload Activity:</label>
+  </div>
+</div>
+  <div class="row">
+  <div class="col-md-1"></div>
+    <div class="col-md-6">
+    <input id="importButton" type="file" (change)="fileChange($event)" placeholder="Upload Activity" accept=".fit">
+  </div>
+  </div>
+<br>
+<br>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <div class="dropzone" appImport (filesChangeEmitter)="onFileChange($event)" [allowed_extensions]="['fit']">
+      <div class="text-wrapper">
+        <div class="centered">Drop your fit file here</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1"></div>
+</div>
