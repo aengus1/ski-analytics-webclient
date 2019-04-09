@@ -1,5 +1,5 @@
-import { RouterStateSerializer } from '@ngrx/router-store';
-import { RouterStateSnapshot, Params } from '@angular/router';
+import {RouterStateSerializer} from '@ngrx/router-store';
+import {Params, RouterStateSnapshot} from '@angular/router';
 
 /**
  * The RouterStateSerializer takes the current RouterStateSnapshot
@@ -38,3 +38,5 @@ export class MessageEvent<T> {
   constructor(public name: string, public payload: T = null) {}
 
 }
+
+

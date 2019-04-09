@@ -14,5 +14,6 @@ export const environment = {
       authenticationFlowType: 'USER_PASSWORD_AUTH'
     }
   },
-  domain: 'staging.crunch.ski'
+  domain: 'staging.crunch.ski',
+  api: 'https://fgtcxjggck.execute-api.ca-central-1.amazonaws.com/staging/'
 };

@@ -46,7 +46,7 @@ export class ActivityExistsGuard implements CanActivate {
       tap((action: activity.LoadActivity) => this.store.dispatch(action)),
       map(act => !!act),
       catchError((e) => {
-        console.log('error occurred fetching activity ' + e);
+        console.log('error occurred fetching activity ' + JSON.stringify(e));
         this.router.navigate(['/404']);
         return of(false);
       })
