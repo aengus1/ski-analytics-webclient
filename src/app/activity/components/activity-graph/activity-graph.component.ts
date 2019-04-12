@@ -5,7 +5,7 @@ import {D3LineComponent} from '../../../chart/components/d3-line/d3-line.compone
 import {DataSeries} from '../../../chart/components/d3-line/data-series.model';
 import * as fromActivity from '../../reducers';
 import {select, Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 
 @Component({

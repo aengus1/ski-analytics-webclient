@@ -4,17 +4,18 @@ import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import Amplify, {Auth} from 'aws-amplify';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import * as fromAuth from '../reducers';
 import {Logout} from '../actions/auth.actions';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
 
   // public loggedIn: BehaviorSubject<boolean>;
 
-  constructor(private router: Router, private store: Store<fromAuth.State>) {
+  constructor(private router: Router, private store: Store<fromAuth.State>, private http: HttpClient) {
     Amplify.configure(environment.amplify);
     // this.loggedIn = new BehaviorSubject<boolean>(false);
   }
@@ -49,30 +50,55 @@ export class AuthService {
     return fromPromise(Auth.forgotPasswordSubmit(username, code, password));
   }
 
+  public refreshToken(): void {
+    // this.http.post('https://cognito-idp.' + environment.amplify.Auth.region + '.amazonaws.com/', {
+    //   headers: {
+    //     'X-Amz-Target': 'AWSCognitoIdentityProviderService.InitiateAuth',
+    //     'Content-Type': 'application/x-amz-json-1.1'
+    //   },
+    //   mode: 'cors',
+    //   cache: 'no-cache',
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     ClientId: environment.amplify.Auth.userPoolWebClientId,
+    //     AuthFlow: 'REFRESH_TOKEN_AUTH',
+    //     AuthParameters: {
+    //       REFRESH_TOKEN: JSON.parse(sessionStorage.getItem('userId')).signInUserSession.refreshToken.token
+    //     }
+    //   }),
+    // }).subscribe(x => {
+    //   console.log('refreshed tokens.. ' + JSON.stringify(x));
+    // });
+  }
+
   public isAuthenticated(): Observable<boolean> {
     console.log('checking if authenticated...');
 
 
     return fromPromise(Auth.currentSession().then(x => {
+
+      console.log(' x  = ' + JSON.stringify(x));
         try {
           // console.log('is authenticated result ' + JSON.stringify(x));
           // console.log('fromCurrent ' + JSON.stringify(x.idToken.jwtToken));
           const user = JSON.parse(sessionStorage.getItem('userId'));
-          if (user !== undefined
-            && user.signInUserSession !== undefined
-            && user.signInUserSession.idToken !== undefined
-            && user.signInUserSession.idToken.jwtToken !== undefined) {
-            // update the session token as amplify handles refresh automatically
-            // this should keep session alive
-            if (x.idToken !== undefined && x.idToken.jwtToken !== undefined) {
-              user.signInUserSession.idToken.jwtToken = x.idToken.jwtToken;
-              sessionStorage.setItem('userId', JSON.stringify(user));
-            }
-            // console.log('fromSessionStore ' + user.signInUserSession.idToken.jwtToken);
-          } else {
-            console.log('error reading from session store ');
-            console.log('session store userId: ' + sessionStorage.getItem('userId'));
-          }
+          // if (user !== undefined
+          //   && user.signInUserSession !== undefined
+          //   && user.signInUserSession.idToken !== undefined
+          //   && user.signInUserSession.idToken.jwtToken !== undefined) {
+          //   // update the session token as amplify handles refresh automatically
+          //   // this should keep session alive
+          //   if (x.idToken !== undefined && x.idToken.jwtToken !== undefined) {
+          //     user.signInUserSession.idToken.jwtToken = x.idToken.jwtToken;
+          //     sessionStorage.setItem('userId', JSON.stringify(user));
+          //     console.log('userId ==== ' + JSON.stringify(user));
+          //   }
+          //   // this.refreshToken();
+          //   // console.log('fromSessionStore ' + user.signInUserSession.idToken.jwtToken);
+          // } else {
+          //   console.log('error reading from session store ');
+          //   console.log('session store userId: ' + sessionStorage.getItem('userId'));
+          // }
           return true;
         } catch (e) {
           console.log('not authenticated' + e);
