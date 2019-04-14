@@ -7,6 +7,7 @@ import {Confirm, Signup} from '../actions/auth.actions';
 import {SignupPageComponent} from './signup-page.component';
 import {NgbModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClient} from '@angular/common/http';
 
 describe('SignupPageComponent', () => {
   let fixture: ComponentFixture<SignupPageComponent>;
@@ -24,7 +25,7 @@ describe('SignupPageComponent', () => {
         ReactiveFormsModule, RouterTestingModule
       ],
       declarations: [SignupPageComponent, SignupFormComponent],
-      providers: [NgbModal]
+      providers: [NgbModal, HttpClient]
     });
   });
   beforeEach(() => {

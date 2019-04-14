@@ -5,6 +5,7 @@ import {AuthService} from '../services/auth.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import * as fromAuth from '../reducers';
 import {combineReducers, StoreModule} from '@ngrx/store';
+import {HttpClient, HttpHandler} from '@angular/common/http';
 
 describe('SignoutPageComponent', () => {
   let component: SignoutPageComponent;
@@ -16,7 +17,7 @@ describe('SignoutPageComponent', () => {
         StoreModule.forRoot({
           auth: combineReducers(fromAuth.reducers),
         })],
-      providers: [AuthService],
+      providers: [AuthService, HttpClient, HttpHandler],
       declarations: [ SignoutPageComponent ]
     })
     .compileComponents();

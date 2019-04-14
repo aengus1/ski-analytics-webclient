@@ -8,14 +8,13 @@ import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import * as fromAuth from '../reducers';
 import {Logout} from '../actions/auth.actions';
-import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
 
   // public loggedIn: BehaviorSubject<boolean>;
 
-  constructor(private router: Router, private store: Store<fromAuth.State>, private http: HttpClient) {
+  constructor(private router: Router, private store: Store<fromAuth.State>) {
     Amplify.configure(environment.amplify);
     // this.loggedIn = new BehaviorSubject<boolean>(false);
   }
