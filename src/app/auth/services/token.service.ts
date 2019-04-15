@@ -1,10 +1,9 @@
 import {Injectable, Injector} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {Observable, throwError} from 'rxjs';
 import {AuthService} from './auth.service';
 import {Router} from '@angular/router';
 import {catchError} from 'rxjs/operators';
-import {throwError} from 'rxjs';
 import {LoginRedirect} from '../actions/auth.actions';
 import * as fromAuth from '../reducers/';
 import {Store} from '@ngrx/store';

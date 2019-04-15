@@ -1,4 +1,7 @@
-// https://github.com/Robinyo/angular-wijmo-flexsheet/blob/master/src/app/services/log4ts/logger.service.ts
+/**
+ * *  https://github.com/Robinyo/angular-wijmo-flexsheet/blob/master/src/app/services/log4ts/logger.service.ts
+ */
+
 import {Injectable} from '@angular/core';
 
 const noop = (): any => undefined;

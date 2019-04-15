@@ -1,7 +1,7 @@
 // package: 
 // file: Activity.proto
 
-import * as jspb from "google-protobuf";
+import * as jspb from 'google-protobuf';
 
 export class Activity extends jspb.Message {
   hasMeta(): boolean;

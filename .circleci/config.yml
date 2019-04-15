@@ -30,7 +30,7 @@ jobs:
       # run tests!
       - run:
           name: unit tests
-          command: npm run jest
+          command: node --max_old_space_size=5120 ./node_modules/@angular/cli/bin/ng test --max-workers=1
 
   build-staging:
       docker:
@@ -67,7 +67,7 @@ jobs:
             command: |
               mkdir -p ~/repo/workspace/deploy
               mkdir -p ~/repo/workspace/dist
-              yarn ng build --configuration=staging --prod
+              yarn ng build --configuration=staging --prod --build-optimizer --aot --optimization
               ls -lh ~/repo
               cp -r ~/repo/dist/* ~/repo/workspace/dist
               cp  ~/repo/.circleci/deploy.sh ~/repo/workspace/deploy/
@@ -113,7 +113,7 @@ jobs:
             command: |
               mkdir -p ~/repo/workspace/deploy
               mkdir -p ~/repo/workspace/dist
-              yarn ng build --prod --configuration=production
+              yarn ng build --prod --configuration=production --build-optimizer --aot --optimization
               ls -lh ~/repo
               cp -r ~/repo/dist/* ~/repo/workspace/dist
               cp  ~/repo/.circleci/deploy.sh ~/repo/workspace/deploy/

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import * as fromRoot from '../../../reducers/';
 import {Store} from '@ngrx/store';
 import {ToggleNavbar} from '../../layout/actions/layout.actions';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
