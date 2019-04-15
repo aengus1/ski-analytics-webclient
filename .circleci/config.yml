@@ -30,7 +30,7 @@ jobs:
       # run tests!
       - run:
           name: unit tests
-          command: node --max_old_space_size=5120 ./node_modules/@angular/cli/bin/ng test
+          command: node --max_old_space_size=5120 ./node_modules/@angular/cli/bin/ng test --max-workers=1
 
   build-staging:
       docker:
