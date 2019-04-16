@@ -44,6 +44,7 @@
     "lodash.intersection": "^4.4.0",
     "lodash.map": "^4.6.0",
     "mapbox-gl": "^0.51.0",
+    "ng2-weather-icons": "^0.2.3",
     "ngx-mapbox-gl": "^2.0.0",
     "popper.js": "^1.15.0",
     "rxjs": "^6.4.0",
