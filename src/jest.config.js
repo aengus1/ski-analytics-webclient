@@ -1,7 +1,7 @@
 module.exports = {
   globals: {
-    'ts-jest': {
-      'allowSyntheticDefaultImports': true
+    "ts-jest": {
+      "allowSyntheticDefaultImports": true
     },
     "__TRANSFORM_HTML__": true
   },
