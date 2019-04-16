@@ -1,86 +1,125 @@
 <div id="metadata-panel" *ngIf="activity$ | async as activity" class="fixed-top">
   <!-- desktop layout -->
-<div class="row d-none d-md-flex">
-  <div class="col-md-3 hidden-md-down">
-      <span  class="activity-type">{{((ActivitySport[(activity)?.getSessionsList()[0].getSport()]) | titleCase) | removeUnderscore}}</span>
-  </div>
-<div class="col-md-2">
-<span  id="activity-created-date" class="activity-created-date">{{(activity)?.getValues().getTsList()[0] | date: 'dd MMM yyyy'}}</span>
-</div>
-  <div class="col-md-2">
-    <!-- TODO  parse temperature units from weather object -->
-    <span class="activity-temp font-weight-normal">{{ (activity)?.getMeta().getWeather().getTemperature() + " °C"}}</span>
-  </div>
-  <div class="col-md-3">
- <span class="activity-location-1  font-weight-normal"> {{ (activity)?.getMeta().getLocation().getDisplayname().split(",")[0]}}</span>
-  </div>
-  <div class="col-md-2">
-    <span class="activity-distance ">{{(activity)?.getSummary().getTotaldistance() > 0 ?
-      (((activity)?.getSummary().getTotaldistance()/1000)+" Km") : ""}}</span>
-    <a routerLink="/activities"><span class="fa fa-window-close pull-right"></span></a>
-  </div>
-</div>
-<!-- row 2 -->
-<div class="row d-none d-md-flex">
-  <div class="col-md-3">
-    <span  class="activity-subtype  font-italic">{{(ActivitySubSport[(activity)?.getSessionsList()[0].getSubsport()] | titleCase) | removeUnderscore}}</span>
-  </div>
-  <div class="col-md-2">
-    <!--<span>{{(activity)?.getValues().getTsList()[0]}} + " " {{(activity)?.getValues().getTsList()[0] + "Z" | date: 'HH:mm:ss'}} </span>-->
-    <span  class="activity-created-ts font-weight-normal">{{(activity)?.getValues().getTsList()[0] + "Z" | date: 'HH:mm:ss'}} </span>
-  </div>
-  <div class="col-md-2">
-<!-- empty slot -->
-    &nbsp;&nbsp;&nbsp;
-  </div>
+  <div class="row d-none d-md-flex">
+    <div class="col-md-2 hidden-md-down">
+      <span
+        class="activity-type">{{((ActivitySport[(activity)?.getSessionsList()[0].getSport()]) | titleCase) | removeUnderscore}}</span>
+    </div>
+    <div class="col-md-1">
+      <span id="activity-created-date"
+            class="activity-created-date">{{(activity)?.getValues().getTsList()[0] | date: 'dd MMM yyyy'}}</span>
+    </div>
+    <div class="col-md-2">
+      <span
+        class="activity-temp font-weight-normal">{{ (activity)?.getMeta().getWeather().getTemperature()}}</span><ng2-wi name="celsius"></ng2-wi>
+    </div>
+    <div class="col-md-2">
 
-  <div class="col-md-3">
-    <span  class="activity-location-2  font-weight-normal">
+      <span
+        class="font-weight-normal">{{ (activity)?.getMeta().getWeather().getHumidity() * 100 | number: '1.0-1'}}
+      </span>
+      &nbsp;
+      <ng2-wi name="humidity"></ng2-wi>
+    </div>
+    <div class="col-md-3">
+      <span
+        class="activity-location-1  font-weight-normal"> {{ (activity)?.getMeta().getLocation().getDisplayname().split(",")[0]}}</span>
+    </div>
+    <div class="col-md-2">
+    <span class="activity-distance ">{{(activity)?.getSummary().getTotaldistance() > 0 ?
+      (((activity)?.getSummary().getTotaldistance() / 1000) + " Km") : ""}}</span>
+      <a routerLink="/activities"><span class="fa fa-window-close pull-right"></span></a>
+    </div>
+  </div>
+  <!-- row 2 -->
+  <div class="row d-none d-md-flex">
+    <div class="col-md-2">
+      <span
+        class="activity-subtype  font-italic">{{(ActivitySubSport[(activity)?.getSessionsList()[0].getSubsport()] | titleCase) | removeUnderscore}}</span>
+    </div>
+    <div class="col-md-1">
+      <!--<span>{{(activity)?.getValues().getTsList()[0]}} + " " {{(activity)?.getValues().getTsList()[0] + "Z" | date: 'HH:mm:ss'}} </span>-->
+      <span
+        class="activity-created-ts font-weight-normal">{{(activity)?.getValues().getTsList()[0] + "Z" | date: 'HH:mm:ss'}} </span>
+    </div>
+    <div class="col-md-2">
+      <ng2-wi name="wind from-{{(activity)?.getMeta().getWeather().getWinddirection()}}-deg"></ng2-wi>
+        {{(activity)?.getMeta().getWeather().getWindspeed() | number:'1.0-2'}} m/s
+
+    </div>
+    <div class="col-md-2">
+      <ng2-wi name="{{getWeatherIcon((activity)?.getMeta().getWeather().getIcon())[0]}}"
+              mode="{{getWeatherIcon((activity)?.getMeta().getWeather().getIcon())[1]}}">
+      </ng2-wi>
+
+    </div>
+
+    <div class="col-md-3">
+    <span class="activity-location-2  font-weight-normal">
     {{(activity)?.getMeta().getLocation().getProv() + ", " + (activity)?.getMeta().getLocation().getCountry() }}
       </span>
+    </div>
+    <div class="col-md-2">
+      <span class="activity-timer">{{(activity)?.getSummary().getTotaltimer() | interval }}</span><span
+      class="small font-weight-light"> hh:mm:ss</span>
+    </div>
   </div>
-  <div class="col-md-2">
-    <span class="activity-timer">{{(activity)?.getSummary().getTotaltimer() | interval }}</span><span class="small font-weight-light"> hh:mm:ss</span>
+  <!-- row 3 -->
+  <div class="row d-none d-md-flex">
+    <div class="col-md-3"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <ng2-wi name="{{getWeatherIcon((activity)?.getMeta().getWeather().getIcon())[0]}}"
+              mode="{{getWeatherIcon((activity)?.getMeta().getWeather().getIcon())[1]}}">
+      </ng2-wi>
+    </div>
+    <div class="col-md-3"></div>
+    <div class="col-md-2"></div>
   </div>
-</div>
 
-
-
-<!-- mobile layout -->
+  <!-- mobile layout -->
   <div class="row d-flex d-md-none">
     <div class="col-sm-6">
-      <span class="activity-type font-weight-bold">{{((ActivitySport[(activity)?.getSessionsList()[0].getSport()]) | titleCase) | removeUnderscore}}</span>
-      <span class="activity-subtype font-italic">&nbsp;{{(ActivitySubSport[(activity)?.getSessionsList()[0].getSubsport()] | titleCase) | removeUnderscore}}</span>
+      <span
+        class="activity-type font-weight-bold">{{((ActivitySport[(activity)?.getSessionsList()[0].getSport()]) | titleCase) | removeUnderscore}}</span>
+      <span
+        class="activity-subtype font-italic">&nbsp;{{(ActivitySubSport[(activity)?.getSessionsList()[0].getSubsport()] | titleCase) | removeUnderscore}}</span>
     </div>
   </div>
   <div class="row d-flex d-md-none">
     <div class="col-sm-6">
-      <span  class="activity-created-date font-weight-bold">{{(activity)?.getValues().getTsList()[0] | date: 'dd MMM yyyy'}}</span>
-      <span class="activity-created-ts font-weight-normal">&nbsp;{{(activity)?.getValues().getTsList()[0] | date: 'HH:mm:ss' }} </span>
+      <span
+        class="activity-created-date font-weight-bold">{{(activity)?.getValues().getTsList()[0] | date: 'dd MMM yyyy'}}</span>
+      <span
+        class="activity-created-ts font-weight-normal">&nbsp;{{(activity)?.getValues().getTsList()[0] | date: 'HH:mm:ss' }} </span>
     </div>
   </div>
   <div class="row d-flex d-md-none">
     <div class="col-sm-6">
-      <span class="activity-temp font-weight-normal">&nbsp;{{ (activity)?.getMeta().getWeather().getTemperature()+ " °C" }}</span>
+      <span
+        class="activity-temp font-weight-normal">&nbsp;{{ (activity)?.getMeta().getWeather().getTemperature() + " °C" }}</span>
     </div>
   </div>
   <div class="row d-flex d-md-none">
     <div class="col-sm-12">
-      <span  class="activity-location-1 font-weight-normal"> {{ (activity)?.getMeta().getLocation().getDisplayname().split(",")[0]}}</span>
+      <span
+        class="activity-location-1 font-weight-normal"> {{ (activity)?.getMeta().getLocation().getDisplayname().split(",")[0]}}</span>
     </div>
   </div>
   <div class="row d-flex d-md-none">
     <div class="col-sm-12">
-      <span  class="activity-location-2 font-weight-normal">
+      <span class="activity-location-2 font-weight-normal">
    {{(activity)?.getMeta().getLocation().getProv() + ", " + (activity)?.getMeta().getLocation().getCountry() }}
       </span>
     </div>
   </div>
   <div class="row d-flex d-md-none">
     <div class="col-sm-6">
-    <span  class="activity-distance font-weight-bold">{{(activity)?.getSummary().getTotaldistance() > 0 ?
-      (((activity)?.getSummary().getTotaldistance()/1000)+" Km") : ""}}</span>
-      <span class="activity-timer font-weight-bold">&nbsp;{{(activity)?.getSummary().getTotaltimer() | interval }}</span><span class="small font-weight-light"> hh:mm:ss</span>
+    <span class="activity-distance font-weight-bold">{{(activity)?.getSummary().getTotaldistance() > 0 ?
+      (((activity)?.getSummary().getTotaldistance() / 1000) + " Km") : ""}}</span>
+      <span
+        class="activity-timer font-weight-bold">&nbsp;{{(activity)?.getSummary().getTotaltimer() | interval }}</span><span
+      class="small font-weight-light"> hh:mm:ss</span>
     </div>
   </div>
 
