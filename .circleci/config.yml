@@ -67,7 +67,7 @@ jobs:
             command: |
               mkdir -p ~/repo/workspace/deploy
               mkdir -p ~/repo/workspace/dist
-              npm run ./node_modules/@angular/cli/bin/ng build --configuration=staging --prod --build-optimizer --aot --optimization
+              node ./node_modules/@angular/cli/bin/ng build --configuration=staging --prod --build-optimizer --aot --optimization
               ls -lh ~/repo
               cp -r ~/repo/dist/* ~/repo/workspace/dist
               cp  ~/repo/.circleci/deploy.sh ~/repo/workspace/deploy/
@@ -113,7 +113,7 @@ jobs:
             command: |
               mkdir -p ~/repo/workspace/deploy
               mkdir -p ~/repo/workspace/dist
-              npm run ./node_modules/@angular/cli/bin/ng build --prod --configuration=production --build-optimizer --aot --optimization
+              node ./node_modules/@angular/cli/bin/ng build --prod --configuration=production --build-optimizer --aot --optimization
               ls -lh ~/repo
               cp -r ~/repo/dist/* ~/repo/workspace/dist
               cp  ~/repo/.circleci/deploy.sh ~/repo/workspace/deploy/
