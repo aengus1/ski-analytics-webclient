@@ -15,7 +15,7 @@ import {ActivitySummaryService} from '../../../services/activity-summary-service
     <app-d3-bar-native [width]="100" [height]="100" [yLabel]="'mins'" [margin]="15"
                 [xLabels]="['1',' 2','3','4','5']" [chartOptions]="this.chartOptions"
                 [data]="getTimeOrDistanceInZone()"></app-d3-bar-native>`,
-  styleUrls: ['./hr-zone-histogram.component.css']
+  styleUrls: ['./hr-zone-histogram.component.scss']
 })
 export class HrZoneHistogramComponent implements OnInit, OnChanges {
 

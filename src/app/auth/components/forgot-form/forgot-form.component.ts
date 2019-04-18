@@ -5,7 +5,7 @@ import {Authenticate} from '../../model/user';
 @Component({
   selector: 'app-forgot-form',
   templateUrl: './forgot-form.component.html',
-  styleUrls: ['./forgot-form.component.css']
+  styleUrls: ['./forgot-form.component.scss']
 })
 export class ForgotFormComponent implements OnInit {
 

@@ -31,7 +31,7 @@ import {MessageEvent} from '../../../shared/utils';
     </svg:g>
   </svg>`,
    // encapsulation: ViewEncapsulation.None,      // this forces angular to respect css class names on d3 elements
-  styleUrls: ['./d3-dual-range-slider.component.css'],
+  styleUrls: ['./d3-dual-range-slider.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class D3DualRangeSliderComponent implements OnInit, AfterViewInit {

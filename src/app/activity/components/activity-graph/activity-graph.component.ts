@@ -11,7 +11,7 @@ import {Observable} from 'rxjs';
 @Component({
   selector: 'app-activity-graph-container',
   templateUrl: './activity-graph.component.html',
-  styleUrls: ['./activity-graph.component.css']
+  styleUrls: ['./activity-graph.component.scss']
 })
 export class ActivityGraphComponent implements OnInit {
 

@@ -18,7 +18,7 @@ import {HrzoneFilter} from '../../components/filter/filter-hrzone/hrzone-filter'
 @Component({
   selector: 'app-filter-list',
   templateUrl: './filter-list.component.html',
-  styleUrls: ['./filter-list.component.css']
+  styleUrls: ['./filter-list.component.scss']
 })
 export class FilterListComponent implements OnInit {
 

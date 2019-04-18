@@ -8,7 +8,7 @@ import {LoggerService} from '../../../shared/services/logger.service';
 @Component({
   selector: 'app-d3-boxplot',
   template: `<svg></svg>`,
-  styleUrls: ['./d3-boxplot.component.css'],
+  styleUrls: ['./d3-boxplot.component.scss'],
   encapsulation: ViewEncapsulation.None,      // this forces angular to respect css class names on d3 elements
   changeDetection: ChangeDetectionStrategy.OnPush
 })

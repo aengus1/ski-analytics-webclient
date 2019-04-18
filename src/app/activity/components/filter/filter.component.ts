@@ -27,7 +27,7 @@ import * as _ from 'lodash';
         <ng-content></ng-content>
       </div>
     </div>`,
-  styleUrls: ['./filter.component.css']
+  styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements AfterViewInit {
 

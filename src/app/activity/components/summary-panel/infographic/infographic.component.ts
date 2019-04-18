@@ -20,7 +20,7 @@ import {Component, Input} from '@angular/core';
     </div>
     </div>
   `,
-  styleUrls: ['./infographic.component.css']
+  styleUrls: ['./infographic.component.scss']
 })
 export class InfographicComponent {
 

@@ -168,6 +168,9 @@
     },
     "@ngrx/schematics:directive": {
       "prefix": "app"
+    },
+    "@schematics/angular:component": {
+      "styleext": "scss"
     }
   }
 }
