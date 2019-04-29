@@ -11,7 +11,8 @@
     </div>
     <div class="col-md-2">
       <span
-        class="activity-temp font-weight-normal">{{ (activity)?.getMeta().getWeather().getTemperature()}}</span><ng2-wi name="celsius"></ng2-wi>
+        class="activity-temp font-weight-normal">{{ (activity)?.getMeta().getWeather().getTemperature()}}</span>
+      <i class="wi  wi-celsius"></i>
     </div>
     <div class="col-md-2">
 
@@ -19,7 +20,7 @@
         class="font-weight-normal">{{ (activity)?.getMeta().getWeather().getHumidity() * 100 | number: '1.0-1'}}
       </span>
       &nbsp;
-      <ng2-wi name="humidity"></ng2-wi>
+      <i class="wi wi-humidity"></i>
     </div>
     <div class="col-md-3">
       <span
@@ -43,15 +44,12 @@
         class="activity-created-ts font-weight-normal">{{(activity)?.getValues().getTsList()[0] + "Z" | date: 'HH:mm:ss'}} </span>
     </div>
     <div class="col-md-2">
-      <ng2-wi name="wind from-{{(activity)?.getMeta().getWeather().getWinddirection()}}-deg"></ng2-wi>
+      <i class="wi wi-wind from-{{(activity)?.getMeta().getWeather().getWinddirection()}}-deg"></i>
         {{(activity)?.getMeta().getWeather().getWindspeed() | number:'1.0-2'}} m/s
 
     </div>
     <div class="col-md-2">
-      <ng2-wi name="{{getWeatherIcon((activity)?.getMeta().getWeather().getIcon())[0]}}"
-              mode="{{getWeatherIcon((activity)?.getMeta().getWeather().getIcon())[1]}}">
-      </ng2-wi>
-
+      <i class="wi  wi-{{getWeatherIcon((activity)?.getMeta().getWeather().getIcon())[1]}}-{{getWeatherIcon((activity)?.getMeta().getWeather().getIcon())[0]}}"></i>
     </div>
 
     <div class="col-md-3">
@@ -69,9 +67,7 @@
     <div class="col-md-3"></div>
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <ng2-wi name="{{getWeatherIcon((activity)?.getMeta().getWeather().getIcon())[0]}}"
-              mode="{{getWeatherIcon((activity)?.getMeta().getWeather().getIcon())[1]}}">
-      </ng2-wi>
+      <i class="wi  wi-{{getWeatherIcon((activity)?.getMeta().getWeather().getIcon())[1]}}-{{getWeatherIcon((activity)?.getMeta().getWeather().getIcon())[0]}}"></i>
     </div>
     <div class="col-md-3"></div>
     <div class="col-md-2"></div>

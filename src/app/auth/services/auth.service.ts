@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {environment} from '../../../environments/environment';
-import Amplify, {Auth} from 'aws-amplify';
+import Auth from '@aws-amplify/auth';
+import Amplify from '@aws-amplify/core';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
