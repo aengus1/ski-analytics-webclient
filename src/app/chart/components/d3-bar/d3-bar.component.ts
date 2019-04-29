@@ -10,9 +10,9 @@ import {IntervalPipe} from '../../../shared/pipes/interval.pipe';
   selector: 'app-d3-bar',
   template: `
     <svg></svg>`,
-  styleUrls: ['./d3-bar.component.css'],
-  encapsulation: ViewEncapsulation.None//,
-  //changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./d3-bar.component.scss'],
+  encapsulation: ViewEncapsulation.None
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class D3BarComponent extends D3ChartComponent {
 

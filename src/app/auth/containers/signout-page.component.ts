@@ -11,7 +11,7 @@ import {AuthService} from '../services/auth.service';
       <a routerLink="/signin">Return to sign in</a>
       <p class="mt-5 mb-3 text-muted">&copy; 2019-2020</p>
     </div>`,
-  styleUrls: ['./signout-page.component.css']
+  styleUrls: ['./signout-page.component.scss']
 })
 export class SignoutPageComponent implements OnInit {
 

@@ -58,7 +58,7 @@ import {ChartOrientation} from '../d3-bar/ChartOptions';
         </svg:g>
       </svg:g>
     </svg>`,
-  styleUrls: ['./d3-bar-native.component.css'],
+  styleUrls: ['./d3-bar-native.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

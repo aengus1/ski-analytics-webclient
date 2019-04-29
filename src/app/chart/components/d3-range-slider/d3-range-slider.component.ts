@@ -19,7 +19,7 @@ import {BaseType} from 'd3-selection';
 @Component({
   selector: 'app-d3-range-slider',
   template: `<span class="badge badge-light pull-right">{{value | number: '1.1-1' }} {{unitLabel}}</span><svg></svg>`,
-  styleUrls: ['./d3-range-slider.component.css'],
+  styleUrls: ['./d3-range-slider.component.scss'],
   encapsulation: ViewEncapsulation.None,      // this forces angular to respect css class names on d3 elements
   changeDetection: ChangeDetectionStrategy.OnPush
 })

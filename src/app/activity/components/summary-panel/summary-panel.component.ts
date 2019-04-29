@@ -4,7 +4,7 @@ import {Activity} from '../../model/activity/Activity_pb';
 @Component({
   selector: 'app-summary-panel',
   templateUrl: './summary-panel.component.html',
-  styleUrls: ['./summary-panel.component.css']
+  styleUrls: ['./summary-panel.component.scss']
 })
 export class SummaryPanelComponent {
 

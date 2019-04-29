@@ -5,7 +5,7 @@ import {SignupUser} from '../../model/user';
 @Component({
   selector: 'app-reset-form',
   templateUrl: './reset-form.component.html',
-  styleUrls: ['./reset-form.component.css']
+  styleUrls: ['./reset-form.component.scss']
 })
 export class ResetFormComponent implements OnInit {
 

@@ -5,7 +5,7 @@ import {DataSeries} from '../../../../chart/components/d3-line/data-series.model
 @Component({
   selector: 'app-series-control',
   templateUrl: './series-control.component.html',
-  styleUrls: ['./series-control.component.css']
+  styleUrls: ['./series-control.component.scss']
 })
 export class SeriesControlComponent implements OnInit {
 

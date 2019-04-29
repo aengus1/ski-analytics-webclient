@@ -37,7 +37,7 @@ import {Activity} from '../../../model/activity/Activity_pb';
       <!--</div>-->
       <!--</div>-->
   `,
-  styleUrls: ['./ascent-descent.component.css']
+  styleUrls: ['./ascent-descent.component.scss']
 })
 export class AscentDescentComponent implements OnInit {
 

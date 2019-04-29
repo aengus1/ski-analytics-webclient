@@ -7,7 +7,7 @@ import {LoggerService} from '../../../shared/services/logger.service';
 @Component({
   selector: 'app-d3-radial',
   template: `<svg></svg>`,
-  styleUrls: ['./d3-radial.component.css'],
+  styleUrls: ['./d3-radial.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

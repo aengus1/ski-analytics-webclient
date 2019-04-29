@@ -11,7 +11,7 @@ import WeatherIcon = Activity.WeatherIcon;
 @Component({
   selector: 'app-summary-metadata',
   templateUrl: './summary-metadata.component.html',
-  styleUrls: ['./summary-metadata.component.css'],
+  styleUrls: ['./summary-metadata.component.scss'],
   providers: [TitleCasePipe, IntervalPipe, RemoveUnderscorePipe]
 })
 export class SummaryMetadataComponent {

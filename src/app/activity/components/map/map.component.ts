@@ -7,7 +7,7 @@ import {Activity} from '../../model/activity/Activity_pb';
 @Component({
   selector: 'app-map-container',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css'],
+  styleUrls: ['./map.component.scss'],
   encapsulation: ViewEncapsulation.None,
   providers: [MapService]
 })

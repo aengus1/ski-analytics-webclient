@@ -28,7 +28,7 @@ import {HrzoneFilter} from './hrzone-filter';
         </label>
       </div>
     </div>`,
-  styleUrls: ['filter-hrzone.component.css'],
+  styleUrls: ['filter-hrzone.component.scss'],
   providers: [{provide: FilterBase, useExisting: forwardRef(() => FilterHrzoneComponent)}]
 })
 export class FilterHrzoneComponent extends FilterBase implements OnInit {

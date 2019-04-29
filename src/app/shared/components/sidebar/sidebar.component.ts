@@ -1,12 +1,10 @@
-
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Activity} from '../../../activity/model/activity/Activity_pb';
 import {MessageEvent} from '../../../shared/utils';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
 

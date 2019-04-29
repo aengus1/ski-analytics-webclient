@@ -19,7 +19,7 @@ import {LoggerService} from '../../../shared/services/logger.service';
 @Component({
   selector: 'app-activity-module',
   templateUrl: './activity.component.html',
-  styleUrls: ['./activity.component.css']
+  styleUrls: ['./activity.component.scss']
 })
 export class ActivityComponent implements OnInit, AfterViewChecked {
 

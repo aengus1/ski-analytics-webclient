@@ -11,7 +11,7 @@ import {BaseType} from 'd3-selection';
   selector: 'app-d3-line',
   template: `
     <svg></svg>`,
-  styleUrls: ['./d3-line.component.css'],
+  styleUrls: ['./d3-line.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
