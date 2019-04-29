@@ -12,6 +12,11 @@ export const environment = {
       userPoolWebClientId: '755f5d0elsg5ie96116540qm3u',
       mandatorySignIn: true,
       authenticationFlowType: 'USER_PASSWORD_AUTH'
+    },
+    API: {
+      'aws_appsync_graphqlEndpoint': 'https://xuohcwldnjgdrga4fqvxk6vcwe.appsync-api.us-west-2.amazonaws.com/graphql',
+      'aws_appsync_region': 'us-west-2',
+      'aws_appsync_authenticationType': 'AMAZON_COGNITO_USER_POOLS'
     }
   },
   domain: 'staging.crunch.ski',
