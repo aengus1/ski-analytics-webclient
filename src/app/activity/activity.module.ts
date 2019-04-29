@@ -42,7 +42,6 @@ import {XAxisControlComponent} from './components/activity-graph/x-axis-control/
 import {MapService, NgxMapboxGLModule} from 'ngx-mapbox-gl';
 import {ImportComponent} from './components/import/import.component';
 import {ImportDirective} from './components/import/import.directive';
-import {Ng2WeatherIconsModule} from 'ng2-weather-icons';
 
 
 @NgModule({
@@ -68,8 +67,7 @@ import {Ng2WeatherIconsModule} from 'ng2-weather-icons';
     EffectsModule.forFeature([FilterEffects]),
     NgbModule.forRoot(),
     FormsModule,
-    NgxMapboxGLModule,
-    Ng2WeatherIconsModule
+    NgxMapboxGLModule
   ],
   declarations: [
     ActivityComponent,
