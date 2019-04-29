@@ -4,6 +4,7 @@ import * as fromLoginPage from './login-page.reducer';
 import * as fromSignupPage from './signup-page.reducer';
 import * as fromForgotPage from './forgot-page.reducer';
 import * as fromResetPage from './reset-page.reducer';
+import * as fromUserSettings from './user.reducer';
 import * as fromRoot from '../../reducers';
 
 export interface AuthState {
@@ -12,6 +13,7 @@ export interface AuthState {
   signupPage: fromSignupPage.State;
   forgotPage: fromForgotPage.State;
   resetPage: fromResetPage.State;
+  userSettings: fromUserSettings.State;
 }
 
 export interface State extends fromRoot.State {
@@ -23,7 +25,8 @@ export const reducers: ActionReducerMap<AuthState> = {
   loginPage: fromLoginPage.reducer,
   signupPage: fromSignupPage.reducer,
   forgotPage: fromForgotPage.reducer,
-  resetPage: fromResetPage.reducer
+  resetPage: fromResetPage.reducer,
+  userSettings: fromUserSettings.reducer
 };
 
 export const selectAuthState = createFeatureSelector<AuthState>('auth');
@@ -32,12 +35,19 @@ export const selectAuthStatusState = createSelector(
   selectAuthState,
   (state: AuthState) => state.status
 );
+
+export const selectUserSettings = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.userSettings
+);
+
 export const getLoggedIn = createSelector(
   selectAuthStatusState,
   fromAuth.getLoggedIn
 );
 
 export const getUser = createSelector(selectAuthStatusState, fromAuth.getUser);
+
 
 export const selectLoginPageState = createSelector(
   selectAuthState,
