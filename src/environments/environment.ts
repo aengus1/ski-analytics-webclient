@@ -20,5 +20,6 @@ export const environment = {
     }
   },
   domain: 'staging.crunch.ski',
-  api: 'https://fgtcxjggck.execute-api.ca-central-1.amazonaws.com/staging/'
+  api: 'https://fgtcxjggck.execute-api.ca-central-1.amazonaws.com/staging/',
+  graphql: 'https://xuohcwldnjgdrga4fqvxk6vcwe.appsync-api.us-west-2.amazonaws.com/graphql'
 };
