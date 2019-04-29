@@ -42,8 +42,6 @@ import {XAxisControlComponent} from './components/activity-graph/x-axis-control/
 import {MapService, NgxMapboxGLModule} from 'ngx-mapbox-gl';
 import {ImportComponent} from './components/import/import.component';
 import {ImportDirective} from './components/import/import.directive';
-import {Ng2WeatherIconsModule} from 'ng2-weather-icons';
-import {RatingComponent} from './components/rating/rating.component';
 
 
 @NgModule({
@@ -69,8 +67,7 @@ import {RatingComponent} from './components/rating/rating.component';
     EffectsModule.forFeature([FilterEffects]),
     NgbModule.forRoot(),
     FormsModule,
-    NgxMapboxGLModule,
-    Ng2WeatherIconsModule
+    NgxMapboxGLModule
   ],
   declarations: [
     ActivityComponent,
@@ -93,8 +90,7 @@ import {RatingComponent} from './components/rating/rating.component';
     SeriesControlComponent,
     XAxisControlComponent,
     ImportComponent,
-    ImportDirective,
-    RatingComponent
+    ImportDirective
   ],
   providers: [
     ActivityService, FilterService, MockActivityService, D3Service, ActivityExistsGuard, IntervalPipe,
