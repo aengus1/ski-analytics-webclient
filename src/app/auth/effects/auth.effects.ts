@@ -25,6 +25,8 @@ import {Authenticate, ConfirmUser, ResetPasswordUser, SignupUser} from '../model
 import {catchError, exhaustMap, map, tap} from 'rxjs/internal/operators';
 import {of} from 'rxjs/index';
 import {AuthService} from '../services/auth.service';
+import {UserService} from '../services/user.service';
+
 import {Router} from '@angular/router';
 
 @Injectable()
@@ -38,6 +40,7 @@ export class AuthEffects {
       this.authService.signIn(auth.username, auth.password).pipe(
         map(user => {
           sessionStorage.setItem('userId', JSON.stringify(user));
+          this.userService.getUserSettings();
         return new LoginSuccess({user});
         }),
         catchError(error => of(new LoginFailure(error)))
@@ -154,7 +157,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
+    private userService: UserService,
     private router: Router
-  ) {
-  }
+  ) {}
 }

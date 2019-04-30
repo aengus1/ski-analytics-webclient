@@ -21,6 +21,26 @@ export function reducer(state = initialState, action: UserActions): State {
         ...state
       };
     }
+    case UserActionTypes.SaveUserGender: {
+      return {
+        ...state
+      };
+    }
+      case UserActionTypes.SaveUserHrZones: {
+        return {
+          ...state
+        };
+      }
+    case UserActionTypes.SaveUserWeight: {
+      return {
+        ...state
+      };
+    }
+    case UserActionTypes.SaveUserHeight: {
+      return {
+        ...state
+      };
+    }
 
     default: {
       return state;

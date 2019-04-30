@@ -23,6 +23,7 @@ import {AuthModule} from './auth/auth.module';
 import {AuthGuard} from './auth/guards/auth.guard';
 import {AuthService} from './auth/services/auth.service';
 import {ErrorInterceptor, TokenInterceptor} from './auth/services/token.service';
+import {GraphQLModule} from './graphql.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import {ErrorInterceptor, TokenInterceptor} from './auth/services/token.service'
     SharedModule,
     AuthModule.forRoot(),
     AppRoutingModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot(reducers, {metaReducers}),
     /**
      * @ngrx/router-store keeps router state up-to-date in the store.
      */
@@ -59,14 +60,15 @@ import {ErrorInterceptor, TokenInterceptor} from './auth/services/token.service'
       maxAge: 25,
       logOnly: environment.production
     }) : [],
-    AmplifyAngularModule
+    AmplifyAngularModule,
+    GraphQLModule
   ],
   providers: [
     SharedModule,
     ActivityModule,
     ChartModule,
-    { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
-    { provide: LoggerService, useClass: ConsoleLoggerService },
+    {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
+    {provide: LoggerService, useClass: ConsoleLoggerService},
     AmplifyService,
     AuthService,
     {
@@ -81,10 +83,13 @@ import {ErrorInterceptor, TokenInterceptor} from './auth/services/token.service'
     },
     AuthGuard
 
-    ],
+  ],
   exports: [AppRoutingModule],
 
   bootstrap: [AppComponent]
 })
 export class AppModule {
+
+
+
 }
