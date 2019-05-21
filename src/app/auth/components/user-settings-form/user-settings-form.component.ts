@@ -155,29 +155,15 @@ export class UserSettingsFormComponent implements OnInit, AfterContentChecked {
     }).subscribe(x => console.log(x));
     console.log('saving hr zones');
   }
-  calcKarvonenZones(min: number, max: number): number[] {
-    console.log('calcing karvonen with ' + min   + ' ' + max);
 
-    const hrr: number = (max - min);
-    const result = [];
-    result.push(min);
-    result.push(Math.round((min) + (hrr * .6)));
-    result.push(Math.round((min) + (hrr * .75)));
-    result.push(Math.round((min) + (hrr * .80)));
-    result.push(Math.round((min) + (hrr * .85)));
-    result.push(max);
-  return result;
-  }
 
   hrZoneBoundaryValidator(frm: FormGroup) {
-    console.log('boundary validator called');
     const z1: Number = frm.get('hrZone1').value;
     const z2: Number = frm.get('hrZone2').value;
     const z3: Number = frm.get('hrZone3').value;
     const z4: Number = frm.get('hrZone4').value;
     const z5: Number = frm.get('hrZone5').value;
     const z6: Number = frm.get('hrZone6').value;
-    console.log(z1 < z2 && z2 < z3 && z3 < z4 && z4 < z5 && z5 < z6);
   if ( z1 < z2 && z2 < z3 && z3 < z4 && z4 < z5 && z5 < z6) {
     return null;
   } else {
