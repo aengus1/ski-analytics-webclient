@@ -75,6 +75,9 @@ export class AuthEffects {
     map(action => action.payload),
     exhaustMap((confirmUser: ConfirmUser) =>
       this.authService.confirmSignUp(confirmUser.username, confirmUser.confirmCode).pipe(
+        // map( () => this.userService.addUserSettings().subscribe(x => {
+        //   console.log('new user added to settings' + x);
+        // })),
         map(() => new ConfirmSuccess(confirmUser)),
         catchError(error => of(new ConfirmFailure(error)))
       )

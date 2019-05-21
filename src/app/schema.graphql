@@ -1,5 +1,5 @@
 type User {
-    userId: ID!
+    id: ID!
     gender: String
     height: Int
     weight: Int

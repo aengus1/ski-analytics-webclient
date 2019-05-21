@@ -7,6 +7,7 @@ import * as fromRoot from '../../reducers';
 import * as fromAuth from '../reducers';
 import {EffectsModule} from '@ngrx/effects';
 import {AuthEffects} from '../effects/auth.effects';
+import {Apollo} from 'apollo-angular';
 
 describe('AuthService', () => {
   beforeEach(() => {
@@ -20,7 +21,8 @@ describe('AuthService', () => {
         RouterTestingModule.withRoutes([])
       ],
       providers: [
-        AuthService
+        AuthService,
+        Apollo
       ]
     });
   });

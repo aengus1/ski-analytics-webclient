@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
-import {AuthService} from './auth.service';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +9,12 @@ import {AuthService} from './auth.service';
 export class UserService {
 
 
-  constructor(protected apollo: Apollo, protected authService: AuthService) {
+  constructor(protected apollo: Apollo) {
   }
 
 
- public  getUserSettings(): void {
+ public  getUserSettings(): Observable<any> {
 
-    const userId = JSON.parse(sessionStorage.getItem('userId')).signInUserSession.idToken.payload['cognito:username'];
     const GetUserSettings = gql`
   query getUser{
 				getUser{
@@ -28,35 +27,43 @@ export class UserService {
 }
 `;
 
-    this.apollo.watchQuery<any>({
+    return this.apollo.watchQuery<any>({
       query: GetUserSettings,
-    }).valueChanges.subscribe(({data, loading}) => {
-      console.log('user = ... ' + JSON.stringify(data));
-    });
+    }).valueChanges;
+
+    // .subscribe(({data, loading}) => {
+    //   console.log('user = ... ' + JSON.stringify(data));
+    // });
 
   }
 
-  //
-  //     resultUserSettings$ = this.http.post(
-  //       environment.graphql,
-  //       {
-  //         responseType: 'arraybuffer'
-  //       })
-  //       .pipe(map(res => Activity.deserializeBinary(new Uint8Array(res)))).pipe(map(v => {
-  //         // hack for demo activity
-  //         if (v.getId() === undefined || v.getId() == null) {
-  //           v.setId('1');
-  //         }
-  //         v.getValues().setTemperatureList([-21, -22]);
-  //         const res = [];
-  //         ActivitySummaryService.summarizeActivity(v, null, v, fromActivity.buildTsLookupMap(v));
-  //         return v;
-  //       }));
-  //     console.log('setting session key = ' + this.sessionKey);
-  //   } catch (e) {
-  //     console.log('failed to set session key');
-  //   }
-  //
-  //   return resultActivity$;
-  // }
+  public  addUserSettings(): Observable<any> {
+
+    const AddUserSettings = gql`
+  mutation addUser{
+				addUser(height: $height, weight: $weight, gender: $gender, hrZones: $hrZones){
+            id
+          height
+          weight
+          hrZones
+          gender
+        }
+}
+`;
+
+    return this.apollo.mutate({
+      mutation: AddUserSettings,
+      variables: {
+        height: -1,
+        weight: -1,
+        hrZones: [-1, -1, -1, -1, -1],
+        gender: 'NA'
+    }});
+
+    // .subscribe(({data, loading}) => {
+    //   console.log('user = ... ' + JSON.stringify(data));
+    // });
+
+  }
+
 }

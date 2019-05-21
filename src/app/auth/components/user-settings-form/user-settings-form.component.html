@@ -1,0 +1,282 @@
+<div *ngIf="userSettings$ | async as settings">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <h2> Settings</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <ul class="list-group list-group-hover">
+        <!-- height display -->
+        <li class="list-group-item "><span class="h6">Height</span>
+          <div *ngIf="!heightEditMode">
+            <div class="edit" style="vertical-align: top;">
+              <a (click)="heightEditMode=true; initHeight=settings?.height">
+                <i class="fa fa-pencil fa-lg editIcon" placement="bottom" ngbTooltip="Edit Height"></i></a>
+            </div>
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-2">
+                  <span class="settingValue">
+                    {{ ((settings)?.height) != -1 ? (settings)?.height : ""}}
+                  </span>
+              </div>
+              <div class="col-md-2">
+                <span class="settingUnit" style="float:left;"> cm </span>
+              </div>
+              <div class="col-md-6"></div>
+            </div>
+          </div>
+          <div *ngIf="heightEditMode" class="inline-edit  form-control">
+            <form novalidate [formGroup]="heightForm" (ngSubmit)="saveHeight(settings.height, settings.id)">
+            <span class="btn-close">
+                    <button class="fa fa-close" (click)="heightEditMode=false; settings.height=initHeight"></button>
+                  </span>
+              <div class="form-control-inline">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="inputHeight" class="sr-only">Height</label>
+                    <input type="number"
+                           id="inputHeight"
+                           class="form-control"
+                           formControlName="height"
+                           placeholder="enter height (cm)"
+                           autofocus
+                           autocomplete="off"
+                           [(ngModel)]="settings.height"
+                           min="0">
+                  </div>
+                  <div class="col-md-1">
+                    <span class="settingUnit" style="float:left;"> cm </span>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="alert alert-danger"
+                         *ngIf="heightForm.get('height').hasError('required') && heightForm.get('height').touched">
+                      height is required
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                  <span class="input-group-btn" style="float:left;">
+                    <button class="btn fa fa-save saveIcon" type="submit" [disabled]="heightForm.invalid"
+                            placement="bottom" ngbTooltip="Save"></button>
+                  </span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </li>
+        <!-- weight display -->
+        <li class="list-group-item "><span class="h6">Weight</span>
+          <div *ngIf="!weightEditMode">
+            <div class="edit" style="vertical-align: top;">
+              <a (click)="weightEditMode=true; initWeight=settings?.weight">
+                <i class="fa fa-pencil fa-lg editIcon" placement="bottom" ngbTooltip="Edit Weight"></i></a>
+            </div>
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-2">
+                  <span class="settingValue">
+                    {{ ((settings)?.weight) != -1 ? (settings)?.weight : ""}}
+                  </span>
+              </div>
+              <div class="col-md-2">
+                <span class="settingUnit" style="float:left;"> kg </span>
+              </div>
+              <div class="col-md-6"></div>
+            </div>
+          </div>
+          <div *ngIf="weightEditMode" class="inline-edit  form-control">
+            <form novalidate [formGroup]="weightForm" (ngSubmit)="saveWeight(settings.weight, settings.id)">
+            <span class="btn-close">
+                    <button class="fa fa-close" (click)="weightEditMode=false; settings.weight=initWeight"></button>
+                  </span>
+              <div class="form-control-inline">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="inputWeight" class="sr-only">Weight</label>
+                    <input type="number"
+                           id="inputWeight"
+                           class="form-control"
+                           formControlName="weight"
+                           placeholder="enter weight (kg)"
+                           autofocus
+                           autocomplete="off"
+                           [(ngModel)]="settings.weight"
+                           min="0">
+                  </div>
+                  <div class="col-md-1">
+                    <span class="settingUnit"> kg </span>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="alert alert-danger"
+                         *ngIf="weightForm.get('weight').hasError('required') && weightForm.get('weight').touched">
+                      weight is required
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                  <span class="input-group-btn" style="float:left;">
+                    <button class="btn fa fa-save saveIcon" type="submit" [disabled]="weightForm.invalid" placement="bottom" ngbTooltip="Save"></button>
+                  </span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </li>
+        <!-- gender display -->
+        <li class="list-group-item "><span class="h6">Gender</span>
+          <div *ngIf="!genderEditMode">
+            <div class="edit" style="vertical-align: top;">
+              <a (click)="genderEditMode=true; initGender=settings.gender">
+                <i class="fa fa-pencil fa-lg editIcon" placement="bottom" ngbTooltip="Edit Gender"></i></a>
+            </div>
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-2">
+                  <span class="settingValue">
+                    {{settings.gender}}
+                  </span>
+              </div>
+              <div class="col-md-8"></div>
+            </div>
+          </div>
+          <div *ngIf="genderEditMode" class="inline-edit  form-control">
+            <form novalidate [formGroup]="genderForm" (ngSubmit)="saveGender(settings.gender, settings.id)">
+            <span class="btn-close">
+                    <button class="fa fa-close" (click)="genderEditMode=false; settings.gender=initGender"></button>
+                  </span>
+              <div class="form-control-inline">
+                <div class="row">
+                  <div class="col-md-6">
+                    <select
+                      [(ngModel)]="settings.gender"
+                      name="gender"
+                      class="form-control"
+                      formControlName="gender"
+                    >
+                      <option value="M">Male</option>
+                      <option value="F">Female</option>
+                    </select>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="alert alert-danger"
+                         *ngIf="genderForm.get('gender').hasError('required') && genderForm.get('gender').touched">
+                      gender is required
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                   <span class="input-group-btn" style="float:left;">
+                    <button class="btn fa fa-save saveIcon" type="submit" [disabled]="genderForm.invalid" placement="bottom" ngbTooltip="Save"></button>
+                  </span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </li>
+
+        <!-- hr zone display -->
+        <li class="list-group-item "><span class="h6">HR Zones</span>
+          <div *ngIf="!hrZoneEditMode">
+            <div class="edit" style="vertical-align: top;">
+              <a (click)="hrZoneEditMode=true; initHrZone=settings?.hrZones">
+                <i class="fa fa-pencil fa-lg editIcon" placement="bottom" ngbTooltip="Edit HR Zones"></i></a>
+            </div>
+            <div *ngFor="let number of [0,1,2,3,4];">
+              <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-10 settingValue">
+                  Zone {{number + 1}}
+                  :  {{settings?.hrZones[number] != null && settings?.hrZones[number] != 0 ? (settings?.hrZones[number] | number : '.0-0')+ ' bpm' : ''}}
+                  to
+                  {{settings?.hrZones[number + 1] != null && settings?.hrZones[number + 1] != 0 ? (settings?.hrZones[number + 1] | number : '.0-0') + ' bpm' : ''}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="hrZoneEditMode" class="inline-edit  form-control">
+            <form novalidate [formGroup]="hrZoneForm" (ngSubmit)="saveHrZones(settings.hrZones, settings.id)">
+            <span class="btn-close">
+                    <button class="fa fa-close" (click)="hrZoneEditMode=false; settings.hrZones=initHrZone;"></button>
+            </span>
+              <div class="form-control-inline">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div *ngFor="let number of [0,1,2,3,4,5];" class="col-md-2">
+                        <input type="number"
+                               name="input-{{number}}"
+                               id="input-{{number}}"
+                               class="form-control-inline"
+                               autofocus
+                               autocomplete="off"
+                               placeholder="{{number == 0 ? 'rest' : number==5 ? 'max' : 'z' + number}}"
+                               [(ngModel)]="settings.hrZones[number]"
+                               formControlName="hrZone{{number+1}}"
+                               min="0" max="200">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                  <span class="alert alert-danger"
+                        *ngIf="hrZoneForm.get('hrZone1').hasError('required') && hrZoneForm.get('hrZone1').touched">
+                      resting HR is required
+                  </span>
+                    <span class="alert alert-danger"
+                          *ngIf="hrZoneForm.get('hrZone2').hasError('required') && hrZoneForm.get('hrZone2').touched">
+                   Zone 1 is required
+                  </span>
+                    <span class="alert alert-danger"
+                          *ngIf="hrZoneForm.get('hrZone3').hasError('required') && hrZoneForm.get('hrZone3').touched">
+                    Zone 2 is required
+                  </span>
+                    <span class="alert alert-danger"
+                          *ngIf="hrZoneForm.get('hrZone4').hasError('required') && hrZoneForm.get('hrZone4').touched">
+                    Zone 3 is required
+                  </span>
+                    <span class="alert alert-danger"
+                          *ngIf="hrZoneForm.get('hrZone5').hasError('required') && hrZoneForm.get('hrZone5').touched">
+                    Zone 4 is required
+                  </span>
+                    <span class="alert alert-danger"
+                          *ngIf="hrZoneForm.get('hrZone6').hasError('required') && hrZoneForm.get('hrZone6').touched">
+                    Max HR is required
+                  </span>
+                    <div class="alert alert-danger" *ngIf="hrZoneForm.errors?.mismatch">
+                      Zone boundaries must be greater than lower zone boundaries
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                  <span>
+                    <button class="fa fa-gears"
+                    placement="bottom" ngbTooltip="Calculate HR Zones from Resting & Max"
+                  [disabled]="settings?.hrZones[0]==NaN||settings?.hrZones[5]==NaN"
+                  (click)="settings?.hrZones[1] =Math.floor(((settings?.hrZones[5] - settings?.hrZones[0])*0.6) + settings?.hrZones[0]);
+                    settings?.hrZones[2] = Math.floor(((settings?.hrZones[5] - settings?.hrZones[0])*0.75)  + settings?.hrZones[0]);
+                    settings?.hrZones[3] = Math.floor(((settings?.hrZones[5] - settings?.hrZones[0])*0.8)  + settings?.hrZones[0]);
+                    settings?.hrZones[4] = Math.floor(((settings?.hrZones[5] - settings?.hrZones[0])*0.85) + settings?.hrZones[0]);
+                    saveHrZones(settings.hrZones, settings.id)
+                    "
+
+                    ></button>
+                  </span>
+                  </div>
+                  <div class="col-md-1">
+                    <span class="input-group-btn" style="float:left;">
+                      <button class="btn fa fa-save saveIcon"
+                              type="submit" [disabled]="hrZoneForm.invalid" placement="bottom" ngbTooltip="Save"></button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
