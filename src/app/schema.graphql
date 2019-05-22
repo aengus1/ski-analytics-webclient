@@ -1,5 +1,5 @@
 type User {
-    userId: ID!
+    id: ID!
     gender: String
     height: Int
     weight: Int
@@ -7,7 +7,7 @@ type User {
 }
 
 type Query {
-    getUser(id: Int): User!
+    getUser: User
 }
 type Mutation {
     addUser(userId: ID!, height: Int, weight: Int, gender: Int, hrZones: [Int]): User

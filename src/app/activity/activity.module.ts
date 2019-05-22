@@ -42,6 +42,7 @@ import {XAxisControlComponent} from './components/activity-graph/x-axis-control/
 import {MapService, NgxMapboxGLModule} from 'ngx-mapbox-gl';
 import {ImportComponent} from './components/import/import.component';
 import {ImportDirective} from './components/import/import.directive';
+import {RatingComponent} from './components/rating/rating.component';
 
 
 @NgModule({
@@ -90,7 +91,8 @@ import {ImportDirective} from './components/import/import.directive';
     SeriesControlComponent,
     XAxisControlComponent,
     ImportComponent,
-    ImportDirective
+    ImportDirective,
+    RatingComponent
   ],
   providers: [
     ActivityService, FilterService, MockActivityService, D3Service, ActivityExistsGuard, IntervalPipe,
@@ -98,6 +100,6 @@ import {ImportDirective} from './components/import/import.directive';
   ],
   exports: [ActivityComponent, FilterListComponent, MapComponent, AttributeComponent,
   SummaryPanelComponent, AscentDescentComponent, MovingStopComponent, HrZoneHistogramComponent,
-    FilterHrzoneComponent, SeriesControlComponent, XAxisControlComponent, ImportDirective]
+    FilterHrzoneComponent, SeriesControlComponent, XAxisControlComponent, ImportDirective, RatingComponent]
 })
 export class ActivityModule { }

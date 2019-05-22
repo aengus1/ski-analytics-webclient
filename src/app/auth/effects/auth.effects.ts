@@ -25,6 +25,8 @@ import {Authenticate, ConfirmUser, ResetPasswordUser, SignupUser} from '../model
 import {catchError, exhaustMap, map, tap} from 'rxjs/internal/operators';
 import {of} from 'rxjs/index';
 import {AuthService} from '../services/auth.service';
+import {UserService} from '../services/user.service';
+
 import {Router} from '@angular/router';
 
 @Injectable()
@@ -38,6 +40,7 @@ export class AuthEffects {
       this.authService.signIn(auth.username, auth.password).pipe(
         map(user => {
           sessionStorage.setItem('userId', JSON.stringify(user));
+          this.userService.getUserSettings();
         return new LoginSuccess({user});
         }),
         catchError(error => of(new LoginFailure(error)))
@@ -72,6 +75,9 @@ export class AuthEffects {
     map(action => action.payload),
     exhaustMap((confirmUser: ConfirmUser) =>
       this.authService.confirmSignUp(confirmUser.username, confirmUser.confirmCode).pipe(
+        // map( () => this.userService.addUserSettings().subscribe(x => {
+        //   console.log('new user added to settings' + x);
+        // })),
         map(() => new ConfirmSuccess(confirmUser)),
         catchError(error => of(new ConfirmFailure(error)))
       )
@@ -154,7 +160,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
+    private userService: UserService,
     private router: Router
-  ) {
-  }
+  ) {}
 }

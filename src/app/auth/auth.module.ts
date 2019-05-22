@@ -19,6 +19,8 @@ import {SharedModule} from '../shared/shared.module';
 import {ResetFormComponent} from './components/reset-form/reset-form.component';
 import {ResetPageComponent} from './containers/reset-page.component';
 import {SignoutPageComponent} from './containers/signout-page.component';
+import {UserSettingsFormComponent} from './components/user-settings-form/user-settings-form.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 export const COMPONENTS = [
@@ -30,12 +32,13 @@ export const COMPONENTS = [
   ForgotFormComponent,
   ResetPageComponent,
   ResetFormComponent,
-  SignoutPageComponent
+  SignoutPageComponent,
+  UserSettingsFormComponent
 ];
 
 @NgModule({
   imports: [
-    CommonModule, ReactiveFormsModule, FormsModule, RouterModule, SharedModule
+    CommonModule, ReactiveFormsModule, FormsModule, RouterModule, SharedModule, NgbModule
   ],
   declarations:  COMPONENTS,
   exports: COMPONENTS,
@@ -57,7 +60,7 @@ export class AuthModule {
     AuthModule,
     AuthRoutingModule,
     StoreModule.forFeature('auth', reducers),
-    EffectsModule.forFeature([AuthEffects]),
+    EffectsModule.forFeature([AuthEffects])
   ],
   declarations: [],
   exports: []
