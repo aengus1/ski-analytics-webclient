@@ -40,7 +40,7 @@ export class FilterComponent implements AfterViewInit {
   filters: ActivityFilter[];
   filterId: string;
   active = false;
-  @ContentChild(forwardRef(() => FilterBase))
+  @ContentChild(forwardRef(() => FilterBase), {static: true})
   content: FilterBase;
 
 

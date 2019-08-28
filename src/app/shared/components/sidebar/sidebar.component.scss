@@ -39,7 +39,7 @@
   background-color: transparent;
 }
 
-/deep/ .title-icon{
+::ng-deep .title-icon{
   margin-left: 20px;
 }
 a[data-toggle="collapse"] {

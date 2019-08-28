@@ -15,7 +15,7 @@ export class ImportComponent implements OnInit {
   private modalCloseResult: string;
   private uploadResponse: string;
 
-  @ViewChild('confirmSuccessModal') private confirmSuccessModal;
+  @ViewChild('confirmSuccessModal', { static: true }) private confirmSuccessModal;
 
   constructor(private modal: NgbModal, activityService: ActivityService, private alertService: AlertService) {
     this.activityService = activityService;

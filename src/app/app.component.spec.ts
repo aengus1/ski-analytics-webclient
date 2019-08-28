@@ -15,7 +15,7 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule.withRoutes([
           {path: '', redirectTo: 'activity', pathMatch: 'full'},
-          {path: 'activity', loadChildren: './activity/activity.module#ActivityModule'}
+          {path: 'activity', loadChildren: () => import('./activity/activity.module').then(m => m.ActivityModule)}
       ],
         )
         ],

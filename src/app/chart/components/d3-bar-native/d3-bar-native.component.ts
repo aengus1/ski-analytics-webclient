@@ -85,7 +85,7 @@ export class D3BarNativeComponent extends D3ChartComponent implements OnInit {
   @Input()
   private chartOptions: ChartOptions;
 
-  @ViewChild('xaxis') xaxisElement;
+  @ViewChild('xaxis', { static: true }) xaxisElement;
 
   private min: any;
   private max: any;

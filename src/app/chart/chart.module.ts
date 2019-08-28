@@ -20,6 +20,7 @@ import {SharedModule} from '../shared/shared.module';
   declarations: [D3BarNativeComponent, D3BoxplotComponent, D3ChartComponent, D3RangeSliderComponent, D3DualRangeSliderComponent,
     D3BarComponent, D3RadialComponent, D3LineComponent],
   providers: [D3Service, LoggerService],
-  exports: [D3BarNativeComponent, D3BoxplotComponent, D3RangeSliderComponent, D3DualRangeSliderComponent, D3BarComponent, D3RadialComponent, D3LineComponent]
+  exports: [D3BarNativeComponent, D3BoxplotComponent, D3RangeSliderComponent, D3DualRangeSliderComponent,
+    D3BarComponent, D3RadialComponent, D3LineComponent]
 })
 export class ChartModule { }

@@ -47,7 +47,7 @@ export class D3DualRangeSliderComponent implements OnInit, AfterViewInit {
   minHandle;
   maxHandle;
   xScale: ScaleLinear<number, number>;
-  @ViewChild('trackoverlay') track;
+  @ViewChild('trackoverlay', { static: true }) track;
 
   @Input()
   width = 100;
