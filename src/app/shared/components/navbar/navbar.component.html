@@ -22,7 +22,7 @@
         </li>
         <!-- user settings menu (mobile view) -->
         <li class="nav-item d-block d-md-none">
-          <a class="nav-link disabled" routerLink="/settings">User Settings</a>
+          <a class="nav-link" routerLink="/usersettings">User Settings</a>
           <!--<a class="nav-link" routerLink="/import">Import</a> // import not available from mobile -->
         </li>
         <div class="dropdown-divider d-block d-md-none"></div>
@@ -30,6 +30,7 @@
           <a class="nav-link" routerLink="/signout">Sign out</a>
         </li>
       </ul>
+    <app-alert></app-alert>
       <!-- user settings menu (desktop view) -->
       <ul class="navbar-nav ml-auto d-none d-md-block">
         <li class="nav-item dropdown">

@@ -100,6 +100,6 @@ import {RatingComponent} from './components/rating/rating.component';
   ],
   exports: [ActivityComponent, FilterListComponent, MapComponent, AttributeComponent,
   SummaryPanelComponent, AscentDescentComponent, MovingStopComponent, HrZoneHistogramComponent,
-    FilterHrzoneComponent, SeriesControlComponent, XAxisControlComponent, ImportDirective, RatingComponent]
+    FilterHrzoneComponent, SeriesControlComponent, XAxisControlComponent, ImportDirective, ImportComponent, RatingComponent]
 })
 export class ActivityModule { }

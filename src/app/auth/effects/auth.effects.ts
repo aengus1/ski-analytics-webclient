@@ -39,8 +39,17 @@ export class AuthEffects {
     exhaustMap((auth: Authenticate) =>
       this.authService.signIn(auth.username, auth.password).pipe(
         map(user => {
-          sessionStorage.setItem('userId', JSON.stringify(user));
-          this.userService.getUserSettings();
+          // check -> verify that we have a session
+          this.authService.isAuthenticated().subscribe( x => {
+            console.log('authenticated after login: ' + x);
+          });
+          console.log('entire user: ' + JSON.stringify(user));
+          // sessionStorage.setItem('userId', JSON.stringify(user));
+          // TODO -> set the token rather than the entire user. e.g.
+           sessionStorage.setItem('userId', JSON.stringify(user.signInUserSession.idToken.jwtToken));
+           sessionStorage.setItem('tokenExp', JSON.stringify(user.signInUserSession.idToken.payload.exp));
+
+           this.userService.getUserSettings();
         return new LoginSuccess({user});
         }),
         catchError(error => of(new LoginFailure(error)))

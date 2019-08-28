@@ -7,9 +7,12 @@ export const environment = {
   production: false,
   amplify: {
     Auth: {
-      region: 'us-west-2',
-      userPoolId: 'us-west-2_FrH0UdrNz',
-      userPoolWebClientId: '755f5d0elsg5ie96116540qm3u',
+      // region: 'us-west-2',
+      // userPoolId: 'us-west-2_FrH0UdrNz',
+      // userPoolWebClientId: '755f5d0elsg5ie96116540qm3u',
+      region: 'ca-central-1',
+      userPoolId: 'ca-central-1_bcb6X1Muk',
+      userPoolWebClientId: '340uab8qcv4f1l7plmbaelvvu6',
       mandatorySignIn: true,
       authenticationFlowType: 'USER_PASSWORD_AUTH'
     },
@@ -21,5 +24,8 @@ export const environment = {
   },
   domain: 'staging.crunch.ski',
   api: 'https://fgtcxjggck.execute-api.ca-central-1.amazonaws.com/staging/',
-  graphql: 'https://xuohcwldnjgdrga4fqvxk6vcwe.appsync-api.us-west-2.amazonaws.com/graphql'
+  graphql: 'https://xuohcwldnjgdrga4fqvxk6vcwe.appsync-api.us-west-2.amazonaws.com/graphql',
+  // ws: 'wss://c4at2w51lg.execute-api.us-west-2.amazonaws.com/staging'
+   ws: 'wss://in6xuk1co5.execute-api.ca-central-1.amazonaws.com/staging'
+
 };
