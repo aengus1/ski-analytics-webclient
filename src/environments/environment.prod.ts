@@ -17,5 +17,6 @@ export const environment = {
   },
   domain: 'crunch.ski',
   api: 'https://fgtcxjggck.execute-api.ca-central-1.amazonaws.com/',
-  graphql: 'https://xuohcwldnjgdrga4fqvxk6vcwe.appsync-api.us-west-2.amazonaws.com/graphql'
+  graphql: 'https://xuohcwldnjgdrga4fqvxk6vcwe.appsync-api.us-west-2.amazonaws.com/graphql',
+  ws: 'wss://i2xcknhk9i.execute-api.us-west-2.amazonaws.com/staging'
 };

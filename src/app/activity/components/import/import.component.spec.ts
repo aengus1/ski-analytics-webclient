@@ -5,6 +5,11 @@ import {ImportDirective} from './import.directive';
 import {NgbModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ActivityService} from '../../services/activity-service/activity.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {SocketService} from '../../../shared/services/socket.service';
+import {AuthService} from '../../../auth/services/auth.service';
+import {RouterTestingModule} from '@angular/router/testing';
+import {combineReducers, Store, StoreModule} from '@ngrx/store';
+import * as fromActivity from '../../../activity/reducers';
 
 describe('ImportComponent', () => {
   let component: ImportComponent;
@@ -15,9 +20,14 @@ describe('ImportComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NgbModule.forRoot(), HttpClientTestingModule],
+      imports: [NgbModule.forRoot(),
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([]),
+        StoreModule.forRoot({
+          activity: combineReducers(fromActivity.reducers),
+        })],
       declarations: [ImportComponent, ImportDirective],
-      providers: [NgbModal, ActivityService]
+      providers: [NgbModal, ActivityService, SocketService, AuthService, RouterTestingModule, Store]
     })
       .compileComponents();
   }));

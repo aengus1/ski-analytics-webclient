@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivityService} from '../../services/activity-service/activity.service';
 import {NgbModal, NgbModalOptions, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {AlertService} from '../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-import',
@@ -16,8 +17,13 @@ export class ImportComponent implements OnInit {
 
   @ViewChild('confirmSuccessModal') private confirmSuccessModal;
 
-  constructor(private modal: NgbModal, activityService: ActivityService) {
+  constructor(private modal: NgbModal, activityService: ActivityService, private alertService: AlertService) {
     this.activityService = activityService;
+    this.alertService.startSubscription().then(x => {
+      this.alertService.messages.subscribe(msg => {
+        console.log('Response from websocket: ' + msg);
+      });
+    });
   }
 
   ngOnInit() {

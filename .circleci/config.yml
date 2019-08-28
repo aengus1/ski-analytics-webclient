@@ -31,6 +31,10 @@ jobs:
       - run:
           name: unit tests
           command: node --max_old_space_size=5120 ./node_modules/@angular/cli/bin/ng test --max-workers=1
+      # upload coverage
+      - run:
+          name: generate and upload coverage
+          command: npm run sendcoverage
 
   build-staging:
       docker:
@@ -202,6 +206,9 @@ workflows:
             branches:
               only:
                 - master
+          context:
+            - staging
+            - webclient
       - build-staging:
           requires:
             - build
@@ -209,6 +216,9 @@ workflows:
             branches:
               only:
                 - develop
+          context:
+            - staging
+            - webclient
       - deploy-staging:
           requires:
             - build
@@ -216,7 +226,6 @@ workflows:
           filters:
             branches:
               only: develop
-          context: staging
       - hold:
           type: approval
           requires:

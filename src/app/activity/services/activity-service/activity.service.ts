@@ -11,7 +11,7 @@ import {environment} from '../../../../environments/environment';
 
 @Injectable()
 export class ActivityService {
-  public sessionKey: string;
+  // public sessionKey: string;
 
 
   constructor(protected http: HttpClient) {
@@ -69,7 +69,7 @@ export class ActivityService {
 
 
   getActivity(id: string): Observable<Activity> {
-    console.log('in getActivity with ' + this.sessionKey);
+    // console.log('in getActivity with ' + this.sessionKey);
 
     let resultActivity$: Observable<Activity>;
     try {
@@ -89,7 +89,7 @@ export class ActivityService {
           ActivitySummaryService.summarizeActivity(v, null, v, fromActivity.buildTsLookupMap(v));
           return v;
         }));
-      console.log('setting session key = ' + this.sessionKey);
+      // console.log('setting session key = ' + this.sessionKey);
     } catch (e) {
       console.log('failed to set session key');
     }

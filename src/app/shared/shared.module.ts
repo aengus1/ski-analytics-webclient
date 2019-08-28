@@ -9,15 +9,19 @@ import {HomeComponent} from './components/home/home.component';
 import {RouterModule} from '@angular/router';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {NgbCollapseModule, NgbDropdown, NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {AlertComponent} from './components/alert/alert.component';
+import {SocketService} from './services/socket.service';
 
 @NgModule({
   imports: [
     CommonModule, RouterModule, NgbCollapseModule, NgbDropdownModule
   ],
   providers: [
-    NgbDropdown
+    NgbDropdown, SocketService
   ],
-  declarations: [IntervalPipe, RemoveUnderscorePipe, TitleCasePipe, SidebarComponent,  NotFoundComponent, HomeComponent, NavbarComponent],
-  exports: [SidebarComponent, IntervalPipe, RemoveUnderscorePipe, TitleCasePipe, NotFoundComponent, HomeComponent, NavbarComponent]
+  declarations: [IntervalPipe, RemoveUnderscorePipe, TitleCasePipe, SidebarComponent,  NotFoundComponent,
+    HomeComponent, NavbarComponent, AlertComponent],
+  exports: [SidebarComponent, IntervalPipe, RemoveUnderscorePipe, TitleCasePipe, NotFoundComponent
+    , HomeComponent, NavbarComponent, AlertComponent]
 })
 export class SharedModule { }

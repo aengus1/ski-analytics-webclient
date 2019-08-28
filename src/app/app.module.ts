@@ -71,16 +71,22 @@ import {GraphQLModule} from './graphql.module';
     {provide: LoggerService, useClass: ConsoleLoggerService},
     AmplifyService,
     AuthService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: TokenRefreshInterceptor,
+    //   multi: true
+    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+
     AuthGuard
 
   ],
