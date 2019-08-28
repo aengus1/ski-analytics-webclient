@@ -66,7 +66,7 @@ import {RatingComponent} from './components/rating/rating.component';
     //  * whether they are registered once or multiple times.
     //  */
     EffectsModule.forFeature([FilterEffects]),
-    NgbModule.forRoot(),
+    NgbModule,
     FormsModule,
     NgxMapboxGLModule
   ],

@@ -1,8 +1,7 @@
-import { Action } from '@ngrx/store';
+import {Action} from '@ngrx/store';
 import {Activity} from '../model/activity/Activity_pb';
 import {ActivityFilter} from '../model/activity-filter/activity-filter.model';
-import {Update} from '@ngrx/entity';
-import {Dictionary} from '@ngrx/entity/src/models';
+import {Dictionary, Update} from '@ngrx/entity';
 
 export enum ActivityActionTypes {
   Select= '[Activity] Select Activity',

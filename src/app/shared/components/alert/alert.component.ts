@@ -26,10 +26,10 @@ export class Alert {
 })
 export class AlertComponent {
 
-  private alerts: Alert[] = new Array<Alert>();
+  alerts: Alert[] = new Array<Alert>();
 
   constructor(private alertService: AlertService) {
-    alertService.startSubscription().then(x => {
+    alertService.startSubscription().then(() => {
       alertService.messages.subscribe(msg => {
         console.log('response from websocket ' + JSON.stringify(msg));
       });

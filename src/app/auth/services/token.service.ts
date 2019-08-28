@@ -3,7 +3,7 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
 import {Observable, throwError} from 'rxjs';
 import {AuthService} from './auth.service';
 import {Router} from '@angular/router';
-import {catchError} from 'rxjs/operators';
+import {catchError, mergeMap} from 'rxjs/operators';
 import {LoginRedirect} from '../actions/auth.actions';
 import * as fromAuth from '../reducers/';
 import {Store} from '@ngrx/store';
@@ -23,7 +23,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
       // refresh token and retry
       console.log('calling refresh token from interceptor');
-      this.authService.refreshToken().then(x => {
+      this.authService.refreshToken().then(() => {
         if (!this.authService.isAuthenticated()) {
           // TODO -> redirect to modal instead of signin page explaining that need to log in again
           this.authService.signOut();
@@ -32,8 +32,8 @@ export class TokenInterceptor implements HttpInterceptor {
       return;
     }
     console.log('requesting token....');
-    return this.authService.getTokenAsObservable()
-      .mergeMap((token: string) => {
+    return this.authService.getTokenAsObservable().pipe(
+      mergeMap((token: string) => {
         console.log('auth token request fulfilled : ' + token);
         request = request.clone({
           setHeaders: {
@@ -41,7 +41,7 @@ export class TokenInterceptor implements HttpInterceptor {
           }
         });
         return next.handle(request);
-      });
+      }));
     //   this.authService.getToken().then( x => {
     //     console.log('got token returned');
     //     console.log('auth token request fulfilled : ' + x)
@@ -58,7 +58,9 @@ export class TokenInterceptor implements HttpInterceptor {
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private router: Router, private store: Store<fromAuth.State>) {}
+  constructor(private router: Router, private store: Store<fromAuth.State>) {
+  }
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     return next.handle(request)

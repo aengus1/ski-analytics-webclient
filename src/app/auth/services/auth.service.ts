@@ -5,7 +5,7 @@ import {environment} from '../../../environments/environment';
 import Auth from '@aws-amplify/auth';
 import Amplify from '@aws-amplify/core';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
-import {Observable} from 'rxjs';
+import {from, Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import * as fromAuth from '../reducers';
 import {Logout} from '../actions/auth.actions';
@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   public signUp(email, password, firstName, lastName): Observable<any> {
-    return fromPromise(
+    return from(
       Auth.signUp(
         {username: email, password: password, attributes: {name: firstName, 'custom:familyName': lastName}}
       ));
@@ -46,11 +46,11 @@ export class AuthService {
   }
 
   public forgotPassword(username: string): Observable<any> {
-    return fromPromise(Auth.forgotPassword(username));
+    return from(Auth.forgotPassword(username));
   }
 
   public resetPassword(username: string, code: string, password: string): Observable<any> {
-    return fromPromise(Auth.forgotPasswordSubmit(username, code, password));
+    return from(Auth.forgotPasswordSubmit(username, code, password));
   }
 
   public async refreshToken(): Promise<string> {
@@ -72,7 +72,7 @@ export class AuthService {
   }
 
   public refreshTokenAsObservable(): Observable<string> {
-    return Observable.fromPromise(this.refreshToken());
+    return from(this.refreshToken());
   }
 
   public isAuthenticated(): Observable<boolean> {
@@ -119,7 +119,7 @@ export class AuthService {
 
 
   public getTokenAsObservable(): Observable<string> {
-    return Observable.fromPromise(this.getToken());
+    return from(this.getToken());
   }
 
   // TODO -> think about how and when we fall into the 'else' refresh token workflow

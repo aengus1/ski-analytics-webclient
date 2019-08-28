@@ -4,6 +4,7 @@ import {SocketService} from './socket.service';
 import {environment} from '../../../environments/environment';
 import 'rxjs/add/operator/map';
 import {AuthService} from '../../auth/services/auth.service';
+import {map} from 'rxjs/operators';
 
 export interface MessageBody {
   key: string;
@@ -38,7 +39,7 @@ export class AlertService {
     if (this.messages === undefined || this.messages == null) {
       return this.authService.getToken().then(x => {
         console.log('token = ' + x);
-        this.messages = <Subject<Message>>this.wsService.connect(environment.ws + '?token=' + x).map(
+        this.messages = <Subject<Message>>this.wsService.connect(environment.ws + '?token=' + x).pipe(map(
           (response: MessageEvent): Message => {
             const data = JSON.parse(response.data);
             return {
@@ -50,7 +51,7 @@ export class AlertService {
               }
             };
           }
-        );
+        ));
       });
     }
   }
