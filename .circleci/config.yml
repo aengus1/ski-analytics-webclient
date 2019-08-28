@@ -199,7 +199,6 @@ workflows:
   build-test-deploy:
     jobs:
       - build
-          context: webclient
       - build-prod:
           requires:
             - build
@@ -207,6 +206,9 @@ workflows:
             branches:
               only:
                 - master
+          context:
+            - staging
+            - webclient
       - build-staging:
           requires:
             - build
@@ -214,6 +216,9 @@ workflows:
             branches:
               only:
                 - develop
+          context:
+            - staging
+            - webclient
       - deploy-staging:
           requires:
             - build
@@ -221,7 +226,6 @@ workflows:
           filters:
             branches:
               only: develop
-          context: staging
       - hold:
           type: approval
           requires:
