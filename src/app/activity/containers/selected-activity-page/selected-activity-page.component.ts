@@ -28,7 +28,7 @@ export class SelectedActivityPageComponent {
   activitySubSport$: Observable<string[]>;
   sidebarOpen$: Observable<boolean>;
   sidebarContent$: Observable<ActivitySidebarType>;
-  @ViewChild(ActivityComponent) activityModuleComponent;
+  @ViewChild(ActivityComponent, { static: true }) activityModuleComponent;
 
   constructor(private store: Store<fromActivity.State>) {
     this.activity$ = store.pipe(select(fromActivity.getSelectedActivity));

@@ -6,7 +6,7 @@ import {Activity} from '../../../model/activity/Activity_pb';
 import {ActivityFilter} from '../../../model/activity-filter/activity-filter.model';
 import {FilterBase} from '../filter-base.model';
 import {Subject} from 'rxjs';
-import {debounceTime} from 'rxjs/operators/';
+import {debounceTime} from 'rxjs/operators';
 
 import {LoggerService} from '../../../../shared/services/logger.service';
 
@@ -24,7 +24,7 @@ import {LoggerService} from '../../../../shared/services/logger.service';
 })
 export class FilterSpeedComponent extends FilterBase implements  OnInit {
 
-  @ViewChild(D3DualRangeSliderComponent) speedSlider;
+  @ViewChild(D3DualRangeSliderComponent, { static: true }) speedSlider;
 
   @Output()
   changeEvent = new EventEmitter<MessageEvent<any[]| ActivityFilter | string>>();

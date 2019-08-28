@@ -11,7 +11,7 @@ const appRoutes: Routes = [
    // {path: '/404',  component: NotFoundComponent, canActivate: [AuthGuard]},
   {
     path: 'activity',
-    loadChildren: './activity/activity.module#ActivityModule',
+    loadChildren: () => import('./activity/activity.module').then(m => m.ActivityModule),
     canLoad: [AuthGuard]
   },
   { path: '**', component: NotFoundComponent}

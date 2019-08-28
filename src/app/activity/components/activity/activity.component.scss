@@ -59,15 +59,15 @@
   /*outline: none;*/
   /*border: transparent;*/
 /*}*/
-/deep/ .btn:hover{
+::ng-deep .btn:hover{
   cursor: pointer;
 }
 
 .btn.btn-default{
   z-index: 0;
 }
-/deep/ .grow { transition: all .2s ease-in-out; }
-/deep/ .grow:hover { transform: scale(1.1); }
+::ng-deep .grow { transition: all .2s ease-in-out; }
+::ng-deep .grow:hover { transform: scale(1.1); }
 
 
 .badge-notify{

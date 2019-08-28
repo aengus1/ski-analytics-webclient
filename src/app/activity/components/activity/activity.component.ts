@@ -52,7 +52,7 @@ export class ActivityComponent implements OnInit, AfterViewChecked {
   public summaryDisplay = true;
 
   // sidebar component
-  @ViewChild(SidebarComponent) sidebar;
+  @ViewChild(SidebarComponent, { static: true }) sidebar;
 
   public filterCount = 0;
 

@@ -60,7 +60,7 @@ export class SignupFormComponent implements OnInit {
 
   @Output() submittedResendConfirm = new EventEmitter<SignupUser>();
 
-  @ViewChild('confirmSuccessModal') private confirmSuccessModal;
+  @ViewChild('confirmSuccessModal', { static: true }) private confirmSuccessModal;
 
   signupForm: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.email]),

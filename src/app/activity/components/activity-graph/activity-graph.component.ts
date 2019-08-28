@@ -23,7 +23,7 @@ export class ActivityGraphComponent implements OnInit {
   public filteredIndices: number[] = [];
 
   public chartOptions: ChartOptions;
-  @ViewChild(D3LineComponent) graph;
+  @ViewChild(D3LineComponent, { static: true }) graph;
   public xAxisFormat = new Map<string, number>();
 
   @Input()
