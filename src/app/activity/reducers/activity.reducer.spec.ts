@@ -20,13 +20,14 @@ describe('Activity Reducer', () => {
     unfilteredActivity: new Activity(),
     ids: [],
     entities: null,
-    tsLookup: fromActivities.buildTsLookupMap(activity)
+    tsLookup: fromActivities.buildTsLookupMap(activity),
+    filteredIndices: []
   };
 
   it('should return the default state', () => {
     const action = {} as any;
     const result = reducer(undefined, action);
-    expect(result).toMatchSnapshot();
+    (<any>expect(result)).toMatchSnapshot();
   });
 
   it('should add an activity when Load action is called', () => {
@@ -72,7 +73,8 @@ describe('Activity Filter', () => {
       unfilteredActivity: new Activity(),
       ids: [],
       entities: null,
-      tsLookup: fromActivities.buildTsLookupMap(activity)
+      tsLookup: fromActivities.buildTsLookupMap(activity),
+      filteredIndices: []
     };
 
     // 1. load and select activity

@@ -20,7 +20,7 @@ describe('ImportComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NgbModule.forRoot(),
+      imports: [NgbModule,
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([]),
         StoreModule.forRoot({

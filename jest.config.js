@@ -15,7 +15,7 @@ module.exports = {
     "node_modules/(?!@ngrx|angular2-ui-switch|ng-dynamic|d3-ng2-service)"
   ],
   transform: {
-    "^.+\\.(ts|html)$": "<rootDir>/node_modules/jest-preset-angular/preprocessor.js",
+    "^.+\\.(ts|html)$": "ts-jest",
     "^.+\\.js$": "babel-jest"
   }
 

@@ -11,7 +11,7 @@ describe('SignupFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, NgbModule.forRoot(), RouterTestingModule],
+      imports: [ReactiveFormsModule, NgbModule, RouterTestingModule],
       declarations: [ SignupFormComponent ],
       providers: [NgbModal, RouterTestingModule]
     })
