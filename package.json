@@ -9,7 +9,7 @@
     "generate": "graphql-codegen --config codegen.yml",
     "test": "ng test --watch=false",
     "coverage": "ng test --coverage",
-    "sendcoverage": "ng test --coverage --maxWorkers=2 && cat ./coverage/lcov.info | codacy-coverage --token $CODACY_COVERAGE",
+    "sendcoverage": "ng test --coverage --maxWorkers=2 && cat ./coverage/lcov.info | codacy-coverage --token $CODACY_TOKEN",
     "test:watch": "ng test --watch",
     "sourcemap": "node --max_old_space_size=5120 ./node_modules/@angular/cli/bin/ng build --prod --source-map --build-optimizer --aot --optimization --vendor-chunk=false --stats-json && npx webpack-bundle-analyzer dist/stats-es2015.json",
     "lint": "ng lint",
