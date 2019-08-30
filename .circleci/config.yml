@@ -206,9 +206,7 @@ workflows:
             branches:
               only:
                 - master
-          context:
-            - staging
-            - webclient
+          context: staging
       - build-staging:
           requires:
             - build
@@ -216,9 +214,7 @@ workflows:
             branches:
               only:
                 - develop
-          context:
-            - staging
-            - webclient
+          context: staging
       - deploy-staging:
           requires:
             - build
