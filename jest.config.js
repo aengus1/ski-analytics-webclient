@@ -1,24 +1,25 @@
 module.exports = {
   globals: {
-    "ts-jest": {
-      "allowSyntheticDefaultImports": true
+    'ts-jest': {
+      stringifyContentPathRegex: '\\.html?$',
+      allowSyntheticDefaultImports: true,
     },
-    "__TRANSFORM_HTML__": true
   },
-
-  preset: "jest-preset-angular",
+  preset: 'jest-preset-angular',
   roots: [
-    "<rootDir>/src/"
+    '<rootDir>/src/',
   ],
-  setupFilesAfterEnv: ["<rootDir>/src/setup-jest.ts"],
+  setupFilesAfterEnv: [
+    '<rootDir>/src/setup-jest.ts',
+  ],
   transformIgnorePatterns: [
-    "node_modules/(?!@ngrx|angular2-ui-switch|ng-dynamic|d3-ng2-service)"
+    'node_modules/(?!@ngrx|angular2-ui-switch|ng-dynamic|d3-ng2-service)',
   ],
   transform: {
-    "^.+\\.(ts|html)$": "ts-jest",
-    "^.+\\.js$": "babel-jest"
-  }
+    '^.+\\.(ts|html)$': 'ts-jest',
+    '^.+\\.js$': 'babel-jest',
+  },
+}
 
-  };
 
 
