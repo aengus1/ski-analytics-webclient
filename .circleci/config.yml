@@ -41,6 +41,7 @@ jobs:
       # upload coverage
       - run:
           name: generate and upload coverage
+          context: staging
           command: npm run sendcoverage
 
   build-staging:
