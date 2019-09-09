@@ -21,7 +21,8 @@
       "esnext.asynciterable"
     ],
     "types": [
-      "node"
+      "node",
+      "jest"
     ],
     "paths": {
       "core-js/es7/reflect": [

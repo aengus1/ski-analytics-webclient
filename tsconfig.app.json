@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
-    "types": [ "node" ]
+    "types": [ "node", "jest" ]
   },
   "exclude": [
     "src/test.ts",
