@@ -49,7 +49,7 @@ describe('LoginPageComponent', () => {
       fixture.detectChanges();
 
       // noinspection BadExpressionStatementJS
-      expect(fixture).toMatchSnapshot();
+      (<any>expect(fixture)).toMatchSnapshot();
     });
 
     it('should dispatch a login event on submit', () => {

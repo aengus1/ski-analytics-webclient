@@ -15,7 +15,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {IntervalPipe} from '../../../shared/pipes/interval.pipe';
 
 describe('D3BarNativeComponent', () => {
-  let component: D3BarNativeComponent;
+  let component: AppMockComponent;
   let fixture: ComponentFixture<AppMockComponent>;
   let compiled: HTMLElement | null;
 
@@ -56,7 +56,7 @@ describe('D3BarNativeComponent', () => {
     fixture.detectChanges();
 
     // noinspection TypeScriptUnresolvedFunction
-    expect(fixture).toMatchSnapshot();
+    (<any>expect(fixture)).toMatchSnapshot();
   });
 });
 

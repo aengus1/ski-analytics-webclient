@@ -21,7 +21,7 @@ describe('SignupPageComponent', () => {
         StoreModule.forRoot({
           auth: combineReducers(fromAuth.reducers),
         }),
-        NgbModule.forRoot(),
+        NgbModule,
         ReactiveFormsModule, RouterTestingModule
       ],
       declarations: [SignupPageComponent, SignupFormComponent],
@@ -55,7 +55,7 @@ describe('SignupPageComponent', () => {
       fixture.detectChanges();
 
       // noinspection TypeScriptUnresolvedFunction
-      expect(fixture).toMatchSnapshot();
+      (<any>expect(fixture)).toMatchSnapshot();
     });
 
     it('should dispatch a signup event on submit', () => {
