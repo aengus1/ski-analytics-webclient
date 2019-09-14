@@ -1,16 +1,13 @@
-import {Component} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {AlertService} from '../../services/alert.service';
 import {SocketService} from '../../services/socket.service';
 import {NgbDropdown} from '@ng-bootstrap/ng-bootstrap';
 
 
 export class Alert {
-  type: String;
-  message: String;
-  status: String;
-  url: String;
+  private status: String;
 
-  constructor(type: String, message: String, url: String) {
+  constructor(public type: String, public message: String, public url: String) {
     this.type = type;
     this.message = message;
     this.url = url;
@@ -24,15 +21,22 @@ export class Alert {
   styleUrls: ['./alert.component.scss'],
   providers: [AlertService, SocketService, NgbDropdown]
 })
-export class AlertComponent {
+export class AlertComponent implements OnInit {
 
-  alerts: Alert[] = new Array<Alert>();
+ public alerts: Alert[] = new Array<Alert>();
 
-  constructor(private alertService: AlertService) {
-    alertService.startSubscription().then(() => {
-      alertService.messages.subscribe(msg => {
-        console.log('response from websocket ' + JSON.stringify(msg));
+  constructor(private alertService: AlertService, private ref: ChangeDetectorRef) {
+    this.alertService.startSubscription().then(() => {
+      this.alertService.messages.subscribe(msg => {
+
+        console.log('key = ' + msg.key);
+        console.log('payload = ' + msg.payload);
+        console.log('url = ' + msg.url);
+        this.alerts.push(new Alert(msg.key, msg.payload, msg.url));
+        this.ref.detectChanges();
       });
+    }, (e) => {
+      console.log('error' + e);
     });
   }
 
@@ -47,7 +51,11 @@ export class AlertComponent {
 
   sendMsg() {
     console.log('new message from client to websocket', this.message);
-    this.alertService.messages.next(this.message);
+    this.alertService.messages.next(this.message.message);
+  }
+
+  ngOnInit(): void {
+   // null
   }
 
 

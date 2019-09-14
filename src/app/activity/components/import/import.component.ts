@@ -19,11 +19,11 @@ export class ImportComponent implements OnInit {
 
   constructor(private modal: NgbModal, activityService: ActivityService, private alertService: AlertService) {
     this.activityService = activityService;
-    this.alertService.startSubscription().then(x => {
-      this.alertService.messages.subscribe(msg => {
-        console.log('Response from websocket: ' + msg);
-      });
-    });
+    // this.alertService.startSubscription().then(x => {
+    //   this.alertService.messages.subscribe(msg => {
+    //     console.log('Response from websocket: ' + msg);
+    //   });
+    // });
   }
 
   ngOnInit() {

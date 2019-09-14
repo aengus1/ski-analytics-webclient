@@ -26,6 +26,6 @@ export const environment = {
   api: 'https://fgtcxjggck.execute-api.ca-central-1.amazonaws.com/staging/',
   graphql: 'https://xuohcwldnjgdrga4fqvxk6vcwe.appsync-api.us-west-2.amazonaws.com/graphql',
   // ws: 'wss://c4at2w51lg.execute-api.us-west-2.amazonaws.com/staging'
-   ws: 'wss://in6xuk1co5.execute-api.ca-central-1.amazonaws.com/staging'
+   ws: 'wss://e289hwvqc6.execute-api.ca-central-1.amazonaws.com/staging'
 
 };
