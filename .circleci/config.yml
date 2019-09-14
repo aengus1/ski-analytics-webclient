@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8.11-browsers
+      - image: circleci/node:11.12.0-browsers
 
     working_directory: ~/repo
 
@@ -46,7 +46,7 @@ jobs:
   build-staging:
       docker:
         # specify the version you desire here
-        - image: circleci/node:8.11-browsers
+        - image: circleci/node:11.12.0-browsers
 
       working_directory: ~/repo
 
@@ -93,7 +93,7 @@ jobs:
   build-prod:
       docker:
         # specify the version you desire here
-        - image: circleci/node:8.11-browsers
+        - image: circleci/node:11.12.0-browsers
 
       working_directory: ~/repo
 
