@@ -5,18 +5,25 @@
         <div ngbDropdown placement="bottom-right" class="d-inline-block" #dropdown="ngbDropdown">
           <a class="nav-link dropdown-toggle" ngbDropdownToggle id="navbarDropdown" role="button"
              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="fa-stack  has-badge" [attr.data-count]="alerts.length">
+            <span *ngIf="alerts.length > 0" class="fa-stack  has-badge" [attr.data-count]="alerts.length">
               <i class="fa fa-circle fa-stack-2x"></i>
               <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
             </span>
           </a>
+          <!-- debugging only...
           <button (click)="sendMsg()">Test send message</button>
+          -->
           <!-- mouseover is kinda flaky (mouseover)="$event.stopPropagation(); dropdown.toggle(true);-->
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-right">
-            <button *ngFor="let alert of alerts" class="dropdown-item nav-link btn btn-link" routerLink="/activity/{{alert.url}}">{{alert.message}}</button>
+            <div *ngFor="let alert of alerts">
+              <!-- TODO  onclick decrement the badge counter -->
+              <button class="dropdown-item nav-link btn btn-link" routerLink="{{alert.url}}">
+                {{alert.message}}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   </li>
 </ul>
