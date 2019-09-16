@@ -27,7 +27,7 @@ export class UserSettingsFormComponent implements OnInit, AfterContentChecked {
   selectedGender = '';
   hrZoneEditMode = false;
   initHrZone = [];
-  userId: string  = null;
+  userId: string = null;
 
 
   private saveHeightQuery = gql`
@@ -87,15 +87,15 @@ export class UserSettingsFormComponent implements OnInit, AfterContentChecked {
   ngOnInit() {
     this.userSettings$ = this.apollo.watchQuery<any>({
       query: gql`
-  query getUser{
-          getUser{
-              id
-              height
-              weight
-              hrZones
-              gender
-              }
-  }`
+    query getUser{
+      getUser{
+        id
+        height
+        weight
+        hrZones
+        gender
+      }
+    }`
     }).valueChanges.pipe(map(result => {
       console.log('result = ' + JSON.stringify(result.data));
       this.initGender = result.data.getUser.gender;
@@ -164,11 +164,11 @@ export class UserSettingsFormComponent implements OnInit, AfterContentChecked {
     const z4: Number = frm.get('hrZone4').value;
     const z5: Number = frm.get('hrZone5').value;
     const z6: Number = frm.get('hrZone6').value;
-  if ( z1 < z2 && z2 < z3 && z3 < z4 && z4 < z5 && z5 < z6) {
-    return null;
-  } else {
-    return {mismatch: true};
-  }
+    if (z1 < z2 && z2 < z3 && z3 < z4 && z4 < z5 && z5 < z6) {
+      return null;
+    } else {
+      return {mismatch: true};
+    }
   }
 
 }
