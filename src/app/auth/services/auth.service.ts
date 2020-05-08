@@ -12,6 +12,7 @@ import {Logout} from '../actions/auth.actions';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/mergeMap';
 import {reject} from 'q';
+import {CognitoUserAttribute} from 'amazon-cognito-identity-js';
 
 @Injectable()
 export class AuthService {
@@ -26,7 +27,8 @@ export class AuthService {
   public signUp(email, password, firstName, lastName): Observable<any> {
     return from(
       Auth.signUp(
-        {username: email, password: password, attributes: {name: firstName, 'custom:familyName': lastName}}
+        {username: email, password: password, attributes: {name: firstName, 'custom:familyName': lastName},
+        validationData: [ new CognitoUserAttribute({Name: 'pw', Value: password})]}
       ));
   }
 
