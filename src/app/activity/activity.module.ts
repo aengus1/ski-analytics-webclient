@@ -20,7 +20,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../../environments/environment';
 import {ViewActivityPageComponent} from './containers/view-activity-page/view-activity-page.component';
 import {SelectedActivityPageComponent} from './containers/selected-activity-page/selected-activity-page.component';
-import {StoreRouterConnectingModule} from '@ngrx/router-store';
+import {StoreRouterConnectingModule, DefaultRouterStateSerializer} from '@ngrx/router-store';
 import {ActivityExistsGuard} from './guards/activity-exists';
 import {FilterComponent} from './components/filter/filter.component';
 import {FilterSpeedComponent} from './components/filter/filter-speed/filter-speed.component';
@@ -54,7 +54,7 @@ import {RatingComponent} from './components/rating/rating.component';
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreModule.forFeature('filters', filterReducers),
     StoreModule.forFeature('activities', reducers),
-    StoreRouterConnectingModule.forRoot({
+    StoreRouterConnectingModule.forRoot({ serializer: DefaultRouterStateSerializer,
       stateKey: 'router' // name of reducer key
     }),
     // /**
