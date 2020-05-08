@@ -5,9 +5,11 @@
     "baseUrl": "./",
     "types": [ "node", "jest" ]
   },
-  "exclude": [
-    "src/test.ts",
-    "**/*.spec.ts",
-    "setup-jest.ts"
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
   ]
 }

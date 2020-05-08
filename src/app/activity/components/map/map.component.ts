@@ -13,7 +13,7 @@ import {Activity} from '../../model/activity/Activity_pb';
 })
 export class MapComponent implements  AfterViewInit, OnInit {
 
-  @ViewChild(Map, { static: false }) map;
+  @ViewChild(Map) map;
 
   @Input()
   public activity: Activity;
