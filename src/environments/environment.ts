@@ -11,21 +11,21 @@ export const environment = {
       // userPoolId: 'us-west-2_FrH0UdrNz',
       // userPoolWebClientId: '755f5d0elsg5ie96116540qm3u',
       region: 'ca-central-1',
-      userPoolId: 'ca-central-1_bcb6X1Muk',
-      userPoolWebClientId: '340uab8qcv4f1l7plmbaelvvu6',
+      userPoolId: 'ca-central-1_uTYfG6acX',
+      userPoolWebClientId: 'iod0j9ft7b913s7ao082tbstl',
       mandatorySignIn: true,
       authenticationFlowType: 'USER_PASSWORD_AUTH'
     },
     API: {
-      'aws_appsync_graphqlEndpoint': 'https://xuohcwldnjgdrga4fqvxk6vcwe.appsync-api.us-west-2.amazonaws.com/graphql',
-      'aws_appsync_region': 'us-west-2',
+      'aws_appsync_graphqlEndpoint': 'https://davocdlxgjhhhdyf5o26toeo7m.appsync-api.us-east-1.amazonaws.com/graphql',
+      'aws_appsync_region': 'us-east-1',
       'aws_appsync_authenticationType': 'AMAZON_COGNITO_USER_POOLS'
     }
   },
-  domain: 'staging.crunch.ski',
-  api: 'https://fgtcxjggck.execute-api.ca-central-1.amazonaws.com/staging/',
-  graphql: 'https://xuohcwldnjgdrga4fqvxk6vcwe.appsync-api.us-west-2.amazonaws.com/graphql',
+  domain: 'mccullough-solutions.ca',
+  api: 'dev-api.mccullough-solutions.ca',
+  graphql: 'https://davocdlxgjhhhdyf5o26toeo7m.appsync-api.us-east-1.amazonaws.com/graphql',
   // ws: 'wss://c4at2w51lg.execute-api.us-west-2.amazonaws.com/staging'
-   ws: 'wss://e289hwvqc6.execute-api.ca-central-1.amazonaws.com/staging'
+   ws: 'wss://d-moo9e7jyd7.execute-api.ca-central-1.amazonaws.com'
 
 };
