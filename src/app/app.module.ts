@@ -13,7 +13,7 @@ import {StoreModule} from '@ngrx/store';
 import {metaReducers, reducers} from './reducers';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
-import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
+import {RouterStateSerializer, StoreRouterConnectingModule, DefaultRouterStateSerializer} from '@ngrx/router-store';
 import {EffectsModule} from '@ngrx/effects';
 import {CustomRouterStateSerializer} from './shared/utils';
 import {LoggerService} from './shared/services/logger.service';
@@ -37,11 +37,17 @@ import {GraphQLModule} from './graphql.module';
     SharedModule,
     AuthModule.forRoot(),
     AppRoutingModule,
-    StoreModule.forRoot(reducers, {metaReducers}),
+    StoreModule.forRoot(reducers,
+      {metaReducers,
+        runtimeChecks: {
+          strictStateImmutability: false,
+          strictActionImmutability: false  // https://github.com/ngrx/platform/issues/2404
+        }
+      }),
     /**
      * @ngrx/router-store keeps router state up-to-date in the store.
      */
-    StoreRouterConnectingModule.forRoot({
+    StoreRouterConnectingModule.forRoot({ serializer: DefaultRouterStateSerializer,
       /*
         They stateKey defines the name of the state used by the router-store reducer.
         This matches the key defined in the map of reducers

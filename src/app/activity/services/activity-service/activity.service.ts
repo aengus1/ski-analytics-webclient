@@ -7,6 +7,7 @@ import * as fromActivity from '../../reducers/activity.reducer';
 import {ActivitySummaryService} from '../activity-summary-service/activity-summary.service';
 import {map, switchMap} from 'rxjs/operators';
 import {environment} from '../../../../environments/environment';
+import * as _ from 'lodash';
 
 
 @Injectable()
@@ -84,8 +85,7 @@ export class ActivityService {
           if (v.getId() === undefined || v.getId() == null) {
             v.setId('1');
           }
-          v.getValues().setTemperatureList([-21, -22]);
-          const res = [];
+          v.getValues().setTemperatureList( [-21, -22] );
           ActivitySummaryService.summarizeActivity(v, null, v, fromActivity.buildTsLookupMap(v));
           return v;
         }));

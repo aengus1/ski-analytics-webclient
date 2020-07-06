@@ -22,7 +22,7 @@ describe('UserSettingsFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UserSettingsFormComponent);
     component = fixture.componentInstance;
-    controller = TestBed.get(ApolloTestingController);
+    controller = TestBed.inject(ApolloTestingController);
     fixture.detectChanges();
   });
 

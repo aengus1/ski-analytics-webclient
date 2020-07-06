@@ -31,8 +31,8 @@ describe('SignupPageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SignupPageComponent);
     instance = fixture.componentInstance;
-    store = TestBed.get(Store);
-    modal = TestBed.get(NgbModal);
+    store = TestBed.inject(Store);
+    modal = TestBed.inject(NgbModal);
     spyOn(store, 'dispatch').and.callThrough();
   });
 

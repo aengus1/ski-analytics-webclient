@@ -119,8 +119,8 @@ export class ActivitySummaryService {
    * DESCENT is accumulated when consecutive readings have negative altitude change
    * if flat, will continue to accumulate asc/desc for 1 iteration based on previous value
    * @param {Activity} activity
-   * @param {Activity} the unfiltered activity used to get the original distance and timestamp of filtered values
-   * @param {Map<string, number>} lookup table.  This provides a lookup of timestamps to index in original unfiltered array.
+   * @param {Activity} unfiltered the unfiltered activity used to get the original distance and timestamp of filtered values
+   * @param {Map<string, number>} tsLookup lookup table.  This provides a lookup of timestamps to index in original unfiltered array.
    * Required so that the interval between a non-filtered and a filtered value can be calculated
    */
   private static calcAscentDescent(activity: Activity,  unfiltered: Activity, tsLookup: Map<string, number>) {
