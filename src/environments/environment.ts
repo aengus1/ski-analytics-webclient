@@ -7,9 +7,6 @@ export const environment = {
   production: false,
   amplify: {
     Auth: {
-      // region: 'us-west-2',
-      // userPoolId: 'us-west-2_FrH0UdrNz',
-      // userPoolWebClientId: '755f5d0elsg5ie96116540qm3u',
       region: 'ca-central-1',
       userPoolId: 'ca-central-1_uTYfG6acX',
       userPoolWebClientId: 'iod0j9ft7b913s7ao082tbstl',
@@ -23,9 +20,8 @@ export const environment = {
     }
   },
   domain: 'mccullough-solutions.ca',
-  api: 'dev-api.mccullough-solutions.ca',
+  api: 'https://dev-api.mccullough-solutions.ca/dev/',
   graphql: 'https://davocdlxgjhhhdyf5o26toeo7m.appsync-api.us-east-1.amazonaws.com/graphql',
-  // ws: 'wss://c4at2w51lg.execute-api.us-west-2.amazonaws.com/staging'
-   ws: 'wss://d-moo9e7jyd7.execute-api.ca-central-1.amazonaws.com'
+  ws: 'wss://qcp32et0k2.execute-api.ca-central-1.amazonaws.com/dev'
 
 };

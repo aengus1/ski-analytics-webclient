@@ -37,7 +37,13 @@ import {GraphQLModule} from './graphql.module';
     SharedModule,
     AuthModule.forRoot(),
     AppRoutingModule,
-    StoreModule.forRoot(reducers, {metaReducers}),
+    StoreModule.forRoot(reducers,
+      {metaReducers,
+        runtimeChecks: {
+          strictStateImmutability: false,
+          strictActionImmutability: false  // https://github.com/ngrx/platform/issues/2404
+        }
+      }),
     /**
      * @ngrx/router-store keeps router state up-to-date in the store.
      */

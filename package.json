@@ -47,7 +47,7 @@
     "d3": "^4.13.0",
     "d3-ng2-service": "^2.2.0",
     "font-awesome": "^4.7.0",
-    "google-protobuf": "^3.11.4",
+    "google-protobuf": "^3.7.1",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.10.3",
     "lodash.clonedeep": "^4.5.0",

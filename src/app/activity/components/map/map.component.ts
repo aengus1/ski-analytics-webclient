@@ -30,11 +30,13 @@ export class MapComponent implements  AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    this.latList = this.activity.getValues().getLatList().filter(x => x !== -999 && !isNaN(x));
-    this.lonList = this.activity.getValues().getLonList().filter(x => x !== -999 && !isNaN(x));
-    this.center = [this.lonList[0], this.latList[0]];
-    this.coords = [];
-    this.latList.forEach((x, i) => this.coords.push([this.lonList[i], x]));
+    if (this.activity) {
+      this.latList = this.activity.getValues().getLatList().filter(x => x !== -999 && !isNaN(x));
+      this.lonList = this.activity.getValues().getLonList().filter(x => x !== -999 && !isNaN(x));
+      this.center = [this.lonList[0], this.latList[0]];
+      this.coords = [];
+      this.latList.forEach((x, i) => this.coords.push([this.lonList[i], x]));
+    }
 
   }
   ngAfterViewInit() {
