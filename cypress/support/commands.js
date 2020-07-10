@@ -24,7 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 const { MailSlurp } = require("mailslurp-client");
-const key = "deb1d87fcb1ab8ad44eb998ae4a05016ced6fc9afe702f4eb095df3a5fbf9d64"
+const key = "deb1d87fcb1ab8ad44eb998ae4a05016ced6fc9afe702f4eb095df3a5fbf9d64";
 
 Cypress.Commands.add("newEmailAddress", () => {
   // instantiate MailSlurp
@@ -35,10 +35,10 @@ Cypress.Commands.add("newEmailAddress", () => {
 
 Cypress.Commands.add("waitForLatestEmail", (inboxId) => {
   const mailslurp = new MailSlurp({ apiKey: key });
-  return mailslurp.waitForLatestEmail(inboxId)
+  return mailslurp.waitForLatestEmail(inboxId);
 });
 
 Cypress.Commands.add("removeInbox", (inboxId) => {
   const mailslurp = new MailSlurp({ apiKey: key });
-  return mailslurp.deleteInbox(inboxId)
+  return mailslurp.deleteInbox(inboxId);
 });
