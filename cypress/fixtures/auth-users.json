@@ -1,0 +1,31 @@
+[
+  {
+    "type" : "wrong_pw",
+    "firstName" : "Aengus",
+    "lastName" : "McCullough",
+    "email": "aengusmccullough@hotmail.com",
+    "password": "myPassword123"
+  },
+  {
+    "type" : "invalid_email",
+    "firstName" : "Aengus",
+    "lastName" : "McCullough",
+    "email": "aengusmccullough.hotmail.com",
+    "password": "myPassword123"
+  },
+  {
+    "type" : "new_user",
+    "firstName" : "Aengus",
+    "lastName" : "McCullough",
+    "email": "aengus.mccullough@gmail.com",
+    "password": "MyPassword123"
+  },
+  {
+    "type" : "invalid_password",
+    "firstName" : "Aengus",
+    "lastName" : "McCullough",
+    "email": "aengus.mccullough@gmail.com",
+    "password": "noNumbersInPassword"
+  }
+
+]
