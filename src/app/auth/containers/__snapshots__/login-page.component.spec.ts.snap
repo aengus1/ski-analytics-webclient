@@ -31,8 +31,8 @@ exports[`LoginPageComponent should compile 1`] = `
       <img
         alt=""
         class="mb-4"
-        height="64"
-        src="../../../assets/images/logo_only.png"
+        height="61"
+        src="../../../../assets/images/logo_only.png"
         width="64"
       />
       <h1
@@ -50,6 +50,7 @@ exports[`LoginPageComponent should compile 1`] = `
         autocomplete="email"
         autofocus=""
         class="form-control ng-untouched ng-pristine ng-invalid"
+        data-test="email"
         formcontrolname="username"
         id="inputEmail"
         ng-reflect-name="username"
@@ -67,6 +68,7 @@ exports[`LoginPageComponent should compile 1`] = `
       <input
         autocomplete="current-password"
         class="form-control ng-untouched ng-pristine ng-invalid"
+        data-test="password"
         formcontrolname="password"
         id="inputPassword"
         ng-reflect-name="password"
@@ -77,10 +79,11 @@ exports[`LoginPageComponent should compile 1`] = `
       />
       <button
         class="btn btn-lg btn-primary btn-block"
+        data-test="submit"
         disabled=""
         type="submit"
       >
-        Sign in
+         Sign in 
       </button>
       <br />
       
@@ -98,6 +101,7 @@ exports[`LoginPageComponent should compile 1`] = `
       <div>
          No account? 
         <a
+          data-test="register"
           routerlink="/signup"
           routerlinkactive="active"
         >
