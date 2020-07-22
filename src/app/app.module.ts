@@ -24,6 +24,7 @@ import {AuthGuard} from './auth/guards/auth.guard';
 import {AuthService} from './auth/services/auth.service';
 import {ErrorInterceptor, TokenInterceptor} from './auth/services/token.service';
 import {GraphQLModule} from './graphql.module';
+import {SearchModule} from './search/search.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {GraphQLModule} from './graphql.module';
     FormsModule,
     HttpClientModule,
     ActivityModule,
+    SearchModule,
     SharedModule,
     AuthModule.forRoot(),
     AppRoutingModule,
@@ -72,6 +74,7 @@ import {GraphQLModule} from './graphql.module';
   providers: [
     SharedModule,
     ActivityModule,
+    SearchModule,
     ChartModule,
     {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
     {provide: LoggerService, useClass: ConsoleLoggerService},

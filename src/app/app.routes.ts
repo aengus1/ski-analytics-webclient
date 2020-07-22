@@ -14,6 +14,11 @@ const appRoutes: Routes = [
     loadChildren: () => import('./activity/activity.module').then(m => m.ActivityModule),
     canLoad: [AuthGuard]
   },
+  {
+    path: 'search',
+    loadChildren: () => import('./search/search.module').then(m => m.SearchModule),
+    canLoad: [AuthGuard]
+  },
   { path: '**', component: NotFoundComponent}
 ];
 
