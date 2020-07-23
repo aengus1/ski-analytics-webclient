@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from '../auth/guards/auth.guard';
-import {SearchRootComponent} from './components/search-root/search-root.component';
+import {SearchRootComponent} from './containers/search-root/search-root.component';
 import {ViewSearchPageComponent} from './components/view-search-page/view-search-page.component';
 
 const searchRoutes: Routes = [

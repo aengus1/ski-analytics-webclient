@@ -9,6 +9,38 @@ export type Scalars = {
   Float: number,
 };
 
+export type ActivitySearchResult = {
+  id: Scalars['ID'],
+  activityType?: Maybe<Scalars['String']>,
+  activitySubType?: Maybe<Scalars['String']>,
+  ascent?: Maybe<Scalars['Int']>,
+  descent?: Maybe<Scalars['Int']>,
+  maxHr?: Maybe<Scalars['Int']>,
+  avHr?: Maybe<Scalars['Int']>,
+  duration?: Maybe<Scalars['Int']>,
+  distance?: Maybe<Scalars['Int']>,
+  maxSpeed?: Maybe<Scalars['Float']>,
+  avSpeed?: Maybe<Scalars['Float']>,
+  device?: Maybe<Scalars['String']>,
+  date?: Maybe<Scalars['String']>,
+  lastUpdate?: Maybe<Scalars['String']>,
+};
+
+export type Criteria = {
+  name?: Maybe<Scalars['String']>,
+  value?: Maybe<Scalars['String']>,
+  operator?: Maybe<Operator>,
+  type?: Maybe<DataType>,
+};
+
+export enum DataType {
+  String = 'STRING',
+  Int = 'INT',
+  Float = 'FLOAT',
+  Boolean = 'BOOLEAN',
+  Date = 'DATE'
+}
+
 export type Mutation = {
   addUser?: Maybe<User>,
   saveHeight?: Maybe<User>,
@@ -22,34 +54,33 @@ export type Mutation = {
 
 
 export type MutationAddUserArgs = {
-  userId: Scalars['ID'],
-  height?: Maybe<Scalars['Int']>,
-  weight?: Maybe<Scalars['Int']>,
-  gender?: Maybe<Scalars['Int']>,
-  hrZones?: Maybe<Array<Maybe<Scalars['Int']>>>
+  height: Scalars['Int'],
+  weight: Scalars['Int'],
+  gender: Scalars['Int'],
+  hrZones: Array<Maybe<Scalars['Int']>>
 };
 
 
 export type MutationSaveHeightArgs = {
-  userId: Scalars['ID'],
+  id: Scalars['ID'],
   height: Scalars['Int']
 };
 
 
 export type MutationSaveWeightArgs = {
-  userId: Scalars['ID'],
+  id: Scalars['ID'],
   weight: Scalars['Int']
 };
 
 
 export type MutationSaveGenderArgs = {
-  userId: Scalars['ID'],
+  id: Scalars['ID'],
   gender: Scalars['String']
 };
 
 
 export type MutationSaveHrZonesArgs = {
-  userId: Scalars['ID'],
+  id: Scalars['ID'],
   hrZones: Array<Maybe<Scalars['Int']>>
 };
 
@@ -72,8 +103,56 @@ export type MutationRenameTagArgs = {
   newName: Scalars['String']
 };
 
+export enum Operator {
+  Eq = 'EQ',
+  Ne = 'NE',
+  Gt = 'GT',
+  Gte = 'GTE',
+  Lt = 'LT',
+  Lte = 'LTE',
+  Like = 'LIKE',
+  StartsWith = 'STARTS_WITH'
+}
+
+export type OrderInfo = {
+  attribute: Scalars['String'],
+  asc?: Maybe<Scalars['Boolean']>,
+};
+
+export type PageInfo = {
+  pageSize?: Maybe<Scalars['Int']>,
+  pageNumber?: Maybe<Scalars['Int']>,
+};
+
+export type Parameter = {
+  name?: Maybe<Scalars['String']>,
+  value?: Maybe<Scalars['String']>,
+  type?: Maybe<ParamType>,
+};
+
+export enum ParamType {
+  String = 'STRING',
+  Boolean = 'BOOLEAN',
+  Number = 'NUMBER'
+}
+
 export type Query = {
   getUser?: Maybe<User>,
+  getActivities: Array<Maybe<Scalars['String']>>,
+  searchActivities?: Maybe<Array<Maybe<ActivitySearchResult>>>,
+};
+
+
+export type QueryGetActivitiesArgs = {
+  sql: Scalars['String'],
+  parameters: Array<Maybe<Parameter>>
+};
+
+
+export type QuerySearchActivitiesArgs = {
+  predicates: Array<Maybe<Criteria>>,
+  pagination?: Maybe<PageInfo>,
+  order?: Maybe<OrderInfo>
 };
 
 export type Schema = {
@@ -91,3 +170,4 @@ export type User = {
   devices?: Maybe<Array<Maybe<Scalars['String']>>>,
   activityTypes?: Maybe<Array<Maybe<Scalars['String']>>>,
 };
+

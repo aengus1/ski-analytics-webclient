@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'search-root',
-  templateUrl: './search-root.component.html',
-  styleUrls: ['./search-root.component.scss']
+  selector: 'app-search-root',
+  template: `<router-outlet></router-outlet>`
 })
 export class SearchRootComponent implements OnInit {
 
