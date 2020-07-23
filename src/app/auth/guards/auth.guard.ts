@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate, CanLoad {
           if (!loggedIn) {
             this.store.dispatch(new LoginRedirect());
             // this.router.navigate(['/signin']);
-          }else {
+          } else {
             console.log('logged in');
           }
         })
