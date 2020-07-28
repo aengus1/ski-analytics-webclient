@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs';
-
+import * as fromSearch from '../../reducers/search.reducer';
 import {select, Store} from '@ngrx/store';
 import {SearchComponent} from '../../components/search/search.component';
 import {ActivitySearchResult} from '../../../../generated/graphql';
@@ -10,8 +10,7 @@ import {ActivitySearchResult} from '../../../../generated/graphql';
   template: `<app-search-module
     [searchResults] = "searchResults$ | async"
     (messageEvent)="receiveMessage($event)">
-  </app-search-module>`,
-  styleUrls: ['./search-container.component.scss']
+  </app-search-module>`
 })
 export class SearchContainerComponent  {
   searchResults$: Observable<ActivitySearchResult[]>;
@@ -19,6 +18,10 @@ export class SearchContainerComponent  {
 
   constructor(private store: Store<fromSearch.State>) {
     this.searchResults$ = store.pipe(select(fromSearch.getSearchResults));
+
+    this.searchResults$.subscribe(x => {
+      console.log('received search results..: ' + x);
+    });
   }
 
 

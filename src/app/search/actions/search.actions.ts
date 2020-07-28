@@ -1,15 +1,31 @@
 import {Action} from '@ngrx/store';
-import {Criteria, OrderInfo, PageInfo} from '../../../generated/graphql';
+import {ActivitySearchResult, Criteria, OrderInfo, PageInfo} from '../../../generated/graphql';
 
 export enum SearchActionTypes {
-  Search= '[Search] Search Activities'
-
+  SearchRequest= '[Search] Search Request Activities',
+  SearchResponse = '[Search] Search Response Activities',
+  SearchError = '[Search] Search Error'
 }
 
-export class Search implements Action {
+export class SearchRequest implements Action {
 
-  readonly type = SearchActionTypes.Search;
+  readonly type = SearchActionTypes.SearchRequest;
   constructor(public criteria: Criteria[], public pagination: PageInfo, public orderInfo: OrderInfo) {}
 }
 
-export type SearchActions = Search;
+export class SearchResponse implements Action {
+
+  readonly type = SearchActionTypes.SearchResponse;
+  constructor(public response: ActivitySearchResult[]) {}
+}
+
+
+export class SearchError implements Action {
+
+  readonly type = SearchActionTypes.SearchError;
+  constructor() {}
+}
+
+
+
+export type SearchActions = SearchRequest | SearchResponse | SearchError;

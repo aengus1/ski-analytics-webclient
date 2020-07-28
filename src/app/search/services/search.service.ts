@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ActivitySearchResult, Criteria, OrderInfo, PageInfo} from '../../../generated/graphql';
+import {ActivitySearchResult, Criteria, Maybe, OrderInfo, PageInfo, Scalars} from '../../../generated/graphql';
 import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
 import {Observable} from 'rxjs';
@@ -11,20 +11,45 @@ export class SearchService {
   }
 
   public search(criteria: Criteria[], pagination: PageInfo, orderInfo: OrderInfo): ActivitySearchResult[] {
-    const SearchActivities = gql`
-      query searchActivities{
-        searchActivities(predicates: criteria, pagination: pagination, order: orderInfo){
-          id,
-          activitySubType,
-          activityType
-        }
-      }
-    `;
 
-      return this.apollo.query<any>({
-      query: SearchActivities
-    });
+    // // mutation saveHeight($userId: ID!, $height: Int!) {
+    // //   saveHeight(id: $userId, height: $height) {
+    //
+    //
+    //   return this.apollo.query<any>({
+    //   query: SearchActivities
+    // });
+  console.log('SEARCH SERVICE CALLED');
+    const dummyResult: ActivitySearchResult  = {
+      id: 'test123',
+      activityType: 'XC_SKIING',
+      activitySubType: 'SKATE',
+      ascent: 100,
+      descent: 200,
+      maxHr: 160,
+      avHr: 110,
+      duration: 50,
+      distance: 100,
+      maxSpeed: 20,
+      avSpeed: 10,
+      device: 'applewatch',
+      date: '20200731',
+      lastUpdate: '20200730'
+    };
 
-    return new Array<ActivitySearchResult>();
+    const res: Array<ActivitySearchResult>  = new Array<ActivitySearchResult>();
+    res.push(dummyResult);
+
+    return res;
   }
 }
+
+// const SearchActivities = gql`
+//   query searchActivities{
+//     searchActivities(predicates: [Criteria], pagination: PageInfo, order: OrderInfo){
+//       id,
+//       activitySubType,
+//       activityType
+//     }
+//   }
+// `;

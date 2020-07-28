@@ -1,19 +1,15 @@
-import {
-  SearchActions,
-  SearchActionTypes,
-  Search
-} from '../actions/search.actions';
+import {SearchResponse, SearchRequest, SearchActions, SearchActionTypes} from '../actions/search.actions';
 
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 import {SearchService} from '../services/search.service';
 import {ActivitySearchResult} from '../../../generated/graphql';
 
 
-export interface State extends EntityState<Search> {
+export interface State extends EntityState<SearchResponse> {
   searchResults: Array<ActivitySearchResult>;
 }
 
-export const adapter: EntityAdapter<Search> = createEntityAdapter<Search>({
+export const adapter: EntityAdapter<SearchResponse> = createEntityAdapter<SearchResponse>({
   sortComparer: false
 });
 
@@ -24,14 +20,22 @@ export const initialState: State = adapter.getInitialState({
 
 export function reducer(state = initialState, action: SearchActions): State {
 
+  console.log('reducer called with ' + action.type);
   switch (action.type) {
 
-    case SearchActionTypes.Search: {
-      const query: Search = <Search>action;
-      const results = SearchService.search(query.criteria, query.pagination, query.orderInfo);
+    // case SearchActionTypes.SearchRequest: {
+    //   const query: Search = <Search>action;
+    //   const results =   SearchService.search(query.criteria, query.pagination, query.orderInfo);
+    //   return {
+    //     ...state,
+    //     searchResults: results
+    //   };
+    // },
+    case SearchActionTypes.SearchResponse: {
+      console.log('action response = ' + action.response[0].id);
       return {
         ...state,
-        searchResults: results
+        searchResults: action.response
       };
     }
   }
