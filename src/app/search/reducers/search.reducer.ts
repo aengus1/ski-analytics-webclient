@@ -38,6 +38,9 @@ export function reducer(state = initialState, action: SearchActions): State {
         searchResults: action.response
       };
     }
+    default: {
+      return state;
+    }
   }
 }
 

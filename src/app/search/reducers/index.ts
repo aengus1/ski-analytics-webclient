@@ -29,9 +29,17 @@ export const getSearchState = createFeatureSelector<SearchState>('search');
 
 export const getLayoutState = createFeatureSelector<fromLayout.State>('layout');
 
+export const getSearchEntitiesState = createSelector(
+  getSearchState,
+  state => state.search
+);
 
+// export const selectSearchResults =  (state: SearchState) => state.search.searchResults;
 
-export const selectSearchResults = (state: SearchState) => state.search;
+export const selectSearchResults = createSelector(
+  getSearchEntitiesState,
+  state => state.searchResults
+);
 
 
 
