@@ -48,6 +48,13 @@ import {reducers} from '../search/reducers';
   providers: [
     SearchService, LoggerService
   ],
-  exports: []
+  exports: [
+    SearchBarComponent,
+    SearchResultsComponent,
+    SearchComponent,
+    SearchRootComponent,
+    ViewSearchResultComponent,
+    SearchContainerComponent
+  ]
 })
 export class SearchModule { }

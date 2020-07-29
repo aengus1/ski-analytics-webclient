@@ -20,19 +20,10 @@ export const initialState: State = adapter.getInitialState({
 
 export function reducer(state = initialState, action: SearchActions): State {
 
-  console.log('reducer called with ' + action.type);
   switch (action.type) {
 
-    // case SearchActionTypes.SearchRequest: {
-    //   const query: Search = <Search>action;
-    //   const results =   SearchService.search(query.criteria, query.pagination, query.orderInfo);
-    //   return {
-    //     ...state,
-    //     searchResults: results
-    //   };
-    // },
     case SearchActionTypes.SearchResponse: {
-      console.log('action response = ' + action.response[0].id);
+      // console.log('action response = ' + action.response[0].id);
       return {
         ...state,
         searchResults: action.response
