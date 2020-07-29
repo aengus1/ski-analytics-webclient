@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search Reducer should return the default state 1`] = `
+Object {
+  "entities": Object {},
+  "ids": Array [],
+  "searchResults": Array [],
+}
+`;

@@ -17,7 +17,10 @@ export class SearchEffects {
   updateFilter$  = this.actions$.pipe(
     ofType<SearchRequest>(SearchActionTypes.SearchRequest),
     map(p => {
-      return new SearchResponse(this.searchService.search(p.criteria, p.pagination, p.orderInfo));
+      console.log('p = ' + JSON.stringify(p));
+      this.searchService.search(p.criteria, p.pagination, p.orderInfo).subscribe(x => {
+        return new SearchResponse(x);
+      });
     }));
 
 
