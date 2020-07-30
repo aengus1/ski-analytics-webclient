@@ -21,7 +21,7 @@ export class ViewSearchResultComponent implements OnDestroy {
   constructor(store: Store<fromSearch.State>, route: ActivatedRoute) {
     this.actionsSubscription = route.paramMap
       .pipe(map(paramMap => {
-          console.log('view search results params = ' + JSON.stringify(paramMap));
+          // console.log('view search results params = ' + JSON.stringify(paramMap));
           // console.log(paramMap.get('criteria'));
           const predicates: Criteria[] = JSON.parse(paramMap.get('criteria'));
           const pagination: PageInfo = JSON.parse(paramMap.get('pagination'));

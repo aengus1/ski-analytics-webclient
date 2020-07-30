@@ -26,7 +26,7 @@ export function reducer(state = initialState, action: SearchActions): State {
       // console.log('action response = ' + action.response[0].id);
       return {
         ...state,
-        searchResults: action.response
+        searchResults: action.response['searchActivities']
       };
     }
     default: {
