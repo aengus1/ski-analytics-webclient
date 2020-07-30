@@ -12,8 +12,8 @@ export class SearchService {
   }
 
   private searchActivitiesQuery = gql`
-    query searchActivities($criteria: [Criteria]!, $pagination: PageInfo, $order: OrderInfo) {
-      searchActivities(predicates: $criteria, pagination: $pagination, order: $order) {
+    query searchActivities($predicates: [Criteria]!, $pagination: PageInfo, $order: OrderInfo) {
+      searchActivities(predicates: $predicates, pagination: $pagination, order: $order) {
         id,
         activityType,
         activitySubType,
@@ -38,7 +38,7 @@ export class SearchService {
    return this.apollo.query<ActivitySearchResult[]>({
      query: this.searchActivitiesQuery,
      variables: {
-       criteria: criteria,
+       predicates: criteria,
        pagination: pagination,
        order: orderInfo
      }

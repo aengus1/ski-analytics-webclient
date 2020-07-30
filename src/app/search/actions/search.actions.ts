@@ -23,7 +23,7 @@ export class SearchResponse implements Action {
 export class SearchError implements Action {
 
   readonly type = SearchActionTypes.SearchError;
-  constructor() {}
+  constructor(public message: String) {}
 }
 
 
