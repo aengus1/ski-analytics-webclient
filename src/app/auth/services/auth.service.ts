@@ -135,20 +135,20 @@ export class AuthService {
    */
   public async getToken(): Promise<string> {
     let user: any = sessionStorage.getItem('userId');
-    console.log('user from token = ' + JSON.parse(user));
+    // console.log('user from token = ' + JSON.parse(user));
     const expiry: number = Number.parseInt(sessionStorage.getItem('tokenExp'), 10);
     const now = new Date();
     const nowSeconds = Math.round(now.getTime() / 1000);
-    console.log('expiry = ' + expiry);
-    console.log('nowsec = ' + nowSeconds);
-    console.log('user = ' + user);
+    // console.log('expiry = ' + expiry);
+    // console.log('nowsec = ' + nowSeconds);
+    // console.log('user = ' + user);
     if (user != null && (nowSeconds <= (expiry - 60))) {
       // console.log('jwtToken = ' + user.signInUserSession.idToken.jwtToken);
       user = JSON.parse(user);
-      console.log('returning: ' + user);
+      // console.log('returning: ' + user);
       return user; // .signInUserSession.idToken.jwtToken;
     } else {
-      console.log('calling refresh token from gettoken');
+      // console.log('calling refresh token from gettoken');
       return this.refreshToken();
     }
   }

@@ -31,7 +31,7 @@ export class TokenInterceptor implements HttpInterceptor {
       });
       return;
     }
-    console.log('requesting token....');
+    //console.log('requesting token....');
     return this.authService.getTokenAsObservable().pipe(
       mergeMap((token: string) => {
         console.log('auth token request fulfilled : ' + token);

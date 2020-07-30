@@ -14,14 +14,14 @@ export const environment = {
       authenticationFlowType: 'USER_PASSWORD_AUTH'
     },
     API: {
-      'aws_appsync_graphqlEndpoint': 'https://davocdlxgjhhhdyf5o26toeo7m.appsync-api.us-east-1.amazonaws.com/graphql',
+      'aws_appsync_graphqlEndpoint': 'https://br4alynpkbgzlngox7gwtux57e.appsync-api.ca-central-1.amazonaws.com/graphql',
       'aws_appsync_region': 'us-east-1',
       'aws_appsync_authenticationType': 'AMAZON_COGNITO_USER_POOLS'
     }
   },
   domain: 'mccullough-solutions.ca',
   api: 'https://dev-api.mccullough-solutions.ca/dev/',
-  graphql: 'https://davocdlxgjhhhdyf5o26toeo7m.appsync-api.us-east-1.amazonaws.com/graphql',
+  graphql: 'https://br4alynpkbgzlngox7gwtux57e.appsync-api.ca-central-1.amazonaws.com/graphql',
   ws: 'wss://qcp32et0k2.execute-api.ca-central-1.amazonaws.com/dev'
 
 };
