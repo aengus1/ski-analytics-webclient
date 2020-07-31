@@ -1,7 +1,51 @@
 <div *ngIf="searchResults">
-  <p>search-results works! count: {{searchResults.length}}</p>
-  <div *ngFor="let result of searchResults">
-    <div>{{result.id}}</div>
+  <div class="search-results">
+    <app-page-number-display
+      [pageCount]="2"
+      [pageNumber]="5"
+      (refresh)="receiveEvent($event)"
+    >
+    </app-page-number-display>
+    <!-- todo insert column selector -->
+
+    <table class="table table-hover table-sm table-responsive">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Type</th>
+          <th scope="col">Sub Type</th>
+          <th scope="col">Date</th>
+          <th scope="col">Distance</th>
+          <th scope="col">Duration</th>
+          <th scope="col">Ascent</th>
+          <th scope="col">Descent</th>
+          <th scope="col">Max Hr</th>
+          <th scope="col">Av Hr</th>
+          <th scope="col">Max Speed</th>
+          <th scope="col">Av Speed</th>
+          <th scope="col">Last Update</th>
+          <th scope="col">Device</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let result of searchResults">
+          <th><a href="activity/{{result.id}}">{{result.id}}</a></th>
+          <td>{{result.activityType}}</td>
+          <td>{{result.activitySubType}}</td>
+          <td>{{result.date | date: 'dd MMM yyyy'}}</td>
+          <td>{{result.distance}}</td>
+          <td>{{result.duration}}</td>
+          <td>{{result.ascent}}</td>
+          <td>{{result.descent}}</td>
+          <td>{{result.maxHr}}</td>
+          <td>{{result.avHr}}</td>
+          <td>{{result.maxSpeed}}</td>
+          <td>{{result.avSpeed}}</td>
+          <td>{{result.lastUpdate}}</td>
+          <td>{{result.device}}</td>
+        </tr>
+      </tbody>
+    </table>
 
   </div>
 </div>

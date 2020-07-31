@@ -23,6 +23,13 @@ export class SearchContainerComponent  {
 
 
   receiveMessage($event) {
+    switch ($event.name) {
+      case 'refresh' : {
+        console.log('calling refresh from search container');
+        // todo -> refresh page
+      }
+
+    }
   }
 
 }

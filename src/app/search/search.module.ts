@@ -20,6 +20,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {SearchEffects} from './effects/search.effects';
 import {StoreModule} from '@ngrx/store';
 import {reducers} from '../search/reducers';
+import { PageNumberDisplayComponent } from './components/page-number-display/page-number-display.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import {reducers} from '../search/reducers';
     SearchResultsComponent,
     SearchComponent,
     ViewSearchResultComponent,
-    SearchContainerComponent
+    SearchContainerComponent,
+    PageNumberDisplayComponent
   ],
   providers: [
     SearchService, LoggerService
