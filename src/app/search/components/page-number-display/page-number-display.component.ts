@@ -22,14 +22,15 @@ export class PageNumberDisplayComponent  implements OnInit {
 
 }
 
-  // using typescript setter to intercept change event in order to call calcPagination
-  @Input()
+
   set resultCount(val: number) {
     console.log('result count set with ' + val);
     this.calcPagination();
     this._resultCount = val;
   }
 
+// using typescript setter to intercept change event in order to call calcPagination
+  @Input()
   get resultCount(): number {
     return this._resultCount;
   }

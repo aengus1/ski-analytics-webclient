@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, NO_ERRORS_SCHEMA, OnInit, Output} from '@angular/core';
 import {ActivitySearchResult} from '../../../../generated/graphql';
 import {MessageEvent} from '../../../shared/utils';
 import {IntervalPipe} from '../../../shared/pipes/interval.pipe';

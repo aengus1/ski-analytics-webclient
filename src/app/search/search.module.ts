@@ -56,7 +56,8 @@ import { PageNumberDisplayComponent } from './components/page-number-display/pag
     SearchComponent,
     SearchRootComponent,
     ViewSearchResultComponent,
-    SearchContainerComponent
+    SearchContainerComponent,
+    PageNumberDisplayComponent
   ]
 })
 export class SearchModule { }
