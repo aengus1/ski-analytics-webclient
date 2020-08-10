@@ -2,10 +2,25 @@
   <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
-      <h2> Settings</h2>
+      <h2>Settings</h2>
     </div>
   </div>
   <div class="row">
+    <div class="col-md-12">
+      <nav class="nav nav-tabs">
+        <a class="nav-link" [ngClass]="{active: activeTab==='profile'}" (click)="setTab('profile')" [routerLink]="">Profile</a>
+        <a class="nav-link" [ngClass]="{active: activeTab==='units'}" (click)="setTab('units')" [routerLink]="">Units</a>
+      </nav>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+    <hr/>
+    </div>
+  </div>
+  <!-- profile tab -->
+  <div class="row" *ngIf="activeTab=='profile'">
     <div class="col-md-3"></div>
     <div class="col-md-6">
       <ul class="list-group list-group-hover">
@@ -274,5 +289,133 @@
       </ul>
     </div>
   </div>
+  <!-- units tab -->
+  <div class="row" *ngIf="activeTab=='units'">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <ul class="list-group list-group-hover">
+        <!-- Distance display -->
+        <li class="list-group-item "><span class="h6">Distance</span>
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-2">miles</div>
+            <div class="col-md-2">
+              <ui-switch
+                size="small"
+                color="white"
+                switchColor="#52A6D5"
+                switchOffColor="#52A6D5"
+                [(ngModel)]="kms"
+                (change)="updateDist(kms)"
+              ></ui-switch>
+            </div>
+            <div class="col-md-2">Km</div>
+            <div class="col-md-3"></div>
+          </div>
+        </li>
+        <!-- Pace display -->
+        <li class="list-group-item "><span class="h6">Pace</span>
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+              <div *ngIf="kms" class="btn-group btn-group-sm" role="group" aria-label="pace display">
+                <input
+                  type="button"
+                  class="btn btn-light"
+                  [ngClass]="{'active': pace===1}"
+                  value="m / s"
+                  (click)="updatePace(1)"
+                  name="pacebtn"
+                >
+                <input
+                  type="button"
+                  class="btn btn-light"
+                  name="pacebtn"
+                  [ngClass]="{'active': pace===2}"
+                  value="km / h"
+                  (click)="updatePace(2)"
+                >
+
+                <input
+                  type="button"
+                  class="btn btn-light"
+                  name="pacebtn"
+                  [ngClass]="{'active': pace===3}"
+                  value="mins / km"
+                  (click)="updatePace(3)"
+                >
+              </div>
+              <div *ngIf="!kms" class="btn-group btn-group-sm" role="group" aria-label="pace display">
+                <input
+                  type="button"
+                  class="btn btn-light"
+                  name="pacebtn"
+                  [ngClass]="{'active': pace===4}"
+                  value="ft / sec"
+                  (click)="updatePace(4)"
+                >
+                <input
+                  type="button"
+                  class="btn btn-light"
+                  name="pacebtn"
+                  [ngClass]="{'active': pace===5}"
+                  value="mph"
+                  (click)="updatePace(5)"
+                >
+                <input
+                  type="button"
+                  class="btn btn-light"
+                  name="pacebtn"
+                  [ngClass]="{'active': pace===6}"
+                  value="mins / mile"
+                  (click)="updatePace(6)"
+                >
+              </div>
+            </div>
+            <div class="col-md-3"></div>
+          </div>
+        </li>
+        <!-- Time display -->
+        <li class="list-group-item "><span class="h6">Time</span>
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-2">24hr</div>
+            <div class="col-md-2">
+              <ui-switch
+                size="small"
+                color="white"
+                switchColor="#52A6D5"
+                switchOffColor="#52A6D5"
+                [(ngModel)]="twelveHr"
+                (change)="updateTime()"
+              ></ui-switch>
+            </div>
+            <div class="col-md-2">12hr</div>
+            <div class="col-md-3"></div>
+          </div>
+        </li>
+        <!-- Date display -->
+        <li class="list-group-item "><span class="h6">Date</span>
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-3">mm/dd/yyyy</div>
+            <div class="col-md-2">
+              <ui-switch
+                size="small"
+                color="white"
+                switchColor="#52A6D5"
+                switchOffColor="#52A6D5"
+                [(ngModel)]="ddmm"
+                (change)="updateDate()"
+              ></ui-switch>
+            </div>
+            <div class="col-md-3">dd/mm/yyyy</div>
+            <div class="col-md-2"></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
 </div>
 

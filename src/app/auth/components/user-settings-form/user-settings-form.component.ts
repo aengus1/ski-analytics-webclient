@@ -5,6 +5,7 @@ import {User} from '../../../../generated/graphql';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UiSwitchComponent} from 'ngx-toggle-switch';
 
 
 @Component({
@@ -13,6 +14,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./user-settings-form.component.scss']
 })
 export class UserSettingsFormComponent implements OnInit, AfterContentChecked {
+
+  private activeTab = 'profile';
 
   constructor(private apollo: Apollo, private cdRef: ChangeDetectorRef) {
   }
@@ -29,7 +32,10 @@ export class UserSettingsFormComponent implements OnInit, AfterContentChecked {
   initHrZone = [];
   userId: string = null;
 
-
+  kms = true;
+  pace = 1;
+  twelveHr = true;
+  ddmm = true;
   private saveHeightQuery = gql`
   mutation saveHeight($userId: ID!, $height: Int!) {
     saveHeight(id: $userId, height: $height) {
@@ -171,4 +177,29 @@ export class UserSettingsFormComponent implements OnInit, AfterContentChecked {
     }
   }
 
+  setTab(val: string) {
+    this.activeTab = val;
+  }
+
+  updatePace(val: number) {
+    this.pace = val;
+    this.saveUnits();
+  }
+
+
+  updateDist(kms: boolean) {
+    this.pace = kms ? this.pace + 3 : this.pace - 3;
+    this.saveUnits();
+  }
+
+  updateTime() {
+    this.saveUnits();
+  }
+  updateDate() {
+    this.saveUnits();
+  }
+
+  saveUnits() {
+    // todo -> serialize unit values
+  }
 }
