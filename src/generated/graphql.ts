@@ -24,6 +24,7 @@ export type ActivitySearchResult = {
   device?: Maybe<Scalars['String']>,
   date?: Maybe<Scalars['String']>,
   lastUpdate?: Maybe<Scalars['String']>,
+  count?: Maybe<Scalars['Int']>,
 };
 
 export type Criteria = {

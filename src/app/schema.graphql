@@ -13,11 +13,7 @@ type ActivitySearchResult {
   device: String
   date: String
   lastUpdate: String
-
-  pageCount: Int
-  pageNumber: Int
-  resultCount: Int
-
+  count: Int
 }
 
 input Parameter {

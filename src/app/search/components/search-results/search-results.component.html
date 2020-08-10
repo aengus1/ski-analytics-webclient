@@ -1,8 +1,7 @@
 <div *ngIf="searchResults">
   <div class="search-results">
     <app-page-number-display
-      [pageCount]="2"
-      [pageNumber]="5"
+      [resultCount] = "searchResults[0].count"
       (refresh)="receiveEvent($event)"
     >
     </app-page-number-display>
@@ -12,9 +11,10 @@
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Type</th>
+          <th scope="col">Type <span *ngIf="sortCol=='Type'" class="fa fa-chevron-down"></span></th>
           <th scope="col">Sub Type</th>
           <th scope="col">Date</th>
+          <th scope="col">Time of Day</th>
           <th scope="col">Distance</th>
           <th scope="col">Duration</th>
           <th scope="col">Ascent</th>
@@ -30,11 +30,12 @@
       <tbody>
         <tr *ngFor="let result of searchResults">
           <th><a href="activity/{{result.id}}">{{result.id}}</a></th>
-          <td>{{result.activityType}}</td>
+          <td><img src="assets/images/xc_ski.svg" width="20px" height="20px"/></td>
           <td>{{result.activitySubType}}</td>
           <td>{{result.date | date: 'dd MMM yyyy'}}</td>
+          <td> {{result.date | date: 'HH:mm:ss'}}</td>
           <td>{{result.distance}}</td>
-          <td>{{result.duration}}</td>
+          <td>{{result.duration | interval }}</td>
           <td>{{result.ascent}}</td>
           <td>{{result.descent}}</td>
           <td>{{result.maxHr}}</td>

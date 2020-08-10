@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActivitySearchResult} from '../../../../generated/graphql';
 import {MessageEvent} from '../../../shared/utils';
+import {IntervalPipe} from '../../../shared/pipes/interval.pipe';
 
 @Component({
   selector: 'app-search-results',
@@ -15,9 +16,22 @@ export class SearchResultsComponent {
   @Output()
   public changeEvent: EventEmitter<MessageEvent<any>> = new EventEmitter<MessageEvent<any>>();
 
+  private sortCol: string;
+  private sortAsc = false;
+
   // propogate events..
   receiveEvent($event) {
     this.changeEvent.emit($event);
   }
 
+  sort(column: string) {
+    if (column === this.sortCol) {
+      this.sortAsc = !this.sortAsc;
+    } else {
+      this.sortCol = column;
+      this.sortAsc = false;
+    }
+
+    // update route and refresh
+  }
 }
