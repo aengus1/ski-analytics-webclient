@@ -3,6 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SearchResultsComponent } from './search-results.component';
 import {IntervalPipe} from '../../../shared/pipes/interval.pipe';
 import {SharedModule} from '../../../shared/shared.module';
+import {PageNumberDisplayComponent} from '../page-number-display/page-number-display.component';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('SearchResultsComponent', () => {
   let component: SearchResultsComponent;
@@ -10,8 +12,8 @@ describe('SearchResultsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchResultsComponent ],
-      imports: [SharedModule]
+      declarations: [ SearchResultsComponent, PageNumberDisplayComponent ],
+      imports: [SharedModule, RouterTestingModule]
     })
     .compileComponents();
   }));

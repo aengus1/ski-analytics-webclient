@@ -4,6 +4,8 @@ import {UserSettingsFormComponent} from './user-settings-form.component';
 import {ApolloTestingController, ApolloTestingModule} from 'apollo-angular/testing';
 import {Apollo} from 'apollo-angular';
 import {ReactiveFormsModule} from '@angular/forms';
+import {UiSwitchModule} from 'ngx-toggle-switch';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('UserSettingsFormComponent', () => {
   let controller: ApolloTestingController;
@@ -12,7 +14,7 @@ describe('UserSettingsFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ApolloTestingModule, ReactiveFormsModule],
+      imports: [ApolloTestingModule, ReactiveFormsModule, UiSwitchModule, RouterTestingModule],
       declarations: [ UserSettingsFormComponent ],
       providers: [Apollo]
     })
