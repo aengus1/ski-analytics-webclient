@@ -14,8 +14,7 @@ const searchRoutes: Routes = [
         canActivate: [AuthGuard]
       },
       {path: '',
-        /*component: SearchComponent,  debugging*/
-        component: NotFoundComponent,
+        component: SearchComponent,
         canActivate: [AuthGuard]
       }
     ]
