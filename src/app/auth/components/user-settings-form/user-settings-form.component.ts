@@ -2,7 +2,7 @@ import {AfterContentChecked, ChangeDetectorRef, Component, OnDestroy, OnInit} fr
 import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
 import {User} from '../../../../generated/graphql';
-import {Observable, Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {GetUserGQL} from './get-user.gql';
@@ -13,7 +13,7 @@ import {GetUserGQL} from './get-user.gql';
   templateUrl: './user-settings-form.component.html',
   styleUrls: ['./user-settings-form.component.scss']
 })
-export class UserSettingsFormComponent implements OnInit, OnDestroy, AfterContentChecked {
+export class UserSettingsFormComponent implements OnInit, AfterContentChecked {
 
   public activeTab = 'profile';
 
