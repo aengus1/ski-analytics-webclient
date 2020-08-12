@@ -16,7 +16,7 @@ export class IntervalPipe implements PipeTransform {
       const minutes = Math.floor((seconds / 60) - (hours * 60));
       const sec = Math.floor(seconds - (minutes * 60) - (hours * 3600));
       return (hours > 0 || this.leadingZeroes ? this.pad(hours, 2) + ':' : '') + this.pad(minutes, 2) + ':' + this.pad(sec, 2);
-    }catch (ex) {
+    } catch (ex) {
       console.warn('[Interval Pipe]  transform error ' + ex);
     }
   }
