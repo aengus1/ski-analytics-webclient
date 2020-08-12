@@ -266,7 +266,7 @@
                   <span>
                     <button class="fa fa-gears"
                     placement="bottom" ngbTooltip="Calculate HR Zones from Resting & Max"
-                  [disabled]="settings?.hrZones[0]==NaN||settings?.hrZones[5]==NaN"
+                  [disabled]="isNaN(settings?.hrZones[0])||isNaN(settings?.hrZones[5])"
                   (click)="settings?.hrZones[1] =Math.floor(((settings?.hrZones[5] - settings?.hrZones[0])*0.6) + settings?.hrZones[0]);
                     settings?.hrZones[2] = Math.floor(((settings?.hrZones[5] - settings?.hrZones[0])*0.75)  + settings?.hrZones[0]);
                     settings?.hrZones[3] = Math.floor(((settings?.hrZones[5] - settings?.hrZones[0])*0.8)  + settings?.hrZones[0]);
@@ -306,7 +306,8 @@
                 switchColor="#52A6D5"
                 switchOffColor="#52A6D5"
                 [(ngModel)]="kms"
-                (change)="updateDist(kms)"
+                (ngModelChange)="kms? savePace(pace - 3, settings.id)
+                : savePace(pace + 3, settings.id); saveKms(kms, settings.id)"
               ></ui-switch>
             </div>
             <div class="col-md-2">Km</div>
@@ -324,7 +325,7 @@
                   class="btn btn-light"
                   [ngClass]="{'active': pace===1}"
                   value="m / s"
-                  (click)="updatePace(1)"
+                  (click)="savePace(1, settings.id)"
                   name="pacebtn"
                 >
                 <input
@@ -333,7 +334,7 @@
                   name="pacebtn"
                   [ngClass]="{'active': pace===2}"
                   value="km / h"
-                  (click)="updatePace(2)"
+                  (click)="savePace(2, settings.id)"
                 >
 
                 <input
@@ -342,7 +343,7 @@
                   name="pacebtn"
                   [ngClass]="{'active': pace===3}"
                   value="mins / km"
-                  (click)="updatePace(3)"
+                  (click)="savePace(3, settings.id)"
                 >
               </div>
               <div *ngIf="!kms" class="btn-group btn-group-sm" role="group" aria-label="pace display">
@@ -352,7 +353,7 @@
                   name="pacebtn"
                   [ngClass]="{'active': pace===4}"
                   value="ft / sec"
-                  (click)="updatePace(4)"
+                  (click)="savePace(4, settings.id)"
                 >
                 <input
                   type="button"
@@ -360,7 +361,7 @@
                   name="pacebtn"
                   [ngClass]="{'active': pace===5}"
                   value="mph"
-                  (click)="updatePace(5)"
+                  (click)="savePace(5, settings.id)"
                 >
                 <input
                   type="button"
@@ -368,7 +369,7 @@
                   name="pacebtn"
                   [ngClass]="{'active': pace===6}"
                   value="mins / mile"
-                  (click)="updatePace(6)"
+                  (click)="savePace(6, settings.id)"
                 >
               </div>
             </div>
@@ -387,7 +388,7 @@
                 switchColor="#52A6D5"
                 switchOffColor="#52A6D5"
                 [(ngModel)]="twelveHr"
-                (change)="updateTime()"
+                (ngModelChange)="saveTime(twelveHr, settings.id)"
               ></ui-switch>
             </div>
             <div class="col-md-2">12hr</div>
@@ -406,7 +407,7 @@
                 switchColor="#52A6D5"
                 switchOffColor="#52A6D5"
                 [(ngModel)]="ddmm"
-                (change)="updateDate()"
+                (ngModelChange)="saveDate(ddmm, settings.id)"
               ></ui-switch>
             </div>
             <div class="col-md-3">dd/mm/yyyy</div>

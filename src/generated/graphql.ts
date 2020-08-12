@@ -51,6 +51,10 @@ export type Mutation = {
   addTag?: Maybe<Scalars['String']>,
   deleteTag?: Maybe<Scalars['String']>,
   renameTag?: Maybe<Scalars['String']>,
+  saveUnitsKms?: Maybe<User>,
+  saveUnitsPace?: Maybe<User>,
+  saveUnitsTime?: Maybe<User>,
+  saveUnitsDate?: Maybe<User>,
 };
 
 
@@ -102,6 +106,30 @@ export type MutationRenameTagArgs = {
   id: Scalars['ID'],
   tag: Scalars['String'],
   newName: Scalars['String']
+};
+
+
+export type MutationSaveUnitsKmsArgs = {
+  id: Scalars['ID'],
+  units_kms?: Maybe<Scalars['Int']>
+};
+
+
+export type MutationSaveUnitsPaceArgs = {
+  id: Scalars['ID'],
+  units_pace?: Maybe<Scalars['Int']>
+};
+
+
+export type MutationSaveUnitsTimeArgs = {
+  id: Scalars['ID'],
+  units_twelveHr?: Maybe<Scalars['Int']>
+};
+
+
+export type MutationSaveUnitsDateArgs = {
+  id: Scalars['ID'],
+  units_ddmm?: Maybe<Scalars['Int']>
 };
 
 export enum Operator {
@@ -170,5 +198,9 @@ export type User = {
   tags?: Maybe<Array<Maybe<Scalars['String']>>>,
   devices?: Maybe<Array<Maybe<Scalars['String']>>>,
   activityTypes?: Maybe<Array<Maybe<Scalars['String']>>>,
+  units_kms?: Maybe<Scalars['Int']>,
+  units_twelveHr?: Maybe<Scalars['Int']>,
+  units_pace?: Maybe<Scalars['Int']>,
+  units_ddmm?: Maybe<Scalars['Int']>,
 };
 

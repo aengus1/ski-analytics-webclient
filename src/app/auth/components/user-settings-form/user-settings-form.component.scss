@@ -117,6 +117,7 @@ body {
   margin: 0px 20px 0px 0px;
 }
 
+
 .inline-edit {
   display: inline-block;
   vertical-align: top;
@@ -206,4 +207,8 @@ body {
   border: 0px;
   background: transparent;
   font-size: 8px;
+}
+
+.btn-light active{
+  background-color: #52A6D5;
 }
