@@ -3,17 +3,11 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2
-parameters:
-  node-browser-version:
-    type: string
-    default: "12.16.1"
 jobs:
 
   build:
-    environment:
-      nodever: << pipeline.parameters.node-browser-version >>
     docker:
-      - image: circleci/node:${nodever}-browsers
+      - image: circleci/node:12.16.1-browsers
 
     working_directory: ~/repo
 
@@ -22,7 +16,7 @@ jobs:
       - run:
           name: "Update Node.js and npm"
           command: |
-            curl -sSL "https://nodejs.org/dist/v${nodever}/node-v${nodever}-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v12.16.1-linux-x64/bin/node
+            curl -sSL "https://nodejs.org/dist/v/node-v12.16.1-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v12.16.1-linux-x64/bin/node
             curl https://www.npmjs.com/install.sh | sudo bash
       - run:
           name: Check current version of node
@@ -51,11 +45,9 @@ jobs:
           command: npm run sendcoverage
 
   build-staging:
-      environment:
-        nodever: << pipeline.parameters.node-browser-version >>
       docker:
         # specify the version you desire here
-        - image: circleci/node:${nodever}-browsers
+        - image: circleci/node:12.16.1-browsers
 
       working_directory: ~/repo
 
@@ -100,11 +92,9 @@ jobs:
             destination: app-distribution
 
   build-ci:
-    environment:
-      nodever: << pipeline.parameters.node-browser-version >>
     docker:
       # specify the version you desire here
-      - image: circleci/node:${nodever}-browsers
+      - image: circleci/node:12.16.1-browsers
 
     working_directory: ~/repo
 
@@ -149,11 +139,9 @@ jobs:
           destination: app-ci-distribution
 
   build-prod:
-      environment:
-        nodever: << pipeline.parameters.node-browser-version >>
       docker:
         # specify the version you desire here
-        - image: circleci/node:${nodever}-browsers
+        - image: circleci/node:12.16.1-browsers
 
       working_directory: ~/repo
 
