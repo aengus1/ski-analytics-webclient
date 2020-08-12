@@ -4,6 +4,7 @@
 #
 version: 2
 jobs:
+
   build:
     docker:
       - image: circleci/node:12.16.1-browsers
@@ -90,6 +91,53 @@ jobs:
             path: ~/repo/workspace/dist/
             destination: app-distribution
 
+  build-ci:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:12.16.1-browsers
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      # install dependencies
+      - run: sudo npm install -g npm
+      #- run: sudo npm install angular-cli@latest -g
+      - run: npm install
+      # cache node_modules
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+
+      # build production
+      # yarn ng build --prod --configuration=production
+      - run:
+          name: build ci
+          command: |
+            mkdir -p ~/repo/workspace/deploy
+            mkdir -p ~/repo/workspace/dist
+            node ./node_modules/@angular/cli/bin/ng build --configuration=ci --prod --build-optimizer --aot --optimization
+            ls -lh ~/repo
+            cp -r ~/repo/dist/* ~/repo/workspace/dist
+            cp  ~/repo/.circleci/deploy.sh ~/repo/workspace/deploy/
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - ./
+      - store_artifacts:
+          path: ~/repo/workspace/dist/
+          destination: app-ci-distribution
+
   build-prod:
       docker:
         # specify the version you desire here
@@ -138,6 +186,38 @@ jobs:
 
 
 
+  deploy-ci:
+    docker:
+      - image: circleci/python:3.6-jessie
+
+    working_directory: ~/repo
+
+    steps:
+      - attach_workspace:
+          at: ~/repo/workspace
+      # install dependencies
+      - run:
+          context: ci
+          name: install AWS
+          command: |
+            sudo apt-get install jq
+            sudo pip install awscli
+            aws --version
+            echo access key: $AWS_ACCESS_KEY_ID
+            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+            aws configure set region ca-central-1
+            aws configure set default.output json
+      # deploy staging
+      - run: ls -lh
+      - run:
+          context: ci
+          name: deploy build (ci)
+          command: |
+            ls -lh ~/repo/
+            ls -lh ~/repo/workspace/
+            chmod 744 ~/repo/workspace/deploy/deploy.sh
+            ~/repo/workspace/deploy/deploy.sh ci
   deploy-staging:
     docker:
       - image: circleci/python:3.6-jessie
@@ -214,6 +294,22 @@ workflows:
               only:
                 - master
           context: staging
+      - build-ci:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
+          context: ci
+      - deploy-ci:
+          requires:
+            - build
+            - build-ci
+          filters:
+            branches:
+              only: develop
+          context: ci
       - build-staging:
           requires:
             - build
