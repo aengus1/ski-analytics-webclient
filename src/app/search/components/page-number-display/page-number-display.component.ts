@@ -10,8 +10,8 @@ import {PageInfo} from '../../../../generated/graphql';
 })
 export class PageNumberDisplayComponent  implements OnInit {
 
-  private currentPage: number;
-  private totalPages: number;
+  public currentPage: number;
+  public totalPages: number;
 
   private routePageSize: number;
   private routePageNumber: number;
@@ -25,8 +25,8 @@ export class PageNumberDisplayComponent  implements OnInit {
 
   set resultCount(val: number) {
     console.log('result count set with ' + val);
-    this.calcPagination();
     this._resultCount = val;
+    this.calcPagination();
   }
 
 // using typescript setter to intercept change event in order to call calcPagination
@@ -54,9 +54,8 @@ export class PageNumberDisplayComponent  implements OnInit {
       this.routePageSize = 1;
       this.routePageNumber = 1;
     }
-
     this.currentPage = this.routePageNumber;
-    this.totalPages = Math.ceil(this._resultCount / this.routePageSize);
+    this.totalPages = Math.ceil(Number(this._resultCount) / Number(this.routePageSize));
 
   }
 

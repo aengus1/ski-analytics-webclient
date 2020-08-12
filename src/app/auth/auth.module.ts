@@ -21,6 +21,7 @@ import {ResetPageComponent} from './containers/reset-page.component';
 import {SignoutPageComponent} from './containers/signout-page.component';
 import {UserSettingsFormComponent} from './components/user-settings-form/user-settings-form.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {UiSwitchModule} from 'ngx-toggle-switch';
 
 
 export const COMPONENTS = [
@@ -38,7 +39,7 @@ export const COMPONENTS = [
 
 @NgModule({
   imports: [
-    CommonModule, ReactiveFormsModule, FormsModule, RouterModule, SharedModule, NgbModule
+    CommonModule, ReactiveFormsModule, FormsModule, RouterModule, SharedModule, NgbModule, UiSwitchModule
   ],
   declarations:  COMPONENTS,
   exports: COMPONENTS,
@@ -59,6 +60,7 @@ export class AuthModule {
   imports: [
     AuthModule,
     AuthRoutingModule,
+    UiSwitchModule,
     StoreModule.forFeature('auth', reducers),
     EffectsModule.forFeature([AuthEffects])
   ],

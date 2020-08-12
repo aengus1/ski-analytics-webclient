@@ -60,6 +60,7 @@
     "lodash.map": "^4.6.0",
     "mapbox-gl": "^0.54.0",
     "ngx-mapbox-gl": "^3.3.1",
+    "ngx-toggle-switch": "^2.0.5",
     "popper.js": "^1.16.1",
     "rxjs": "^6.5.5",
     "rxjs-tslint": "^0.1.8",
