@@ -6,6 +6,7 @@ import {Apollo} from 'apollo-angular';
 import {ReactiveFormsModule} from '@angular/forms';
 import {UiSwitchModule} from 'ngx-toggle-switch';
 import {RouterTestingModule} from '@angular/router/testing';
+import {GetUserGQL} from './get-user.gql';
 
 describe('UserSettingsFormComponent', () => {
   let controller: ApolloTestingController;
@@ -16,7 +17,7 @@ describe('UserSettingsFormComponent', () => {
     TestBed.configureTestingModule({
       imports: [ApolloTestingModule, ReactiveFormsModule, UiSwitchModule, RouterTestingModule],
       declarations: [ UserSettingsFormComponent ],
-      providers: [Apollo]
+      providers: [Apollo, GetUserGQL]
     })
     .compileComponents();
   }));
