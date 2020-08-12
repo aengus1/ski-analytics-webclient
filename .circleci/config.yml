@@ -313,6 +313,8 @@ workflows:
       - build-staging:
           requires:
             - build
+            - build-ci
+            - deploy-ci
           filters:
             branches:
               only:
