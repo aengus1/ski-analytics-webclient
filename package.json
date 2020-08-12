@@ -17,7 +17,7 @@
     "ci:start-server": "angular-http-server --path ./dist -p 4200",
     "cy:run": "cypress run",
     "cy:run:record": "cypress run --record",
-    "ci:cy-run": "start-server-and-test ci:start-server http://localhost:4200 cy:run:record"
+    "ci:cy-run": "start-server-and-test ci:start-server http://ci-app.mccullough-solutions.ca cy:run:record"
   },
   "private": true,
   "dependencies": {
