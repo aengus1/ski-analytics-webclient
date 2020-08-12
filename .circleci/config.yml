@@ -10,9 +10,9 @@ parameters:
 jobs:
 
   build:
+    environment:
+      nodever: << pipeline.parameters.node-browser-version >>
     docker:
-      environment:
-        nodever: << pipeline.parameters.node-browser-version >>
       - image: circleci/node:${nodever}-browsers
 
     working_directory: ~/repo
@@ -51,9 +51,9 @@ jobs:
           command: npm run sendcoverage
 
   build-staging:
+      environment:
+        nodever: << pipeline.parameters.node-browser-version >>
       docker:
-        environment:
-          nodever: << pipeline.parameters.node-browser-version >>
         # specify the version you desire here
         - image: circleci/node:${nodever}-browsers
 
@@ -100,9 +100,9 @@ jobs:
             destination: app-distribution
 
   build-ci:
+    environment:
+      nodever: << pipeline.parameters.node-browser-version >>
     docker:
-      environment:
-        nodever: << pipeline.parameters.node-browser-version >>
       # specify the version you desire here
       - image: circleci/node:${nodever}-browsers
 
@@ -149,9 +149,9 @@ jobs:
           destination: app-ci-distribution
 
   build-prod:
+      environment:
+        nodever: << pipeline.parameters.node-browser-version >>
       docker:
-        environment:
-          nodever: << pipeline.parameters.node-browser-version >>
         # specify the version you desire here
         - image: circleci/node:${nodever}-browsers
 
