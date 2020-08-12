@@ -11,6 +11,8 @@ import {NavbarComponent} from './components/navbar/navbar.component';
 import {NgbCollapseModule, NgbDropdown, NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import {AlertComponent} from './components/alert/alert.component';
 import {SocketService} from './services/socket.service';
+import {DistancePipe} from './pipes/distance.pipe';
+import {PacePipe} from './pipes/pace.pipe';
 
 @NgModule({
   imports: [
@@ -19,9 +21,31 @@ import {SocketService} from './services/socket.service';
   providers: [
     NgbDropdown, SocketService
   ],
-  declarations: [IntervalPipe, RemoveUnderscorePipe, TitleCasePipe, SidebarComponent,  NotFoundComponent,
-    HomeComponent, NavbarComponent, AlertComponent],
-  exports: [SidebarComponent, IntervalPipe, RemoveUnderscorePipe, TitleCasePipe, NotFoundComponent
-    , HomeComponent, NavbarComponent, AlertComponent]
+  declarations:
+    [
+      IntervalPipe,
+      DistancePipe,
+      PacePipe,
+      RemoveUnderscorePipe,
+      TitleCasePipe,
+      SidebarComponent,
+      NotFoundComponent,
+      HomeComponent,
+      NavbarComponent,
+      AlertComponent
+    ],
+  exports: [
+    SidebarComponent,
+    IntervalPipe,
+    PacePipe,
+    DistancePipe,
+    RemoveUnderscorePipe,
+    TitleCasePipe,
+    NotFoundComponent,
+    HomeComponent,
+    NavbarComponent,
+    AlertComponent
+  ]
 })
-export class SharedModule { }
+export class SharedModule {
+}

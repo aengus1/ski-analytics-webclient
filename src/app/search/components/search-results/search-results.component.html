@@ -30,11 +30,11 @@
       <tbody>
         <tr *ngFor="let result of searchResults">
           <th><a href="activity/{{result.id}}">{{result.id}}</a></th>
-          <td><img src="assets/images/xc_ski.svg" width="20px" height="20px"/></td>
+          <td><img src="assets/images/xc_ski.svg" width="20px" height="20px" alt="activity type logo"/></td>
           <td>{{result.activitySubType}}</td>
           <td>{{result.date | date: 'dd MMM yyyy'}}</td>
-          <td> {{result.date | date: 'HH:mm:ss'}}</td>
-          <td>{{result.distance}}</td>
+          <td> {{result.date | date: 'HH:mm'}}</td>
+          <td>{{result.distance | distance:'km'}}</td>
           <td>{{result.duration | interval }}</td>
           <td>{{result.ascent}}</td>
           <td>{{result.descent}}</td>
@@ -42,7 +42,7 @@
           <td>{{result.avHr}}</td>
           <td>{{result.maxSpeed}}</td>
           <td>{{result.avSpeed}}</td>
-          <td>{{result.lastUpdate}}</td>
+          <td>{{result.lastUpdate | date: 'dd MMM yyyy HH:mm:ss'}}</td>
           <td>{{result.device}}</td>
         </tr>
       </tbody>

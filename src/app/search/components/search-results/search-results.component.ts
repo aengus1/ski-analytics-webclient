@@ -16,8 +16,8 @@ export class SearchResultsComponent {
   @Output()
   public changeEvent: EventEmitter<MessageEvent<any>> = new EventEmitter<MessageEvent<any>>();
 
-  private sortCol: string;
-  private sortAsc = false;
+   sortCol: string;
+   sortAsc = false;
 
   // propogate events..
   receiveEvent($event) {
