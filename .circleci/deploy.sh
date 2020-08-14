@@ -20,7 +20,7 @@ fi
   aws configure set region ca-central-1
 
   bucket=`aws ssm get-parameter --name=${STAGE}-app-bucket-name | jq '.[] | {Value} .Value'`
-  cf=`aws ssm get-parameter --name=${STAGE}-cfdistro-name | jq '.[] | {Value} .Value'`
+  cf=`aws ssm get-parameter --name=${STAGE}-cfdistro-id | jq '.[] | {Value} .Value'`
 
 ## Strip quotes from variables
 
@@ -37,6 +37,7 @@ echo "Attempting to deploy to s3://${bucket}"
 aws s3 sync workspace/dist/ s3://${bucket} --delete
 
 ## Invalidate the Cache
+echo "Attempting to invalidate cache ${cf}"
 aws cloudfront create-invalidation --distribution-id ${cf} --paths /
 
 
