@@ -328,8 +328,8 @@ workflows:
           filters:
             tags:
               only: /v[0-9]+(\.[0-9]+)*[/]Stage[/]build_.*/
-          branches:
-            ignore: /.*/
+            branches:
+              ignore: /.*/
           context: staging
       - hold:
           type: approval
