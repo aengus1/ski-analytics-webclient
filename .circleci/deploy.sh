@@ -20,7 +20,7 @@ fi
   aws configure set region ca-central-1
 
   bucket=`aws ssm get-parameter --name=${STAGE}-app-bucket-name | jq '.[] | {Value} .Value'`
-  cf=`aws ssm get-parameter --name=${STAGE}-cfdistro-id | jq '.[] | {Value} .Value'`
+  cf=`aws ssm get-parameter --name=${STAGE}-app-cfdistro-id | jq '.[] | {Value} .Value'`
 
 ## Strip quotes from variables
 
