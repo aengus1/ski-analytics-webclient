@@ -310,6 +310,8 @@ workflows:
           filters:
             tags:
               only: /v[0-9]+(\.[0-9]+)*[/]Stage[/]build_.*/
+            branches:
+              ignore: /.*/
           context: staging
       - deploy-ci:
           requires:
@@ -326,6 +328,8 @@ workflows:
           filters:
             tags:
               only: /v[0-9]+(\.[0-9]+)*[/]Stage[/]build_.*/
+          branches:
+            ignore: /.*/
           context: staging
       - hold:
           type: approval
