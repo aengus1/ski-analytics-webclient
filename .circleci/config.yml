@@ -302,6 +302,18 @@ workflows:
               only:
                 - develop
           context: ci
+      - build-staging:
+          requires:
+            - build
+            - build-ci
+            - deploy-ci
+          filters:
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*[/]Stage[/]build_.*/
+            branches:
+              only:
+                - develop
+          context: staging
       - deploy-ci:
           requires:
             - build
@@ -310,21 +322,13 @@ workflows:
             branches:
               only: develop
           context: ci
-      - build-staging:
-          requires:
-            - build
-            - build-ci
-            - deploy-ci
-          filters:
-            branches:
-              only:
-                - develop
-          context: staging
       - deploy-staging:
           requires:
             - build
             - build-staging
           filters:
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*[/]Stage[/]build_.*/
             branches:
               only: develop
           context: staging
