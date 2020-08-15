@@ -319,8 +319,9 @@ workflows:
       - test-e2e:
           requires:
             - deploy-ci
-          branches:
-            only: develop
+          filters:
+            branches:
+              only: develop
       - build-staging:
           requires:
             - build
