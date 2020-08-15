@@ -2,7 +2,7 @@
 
 describe('Navigate to register page and create a new account', () => {
   it('loads the registration page', () => {
-    cy.visit('http://localhost:4200');
+    cy.visit(Cypress.config().baseUrl);
     cy.get('*[data-test="register"]').click();
     cy.url().should('include', '/signup');
   });
@@ -99,12 +99,14 @@ describe('Navigate to register page and create a new account', () => {
 
 
   it('can navigate directly to login page', () => {
-    cy.get('*[data-test="button-goto-login"]').click();
+    cy.get('*[data-test="button-goto-login"]').click({
+      failOnStatusCode: false
+    });
     cy.url().should('include', '/signin');
   });
 
   it('displays an error message on incorrect password', () => {
-    cy.visit('http://localhost:4200');
+    cy.visit(Cypress.config().baseUrl);
 
     cy.url().should('include', '/signin')
 
@@ -126,6 +128,7 @@ describe('Navigate to register page and create a new account', () => {
   });
 
   it('can sign in with newly created account', () => {
+    cy.visit(Cypress.config().baseUrl+'/signin');
     cy.fixture('auth-users.json').as('users').then((json) => {
       cy.get('*[data-test="email"]')
         .clear()

@@ -39,6 +39,10 @@ jobs:
       - run:
           name: unit tests
           command: node --max_old_space_size=5120 ./node_modules/@angular/cli/bin/ng test  --max-workers=1
+     # run e2e tests
+      - run:
+          name: local e2e tests
+          command: node --max_old_space_size=5120 ./node_modules/cypress/bin/cypress run
       # upload coverage
       - run:
           name: generate and upload coverage
@@ -79,7 +83,7 @@ jobs:
             command: |
               mkdir -p ~/repo/workspace/deploy
               mkdir -p ~/repo/workspace/dist
-              node ./node_modules/@angular/cli/bin/ng build --configuration=staging --prod --build-optimizer --aot --optimization
+              node ./node_modules/@angular/cli/bin/ng build --configuration=staging --build-optimizer --aot --optimization
               ls -lh ~/repo
               cp -r ~/repo/dist/* ~/repo/workspace/dist
               cp  ~/repo/.circleci/deploy.sh ~/repo/workspace/deploy/
@@ -90,7 +94,6 @@ jobs:
         - store_artifacts:
             path: ~/repo/workspace/dist/
             destination: app-distribution
-
   build-ci:
     docker:
       # specify the version you desire here
@@ -126,7 +129,7 @@ jobs:
           command: |
             mkdir -p ~/repo/workspace/deploy
             mkdir -p ~/repo/workspace/dist
-            node ./node_modules/@angular/cli/bin/ng build --configuration=ci --prod --build-optimizer --aot --optimization
+            node ./node_modules/@angular/cli/bin/ng build --configuration=ci --build-optimizer --aot --optimization
             ls -lh ~/repo
             cp -r ~/repo/dist/* ~/repo/workspace/dist
             cp  ~/repo/.circleci/deploy.sh ~/repo/workspace/deploy/
@@ -137,7 +140,6 @@ jobs:
       - store_artifacts:
           path: ~/repo/workspace/dist/
           destination: app-ci-distribution
-
   build-prod:
       docker:
         # specify the version you desire here
@@ -172,7 +174,7 @@ jobs:
             command: |
               mkdir -p ~/repo/workspace/deploy
               mkdir -p ~/repo/workspace/dist
-              node ./node_modules/@angular/cli/bin/ng build --prod --configuration=production --build-optimizer --aot --optimization
+              node ./node_modules/@angular/cli/bin/ng build --configuration=production --build-optimizer --aot --optimization
               ls -lh ~/repo
               cp -r ~/repo/dist/* ~/repo/workspace/dist
               cp  ~/repo/.circleci/deploy.sh ~/repo/workspace/deploy/
@@ -183,6 +185,17 @@ jobs:
         - store_artifacts:
             path: ~/repo/workspace/dist/
             destination: app-distribution
+
+  test-e2e:
+    docker:
+      - image: circleci/node:12.16.1-browsers
+
+    working_directory: ~/repo
+
+    steps:
+      - run:
+          name: remote e2e tests
+          command: node --max_old_space_size=5120 CYPRESS_BASE_URL=https://ci-app.mccullough-solutions.ca ./node_modules/cypress/bin/cypress run
 
 
 
@@ -281,19 +294,12 @@ jobs:
                  chmod 744 ~/repo/workspace/deploy/deploy.sh
                  ~/repo/workspace/deploy/deploy.sh prod
 
+
 workflows:
   version: 2
   build-test-deploy:
     jobs:
       - build
-      - build-prod:
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - master
-          context: staging
       - build-ci:
           requires:
             - build
@@ -302,6 +308,19 @@ workflows:
               only:
                 - develop
           context: ci
+      - deploy-ci:
+          requires:
+            - build
+            - build-ci
+          filters:
+            branches:
+              only: develop
+          context: ci
+      - test-e2e:
+          requires:
+            - deploy-ci
+          branches:
+            only: develop
       - build-staging:
           requires:
             - build
@@ -313,14 +332,6 @@ workflows:
             branches:
               ignore: /.*/
           context: staging
-      - deploy-ci:
-          requires:
-            - build
-            - build-ci
-          filters:
-            branches:
-              only: develop
-          context: ci
       - deploy-staging:
           requires:
             - build
@@ -330,6 +341,14 @@ workflows:
               only: /v[0-9]+(\.[0-9]+)*[/]Stage[/]build_.*/
             branches:
               ignore: /.*/
+          context: staging
+      - build-prod:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
           context: staging
       - hold:
           type: approval
