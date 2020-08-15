@@ -39,13 +39,13 @@ jobs:
       - run:
           name: unit tests
           command: node --max_old_space_size=5120 ./node_modules/@angular/cli/bin/ng test  --max-workers=1
-     # run e2e tests
-      - run:
-          name: install cypress
-          command: npm install cypress
-      - run:
-          name: local e2e tests
-          command: node --max_old_space_size=5120 ./node_modules/cypress/bin/cypress run
+#     # run local e2e tests
+#      - run:
+#          name: install cypress
+#          command: npm install cypress
+#      - run:
+#          name: local e2e tests
+#          command: node --max_old_space_size=5120 ./node_modules/angular-http-server/lib/angular-http-server --path ./dist -p 4200 http://localhost:4200 cypress run
       # upload coverage
       - run:
           name: generate and upload coverage
